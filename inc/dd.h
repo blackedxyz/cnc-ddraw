@@ -155,6 +155,7 @@ typedef struct CNCDDRAW
     BOOL bnet_was_fullscreen;
     BOOL bnet_was_upscaled;
     RECT bnet_win_rect;
+    DEVMODE bnet_mode;
     POINT bnet_pos;
     void* last_freed_palette; /* Dungeon Keeper hack */
     BOOL child_window_exists;

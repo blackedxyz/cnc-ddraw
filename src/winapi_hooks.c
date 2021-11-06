@@ -617,13 +617,13 @@ BOOL WINAPI fake_DestroyWindow(HWND hWnd)
                         dst_height, 
                         flags);
                 }
-
-                g_ddraw->fullscreen = g_ddraw->bnet_was_upscaled;
-
-                SetTimer(g_ddraw->hwnd, IDT_TIMER_LEAVE_BNET, 1000, (TIMERPROC)NULL);
-
-                g_ddraw->resizable = TRUE;
             }
+
+            g_ddraw->fullscreen = g_ddraw->bnet_was_upscaled;
+
+            SetTimer(g_ddraw->hwnd, IDT_TIMER_LEAVE_BNET, 1000, (TIMERPROC)NULL);
+
+            g_ddraw->resizable = TRUE;
         }
     }
 
@@ -649,9 +649,12 @@ HWND WINAPI fake_CreateWindowExA(
 
             if (!g_ddraw->windowed && !g_ddraw->bnet_was_fullscreen)
             {
-                int ws = g_config.window_state;
-                util_toggle_fullscreen();
-                g_config.window_state = ws;
+                memcpy(&g_ddraw->bnet_mode, &g_ddraw->render.mode, sizeof(DEVMODE));
+
+                g_ddraw->render.mode.dmPelsWidth = 640;
+                g_ddraw->render.mode.dmPelsHeight = 480;
+                ChangeDisplaySettings(&g_ddraw->render.mode, CDS_FULLSCREEN);
+                
                 g_ddraw->bnet_was_fullscreen = TRUE;
             }
 
@@ -684,8 +687,8 @@ HWND WINAPI fake_CreateWindowExA(
         int align_y = added_height > 0 ? added_height / 2 : 0;
         int align_x = added_width > 0 ? added_width / 2 : 0;
 
-        X += pt.x + align_x;
-        Y += pt.y + align_y;
+        X += pt.x;// +align_x;
+        Y += pt.y;// +align_y;
 
         dwStyle |= WS_CLIPCHILDREN;
     }

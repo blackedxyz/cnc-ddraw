@@ -145,16 +145,12 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         {
             KillTimer(g_ddraw->hwnd, IDT_TIMER_LEAVE_BNET);
 
-            if (!g_ddraw->windowed)
-                g_ddraw->bnet_was_fullscreen = FALSE;
-
             if (!g_ddraw->bnet_active)
             {
                 if (g_ddraw->bnet_was_fullscreen)
                 {
-                    int ws = g_config.window_state;
-                    util_toggle_fullscreen();
-                    g_config.window_state = ws;
+                    memcpy(&g_ddraw->render.mode, &g_ddraw->bnet_mode, sizeof(DEVMODE));
+                    dd_SetDisplayMode(g_ddraw->width, g_ddraw->height, g_ddraw->bpp, 0);
                     g_ddraw->bnet_was_fullscreen = FALSE;
                 }
                 else if (g_ddraw->bnet_was_upscaled)

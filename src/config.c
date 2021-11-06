@@ -40,7 +40,7 @@ void cfg_load()
     g_ddraw->vhack = cfg_get_bool("vhack", FALSE);
     g_ddraw->accurate_timers = cfg_get_bool("accuratetimers", FALSE);
     g_ddraw->resizable = cfg_get_bool("resizable", TRUE);
-    g_ddraw->nonexclusive = cfg_get_bool("nonexclusive", FALSE);
+    g_ddraw->nonexclusive = TRUE;// cfg_get_bool("nonexclusive", FALSE);
     g_ddraw->fixpitch = cfg_get_bool("fixpitch", FALSE);
     g_ddraw->fixchilds = cfg_get_int("fixchilds", FIX_CHILDS_DETECT_PAINT);
     g_ddraw->fixwndprochook = cfg_get_bool("fixwndprochook", FALSE);
@@ -149,29 +149,9 @@ void cfg_load()
     {
         g_ddraw->renderer = gdi_render_main;
     }
-    else if (tolower(tmp[0]) == 'd') /* direct3d9 */
-    {
-        g_ddraw->renderer = d3d9_render_main;
-    }
-    else if (tolower(tmp[0]) == 'o') /* opengl */
+    else /* opengl */
     {
         if (oglu_load_dll())
-        {
-            g_ddraw->renderer = ogl_render_main;
-        }
-        else
-        {
-            g_ddraw->show_driver_warning = TRUE;
-            g_ddraw->renderer = gdi_render_main;
-        }
-    }
-    else /* auto */
-    {
-        if (!g_ddraw->wine && d3d9_is_available())
-        {
-            g_ddraw->renderer = d3d9_render_main;
-        }
-        else if (oglu_load_dll())
         {
             g_ddraw->renderer = ogl_render_main;
         }
