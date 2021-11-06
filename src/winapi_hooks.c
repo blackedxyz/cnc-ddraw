@@ -649,13 +649,17 @@ HWND WINAPI fake_CreateWindowExA(
 
             if (!g_ddraw->windowed && !g_ddraw->bnet_was_fullscreen)
             {
-                memcpy(&g_ddraw->bnet_mode, &g_ddraw->render.mode, sizeof(DEVMODE));
+                if (g_ddraw->render.mode.dmPelsWidth != 640 ||
+                    g_ddraw->render.mode.dmPelsHeight != 480)
+                {
+                    memcpy(&g_ddraw->bnet_mode, &g_ddraw->render.mode, sizeof(DEVMODE));
 
-                g_ddraw->render.mode.dmPelsWidth = 640;
-                g_ddraw->render.mode.dmPelsHeight = 480;
-                ChangeDisplaySettings(&g_ddraw->render.mode, CDS_FULLSCREEN);
-                
-                g_ddraw->bnet_was_fullscreen = TRUE;
+                    g_ddraw->render.mode.dmPelsWidth = 640;
+                    g_ddraw->render.mode.dmPelsHeight = 480;
+                    ChangeDisplaySettings(&g_ddraw->render.mode, CDS_FULLSCREEN);
+
+                    g_ddraw->bnet_was_fullscreen = TRUE;
+                }
             }
 
             real_GetClientRect(g_ddraw->hwnd, &g_ddraw->bnet_win_rect);
