@@ -40,7 +40,7 @@ void cfg_load()
     g_ddraw->vhack = cfg_get_bool("vhack", FALSE);
     g_ddraw->accurate_timers = cfg_get_bool("accuratetimers", FALSE);
     g_ddraw->resizable = cfg_get_bool("resizable", TRUE);
-    g_ddraw->nonexclusive = TRUE;// cfg_get_bool("nonexclusive", FALSE);
+    g_ddraw->nonexclusive = cfg_get_bool("nonexclusive", FALSE);
     g_ddraw->fixpitch = cfg_get_bool("fixpitch", FALSE);
     g_ddraw->fixchilds = cfg_get_int("fixchilds", FIX_CHILDS_DETECT_PAINT);
     g_ddraw->fixwndprochook = cfg_get_bool("fixwndprochook", FALSE);
