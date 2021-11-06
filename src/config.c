@@ -10,6 +10,8 @@
 #include "hook.h"
 #include "debug.h"
 
+#define FILE_EXISTS(a) (GetFileAttributes(a) != INVALID_FILE_ATTRIBUTES)
+
 static void cfg_init();
 static void cfg_create_ini();
 
@@ -27,7 +29,11 @@ void cfg_load()
     g_ddraw->border = cfg_get_bool("border", TRUE);
     g_ddraw->boxing = cfg_get_bool("boxing", FALSE);
     g_ddraw->maintas = cfg_get_bool("maintas", FALSE);
-    g_ddraw->adjmouse = cfg_get_bool("adjmouse", TRUE) || !cfg_get_bool("handlemouse", TRUE);
+    g_ddraw->adjmouse = 
+        cfg_get_bool("adjmouse", TRUE) || 
+        !cfg_get_bool("handlemouse", TRUE) || 
+        FILE_EXISTS(".\\plugin\\HardwareCursor.w2p");
+
     g_ddraw->devmode = cfg_get_bool("devmode", FALSE);
     g_ddraw->vsync = cfg_get_bool("vsync", FALSE);
     g_ddraw->noactivateapp = cfg_get_bool("noactivateapp", FALSE);
@@ -240,7 +246,7 @@ static void cfg_create_ini()
             "windowed=false\n"
             "\n"
             "; Maintain aspect ratio\n"
-            "maintas=false\n"
+            "maintas=true\n"
             "\n"
             "; Windowboxing / Integer Scaling\n"
             "boxing=false\n"
@@ -255,7 +261,7 @@ static void cfg_create_ini()
             "\n"
             "; Automatic mouse sensitivity scaling\n"
             "; Note: Only works if stretching is enabled. Sensitivity will be adjusted according to the size of the window\n"
-            "adjmouse=true\n"
+            "adjmouse=false\n"
             "\n"
             "; Preliminary libretro shader support - (Requires 'renderer=opengl') https://github.com/libretro/glsl-shaders\n"
             "; 2x scaling example: https://imgur.com/a/kxsM1oY - 4x scaling example: https://imgur.com/a/wjrhpFV\n"
@@ -983,7 +989,7 @@ static void cfg_init()
     }
 
     /* set up settings ini */
-    strncpy(g_config.ini_path, ".\\ddraw.ini", sizeof(g_config.ini_path) - 1);
+    strncpy(g_config.ini_path, ".\\dd-hd.ini", sizeof(g_config.ini_path) - 1);
 
     if (GetFileAttributes(g_config.ini_path) == INVALID_FILE_ATTRIBUTES)
         cfg_create_ini();
