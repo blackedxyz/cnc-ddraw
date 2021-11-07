@@ -90,8 +90,20 @@ ULONG __stdcall IDirectDrawSurface__Release(IDirectDrawSurfaceImpl* This)
             HeapFree(GetProcessHeap(), 0, This->surface);
         }
 
+        if (This->bnet_bitmap)
+        {
+            DeleteObject(This->bnet_bitmap);
+        }
+        else if (This->bnet_surface)
+        {
+            HeapFree(GetProcessHeap(), 0, This->bnet_surface);
+        }
+
         if (This->hdc)
             DeleteDC(This->hdc);
+
+        if (This->bnet_dc)
+            DeleteDC(This->bnet_dc);
 
         if (This->bmi)
             HeapFree(GetProcessHeap(), 0, This->bmi);

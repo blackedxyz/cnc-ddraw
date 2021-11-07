@@ -97,8 +97,20 @@ DWORD WINAPI gdi_render_main(void)
 
             if (g_ddraw->bnet_active)
             {
-                RECT rc = { 0, 0, g_ddraw->render.width, g_ddraw->render.height };
-                FillRect(g_ddraw->render.hdc, &rc, (HBRUSH)GetStockObject(BLACK_BRUSH));
+                StretchDIBits(
+                    g_ddraw->render.hdc,
+                    g_ddraw->render.viewport.x,
+                    g_ddraw->render.viewport.y,
+                    g_ddraw->render.viewport.width,
+                    g_ddraw->render.viewport.height,
+                    0,
+                    0,
+                    g_ddraw->width,
+                    g_ddraw->height,
+                    g_ddraw->primary->bnet_surface,
+                    g_ddraw->primary->bmi,
+                    DIB_RGB_COLORS,
+                    SRCCOPY);
             }
             else if (upscale_hack)
             {

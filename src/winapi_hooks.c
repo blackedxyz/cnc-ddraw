@@ -591,6 +591,7 @@ BOOL WINAPI fake_DestroyWindow(HWND hWnd)
 
         if (!FindWindowEx(HWND_DESKTOP, NULL, "SDlgDialog", NULL))
         {
+            KillTimer(g_ddraw->hwnd, IDT_TIMER_REDRAW_BNET);
             g_ddraw->bnet_active = FALSE;
             SetFocus(g_ddraw->hwnd);
             mouse_lock();
@@ -680,6 +681,7 @@ HWND WINAPI fake_CreateWindowExA(
             g_ddraw->resizable = FALSE;
 
             g_ddraw->bnet_active = TRUE;
+            SetTimer(g_ddraw->hwnd, IDT_TIMER_REDRAW_BNET, 200, (TIMERPROC)NULL);
             mouse_unlock();
         }
 

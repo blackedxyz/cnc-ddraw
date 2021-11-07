@@ -442,6 +442,27 @@ DWORD WINAPI d3d9_render_main(void)
                     }
                 }
             }
+
+            if (g_ddraw->bnet_active)
+            {
+                RECT rc = { 0,0,g_ddraw->width,g_ddraw->height };
+
+                if (SUCCEEDED(IDirect3DTexture9_LockRect(g_d3d9.surface_tex[tex_index], 0, &lock_rc, &rc, 0)))
+                {
+                    unsigned char* src = (unsigned char*)g_ddraw->primary->bnet_surface;
+                    unsigned char* dst = (unsigned char*)lock_rc.pBits;
+
+                    for (int i = 0; i < g_ddraw->height; i++)
+                    {
+                        memcpy(dst, src, g_ddraw->primary->l_pitch);
+
+                        src += g_ddraw->primary->l_pitch;
+                        dst += lock_rc.Pitch;
+                    }
+
+                    IDirect3DTexture9_UnlockRect(g_d3d9.surface_tex[tex_index], 0);
+                }
+            }
         }
 
         LeaveCriticalSection(&g_ddraw->cs);
@@ -455,11 +476,6 @@ DWORD WINAPI d3d9_render_main(void)
         IDirect3DDevice9_BeginScene(g_d3d9.device);
         IDirect3DDevice9_DrawPrimitive(g_d3d9.device, D3DPT_TRIANGLESTRIP, 0, 2);
         IDirect3DDevice9_EndScene(g_d3d9.device);
-
-        if (g_ddraw->bnet_active)
-        {
-            IDirect3DDevice9_Clear(g_d3d9.device, 0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
-        }
 
         if (FAILED(IDirect3DDevice9_Present(g_d3d9.device, NULL, NULL, NULL, NULL)))
         {

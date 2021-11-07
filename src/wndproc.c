@@ -4,6 +4,7 @@
 #include "dllmain.h"
 #include "dd.h"
 #include "hook.h"
+#include "ddsurface.h"
 #include "mouse.h"
 #include "render_d3d9.h"
 #include "config.h"
@@ -159,6 +160,13 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                     g_ddraw->bnet_was_upscaled = FALSE;
                 }
             }
+
+            return 0;
+        }
+        case IDT_TIMER_REDRAW_BNET:
+        {
+            if (g_ddraw->primary)
+                dds_RedrawBnet(g_ddraw->primary);
 
             return 0;
         }

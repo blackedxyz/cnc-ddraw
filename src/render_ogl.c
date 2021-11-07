@@ -701,6 +701,28 @@ static void ogl_render()
                     }
                 }
             }
+
+            if (g_ddraw->bnet_active)
+            {
+                glBindTexture(GL_TEXTURE_2D, g_ogl.surface_tex_ids[tex_index]);
+
+                if (g_ogl.adjust_alignment)
+                    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+                glTexSubImage2D(
+                    GL_TEXTURE_2D,
+                    0,
+                    0,
+                    0,
+                    g_ddraw->width,
+                    g_ddraw->height,
+                    g_ogl.surface_format,
+                    g_ogl.surface_type,
+                    g_ddraw->primary->bnet_surface);
+
+                if (g_ogl.adjust_alignment)
+                    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+            }
         }
 
         LeaveCriticalSection(&g_ddraw->cs);
@@ -822,9 +844,6 @@ static void ogl_render()
             glTexCoord2f(0, g_ogl.scale_h);              glVertex2f(-1, -1);
             glEnd();
         }
-
-        if (g_ddraw->bnet_active)
-            glClear(GL_COLOR_BUFFER_BIT);
 
         SwapBuffers(g_ddraw->render.hdc);
 
