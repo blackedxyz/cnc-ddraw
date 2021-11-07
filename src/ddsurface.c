@@ -1190,20 +1190,53 @@ HRESULT dds_SetPalette(IDirectDrawSurfaceImpl* This, IDirectDrawPaletteImpl* lpD
     return DD_OK;
 }
 
-void dds_RedrawBnet(IDirectDrawSurfaceImpl* This)
+void dds_RedrawBnet(IDirectDrawSurfaceImpl* This, BOOL obs_hack)
 {
     /* Hack for Warcraft II BNE and Diablo */
     HWND hwnd = g_ddraw->bnet_active ? FindWindowEx(HWND_DESKTOP, NULL, "SDlgDialog", NULL) : NULL;
 
     if (hwnd)
     {
+        if (obs_hack)
+        {
+            /* hack for windows 8/10 fullscreen exclusive mode */
+
+            if (g_ddraw->primary->palette)
+            {
+                SetDIBColorTable(g_ddraw->primary->bnet_dc, 0, 256, g_ddraw->primary->palette->data_rgb);
+            }
+
+            EnterCriticalSection(&g_ddraw->cs);
+
+            RECT rc;
+            if (fake_GetWindowRect(hwnd, &rc))
+            {
+                HDC dc = GetDC(hwnd);
+
+                BitBlt(
+                    g_ddraw->primary->bnet_dc,
+                    rc.left,
+                    rc.top,
+                    rc.right - rc.left,
+                    rc.bottom - rc.top,
+                    dc,
+                    0,
+                    0,
+                    SRCCOPY);
+
+                ReleaseDC(hwnd, dc);
+            }
+
+            LeaveCriticalSection(&g_ddraw->cs);
+
+            if (g_ddraw->render.run)
+                ReleaseSemaphore(g_ddraw->render.sem, 1, NULL);
+
+            return;
+        }
+
         HDC primary_dc;
         dds_GetDC(This, &primary_dc);
-
-        if (g_ddraw->primary->palette)
-        {
-            SetDIBColorTable(g_ddraw->primary->bnet_dc, 0, 256, g_ddraw->primary->palette->data_rgb);
-        }
 
         /* GdiTransparentBlt idea taken from Aqrit's war2 ddraw */
 
@@ -1211,18 +1244,12 @@ void dds_RedrawBnet(IDirectDrawSurfaceImpl* This)
         GetDIBColorTable(primary_dc, 0xFE, 1, &quad);
         COLORREF color = RGB(quad.rgbRed, quad.rgbGreen, quad.rgbBlue);
         BOOL erase = FALSE;
-        HWND hwnd_bnet[20];
-        int i = 0;
-
-        memset(&hwnd_bnet[0], 0, sizeof(hwnd_bnet));
 
         do
         {
             RECT rc;
             if (fake_GetWindowRect(hwnd, &rc))
             {
-                hwnd_bnet[i++] = hwnd;
-
                 if (rc.bottom - rc.top == 479)
                     erase = TRUE;
 
@@ -1247,36 +1274,6 @@ void dds_RedrawBnet(IDirectDrawSurfaceImpl* This)
 
         } while ((hwnd = FindWindowEx(HWND_DESKTOP, hwnd, "SDlgDialog", NULL)));
 
-        /* hack for windows 8/10 fullscreen exclusive mode */
-        EnterCriticalSection(&g_ddraw->cs);
-
-        for (i = sizeof(hwnd_bnet) / sizeof(hwnd_bnet[0]); i--; )
-        {
-            if (hwnd_bnet[i])
-            {
-                RECT rc;
-                if (fake_GetWindowRect(hwnd_bnet[i], &rc))
-                {
-                    HDC dc = GetDC(hwnd_bnet[i]);
-
-                    BitBlt(
-                        g_ddraw->primary->bnet_dc,
-                        rc.left,
-                        rc.top,
-                        rc.right - rc.left,
-                        rc.bottom - rc.top,
-                        dc,
-                        0,
-                        0,
-                        SRCCOPY);
-
-                    ReleaseDC(hwnd_bnet[i], dc);
-                }
-            }
-        }
-
-        LeaveCriticalSection(&g_ddraw->cs);
-
         if (erase)
         {
             BOOL x = g_ddraw->ticks_limiter.use_blt_or_flip;
@@ -1286,23 +1283,15 @@ void dds_RedrawBnet(IDirectDrawSurfaceImpl* This)
 
             g_ddraw->ticks_limiter.use_blt_or_flip = x;
         }
-
-        if (g_ddraw->render.run)
-            ReleaseSemaphore(g_ddraw->render.sem, 1, NULL);
     }
 }
 
-HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
+void dds_RedrawArmada(IDirectDrawSurfaceImpl* This)
 {
-    if ((This->caps & DDSCAPS_PRIMARYSURFACE))
-    {
-        dds_RedrawBnet(This);
-    }
-
     /* Hack for Star Trek Armada */
     HWND hwnd = g_ddraw->armadahack ? FindWindowEx(HWND_DESKTOP, NULL, "#32770", NULL) : NULL;
 
-    if (hwnd && (This->caps & DDSCAPS_PRIMARYSURFACE))
+    if (hwnd)
     {
         HDC primary_dc;
         dds_GetDC(This, &primary_dc);
@@ -1336,7 +1325,15 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
 
         g_ddraw->ticks_limiter.use_blt_or_flip = x;
     }
+}
 
+HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
+{
+    if ((This->caps & DDSCAPS_PRIMARYSURFACE))
+    {
+        dds_RedrawBnet(This, FALSE);
+        dds_RedrawArmada(This);
+    }
 
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw->render.run)
     {

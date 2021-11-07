@@ -33,6 +33,7 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect);
 HRESULT dds_GetDDInterface(IDirectDrawSurfaceImpl* This, LPVOID* lplpDD);
 void* dds_GetBuffer(IDirectDrawSurfaceImpl* This);
 HRESULT dd_CreateSurface(IDirectDrawImpl* This, LPDDSURFACEDESC lpDDSurfaceDesc, IDirectDrawSurfaceImpl** lpDDSurface, IUnknown FAR* unkOuter);
-void dds_RedrawBnet(IDirectDrawSurfaceImpl* This);
+void dds_RedrawBnet(IDirectDrawSurfaceImpl* This, BOOL obs_hack);
+void dds_RedrawArmada(IDirectDrawSurfaceImpl* This);
 
 #endif

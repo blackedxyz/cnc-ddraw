@@ -166,7 +166,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         case IDT_TIMER_REDRAW_BNET:
         {
             if (g_ddraw->primary)
-                dds_RedrawBnet(g_ddraw->primary);
+                dds_RedrawBnet(g_ddraw->primary, TRUE);
 
             return 0;
         }
