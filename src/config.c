@@ -149,9 +149,43 @@ void cfg_load()
     {
         g_ddraw->renderer = gdi_render_main;
     }
-    else /* opengl */
+    else if (tolower(tmp[0]) == 'd') /* direct3d9 */
+    {
+        g_ddraw->renderer = d3d9_render_main;
+
+        if (!g_ddraw->windowed)
+        {
+            g_ddraw->fullscreen = TRUE;
+            g_ddraw->windowed = TRUE;
+            g_config.window_rect.left = g_config.window_rect.top = -32000;
+        }
+    }
+    else if (tolower(tmp[0]) == 'o') /* opengl */
     {
         if (oglu_load_dll())
+        {
+            g_ddraw->renderer = ogl_render_main;
+        }
+        else
+        {
+            g_ddraw->show_driver_warning = TRUE;
+            g_ddraw->renderer = gdi_render_main;
+        }
+    }
+    else /* auto */
+    {
+        if (!g_ddraw->wine && d3d9_is_available())
+        {
+            g_ddraw->renderer = d3d9_render_main;
+
+            if (!g_ddraw->windowed)
+            {
+                g_ddraw->fullscreen = TRUE;
+                g_ddraw->windowed = TRUE;
+                g_config.window_rect.left = g_config.window_rect.top = -32000;
+            }
+        }
+        else if (oglu_load_dll())
         {
             g_ddraw->renderer = ogl_render_main;
         }
@@ -252,7 +286,7 @@ static void cfg_create_ini()
             "posY=-32000\n"
             "\n"
             "; Renderer, possible values: auto, opengl, gdi, direct3d9 (auto = try direct3d9/opengl, fallback = gdi)\n"
-            "renderer=auto\n"
+            "renderer=opengl\n"
             "\n"
             "; Developer mode (don't lock the cursor)\n"
             "devmode=false\n"
