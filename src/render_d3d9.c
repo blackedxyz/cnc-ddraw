@@ -445,6 +445,8 @@ DWORD WINAPI d3d9_render_main(void)
 
             if (g_ddraw->bnet_active)
             {
+                IDirect3DDevice9_Clear(g_d3d9.device, 0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
                 RECT rc = { 0,0,g_ddraw->width,g_ddraw->height };
 
                 if (SUCCEEDED(IDirect3DTexture9_LockRect(g_d3d9.surface_tex[tex_index], 0, &lock_rc, &rc, 0)))

@@ -704,6 +704,8 @@ static void ogl_render()
 
             if (g_ddraw->bnet_active)
             {
+                glClear(GL_COLOR_BUFFER_BIT);
+
                 glBindTexture(GL_TEXTURE_2D, g_ogl.surface_tex_ids[tex_index]);
 
                 if (g_ogl.adjust_alignment)

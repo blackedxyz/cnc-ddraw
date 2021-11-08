@@ -693,8 +693,14 @@ HWND WINAPI fake_CreateWindowExA(
         int align_y = added_height > 0 ? added_height / 2 : 0;
         int align_x = added_width > 0 ? added_width / 2 : 0;
 
-        X += pt.x;// +align_x;
-        Y += pt.y;// +align_y;
+        if (g_ddraw->windowed)
+        {
+            X += align_x;
+            Y += align_y;
+        }
+
+        X += pt.x;
+        Y += pt.y;
 
         dwStyle |= WS_CLIPCHILDREN;
     }
