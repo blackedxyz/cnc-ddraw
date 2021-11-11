@@ -661,6 +661,17 @@ HWND WINAPI fake_CreateWindowExA(
 
                     g_ddraw->bnet_was_fullscreen = TRUE;
                 }
+                else
+                {
+                    real_SetWindowPos(
+                        g_ddraw->hwnd,
+                        0,
+                        0,
+                        0,
+                        g_ddraw->render.width,
+                        g_ddraw->render.height + 1,
+                        SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOSENDCHANGING);
+                }
             }
 
             real_GetClientRect(g_ddraw->hwnd, &g_ddraw->bnet_win_rect);
