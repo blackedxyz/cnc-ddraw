@@ -279,6 +279,8 @@ void util_toggle_fullscreen()
     if (g_ddraw->bnet_active)
         return;
 
+    memset(g_ddraw->primary->bnet_surface, 0, g_ddraw->width * g_ddraw->height);
+
     if (g_ddraw->windowed)
     {
         mouse_unlock();
