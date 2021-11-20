@@ -232,3 +232,45 @@ DWORD WINAPI DDInternalUnlock(DWORD a)
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }
+
+/* Exports for game patching */
+
+void* __cdecl DDmemcpy(void* _Dst, void const* _Src, size_t _Size)
+{
+    return memcpy(_Dst, _Src, _Size);
+}
+
+void* __cdecl DDmemmove(void* _Dst, void const* _Src, size_t _Size)
+{
+    return memmove(_Dst, _Src, _Size);
+}
+
+void* __cdecl DDmemset(void* _Dst, int _Val, size_t _Size)
+{
+    return memset(_Dst, _Val, _Size);
+}
+
+void __cdecl DDZeroMemory(PVOID Destination, SIZE_T Length)
+{
+    memset(Destination, 0, Length);
+}
+
+void* __stdcall DDmemcpyStd(void* _Dst, void const* _Src, size_t _Size)
+{
+    return memcpy(_Dst, _Src, _Size);
+}
+
+void* __stdcall DDmemmoveStd(void* _Dst, void const* _Src, size_t _Size)
+{
+    return memmove(_Dst, _Src, _Size);
+}
+
+void* __stdcall DDmemsetStd(void* _Dst, int _Val, size_t _Size)
+{
+    return memset(_Dst, _Val, _Size);
+}
+
+void __stdcall DDZeroMemoryStd(PVOID Destination, SIZE_T Length)
+{
+    memset(Destination, 0, Length);
+}

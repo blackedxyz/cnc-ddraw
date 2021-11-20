@@ -18,5 +18,13 @@ EXPORTS
     DirectInputCreateW = fake_DirectInputCreateW
     DirectInputCreateEx = fake_DirectInputCreateEx
     DirectInput8Create = fake_DirectInput8Create
+    DDmemcpy
+    DDmemmove
+    DDmemset
+    DDZeroMemory
+    DDmemcpyStd
+    DDmemmoveStd
+    DDmemsetStd
+    DDZeroMemoryStd
     GameHandlesClose                          DATA
     pvBmpBits = FakePrimarySurface            DATA
