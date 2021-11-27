@@ -650,8 +650,9 @@ HWND WINAPI fake_CreateWindowExA(
 
             if (!g_ddraw->windowed && !g_ddraw->bnet_was_fullscreen)
             {
-                if (g_ddraw->render.mode.dmPelsWidth != 640 ||
-                    g_ddraw->render.mode.dmPelsHeight != 480)
+                if ((g_ddraw->render.mode.dmPelsWidth != 640 ||
+                    g_ddraw->render.mode.dmPelsHeight != 480) &&
+                    GetSystemMetrics(SM_CMONITORS) == 1)
                 {
                     memcpy(&g_ddraw->bnet_mode, &g_ddraw->render.mode, sizeof(DEVMODE));
 
@@ -708,6 +709,11 @@ HWND WINAPI fake_CreateWindowExA(
         {
             X += align_x;
             Y += align_y;
+        }
+        else if (GetSystemMetrics(SM_CMONITORS) > 1)
+        {
+            X += min(g_ddraw->render.width / 2 - 640 / 2, added_width);
+            Y += min(g_ddraw->render.height / 2 - 480 / 2, added_height);
         }
 
         X += pt.x;

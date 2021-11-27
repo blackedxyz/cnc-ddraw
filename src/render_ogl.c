@@ -676,7 +676,7 @@ static void ogl_render()
 
             if (g_ddraw->fixchilds)
             {
-                g_ddraw->child_window_exists = FALSE;
+                g_ddraw->child_window_exists = g_ddraw->bnet_active && GetSystemMetrics(SM_CMONITORS) > 1;
                 EnumChildWindows(g_ddraw->hwnd, util_enum_child_proc, (LPARAM)g_ddraw->primary);
 
                 if (g_ddraw->render.width != g_ddraw->width || g_ddraw->render.height != g_ddraw->height)

@@ -74,7 +74,7 @@ DWORD WINAPI gdi_render_main(void)
 
             if (g_ddraw->fixchilds)
             {
-                g_ddraw->child_window_exists = FALSE;
+                g_ddraw->child_window_exists = g_ddraw->bnet_active && GetSystemMetrics(SM_CMONITORS) > 1;
                 EnumChildWindows(g_ddraw->hwnd, util_enum_child_proc, (LPARAM)g_ddraw->primary);
             }
 
@@ -97,20 +97,39 @@ DWORD WINAPI gdi_render_main(void)
 
             if (g_ddraw->bnet_active)
             {
-                StretchDIBits(
-                    g_ddraw->render.hdc,
-                    g_ddraw->render.viewport.x,
-                    g_ddraw->render.viewport.y,
-                    g_ddraw->render.viewport.width,
-                    g_ddraw->render.viewport.height,
-                    0,
-                    0,
-                    g_ddraw->width,
-                    g_ddraw->height,
-                    g_ddraw->primary->bnet_surface,
-                    g_ddraw->primary->bmi,
-                    DIB_RGB_COLORS,
-                    SRCCOPY);
+                if (GetSystemMetrics(SM_CMONITORS) == 1)
+                {
+                    StretchDIBits(
+                        g_ddraw->render.hdc,
+                        g_ddraw->render.viewport.x,
+                        g_ddraw->render.viewport.y,
+                        g_ddraw->render.viewport.width,
+                        g_ddraw->render.viewport.height,
+                        0,
+                        0,
+                        g_ddraw->width,
+                        g_ddraw->height,
+                        g_ddraw->primary->bnet_surface,
+                        g_ddraw->primary->bmi,
+                        DIB_RGB_COLORS,
+                        SRCCOPY);
+                }
+                else
+                {
+                    SetDIBitsToDevice(
+                        g_ddraw->render.hdc,
+                        0,
+                        0,
+                        g_ddraw->width,
+                        g_ddraw->height,
+                        0,
+                        0,
+                        0,
+                        g_ddraw->height,
+                        g_ddraw->primary->bnet_surface,
+                        g_ddraw->primary->bmi,
+                        DIB_RGB_COLORS);
+                }
             }
             else if (upscale_hack)
             {
