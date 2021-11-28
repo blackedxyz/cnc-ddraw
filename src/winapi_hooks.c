@@ -720,6 +720,11 @@ HWND WINAPI fake_CreateWindowExA(
         Y += pt.y;
 
         dwStyle |= WS_CLIPCHILDREN;
+
+        if (lpWindowName && !lpWindowName[0])
+        {
+            lpWindowName = "Bnet Lobby";
+        }
     }
 
     return real_CreateWindowExA(
