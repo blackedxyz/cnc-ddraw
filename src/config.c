@@ -777,7 +777,6 @@ static void cfg_create_ini()
             "\n"
             "; Infantry Online\n"
             "[infantry]\n"
-            "devmode=true\n"
             "resolutions=2\n"
             "infantryhack=true\n"
             "max_resolutions=90\n"
