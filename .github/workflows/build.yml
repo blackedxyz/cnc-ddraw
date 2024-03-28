@@ -6,9 +6,6 @@ on:
   - 'master'
   - 'develop'
   - 'github-action'
-  paths:
-  - '.github/workflows/build.yml'
-  - 'action.yml'
 
 jobs:
  Build:
