@@ -42,11 +42,11 @@ jobs:
     with:
      release: true
 
-  - name: ReleaseWin2000 build
-    id: build-releasewin2000
+  - name: ReleaseXP build
+    id: build-releasexp
     uses: ./
     with:
-     releasewin2000: true
+     releasexp: true
 
   - name: Debug build
     id: build-debug
@@ -54,40 +54,40 @@ jobs:
     with:
      debug: true
 
-  - name: DebugLog build
-    id: build-debuglog
+  - name: DebugLogXP build
+    id: build-debuglogxp
     uses: ./
     with:
-     debuglog: true
+     debuglogxp: true
 
-  - name: DebugLogMini build
-    id: build-debuglogmini
+  - name: DebugLogMiniXP build
+    id: build-debuglogminixp
     uses: ./
     with:
-     debuglogmini: true
+     debuglogminixp: true
 
   - name:  Prepare artifact
     run:   |
            :
 
            mkdir -p cnc-ddraw-release
-           mkdir -p cnc-ddraw-releasewin2000
+           mkdir -p cnc-ddraw-releasexp
            mkdir -p cnc-ddraw-debug
-           mkdir -p cnc-ddraw-debuglog
-           mkdir -p cnc-ddraw-debuglogmini
+           mkdir -p cnc-ddraw-debuglogxp
+           mkdir -p cnc-ddraw-debuglogminixp
 
            cp "${{ steps.build-release.outputs.release }}" cnc-ddraw-release
 
-           cp "${{ steps.build-releasewin2000.outputs.releasewin2000 }}" cnc-ddraw-releasewin2000
+           cp "${{ steps.build-releasexp.outputs.releasexp }}" cnc-ddraw-releasexp
 
            cp "${{ steps.build-debug.outputs.debug }}" cnc-ddraw-debug
            cp "${{ steps.build-debug.outputs.debug-pdb }}" cnc-ddraw-debug
 
-           cp "${{ steps.build-debuglog.outputs.debuglog }}" cnc-ddraw-debuglog
-           cp "${{ steps.build-debuglog.outputs.debuglog-pdb }}" cnc-ddraw-debuglog
+           cp "${{ steps.build-debuglogxp.outputs.debuglogxp }}" cnc-ddraw-debuglogxp
+           cp "${{ steps.build-debuglogxp.outputs.debuglogxp-pdb }}" cnc-ddraw-debuglogxp
 
-           cp "${{ steps.build-debuglogmini.outputs.debuglogmini }}" cnc-ddraw-debuglogmini
-           cp "${{ steps.build-debuglogmini.outputs.debuglogmini-pdb }}" cnc-ddraw-debuglogmini
+           cp "${{ steps.build-debuglogminixp.outputs.debuglogminixp }}" cnc-ddraw-debuglogminixp
+           cp "${{ steps.build-debuglogminixp.outputs.debuglogminixp-pdb }}" cnc-ddraw-debuglogminixp
            
     shell: bash
 
@@ -98,11 +98,11 @@ jobs:
      path: cnc-ddraw-release
      retention-days: 14
 
-  - name: Upload artifacts cnc-ddraw-releasewin2000
+  - name: Upload artifacts cnc-ddraw-releasexp
     uses: actions/upload-artifact@v4
     with:
-     name: cnc-ddraw-releasewin2000
-     path: cnc-ddraw-releasewin2000
+     name: cnc-ddraw-releasexp
+     path: cnc-ddraw-releasexp
      retention-days: 14
 
   - name: Upload artifacts cnc-ddraw-debug
@@ -112,16 +112,16 @@ jobs:
      path: cnc-ddraw-debug
      retention-days: 14
 
-  - name: Upload artifacts cnc-ddraw-debuglog
+  - name: Upload artifacts cnc-ddraw-debuglogxp
     uses: actions/upload-artifact@v4
     with:
-     name: cnc-ddraw-debuglog
-     path: cnc-ddraw-debuglog
+     name: cnc-ddraw-debuglogxp
+     path: cnc-ddraw-debuglogxp
      retention-days: 14
 
-  - name: Upload artifacts cnc-ddraw-debuglogmini
+  - name: Upload artifacts cnc-ddraw-debuglogminixp
     uses: actions/upload-artifact@v4
     with:
-     name: cnc-ddraw-debuglogmini
-     path: cnc-ddraw-debuglogmini
+     name: cnc-ddraw-debuglogminixp
+     path: cnc-ddraw-debuglogminixp
      retention-days: 14
