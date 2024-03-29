@@ -115,7 +115,7 @@ runs:
 
              #
              # echo "@echo off" > "$GITHUB_ACTION_PATH/sfall/PostBuild.cmd"
-             "${{ steps.msbuild.outputs.exe }}" "$GITHUB_ACTION_PATH/cnc-ddraw.sln" -p:Configuration=Release -p:Platform=x86 -p:PlatformToolset=v143
+             "${{ steps.msbuild.outputs.exe }}" "$GITHUB_ACTION_PATH/cnc-ddraw.sln" -p:Configuration=Release -p:Platform=x86 -p:PlatformToolset=v142
              #
              echo "ddraw-dll=$(cygpath --windows "$GITHUB_ACTION_PATH/bin/Release/ddraw.dll")" >> $GITHUB_OUTPUT
 
@@ -150,7 +150,7 @@ runs:
 
              #
              # echo "@echo off" > "$GITHUB_ACTION_PATH/sfall/PostBuild.cmd"
-             "${{ steps.msbuild.outputs.exe }}" "$GITHUB_ACTION_PATH/cnc-ddraw.sln" -p:Configuration=Debug -p:Platform=x86 -p:PlatformToolset=v143
+             "${{ steps.msbuild.outputs.exe }}" "$GITHUB_ACTION_PATH/cnc-ddraw.sln" -p:Configuration=Debug -p:Platform=x86 -p:PlatformToolset=v142
              #
              echo "ddraw-dll=$(cygpath --windows "$GITHUB_ACTION_PATH/bin/Debug/ddraw.dll")" >> $GITHUB_OUTPUT
              echo "ddraw-pdb=$(cygpath --windows "$GITHUB_ACTION_PATH/bin/Debug/ddraw.pdb")" >> $GITHUB_OUTPUT
