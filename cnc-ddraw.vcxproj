@@ -193,14 +193,14 @@
     <TargetName>ddraw</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLog|Win32'">
-    <OutDir>$(SolutionDir)bin\DebugLog\</OutDir>
-    <IntDir>$(SolutionDir)bin\DebugLog\</IntDir>
+    <OutDir>$(SolutionDir)bin\DebugLogXP\</OutDir>
+    <IntDir>$(SolutionDir)bin\DebugLogXP\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ddraw</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLogMini|Win32'">
-    <OutDir>$(SolutionDir)bin\DebugLogMini\</OutDir>
-    <IntDir>$(SolutionDir)bin\DebugLogMini\</IntDir>
+    <OutDir>$(SolutionDir)bin\DebugLogMiniXP\</OutDir>
+    <IntDir>$(SolutionDir)bin\DebugLogMiniXP\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ddraw</TargetName>
   </PropertyGroup>
