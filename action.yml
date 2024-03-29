@@ -22,7 +22,7 @@ inputs:
 
  release:
   description: 'Set to true to enable building with Release configuration'
-  required:    true
+  required:    false
 
  releasexp:
   description: 'Set to true to enable building with ReleaseXP configuration'
@@ -30,7 +30,7 @@ inputs:
 
  debug:
   description: 'Set to true to enable building with Debug configuration'
-  required:    true
+  required:    false
 
  debuglogxp:
   description: 'Set to true to enable building with DebugLogXP configuration'
@@ -38,7 +38,7 @@ inputs:
 
  debuglogminixp:
   description: 'Set to true to enable building with DebugLogMiniXP configuration'
-  required:    true
+  required:    false
 
 # Outputs are always using Windows directory separator (`\`)
 outputs:
