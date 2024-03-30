@@ -2,6 +2,7 @@
 
 CC        = i686-w64-mingw32-gcc
 CXX       = i686-w64-mingw32-g++
+STRIP    ?= i686-w64-mingw32-strip
 WINDRES  ?= i686-w64-mingw32-windres
 LDFLAGS   = -Wl,--enable-stdcall-fixup -s -static
 CFLAGS    = -Iinc -O2 -march=i486 -Wall
