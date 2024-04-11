@@ -1211,6 +1211,27 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
                 g_config.windowed = TRUE;
                 g_config.fullscreen = FALSE;
                 g_config.devmode = TRUE;
+
+                /*
+                if (!g_config.window_rect.right)
+                {
+                    if (real_GetSystemMetrics(SM_CYSCREEN) >= 2160)
+                    {
+                        g_config.window_rect.right = 640 * 3;
+                        g_config.window_rect.bottom = 480 * 3;
+                    }
+                    else if (real_GetSystemMetrics(SM_CYSCREEN) >= 1440)
+                    {
+                        g_config.window_rect.right = 640 * 2;
+                        g_config.window_rect.bottom = 480 * 2;
+                    }
+                    else if (real_GetSystemMetrics(SM_CYSCREEN) >= 1080)
+                    {
+                        g_config.window_rect.right = (LONG)(640 * 1.5f);
+                        g_config.window_rect.bottom = (LONG)(480 * 1.5f);
+                    }
+                }
+                */
             }
 
             dd_SetDisplayMode(640, 480, 16, SDM_MODE_SET_BY_GAME);
