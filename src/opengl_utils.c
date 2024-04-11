@@ -196,8 +196,8 @@ void oglu_init()
     if (glversion)
     {
         strncpy(g_oglu_version, glversion, sizeof(g_oglu_version) - 1);
-        const char deli[2] = " ";
-        strtok(g_oglu_version, deli);
+        g_oglu_version[sizeof(g_oglu_version) - 1] = '\0'; /* strncpy fix */
+        strtok(g_oglu_version, " ");
     }
     else
     {

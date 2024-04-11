@@ -157,6 +157,7 @@ static void ogl_build_programs()
             char shader_path[MAX_PATH] = { 0 };
 
             strncpy(shader_path, g_config.shader, sizeof(shader_path));
+            shader_path[sizeof(shader_path) - 1] = '\0'; /* strncpy fix */
 
             if (GetFileAttributes(shader_path) == INVALID_FILE_ATTRIBUTES)
             {
@@ -530,7 +531,7 @@ static void ogl_init_scale_program()
 
     glBindVertexArray(0);
 
-    float input_size[2], output_size[2], texture_size[2];
+    float input_size[2] = { 0 }, output_size[2] = { 0 }, texture_size[2] = { 0 };
 
     input_size[0] = (float)g_ddraw.width;
     input_size[1] = (float)g_ddraw.height;
