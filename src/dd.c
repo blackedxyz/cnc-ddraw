@@ -1213,7 +1213,7 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
                 g_config.devmode = TRUE;
 
                 /*
-                if (!g_config.window_rect.right)
+                if (!g_config.window_rect.right && g_config.window_rect.left == -32000)
                 {
                     if (real_GetSystemMetrics(SM_CYSCREEN) >= 2160)
                     {
