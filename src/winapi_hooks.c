@@ -1360,8 +1360,15 @@ HWND WINAPI fake_CreateWindowExA(
     /* Limit window size to max surface size (Dune2000 1.02) */
     if (dwStyle & WS_POPUP)
     {
-        nWidth = min(nWidth, 16384);
-        nHeight = min(nHeight, 16384);
+        if (nWidth != CW_USEDEFAULT)
+        {
+            nWidth = min(nWidth, 16384);
+        }
+        
+        if (nHeight != CW_USEDEFAULT)
+        {
+            nHeight = min(nHeight, 16384);
+        }
     }
 
     return real_CreateWindowExA(
