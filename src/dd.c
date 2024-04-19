@@ -632,6 +632,11 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         {
             border = FALSE;
 
+            if (!g_config.remove_menu && GetMenu(g_ddraw.hwnd))
+            {
+                g_ddraw.render.height -= real_GetSystemMetrics(SM_CYMENU);
+            }
+
             /* prevent OpenGL from going automatically into fullscreen exclusive mode */
             if (g_ddraw.renderer == ogl_render_main)
                 nonexclusive = TRUE;
@@ -882,10 +887,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 GWL_STYLE,
                 real_GetWindowLongA(
                     g_ddraw.hwnd, 
-                    GWL_STYLE) & ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU));
-
-            if (GetMenu(g_ddraw.hwnd))
-                SetMenu(g_ddraw.hwnd, NULL);         
+                    GWL_STYLE) & ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU));  
         }
         else
         {
@@ -919,6 +921,11 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         if (g_config.fullscreen)
         {
             x = y = 0;
+
+            if (!g_config.remove_menu && GetMenu(g_ddraw.hwnd))
+            {
+                y = real_GetSystemMetrics(SM_CYMENU);
+            }
         }
         else if (border && g_config.window_rect.top == -32000 && y < 0)
         {
