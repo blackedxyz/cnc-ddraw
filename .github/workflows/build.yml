@@ -70,24 +70,38 @@ jobs:
     run:   |
            :
 
-           mkdir -p cnc-ddraw-release
-           mkdir -p cnc-ddraw-releasexp
-           mkdir -p cnc-ddraw-debug
-           mkdir -p cnc-ddraw-debuglogxp
-           mkdir -p cnc-ddraw-debuglogminixp
+           if [[ -f "${{ steps.build-release.outputs.release }}" ]]; then
+              mkdir -p cnc-ddraw-release
+              
+              cp "${{ steps.build-release.outputs.release }}" cnc-ddraw-release
+           fi
 
-           cp "${{ steps.build-release.outputs.release }}" cnc-ddraw-release
+           if [[ -f "${{ steps.build-releasexp.outputs.releasexp }}" ]]; then
+              mkdir -p cnc-ddraw-releasexp
+              
+              cp "${{ steps.build-releasexp.outputs.releasexp }}" cnc-ddraw-releasexp
+           fi
 
-           cp "${{ steps.build-releasexp.outputs.releasexp }}" cnc-ddraw-releasexp
+           if [[ -f "${{ steps.build-debug.outputs.debug }}" ]]; then
+              mkdir -p cnc-ddraw-debug
+              
+              cp "${{ steps.build-debug.outputs.debug }}" cnc-ddraw-debug
+              cp "${{ steps.build-debug.outputs.debug-pdb }}" cnc-ddraw-debug
+           fi
 
-           cp "${{ steps.build-debug.outputs.debug }}" cnc-ddraw-debug
-           cp "${{ steps.build-debug.outputs.debug-pdb }}" cnc-ddraw-debug
+           if [[ -f "${{ steps.build-debuglogxp.outputs.debuglogxp }}" ]]; then
+              mkdir -p cnc-ddraw-debuglogxp
 
-           cp "${{ steps.build-debuglogxp.outputs.debuglogxp }}" cnc-ddraw-debuglogxp
-           cp "${{ steps.build-debuglogxp.outputs.debuglogxp-pdb }}" cnc-ddraw-debuglogxp
+              cp "${{ steps.build-debuglogxp.outputs.debuglogxp }}" cnc-ddraw-debuglogxp
+              cp "${{ steps.build-debuglogxp.outputs.debuglogxp-pdb }}" cnc-ddraw-debuglogxp
+           fi
 
-           cp "${{ steps.build-debuglogminixp.outputs.debuglogminixp }}" cnc-ddraw-debuglogminixp
-           cp "${{ steps.build-debuglogminixp.outputs.debuglogminixp-pdb }}" cnc-ddraw-debuglogminixp
+           if [[ -f "${{ steps.build-debuglogminixp.outputs.debuglogminixp }}" ]]; then
+              mkdir -p cnc-ddraw-debuglogminixp
+
+              cp "${{ steps.build-debuglogminixp.outputs.debuglogminixp }}" cnc-ddraw-debuglogminixp
+              cp "${{ steps.build-debuglogminixp.outputs.debuglogminixp-pdb }}" cnc-ddraw-debuglogminixp
+           fi
            
     shell: bash
 

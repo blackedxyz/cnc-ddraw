@@ -110,7 +110,8 @@ runs:
  - name:  Build Release
    id:    build-release
    run:   |
-          if [[ "${{ inputs.release }}" == "true" ]]; then
+          if false; then 
+          #if [[ "${{ inputs.release }}" == "true" ]]; then
              echo ::group::Build Release
 
              #
@@ -127,6 +128,7 @@ runs:
  - name:  Build ReleaseXP
    id:    build-releasexp
    run:   |
+          #if false; then 
           if [[ "${{ inputs.releasexp }}" == "true" ]]; then
              echo ::group::Build ReleaseXP
 
@@ -145,7 +147,8 @@ runs:
    id:   build-debug
    run:   |
           :
-          if [[ "${{ inputs.debug }}" == "true" ]]; then
+          if false; then 
+          #if [[ "${{ inputs.debug }}" == "true" ]]; then
              echo "::group::Build Debug"
 
              #
@@ -164,6 +167,7 @@ runs:
    id:   build-debuglogxp
    run:   |
           :
+          #if false; then 
           if [[ "${{ inputs.debuglogxp }}" == "true" ]]; then
              echo "::group::Build DebugLogXP"
 
@@ -183,7 +187,8 @@ runs:
    id:   build-debuglogminixp
    run:   |
           :
-          if [[ "${{ inputs.debuglogminixp }}" == "true" ]]; then
+          if false; then 
+          #if [[ "${{ inputs.debuglogminixp }}" == "true" ]]; then
              echo "::group::Build DebugLogMiniXP"
 
              #
