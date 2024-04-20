@@ -922,7 +922,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         {
             x = y = 0;
 
-            if (!g_config.remove_menu && GetMenu(g_ddraw.hwnd))
+            if (GetMenu(g_ddraw.hwnd))
             {
                 y = real_GetSystemMetrics(SM_CYMENU);
             }
@@ -972,8 +972,19 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
     }
     else
     {
+        int menu_height = 0;
+
         if (GetMenu(g_ddraw.hwnd))
-            SetMenu(g_ddraw.hwnd, NULL);
+        {
+            if (g_config.remove_menu || !g_config.nonexclusive)
+            {
+                SetMenu(g_ddraw.hwnd, NULL);
+            }
+            else
+            {
+                menu_height = real_GetSystemMetrics(SM_CYMENU);
+            }
+        }
 
         LONG style = real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE);
 
@@ -1011,7 +1022,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                     0,
                     0,
                     g_ddraw.render.width,
-                    g_ddraw.render.height,
+                    g_ddraw.render.height + menu_height,
                     swp_flags);
 
                 swp_flags = SWP_SHOWWINDOW;
@@ -1071,7 +1082,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             0,
             0,
             g_ddraw.render.width,
-            g_ddraw.render.height,
+            g_ddraw.render.height + menu_height,
             swp_flags);
 
         if (d3d9_active && g_config.nonexclusive)

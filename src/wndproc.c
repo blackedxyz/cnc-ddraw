@@ -244,13 +244,15 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         {
             g_ddraw.last_set_window_pos_tick = timeGetTime();
 
+            int menu_height = GetMenu(g_ddraw.hwnd) ? real_GetSystemMetrics(SM_CYMENU) : 0;
+
             real_SetWindowPos(
                 g_ddraw.hwnd,
                 HWND_TOPMOST,
                 1,
                 1,
                 g_ddraw.render.width,
-                g_ddraw.render.height,
+                g_ddraw.render.height + menu_height,
                 SWP_SHOWWINDOW);
 
             real_SetWindowPos(
@@ -259,7 +261,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                 0,
                 0,
                 g_ddraw.render.width,
-                g_ddraw.render.height,
+                g_ddraw.render.height + menu_height,
                 SWP_SHOWWINDOW);
         }
         return 0;
