@@ -562,34 +562,35 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
     {
         /*
         TRACE(
-            "     util_enum_child_proc right=%u, bottom=%u, left=%d, top=%d\n", 
-            size.right, 
+            "     util_enum_child_proc width=%u, Height=%u, left=%d, top=%d\n",
+            size.right,
             size.bottom,
             pos.left,
             pos.top);
-        */
+            */
 
         char class_name[MAX_PATH] = { 0 };
         GetClassNameA(hwnd, class_name, sizeof(class_name) - 1);
 
-        //TRACE("     AVIWINDOW class=%s\n", class_name);
+        //LONG style = real_GetWindowLongA(hwnd, GWL_STYLE);
+        LONG exstyle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
 
-        if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE || 
+        //TRACE("     AVIWINDOW class=%s, style=%p, exstyle=%p\n", class_name, style, exstyle);
+
+        if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
             strcmp(class_name, "VideoRenderer") == 0 ||
             strcmp(class_name, "MCIAVI") == 0 ||
-            strcmp(class_name, "AVIWnd32") == 0 || 
+            strcmp(class_name, "AVIWnd32") == 0 ||
             strcmp(class_name, "MCIWndClass") == 0)
         {
             if (g_config.fixchilds != FIX_CHILDS_DETECT_HIDE)
             {
                 InterlockedExchangePointer((void*)&g_ddraw.video_window_hwnd, hwnd);
-            }  
+            }
 
-            LONG style = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
-
-            if (!(style & WS_EX_TRANSPARENT))
+            if (!(exstyle & WS_EX_TRANSPARENT))
             {
-                real_SetWindowLongA(hwnd, GWL_EXSTYLE, style | WS_EX_TRANSPARENT);
+                real_SetWindowLongA(hwnd, GWL_EXSTYLE, exstyle | WS_EX_TRANSPARENT);
 
                 real_SetWindowPos(
                     hwnd,
@@ -602,7 +603,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
                 );
             }
         }
-        else
+        else if (!(exstyle & WS_EX_TRANSPARENT))
         {
             g_ddraw.got_child_windows = g_ddraw.child_window_exists = TRUE;
 

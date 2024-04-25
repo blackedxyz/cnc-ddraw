@@ -908,7 +908,6 @@ static void cfg_create_ini()
             "; ROAD RASH\n"
             "[RoadRash]\n"
             "adjmouse=true\n"
-            "fixchilds=1\n"
             "\n"
             "; Sim Copter\n"
             "[SimCopter]\n"
