@@ -646,12 +646,13 @@ void hook_exit()
 
         hook_revert((HOOKLIST*)&g_hook_hooklist);
 
-#if defined(_DEBUG) && defined(_MSC_VER)
+#if defined(_DEBUG)
+#if defined(_MSC_VER)
         DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread());
         DetourDetach((PVOID*)&real_SetUnhandledExceptionFilter, (PVOID)fake_SetUnhandledExceptionFilter);
         DetourTransactionCommit();
-
+#endif
         real_SetUnhandledExceptionFilter(g_dbg_exception_filter);
 #endif
 

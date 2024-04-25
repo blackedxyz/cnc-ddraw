@@ -8,6 +8,10 @@ LIBS      = -lgdi32 -lwinmm -lpsapi -ldbghelp -lole32
 CC        = i686-w64-mingw32-gcc
 WINDRES  ?= i686-w64-mingw32-windres
 
+ifdef DEBUG
+	CFLAGS   += -D _DEBUG -D _DEBUG_X
+endif
+
 .PHONY: clean all
 all: $(TARGET)
 
