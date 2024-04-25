@@ -783,6 +783,7 @@ BOOL WINAPI fake_StretchBlt(
         (hwnd == g_ddraw.hwnd ||
             (g_config.fixchilds && IsChild(g_ddraw.hwnd, hwnd) &&
                 (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
+                    strcmp(class_name, "AVI Window") == 0 ||
                     strcmp(class_name, "MCIAVI") == 0 ||
                     strcmp(class_name, "AVIWnd32") == 0 ||
                     strcmp(class_name, "MCIWndClass") == 0))))
@@ -1299,6 +1300,16 @@ HWND WINAPI fake_CreateWindowExA(
 
         X = pt.x + align_x;
         Y = pt.y + align_y;
+    }
+
+    /* Road Rash movies */
+    if (HIWORD(lpClassName) &&
+        _strcmpi(lpClassName, "AVI Window") == 0 &&
+        g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width &&
+        (dwStyle & WS_POPUP))
+    {
+        dwStyle = WS_CHILD;
+        hWndParent = g_ddraw.hwnd;
     }
 
     /* Fix for SMACKW32.DLL creating another window that steals the focus */
