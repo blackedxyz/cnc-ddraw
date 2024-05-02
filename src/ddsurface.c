@@ -762,7 +762,7 @@ HRESULT dds_Flip(IDirectDrawSurfaceImpl* This, IDirectDrawSurfaceImpl* lpDDSurfa
         InterlockedExchangePointer((void*)&backbuffer->hdc, dc);
         InterlockedExchangePointer(&backbuffer->mapping, map);
 
-        if (g_config.flipclear)
+        if (g_config.flipclear && (This->caps & DDSCAPS_PRIMARYSURFACE))
         {
             blt_clear(buf, 0, backbuffer->size);
         }
