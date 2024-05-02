@@ -1049,6 +1049,7 @@ static void cfg_create_ini()
             "\n"
             "; Worms 2\n"
             "[worms2]\n"
+            "flipclear=true\n"
             "game_handles_close=true\n"
             "\n"
             "; Worms Armageddon\n"
