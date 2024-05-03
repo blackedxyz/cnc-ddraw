@@ -12,12 +12,17 @@ ifdef DEBUG
 	CFLAGS   += -D _DEBUG -D _DEBUG_X
 endif
 
+SRCS     := $(wildcard src/*.c) $(wildcard src/*/*.c)
+OBJS     := $(SRCS:c=o) res.o
+
 .PHONY: clean all
 all: $(TARGET)
 
-$(TARGET): $(wildcard src/*.c) $(wildcard src/*/*.c)
-	$(WINDRES) -J rc res.rc res.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ exports.def res.o $(LIBS)
+%.o: %.rc
+	$(WINDRES) -J rc $< $@
+
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^ exports.def $(LIBS)
 
 clean:
-	$(RM) $(TARGET) res.o
+	$(RM) $(TARGET) $(OBJS)
