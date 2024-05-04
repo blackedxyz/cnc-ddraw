@@ -76,7 +76,7 @@ VERSIONHELPERAPI IsWindows7SP1OrGreater(void) {
 VERSIONHELPERAPI IsWindows8OrGreater(void) {
     return IsWindowsVersionOrGreater(HIBYTE(_WIN32_WINNT_WIN8), LOBYTE(_WIN32_WINNT_WIN8), 0);
 }
-
+/* Those can't be used without manifest so we comment them out to ensure they're not being used by accident
 VERSIONHELPERAPI IsWindows8Point1OrGreater(void) {
     return IsWindowsVersionOrGreater(HIBYTE(_WIN32_WINNT_WINBLUE), LOBYTE(_WIN32_WINNT_WINBLUE), 0);
 }
@@ -88,7 +88,7 @@ VERSIONHELPERAPI IsWindowsThresholdOrGreater(void) {
 VERSIONHELPERAPI IsWindows10OrGreater(void) {
     return IsWindowsThresholdOrGreater();
 }
-
+*/
 VERSIONHELPERAPI IsWindowsServer(void) {
     OSVERSIONINFOEXW vi = {sizeof(vi),0,0,0,0,{0},0,0,0,VER_NT_WORKSTATION};
     return !VerifyVersionInfoW(&vi, VER_PRODUCT_TYPE, VerSetConditionMask(0, VER_PRODUCT_TYPE, VER_EQUAL));

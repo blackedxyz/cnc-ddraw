@@ -275,9 +275,12 @@
     <ClInclude Include="inc\ini.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\versionhelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ddraw.rc">
+    <ResourceCompile Include="res.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

@@ -106,6 +106,7 @@
     <ClInclude Include="inc\config.h" />
     <ClInclude Include="inc\ddsurface.h" />
     <ClInclude Include="inc\version.h" />
+    <ClInclude Include="inc\versionhelpers.h" />
     <ClInclude Include="inc\wglext.h" />
     <ClInclude Include="inc\winapi_hooks.h" />
     <ClInclude Include="inc\wndproc.h" />
