@@ -4,6 +4,9 @@
 #include "debug.h"
 #include "hook.h"
 #include "config.h"
+#include "render_ogl.h"
+#include "versionhelpers.h"
+
 
 FPSLIMITER g_fpsl;
 
@@ -153,8 +156,17 @@ void fpsl_frame_end()
     if (g_config.maxfps < 0 || 
         (g_config.vsync && (!g_config.maxfps || g_config.maxfps >= g_ddraw.mode.dmDisplayFrequency)))
     {
-        if (fpsl_dwm_flush() || fpsl_wait_for_vblank())
-            return;
+        /* Workaround for DwmFlush() freeze (e.g. slow alt+tab) issue on windows 7 SP1 */
+        if (g_ddraw.renderer == ogl_render_main && !g_config.is_wine && !IsWindows8OrGreater())
+        {
+            if (fpsl_wait_for_vblank())
+                return;
+        }
+        else
+        {
+            if (fpsl_dwm_flush() || fpsl_wait_for_vblank())
+                return;
+        }
     }
 
     if (g_fpsl.tick_length > 0)

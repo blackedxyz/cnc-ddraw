@@ -14,6 +14,7 @@
 #include "debug.h"
 #include "utils.h"
 #include "blt.h"
+#include "versionhelpers.h"
 
 
 CNCDDRAW g_ddraw;
@@ -1271,8 +1272,17 @@ HRESULT dd_WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent)
 {
     if (g_config.maxgameticks == -2)
     {
-        if (fpsl_dwm_flush() || fpsl_wait_for_vblank())
-            return DD_OK;
+        /* Workaround for DwmFlush() freeze (e.g. slow alt+tab) issue on windows 7 SP1 */
+        if (g_ddraw.renderer == ogl_render_main && !g_config.is_wine && !IsWindows8OrGreater())
+        {
+            if (fpsl_wait_for_vblank())
+                return DD_OK;
+        }
+        else
+        {
+            if (fpsl_dwm_flush() || fpsl_wait_for_vblank())
+                return DD_OK;
+        }
     }
 
     if (!g_ddraw.flip_limiter.tick_length)
