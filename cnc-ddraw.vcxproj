@@ -67,6 +67,7 @@
     <ClCompile Include="src\screenshot.c" />
     <ClCompile Include="src\config.c" />
     <ClCompile Include="src\ddsurface.c" />
+    <ClCompile Include="src\versionhelpers.c" />
     <ClCompile Include="src\winapi_hooks.c" />
     <ClCompile Include="src\wndproc.c" />
   </ItemGroup>

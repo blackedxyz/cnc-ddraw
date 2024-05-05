@@ -875,7 +875,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         if (g_config.remove_menu && GetMenu(g_ddraw.hwnd))
             SetMenu(g_ddraw.hwnd, NULL);
 
-        if (!g_config.is_wine)
+        if (!verhelp_is_wine())
         {
             MSG msg; /* workaround for "Not Responding" window problem in cnc games */
             real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE | PM_QS_INPUT);
@@ -905,7 +905,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_TOOLWINDOW));
         }
 
-        if (g_config.is_wine)
+        if (verhelp_is_wine())
         {
             real_SetWindowLongA(
                 g_ddraw.hwnd,
@@ -1053,7 +1053,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 Fix wayland bug: 
                 ChangeDisplaySettings fails silently - enable borderless mode in case display resolution was not changed 
             */
-            if (g_config.is_wine && 
+            if (verhelp_is_wine() &&
                 (g_ddraw.render.mode.dmPelsWidth != real_GetSystemMetrics(SM_CXSCREEN) || 
                     g_ddraw.render.mode.dmPelsHeight != real_GetSystemMetrics(SM_CYSCREEN)))
             {
@@ -1066,7 +1066,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             }
         }
 
-        if (g_config.is_wine)
+        if (verhelp_is_wine())
         {
             real_SetWindowLongA(
                 g_ddraw.hwnd, 
@@ -1273,7 +1273,7 @@ HRESULT dd_WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent)
     if (g_config.maxgameticks == -2)
     {
         /* Workaround for DwmFlush() freeze (e.g. slow alt+tab) issue on windows 7 SP1 */
-        if (g_ddraw.renderer == ogl_render_main && !g_config.is_wine && !IsWindows8OrGreater())
+        if (g_ddraw.renderer == ogl_render_main && !verhelp_is_wine() && !IsWindows8OrGreater())
         {
             if (fpsl_wait_for_vblank())
                 return DD_OK;
@@ -1556,7 +1556,7 @@ HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOute
         }
         else /* auto */
         {
-            if (!g_config.is_wine && d3d9_is_available())
+            if (!verhelp_is_wine() && d3d9_is_available())
             {
                 g_ddraw.renderer = d3d9_render_main;
             }

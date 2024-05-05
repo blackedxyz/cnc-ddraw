@@ -159,6 +159,9 @@
     <ClCompile Include="src\ini.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\versionhelpers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\debug.h">

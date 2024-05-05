@@ -11,6 +11,7 @@
 #include "utils.h"
 #include "blt.h"
 #include "config.h"
+#include "versionhelpers.h"
 
 
 LONG g_dds_gdi_handles;
@@ -957,7 +958,7 @@ HRESULT dds_Lock(
 
     dbg_dump_dds_lock_flags(dwFlags);
 
-    if (g_ddraw.ref && g_config.fixnotresponding && !g_config.is_wine)
+    if (g_ddraw.ref && g_config.fixnotresponding && !verhelp_is_wine())
     {
         MSG msg; /* workaround for "Not Responding" window problem */
         real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE);

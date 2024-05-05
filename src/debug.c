@@ -8,6 +8,7 @@
 #include "debug.h"
 #include "hook.h"
 #include "version.h"
+#include "versionhelpers.h"
 
 
 double g_dbg_frame_time = 0;
@@ -130,23 +131,13 @@ void dbg_init()
             RegCloseKey(hkey);
         }
 
-        const char* (CDECL * wine_get_version)() =
-            (void*)real_GetProcAddress(GetModuleHandleA("ntdll.dll"), "wine_get_version");
-
-        if (wine_get_version)
+        if (verhelp_is_wine())
         {
-            TRACE("Wine version = %s\n", wine_get_version());
-        }
+            TRACE("Wine version = %s\n", verhelp_wine_get_version());
 
-        void (CDECL* wine_get_host_version)(const char** sysname, const char** release) =
-            (void*)real_GetProcAddress(GetModuleHandleA("ntdll.dll"), "wine_get_host_version");
-
-        if (wine_get_host_version)
-        {
             const char* sysname = NULL;
             const char* release = NULL;
-
-            wine_get_host_version(&sysname, &release);
+            verhelp_wine_get_host_version(&sysname, &release);
 
             TRACE("Wine sysname = %s, release = %s\n", sysname, release);
         }

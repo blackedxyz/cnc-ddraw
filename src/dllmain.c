@@ -9,6 +9,7 @@
 #include "debug.h"
 #include "config.h"
 #include "hook.h"
+#include "versionhelpers.h"
 
 
 /* export for cncnet cnc games */
@@ -27,6 +28,8 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
     case DLL_PROCESS_ATTACH:
     {
         g_ddraw_module = hDll;
+
+        verhelp_init();
 
         if (GetEnvironmentVariableW(L"cnc_ddraw_config_init", NULL, 0))
         {

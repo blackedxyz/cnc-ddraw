@@ -11,6 +11,7 @@
 #include "debug.h"
 #include "dllmain.h"
 #include "ini.h"
+#include "versionhelpers.h"
 
 static void cfg_init();
 static void cfg_create_ini();
@@ -1075,8 +1076,6 @@ static void cfg_create_ini()
 
 static void cfg_init()
 {
-    g_config.is_wine = real_GetProcAddress(GetModuleHandleA("ntdll.dll"), "wine_get_version") != 0;
-
     /* get process filename and directory */
     if (GetModuleFileNameA(NULL, g_config.game_path, sizeof(g_config.game_path) - 1) > 0)
     {
@@ -1151,7 +1150,7 @@ static DWORD cfg_get_string(LPCSTR key, LPCSTR default_value, LPSTR out_string, 
 {
     char buf[MAX_PATH] = { 0 };
 
-    if (g_config.is_wine)
+    if (verhelp_is_wine())
     {
         char section[MAX_PATH] = { 0 };
         _snprintf(section, sizeof(section) - 1, "%s/wine", g_config.process_file_name);
