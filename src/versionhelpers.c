@@ -9,7 +9,7 @@ static RTLVERIFYVERSIONINFOPROC RtlVerifyVersionInfo;
 static WINE_GET_VERSIONPROC wine_get_version;
 static WINE_GET_HOST_VERSIONPROC wine_get_host_version;
 
-/* GetProcAddress is rather slow so we use a function to inizialize it once on startup */
+/* GetProcAddress is rather slow so we use a function to initialize it once on startup */
 void verhelp_init()
 {
     HMODULE mod = GetModuleHandleA("ntdll.dll");

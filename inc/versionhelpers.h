@@ -45,6 +45,17 @@ VERSIONHELPERAPI IsWindowsVersionOrGreater(DWORD major, DWORD minor, DWORD build
             VER_SERVICEPACKMAJOR, VER_GREATER_EQUAL));
 }
 
+VERSIONHELPERAPI IsWindowsVersion(DWORD major, DWORD minor, DWORD build, WORD servpack)
+{
+    RTL_OSVERSIONINFOEXW vi = { sizeof(vi),major,minor,build,0,{0},servpack };
+    return verhelp_verify_version(&vi, VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER | VER_SERVICEPACKMAJOR,
+        VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(0,
+            VER_MAJORVERSION, VER_EQUAL),
+            VER_MINORVERSION, VER_EQUAL),
+            VER_BUILDNUMBER, VER_GREATER_EQUAL),
+            VER_SERVICEPACKMAJOR, VER_EQUAL));
+}
+
 VERSIONHELPERAPI IsWindowsXPOrGreater(void) {
     return IsWindowsVersionOrGreater(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0, 0);
 }
@@ -104,6 +115,62 @@ VERSIONHELPERAPI IsWindows11OrGreater(void) {
 VERSIONHELPERAPI IsWindowsServer(void) {
     OSVERSIONINFOEXW vi = {sizeof(vi),0,0,0,0,{0},0,0,0,VER_NT_WORKSTATION};
     return !verhelp_verify_version(&vi, VER_PRODUCT_TYPE, VerSetConditionMask(0, VER_PRODUCT_TYPE, VER_EQUAL));
+}
+
+VERSIONHELPERAPI IsWindowsXP(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0, 0);
+}
+
+VERSIONHELPERAPI IsWindowsXPSP1(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0, 1);
+}
+
+VERSIONHELPERAPI IsWindowsXPSP2(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0, 2);
+}
+
+VERSIONHELPERAPI IsWindowsXPSP3(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0, 3);
+}
+
+VERSIONHELPERAPI IsWindowsVista(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_VISTA), LOBYTE(_WIN32_WINNT_VISTA), 0, 0);
+}
+
+VERSIONHELPERAPI IsWindowsVistaSP1(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_VISTA), LOBYTE(_WIN32_WINNT_VISTA), 0, 1);
+}
+
+VERSIONHELPERAPI IsWindowsVistaSP2(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_VISTA), LOBYTE(_WIN32_WINNT_VISTA), 0, 2);
+}
+
+VERSIONHELPERAPI IsWindows7(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WIN7), LOBYTE(_WIN32_WINNT_WIN7), 0, 0);
+}
+
+VERSIONHELPERAPI IsWindows7SP1(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WIN7), LOBYTE(_WIN32_WINNT_WIN7), 0, 1);
+}
+
+VERSIONHELPERAPI IsWindows8(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WIN8), LOBYTE(_WIN32_WINNT_WIN8), 0, 0);
+}
+
+VERSIONHELPERAPI IsWindows8Point1(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WINBLUE), LOBYTE(_WIN32_WINNT_WINBLUE), 0, 0);
+}
+
+VERSIONHELPERAPI IsWindowsThreshold(void) {
+    return IsWindows10OrGreater() && !IsWindows11OrGreater();
+}
+
+VERSIONHELPERAPI IsWindows10(void) {
+    return IsWindowsThreshold();
+}
+
+VERSIONHELPERAPI IsWindows11(void) {
+    return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WIN11), LOBYTE(_WIN32_WINNT_WIN11), 22000, 0);
 }
 
 VERSIONHELPERAPI IsWine(void) {
