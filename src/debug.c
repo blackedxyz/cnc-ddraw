@@ -131,7 +131,7 @@ void dbg_init()
             RegCloseKey(hkey);
         }
 
-        if (verhelp_is_wine())
+        if (IsWine())
         {
             TRACE("Wine version = %s\n", verhelp_wine_get_version());
 

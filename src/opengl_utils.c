@@ -213,7 +213,7 @@ void oglu_init()
         glEnableVertexAttribArray && glUniform2fv && glUniformMatrix4fv && glGenVertexArrays && glBindVertexArray &&
         glGetUniformLocation;
 
-    if (verhelp_is_wine() && glversion && glversion[0] == '2') // macOS
+    if (IsWine() && glversion && glversion[0] == '2') // macOS
     {
         g_oglu_got_version3 = FALSE;
         wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)xwglGetProcAddress("wglCreateContextAttribsARB");

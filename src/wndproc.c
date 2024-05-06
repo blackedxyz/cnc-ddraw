@@ -229,7 +229,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             pos->hwndInsertAfter, pos->x, pos->y, pos->cx, pos->cy);
         */
 
-        if (verhelp_is_wine() &&
+        if (IsWine() &&
             !g_config.windowed &&
             (pos->x > 0 || pos->y > 0) &&
             g_ddraw.last_set_window_pos_tick + 500 < timeGetTime())
@@ -463,7 +463,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                 util_update_bnet_pos(x, y);
             }
 
-            if (in_size_move || (verhelp_is_wine() && !g_config.fullscreen && g_ddraw.render.thread))
+            if (in_size_move || (IsWine() && !g_config.fullscreen && g_ddraw.render.thread))
             {
                 if (x != -32000)
                     g_config.window_rect.left = x; /* -32000 = Exit/Minimize */
@@ -480,7 +480,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_NCMOUSELEAVE:
     {
-        if (!verhelp_is_wine()) /* hack: disable aero snap */
+        if (!IsWine()) /* hack: disable aero snap */
         {
             LONG style = real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE);
 
@@ -493,7 +493,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_SYSCOMMAND:
     {
-        if ((wParam & ~0x0F) == SC_MOVE && !verhelp_is_wine()) /* hack: disable aero snap */
+        if ((wParam & ~0x0F) == SC_MOVE && !IsWine()) /* hack: disable aero snap */
         {
             LONG style = real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE);
 
@@ -634,7 +634,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
             mouse_unlock();
 
-            if (verhelp_is_wine() && g_ddraw.last_set_window_pos_tick + 500 > timeGetTime())
+            if (IsWine() && g_ddraw.last_set_window_pos_tick + 500 > timeGetTime())
                 return 0;
 
             if (!g_config.windowed)

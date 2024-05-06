@@ -33,11 +33,6 @@ void verhelp_init();
 BOOL verhelp_verify_version(PRTL_OSVERSIONINFOEXW versionInfo, ULONG typeMask, ULONGLONG conditionMask);
 const char* verhelp_wine_get_version();
 void verhelp_wine_get_host_version(const char** sysname, const char** release);
-BOOL verhelp_is_wine();
-BOOL verhelp_is_macos();
-BOOL verhelp_is_linux();
-
-/* Original MS Functions */
 
 VERSIONHELPERAPI IsWindowsVersionOrGreater(DWORD major, DWORD minor, DWORD build, WORD servpack)
 {
@@ -109,6 +104,26 @@ VERSIONHELPERAPI IsWindows11OrGreater(void) {
 VERSIONHELPERAPI IsWindowsServer(void) {
     OSVERSIONINFOEXW vi = {sizeof(vi),0,0,0,0,{0},0,0,0,VER_NT_WORKSTATION};
     return !verhelp_verify_version(&vi, VER_PRODUCT_TYPE, VerSetConditionMask(0, VER_PRODUCT_TYPE, VER_EQUAL));
+}
+
+VERSIONHELPERAPI IsWine(void) {
+    return verhelp_wine_get_version() != NULL;
+}
+
+VERSIONHELPERAPI IsMacOS(void) {
+    const char* sysname = NULL;
+    const char* release = NULL;
+    verhelp_wine_get_host_version(&sysname, &release);
+
+    return sysname && _strcmpi(sysname, "Darwin") == 0;
+}
+
+VERSIONHELPERAPI IsLinux(void) {
+    const char* sysname = NULL;
+    const char* release = NULL;
+    verhelp_wine_get_host_version(&sysname, &release);
+
+    return sysname && _strcmpi(sysname, "Linux") == 0;
 }
 
 #endif

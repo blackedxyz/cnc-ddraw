@@ -157,7 +157,7 @@ void fpsl_frame_end()
         (g_config.vsync && (!g_config.maxfps || g_config.maxfps >= g_ddraw.mode.dmDisplayFrequency)))
     {
         /* Workaround for DwmFlush() freeze (e.g. slow alt+tab) issue on windows 7 SP1 */
-        if (g_ddraw.renderer == ogl_render_main && !verhelp_is_wine() && !IsWindows8OrGreater())
+        if (g_ddraw.renderer == ogl_render_main && !IsWine() && !IsWindows8OrGreater())
         {
             if (fpsl_wait_for_vblank())
                 return;

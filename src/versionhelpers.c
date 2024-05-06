@@ -47,26 +47,3 @@ void verhelp_wine_get_host_version(const char** sysname, const char** release)
     if (release)
         *release = NULL;
 }
-
-BOOL verhelp_is_wine()
-{
-    return wine_get_version != NULL;
-}
-
-BOOL verhelp_is_macos()
-{
-    const char* sysname = NULL;
-    const char* release = NULL;
-    verhelp_wine_get_host_version(&sysname, &release);
-
-    return sysname && _strcmpi(sysname, "Darwin") == 0;
-}
-
-BOOL verhelp_is_linux()
-{
-    const char* sysname = NULL;
-    const char* release = NULL;
-    verhelp_wine_get_host_version(&sysname, &release);
-
-    return sysname && _strcmpi(sysname, "Linux") == 0;
-}

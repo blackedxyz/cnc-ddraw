@@ -1150,7 +1150,7 @@ static DWORD cfg_get_string(LPCSTR key, LPCSTR default_value, LPSTR out_string, 
 {
     char buf[MAX_PATH] = { 0 };
 
-    if (verhelp_is_wine())
+    if (IsWine())
     {
         char section[MAX_PATH] = { 0 };
         _snprintf(section, sizeof(section) - 1, "%s/wine", g_config.process_file_name);
