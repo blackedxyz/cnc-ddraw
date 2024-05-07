@@ -705,6 +705,13 @@ HRESULT dds_GetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC lpDDSur
             lpDDSurfaceDesc->dwBackBufferCount = This->backbuffer_count;
         }
 
+        if (This->flags & DDSD_CKSRCBLT)
+        {
+            lpDDSurfaceDesc->dwFlags |= DDSD_CKSRCBLT;
+            lpDDSurfaceDesc->ddckCKSrcBlt.dwColorSpaceHighValue = This->color_key.dwColorSpaceHighValue;
+            lpDDSurfaceDesc->ddckCKSrcBlt.dwColorSpaceLowValue = This->color_key.dwColorSpaceLowValue;
+        }
+
         if (This->bpp == 8)
         {
             lpDDSurfaceDesc->ddpfPixelFormat.dwFlags |= DDPF_PALETTEINDEXED8;
