@@ -635,9 +635,29 @@ static unsigned char util_get_pixel(int x, int y)
 
 BOOL util_detect_low_res_screen()
 {
+    /* struct Copied from wkReSolution */
+    typedef struct
+    {
+        PVOID UnkTable1;
+        DWORD Unk1, Unk2, Unk3, Unk4;
+        PVOID UnkDD, UnkTable2;
+        DWORD Unk5;
+        DWORD RenderWidth, RenderHeight;
+        DWORD Unk6, Unk7;
+        DWORD WidthRT, HeightRT;
+        DWORD HalfWidth, HalfHeight;
+        DWORD Unk8;
+        PCHAR UnkC;
+        LPDIRECTDRAW lpDD;
+    } W2DDSTRUCT, * LPW2DDSTRUCT;
+
     static int* in_movie = (int*)0x00665F58;
     static int* is_vqa_640 = (int*)0x0065D7BC;
     static BYTE* should_stretch = (BYTE*)0x00607D78;
+    static LPW2DDSTRUCT* pW2DS;
+    
+    if (!pW2DS)
+        pW2DS = (char*)GetModuleHandleA(NULL) + 0x799C4;
 
     if (g_ddraw.width <= g_ddraw.upscale_hack_width || g_ddraw.height <= g_ddraw.upscale_hack_height)
     {
@@ -662,6 +682,20 @@ BOOL util_detect_low_res_screen()
     else if (g_ddraw.iskkndx)
     {
         return util_get_pixel(g_ddraw.width - 3, 3) == 0;
+    }
+    else if (g_ddraw.isworms2)
+    {
+        if ((*pW2DS)->RenderWidth < g_ddraw.width && (*pW2DS)->RenderHeight < g_ddraw.height)
+        {
+            if (g_ddraw.upscale_hack_width != (*pW2DS)->RenderWidth || g_ddraw.upscale_hack_height != (*pW2DS)->RenderHeight)
+            {
+                g_ddraw.upscale_hack_width = (*pW2DS)->RenderWidth;
+                g_ddraw.upscale_hack_height = (*pW2DS)->RenderHeight;
+                InterlockedExchange(&g_ddraw.upscale_hack_active, FALSE);
+            }
+
+            return TRUE;
+        }
     }
 
     return FALSE;

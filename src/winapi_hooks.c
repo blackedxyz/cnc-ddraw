@@ -84,7 +84,7 @@ BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint)
             y = min(pt.y, g_ddraw.height - 1);
         }
 
-        if (g_config.vhack && InterlockedExchangeAdd(&g_ddraw.upscale_hack_active, 0))
+        if (g_config.vhack && !g_ddraw.isworms2 && InterlockedExchangeAdd(&g_ddraw.upscale_hack_active, 0))
         {
             diffx = 0;
             diffy = 0;

@@ -123,6 +123,7 @@ typedef struct CNCDDRAW
     BOOL isredalert;
     BOOL iscnc1;
     BOOL iskkndx;
+    BOOL isworms2;
     LONG upscale_hack_active;
     HCURSOR old_cursor;
     int show_cursor_count;
