@@ -685,12 +685,15 @@ BOOL util_detect_low_res_screen()
     }
     else if (g_ddraw.isworms2)
     {
-        if (*pW2DS && (*pW2DS)->RenderWidth && (*pW2DS)->RenderWidth < g_ddraw.width && (*pW2DS)->RenderHeight < g_ddraw.height)
+        DWORD w2_width = *pW2DS ? (*pW2DS)->RenderWidth : 0;
+        DWORD w2_height = *pW2DS ? (*pW2DS)->RenderHeight : 0;
+
+        if (w2_width && w2_width < g_ddraw.width && w2_height && w2_height < g_ddraw.height)
         {
-            if (g_ddraw.upscale_hack_width != (*pW2DS)->RenderWidth || g_ddraw.upscale_hack_height != (*pW2DS)->RenderHeight)
+            if (g_ddraw.upscale_hack_width != w2_width || g_ddraw.upscale_hack_height != w2_height)
             {
-                g_ddraw.upscale_hack_width = (*pW2DS)->RenderWidth;
-                g_ddraw.upscale_hack_height = (*pW2DS)->RenderHeight;
+                g_ddraw.upscale_hack_width = w2_width;
+                g_ddraw.upscale_hack_height = w2_height;
                 InterlockedExchange(&g_ddraw.upscale_hack_active, FALSE);
             }
 
