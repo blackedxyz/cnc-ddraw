@@ -1,5 +1,5 @@
 # cnc-ddraw
-cnc-ddraw can fix compatibility issues in older games, such as black screen, bad performance, crashes or defective Alt+Tab.
+cnc-ddraw can fix compatibility issues in older 2D games, such as black screen, bad performance, crashes or defective Alt+Tab.
 
 &nbsp;
 
