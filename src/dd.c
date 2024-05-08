@@ -1192,7 +1192,7 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
         g_ddraw.iskkndx = strcmp(g_ddraw.title, "KKND Xtreme") == 0;
         g_ddraw.isworms2 = strcmp(g_ddraw.title, "worms2") == 0;
 
-        if (g_ddraw.iskkndx || g_ddraw.isworms2)
+        if (g_ddraw.iskkndx)
         {
             g_ddraw.upscale_hack_width = 640;
             g_ddraw.upscale_hack_height = 480;
@@ -1201,6 +1201,11 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
         {
             g_ddraw.upscale_hack_width = 640;
             g_ddraw.upscale_hack_height = 400;
+        }
+        else if (g_ddraw.isworms2)
+        {
+            g_ddraw.upscale_hack_width = 80;
+            g_ddraw.upscale_hack_height = 60;
         }
 
         if (g_config.vhack && !g_ddraw.isredalert && !g_ddraw.iscnc1 && !g_ddraw.iskkndx && !g_ddraw.isworms2)

@@ -685,7 +685,7 @@ BOOL util_detect_low_res_screen()
     }
     else if (g_ddraw.isworms2)
     {
-        if ((*pW2DS)->RenderWidth < g_ddraw.width && (*pW2DS)->RenderHeight < g_ddraw.height)
+        if ((*pW2DS)->RenderWidth && (*pW2DS)->RenderWidth < g_ddraw.width && (*pW2DS)->RenderHeight < g_ddraw.height)
         {
             if (g_ddraw.upscale_hack_width != (*pW2DS)->RenderWidth || g_ddraw.upscale_hack_height != (*pW2DS)->RenderHeight)
             {
