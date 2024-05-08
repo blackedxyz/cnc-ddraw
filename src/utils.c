@@ -657,7 +657,7 @@ BOOL util_detect_low_res_screen()
     static LPW2DDSTRUCT* pW2DS;
     
     if (!pW2DS)
-        pW2DS = (char*)GetModuleHandleA(NULL) + 0x799C4;
+        pW2DS = (LPW2DDSTRUCT*)((DWORD)GetModuleHandleA(NULL) + 0x799C4);
 
     if (g_ddraw.width <= g_ddraw.upscale_hack_width || g_ddraw.height <= g_ddraw.upscale_hack_height)
     {
