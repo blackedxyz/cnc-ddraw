@@ -1,11 +1,11 @@
 # cnc-ddraw
-cnc-ddraw can fix compatibility issues in older games, such as black screen, bad performance, crashes or defective Alt+Tab.
+cnc-ddraw can fix compatibility issues in older 2D games, such as black screen, bad performance, crashes or defective Alt+Tab.
 
 &nbsp;
 
 ### Features
 
- - Supports Windows 2000, XP, Vista, 7, 8, 10, 11, Wine (Linux/macOS) and Virtual Machines
+ - Supports Windows 2000, XP, Vista, 7, 8, 10, 11, Wine (Linux/macOS/Android) and Virtual Machines
  - GDI / OpenGL / Direct3D 9 renderer (With automatic renderer selection)
  - Upscaling via glsl shaders - https://imgur.com/a/kxsM1oY | https://imgur.com/a/wjrhpFV
  - Windowed Mode / Fullscreen Exclusive Mode / Borderless Mode
