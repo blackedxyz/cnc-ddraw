@@ -452,7 +452,7 @@ static BOOL d3d9_set_states()
         BOOL bilinear =
             g_config.d3d9_filter &&
             g_d3d9.pixel_shader_upscale &&
-            (g_ddraw.render.viewport.width != g_ddraw.width || g_ddraw.render.viewport.height != g_ddraw.height);
+            (g_ddraw.render.viewport.width != g_ddraw.width || g_ddraw.render.viewport.height != g_ddraw.height || g_config.vhack);
 
         err = err || FAILED(
             IDirect3DDevice9_SetPixelShader(
