@@ -649,7 +649,7 @@ BOOL util_detect_low_res_screen()
         DWORD Unk8;
         PCHAR UnkC;
         LPDIRECTDRAW lpDD;
-    } W2DDSTRUCT, * LPW2DDSTRUCT;
+    } * LPW2DDSTRUCT;
 
     static int* in_movie = (int*)0x00665F58;
     static int* is_vqa_640 = (int*)0x0065D7BC;
