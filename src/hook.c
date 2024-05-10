@@ -1,7 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <stdio.h>
-#include <psapi.h>
 #include "directinput.h"
 #include "dd.h"
 #include "winapi_hooks.h"

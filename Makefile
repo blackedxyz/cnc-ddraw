@@ -3,7 +3,7 @@
 TARGET    = ddraw.dll
 LDFLAGS   = -Wl,--enable-stdcall-fixup -s -static -shared
 CFLAGS    = -Iinc -O2 -march=i486 -Wall
-LIBS      = -lgdi32 -lwinmm -lpsapi -ldbghelp -lole32
+LIBS      = -lgdi32 -lwinmm -ldbghelp -lole32
 
 CC        = i686-w64-mingw32-gcc
 WINDRES  ?= i686-w64-mingw32-windres
