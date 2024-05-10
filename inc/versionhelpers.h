@@ -36,12 +36,12 @@ void verhelp_wine_get_host_version(const char** sysname, const char** release);
 
 VERSIONHELPERAPI IsWindowsVersionOrGreater(DWORD major, DWORD minor, DWORD build, WORD servpack)
 {
-    RTL_OSVERSIONINFOEXW vi = {sizeof(vi),major,minor,build,0,{0},servpack};
-    return verhelp_verify_version(&vi, VER_MAJORVERSION|VER_MINORVERSION|VER_BUILDNUMBER|VER_SERVICEPACKMAJOR,
+    RTL_OSVERSIONINFOEXW vi = { sizeof(vi),major,minor,build,0,{0},servpack };
+    return verhelp_verify_version(&vi, VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER | VER_SERVICEPACKMAJOR,
         VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(0,
-            VER_MAJORVERSION,VER_GREATER_EQUAL),
-            VER_MINORVERSION,VER_GREATER_EQUAL),
-            VER_BUILDNUMBER,VER_GREATER_EQUAL),
+            VER_MAJORVERSION, VER_GREATER_EQUAL),
+            VER_MINORVERSION, VER_GREATER_EQUAL),
+            VER_BUILDNUMBER, VER_GREATER_EQUAL),
             VER_SERVICEPACKMAJOR, VER_GREATER_EQUAL));
 }
 
@@ -54,6 +54,17 @@ VERSIONHELPERAPI IsWindowsVersion(DWORD major, DWORD minor, DWORD build, WORD se
             VER_MINORVERSION, VER_EQUAL),
             VER_BUILDNUMBER, VER_GREATER_EQUAL),
             VER_SERVICEPACKMAJOR, VER_EQUAL));
+}
+
+VERSIONHELPERAPI IsWindowsVersionAnySP(DWORD major, DWORD minor, DWORD build)
+{
+    RTL_OSVERSIONINFOEXW vi = { sizeof(vi),major,minor,build,0,{0},0 };
+    return verhelp_verify_version(&vi, VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER | VER_SERVICEPACKMAJOR,
+        VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(0,
+            VER_MAJORVERSION, VER_EQUAL),
+            VER_MINORVERSION, VER_EQUAL),
+            VER_BUILDNUMBER, VER_GREATER_EQUAL),
+            VER_SERVICEPACKMAJOR, VER_GREATER_EQUAL));
 }
 
 VERSIONHELPERAPI IsWindowsXPOrGreater(void) {
@@ -118,6 +129,10 @@ VERSIONHELPERAPI IsWindowsServer(void) {
 }
 
 VERSIONHELPERAPI IsWindowsXP(void) {
+    return IsWindowsVersionAnySP(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0);
+}
+
+VERSIONHELPERAPI IsWindowsXPRTM(void) {
     return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0, 0);
 }
 
@@ -134,6 +149,10 @@ VERSIONHELPERAPI IsWindowsXPSP3(void) {
 }
 
 VERSIONHELPERAPI IsWindowsVista(void) {
+    return IsWindowsVersionAnySP(HIBYTE(_WIN32_WINNT_VISTA), LOBYTE(_WIN32_WINNT_VISTA), 0);
+}
+
+VERSIONHELPERAPI IsWindowsVistaRTM(void) {
     return IsWindowsVersion(HIBYTE(_WIN32_WINNT_VISTA), LOBYTE(_WIN32_WINNT_VISTA), 0, 0);
 }
 
@@ -146,6 +165,10 @@ VERSIONHELPERAPI IsWindowsVistaSP2(void) {
 }
 
 VERSIONHELPERAPI IsWindows7(void) {
+    return IsWindowsVersionAnySP(HIBYTE(_WIN32_WINNT_WIN7), LOBYTE(_WIN32_WINNT_WIN7), 0);
+}
+
+VERSIONHELPERAPI IsWindows7RTM(void) {
     return IsWindowsVersion(HIBYTE(_WIN32_WINNT_WIN7), LOBYTE(_WIN32_WINNT_WIN7), 0, 0);
 }
 
