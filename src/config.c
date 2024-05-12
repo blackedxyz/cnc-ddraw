@@ -88,6 +88,7 @@ void cfg_load()
     GET_INT(g_config.custom_height, "custom_height", 0);
     GET_INT(g_config.min_font_size, "min_font_size", 0);
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
+    GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
 
     /* Hotkeys */
 
@@ -300,6 +301,7 @@ static void cfg_create_ini()
             "custom_height=0\n"
             "min_font_size=0\n"
             "direct3d_passthrough=false\n"
+            "center_cursor_fix=false\n"
             "\n"
             "\n"
             "\n"
@@ -433,6 +435,7 @@ static void cfg_create_ini()
             "[ATLANTIS]\n"
             "renderer=opengl\n"
             "maxgameticks=60\n"
+            "center_cursor_fix=true\n"
             "\n"
             "; Airline Tycoon Deluxe\n"
             "[AT]\n"
@@ -1052,6 +1055,7 @@ static void cfg_create_ini()
             "[worms2]\n"
             "flipclear=true\n"
             "game_handles_close=true\n"
+            "center_cursor_fix=true\n"
             "\n"
             "; Worms Armageddon\n"
             "[WA]\n"

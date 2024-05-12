@@ -75,6 +75,7 @@ typedef struct CNCDDRAWCONFIG
     int custom_height;
     int min_font_size;
     BOOL direct3d_passthrough;
+    BOOL center_cursor_fix;
 
     /* Hotkeys */
 

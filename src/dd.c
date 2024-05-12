@@ -841,10 +841,21 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
     g_ddraw.render.unscale_w = ((float)g_ddraw.width / g_ddraw.render.viewport.width);
     g_ddraw.render.unscale_h = ((float)g_ddraw.height / g_ddraw.render.viewport.height);
 
-    g_ddraw.mouse.scale_x = ((float)(g_ddraw.render.viewport.width - 1) / (g_ddraw.width - 1));
-    g_ddraw.mouse.scale_y = ((float)(g_ddraw.render.viewport.height - 1) / (g_ddraw.height - 1));
-    g_ddraw.mouse.unscale_x = ((float)(g_ddraw.width - 1) / (g_ddraw.render.viewport.width - 1));
-    g_ddraw.mouse.unscale_y = ((float)(g_ddraw.height - 1) / (g_ddraw.render.viewport.height - 1));
+    /* Hack for games that require the cursor to be in the exact center of the screen (Worms 2 / Atlantis) */
+    if (g_config.center_cursor_fix)
+    {
+        g_ddraw.mouse.scale_x = ((float)(g_ddraw.render.viewport.width) / (g_ddraw.width));
+        g_ddraw.mouse.scale_y = ((float)(g_ddraw.render.viewport.height) / (g_ddraw.height));
+        g_ddraw.mouse.unscale_x = ((float)(g_ddraw.width) / (g_ddraw.render.viewport.width));
+        g_ddraw.mouse.unscale_y = ((float)(g_ddraw.height) / (g_ddraw.render.viewport.height));
+    }
+    else
+    {
+        g_ddraw.mouse.scale_x = ((float)(g_ddraw.render.viewport.width - 1) / (g_ddraw.width - 1));
+        g_ddraw.mouse.scale_y = ((float)(g_ddraw.render.viewport.height - 1) / (g_ddraw.height - 1));
+        g_ddraw.mouse.unscale_x = ((float)(g_ddraw.width - 1) / (g_ddraw.render.viewport.width - 1));
+        g_ddraw.mouse.unscale_y = ((float)(g_ddraw.height - 1) / (g_ddraw.render.viewport.height - 1));
+    }
 
     g_ddraw.mouse.x_adjust = g_ddraw.render.viewport.x;
     g_ddraw.mouse.y_adjust = g_ddraw.render.viewport.y;
