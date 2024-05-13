@@ -1225,9 +1225,7 @@ HRESULT dds_SetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC2 lpDDSD
     dbg_dump_dds_flags(lpDDSD->dwFlags);
     dbg_dump_dds_caps(lpDDSD->ddsCaps.dwCaps);
 
-    DWORD req_flags = DDSD_LPSURFACE | DDSD_PITCH | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT;
-
-    if (((lpDDSD->dwFlags & req_flags) != req_flags) && (lpDDSD->dwFlags & DDSD_ALL) == 0)
+    if ((lpDDSD->dwFlags & DDSD_LPSURFACE) == 0)
         return DDERR_UNSUPPORTED;
 
 
@@ -1262,32 +1260,51 @@ HRESULT dds_SetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC2 lpDDSD
         This->mapping = NULL;
     }
 
-
-    switch (lpDDSD->ddpfPixelFormat.dwRGBBitCount)
+    if (lpDDSD->dwFlags & DDSD_PIXELFORMAT)
     {
-    case 8:
-        This->bpp = 8;
-        break;
-    case 15:
-        TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
-    case 16:
-        This->bpp = 16;
-        break;
-    case 24:
-        TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
-    case 32:
-        This->bpp = 32;
-        break;
-    default:
-        This->bpp = 8;
-        TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
-        break;
+        switch (lpDDSD->ddpfPixelFormat.dwRGBBitCount)
+        {
+        case 0:
+            break;
+        case 8:
+            This->bpp = 8;
+            break;
+        case 15:
+            TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
+        case 16:
+            This->bpp = 16;
+            break;
+        case 24:
+            TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
+        case 32:
+            This->bpp = 32;
+            break;
+        default:
+            TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
+            break;
+        }
     }
 
-    This->width = lpDDSD->dwWidth;
-    This->height = lpDDSD->dwHeight;
-    This->surface = lpDDSD->lpSurface;
-    This->pitch = lpDDSD->lPitch;
+    if (lpDDSD->dwFlags & DDSD_WIDTH)
+    {
+        This->width = lpDDSD->dwWidth;
+    }
+
+    if (lpDDSD->dwFlags & DDSD_HEIGHT)
+    {
+        This->height = lpDDSD->dwHeight;
+    }
+
+    if (lpDDSD->dwFlags & DDSD_PITCH)
+    {
+        This->pitch = lpDDSD->lPitch;
+    }
+
+    if (lpDDSD->dwFlags & DDSD_LPSURFACE)
+    {
+        This->surface = lpDDSD->lpSurface;
+    }
+
     This->bytes_pp = This->bpp / 8;
     This->size = This->pitch * This->height;
     This->custom_buf = TRUE;
