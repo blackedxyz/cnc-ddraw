@@ -1227,7 +1227,7 @@ HRESULT dds_SetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC2 lpDDSD
 
     DWORD req_flags = DDSD_LPSURFACE | DDSD_PITCH | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT;
 
-    if ((lpDDSD->dwFlags & req_flags) != req_flags)
+    if (((lpDDSD->dwFlags & req_flags) != req_flags) && (lpDDSD->dwFlags & DDSD_ALL) == 0)
         return DDERR_UNSUPPORTED;
 
 
