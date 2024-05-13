@@ -1059,6 +1059,7 @@ static void cfg_create_ini()
             "\n"
             "; Worms 2\n"
             "[worms2]\n"
+            "vhack=true\n"
             "flipclear=true\n"
             "game_handles_close=true\n"
             "center_cursor_fix=true\n"

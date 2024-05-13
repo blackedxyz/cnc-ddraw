@@ -1214,8 +1214,15 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
         }
         else if (g_ddraw.isworms2)
         {
-            g_ddraw.upscale_hack_width = 80;
-            g_ddraw.upscale_hack_height = 60;
+            if (memcmp((char*)GetModuleHandleA(NULL) + 0x00010000, "\x17\x81\xC2\x00\x80\x00\x00\x89", 8) != 0)
+            {
+                g_ddraw.isworms2 = FALSE;
+            }
+            else
+            {
+                g_ddraw.upscale_hack_width = 80;
+                g_ddraw.upscale_hack_height = 60;
+            }
         }
 
         if (g_config.vhack && !g_ddraw.isredalert && !g_ddraw.iscnc1 && !g_ddraw.iskkndx && !g_ddraw.isworms2)
