@@ -57,37 +57,135 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 &nbsp;
 
 ### Supported Games
-
- - Command & Conquer Gold
- - Command & Conquer: Red Alert
- - Command & Conquer: Tiberian Sun
- - Command & Conquer: Red Alert 2
- - Captain Claw
- - Carmageddon
- - Carmageddon 2
- - Warcraft 2
- - StarCraft
- - Diablo
- - Diablo 2
- - Age of Empires
- - Age of Empires II
- - Theme Hospital
- - Populous: The Beginning
- - Outlaws
- - Dungeon Keeper
- - Dark Reign: The Future of War
- - Star Wars: Galactic Battlegrounds
- - Atomic Bomberman
- - Dune 2000
- - Oddworld: Abe's Oddysee
- - Commandos
- - Red Baron 3D
- - F-16 Multirole Fighter
- - F-22 Raptor
- - Nox
+- Age of Empires
+- Age of Empires II
+- Age of Wonders
+- Age of Wonders 2
+- Age of Wonders: Shadow Magic
+- Alien Nations
+- American Conquest (Steam+GOG)
+- Amerzone
+- Anstoss 3
+- Arcanum
+- Atomic Bomberman
+- Atrox
+- Baldr Force EXE
+- Baldur's Gate
+- Baldur's Gate 2
+- Blade & Sword
+- Caesar III (Sierra - 1998)
+- Capitalism II
+- Capitalism Lab
+- Captain Claw
+- Carmageddon
+- Carmageddon 2
+- Casino Empire (AKA Hoyle Casino)
+- Chaos Gate
+- Command & Conquer Gold
+- Command & Conquer: Red Alert
+- Command & Conquer: Red Alert 2
+- Command & Conquer: Red Alert 2: Yuri's Revenge
+- Command & Conquer: Tiberian Sun
+- Commandos
+- Corsairs Gold
+- Cossacks (Steam+GOG)
+- Dark Reign: The Future of War
+- Daytona USA (Sega - 1996)
+- Desperados: Wanted Dead or Alive
+- Diablo
+- Diablo 2 + Lord of Destruction
+- Divine Divinity
+- Dragon Throne: Battle of Red Cliffs
+- Dune 2000
+- Dungeon Keeper
+- Dungeon Keeper 2
+- Economic War
+- Eggsucker
+- Enemy Infestation
+- EV Nova
+- F-16 Multirole Fighter
+- F-22 Raptor
+- Fairy Tale About Father Frost, Ivan and Nastya
+- Fallout
+- Fallout 2
+- Future Cop L.A.P.D
+- Grand Theft Auto
+- Gruntz
+- Hearts of Iron 2
+- Heroes of Might and Magic III
+- Heroes of Might and Magic IV
+- Hooligans: Storm over Europe
+- Hugo Gold
+- Hugo Wild River
+- Icewind Dale 2
+- Infantry Online
+- Jagged Alliance 2
+- Jagged Alliance 2: Unfinished Business
+- Jagged Alliance 2: Wildfire
+- KKND Xtreme
+- KKND2: Krossfire
+- Knights and Merchants
+- Kohan: Immortal Sovereigns
+- Lionheart
+- Locomotion
+- LodePNG
+- Mech Warrior 3
+- Megaman X4
+- Microsoft Detours
+- Moorhuhn
+- Moorhuhn 2
+- Nancy Drew: Secrets Can Kill
+- Nancy Drew: Stay Tuned For Danger
+- Need For Speed: High Stakes
+- Need For Speed: III Hot Pursuit
+- New Robinson
+- NexusTk
+- Nox
+- Nox (Westwood - 2000)
+- Oddworld: Abe's Exoddus
+- Oddworld: Abe's Oddysee
+- Outlaws
+- Outlive
+- Pharaoh (Sierra - 1999)
+- Populous: The Beginning
+- Quest for Glory 5
+- Rage of Mages 2
+- Red Baron 3D
+- Reksio and the Pirate Treasure (aka Reksio si Comoara Piratilor)
+- Road Rash
+- RollerCoaster Tycoon
+- Settlers 3
+- Sim City 3000
+- Sim Copter
+- Sim Theme Park (aka Theme Park World)
+- Sole Survivor
+- Space Rangers
+- Star Wars Jedi Knight: Dark Forces II
+- Star Wars: Galactic Battlegrounds
+- StarCraft
+- Starship Titanic
+- Start Trek Armada
+- Steel Panthers: World At War
+- Stronghold Crusader HD
+- Theme Hospital
+- Three Kingdoms: Fate of the Dragon
+- Total Annihilation
+- Total Annihilation (Unofficial Beta Patch v3.9.02)
+- Total Annihilation: Kingdoms
+- Twisted Metal
+- Twisted Metal 2
+- Tzar: The Burden of the Crown
+- Vermeer
+- Virtua Fighter PC
+- War Wind
+- Warcraft 2
+- Wizardry 8
+- Wizards and Warriors
+- Worms 2
+- Zeus: Master of Olympus
  - ...
 
-There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the instructions above.
+There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) and the instructions above.
 
 
 [![](https://img.shields.io/github/downloads/FunkyFr3sh/cnc-ddraw/total)](https://github.com/FunkyFr3sh/cnc-ddraw/releases/latest/download/cnc-ddraw.zip)
