@@ -137,7 +137,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
 - Need For Speed: High Stakes
-- Need For Speed: III Hot Pursuit
+- Need For Speed III: Hot Pursuit
 - New Robinson
 - NexusTk
 - Nox
