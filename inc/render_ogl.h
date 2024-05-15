@@ -5,6 +5,7 @@
 #include "opengl_utils.h"
 
 #define TEXTURE_COUNT 4
+#define FBO_COUNT 1
 
 typedef struct OGLRENDERER
 {
@@ -26,8 +27,8 @@ typedef struct OGLRENDERER
     GLuint main_vbos[3];
     GLuint main_vao;
     GLint frame_count_uni_loc;
-    GLuint frame_buffer_id;
-    GLuint frame_buffer_tex_id;
+    GLuint frame_buffer_id[FBO_COUNT];
+    GLuint frame_buffer_tex_id[FBO_COUNT];
     GLint scale_tex_coord_attr_loc;
     GLuint scale_vbos[3];
     GLuint scale_vao;

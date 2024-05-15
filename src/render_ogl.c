@@ -570,76 +570,82 @@ static void ogl_init_scale_program()
     };
     glUniformMatrix4fv(glGetUniformLocation(g_ogl.scale_program, "MVPMatrix"), 1, GL_FALSE, mvp_matrix);
 
-    glGenFramebuffers(1, &g_ogl.frame_buffer_id);
-    glBindFramebuffer(GL_FRAMEBUFFER, g_ogl.frame_buffer_id);
+    glGenFramebuffers(FBO_COUNT, g_ogl.frame_buffer_id);
+    glGenTextures(FBO_COUNT, g_ogl.frame_buffer_tex_id);
 
-    glGenTextures(1, &g_ogl.frame_buffer_tex_id);
-    glBindTexture(GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_ogl.filter_bilinear ? GL_LINEAR : GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_ogl.filter_bilinear ? GL_LINEAR : GL_NEAREST);
-    glTexImage2D(
-        GL_TEXTURE_2D,
-        0,
-        GL_RGBA8,
-        g_ogl.surface_tex_width,
-        g_ogl.surface_tex_height,
-        0,
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        g_ogl.surface_tex);
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id, 0);
-
-    GLenum draw_buffers[1] = { GL_COLOR_ATTACHMENT0 };
-    glDrawBuffers(1, draw_buffers);
-
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    for (int i = 0; i < FBO_COUNT; i++)
     {
-        glDeleteTextures(1, &g_ogl.frame_buffer_tex_id);
+        glBindFramebuffer(GL_FRAMEBUFFER, g_ogl.frame_buffer_id[i]);
 
-        if (glDeleteFramebuffers)
-            glDeleteFramebuffers(1, &g_ogl.frame_buffer_id);
+        glBindTexture(GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id[i]);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_ogl.filter_bilinear ? GL_LINEAR : GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_ogl.filter_bilinear ? GL_LINEAR : GL_NEAREST);
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_RGBA8,
+            g_ogl.surface_tex_width,
+            g_ogl.surface_tex_height,
+            0,
+            GL_RGBA,
+            GL_UNSIGNED_BYTE,
+            g_ogl.surface_tex);
 
-        if (glDeleteProgram)
-            glDeleteProgram(g_ogl.scale_program);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id[i], 0);
 
-        g_ogl.scale_program = 0;
+        GLenum draw_buffers[1] = { GL_COLOR_ATTACHMENT0 };
+        glDrawBuffers(1, draw_buffers);
 
-        if (glDeleteBuffers)
-            glDeleteBuffers(3, g_ogl.scale_vbos);
-
-        if (glDeleteVertexArrays)
-            glDeleteVertexArrays(1, &g_ogl.scale_vao);
-
-        if (g_ogl.main_program)
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         {
-            glBindVertexArray(g_ogl.main_vao);
-            glBindBuffer(GL_ARRAY_BUFFER, g_ogl.main_vbos[0]);
-            static const GLfloat vertex_coord_pal[] = {
-                -1.0f, 1.0f,
-                 1.0f, 1.0f,
-                 1.0f,-1.0f,
-                -1.0f,-1.0f,
-            };
-            glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_coord_pal), vertex_coord_pal, GL_STATIC_DRAW);
-            glVertexAttribPointer(g_ogl.main_vertex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-            glEnableVertexAttribArray(g_ogl.main_vertex_coord_attr_loc);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
+            glDeleteTextures(FBO_COUNT, g_ogl.frame_buffer_tex_id);
 
-            glBindVertexArray(g_ogl.main_vao);
-            glBindBuffer(GL_ARRAY_BUFFER, g_ogl.main_vbos[1]);
-            GLfloat tex_coord_pal[] = {
-                0.0f,          0.0f,
-                g_ogl.scale_w, 0.0f,
-                g_ogl.scale_w, g_ogl.scale_h,
-                0.0f,          g_ogl.scale_h,
-            };
-            glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coord_pal), tex_coord_pal, GL_STATIC_DRAW);
-            glVertexAttribPointer(g_ogl.main_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-            glEnableVertexAttribArray(g_ogl.main_tex_coord_attr_loc);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
+            if (glDeleteFramebuffers)
+                glDeleteFramebuffers(FBO_COUNT, g_ogl.frame_buffer_id);
+
+            if (glDeleteProgram)
+                glDeleteProgram(g_ogl.scale_program);
+
+            g_ogl.scale_program = 0;
+
+            if (glDeleteBuffers)
+                glDeleteBuffers(3, g_ogl.scale_vbos);
+
+            if (glDeleteVertexArrays)
+                glDeleteVertexArrays(1, &g_ogl.scale_vao);
+
+            if (g_ogl.main_program)
+            {
+                glBindVertexArray(g_ogl.main_vao);
+                glBindBuffer(GL_ARRAY_BUFFER, g_ogl.main_vbos[0]);
+                static const GLfloat vertex_coord_pal[] = {
+                    -1.0f, 1.0f,
+                     1.0f, 1.0f,
+                     1.0f,-1.0f,
+                    -1.0f,-1.0f,
+                };
+                glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_coord_pal), vertex_coord_pal, GL_STATIC_DRAW);
+                glVertexAttribPointer(g_ogl.main_vertex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+                glEnableVertexAttribArray(g_ogl.main_vertex_coord_attr_loc);
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                glBindVertexArray(0);
+
+                glBindVertexArray(g_ogl.main_vao);
+                glBindBuffer(GL_ARRAY_BUFFER, g_ogl.main_vbos[1]);
+                GLfloat tex_coord_pal[] = {
+                    0.0f,          0.0f,
+                    g_ogl.scale_w, 0.0f,
+                    g_ogl.scale_w, g_ogl.scale_h,
+                    0.0f,          g_ogl.scale_h,
+                };
+                glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coord_pal), tex_coord_pal, GL_STATIC_DRAW);
+                glVertexAttribPointer(g_ogl.main_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+                glEnableVertexAttribArray(g_ogl.main_tex_coord_attr_loc);
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                glBindVertexArray(0);
+            }
+
+            break;
         }
     }
 
@@ -866,7 +872,7 @@ static void ogl_render()
 
             glViewport(0, 0, g_ddraw.width, g_ddraw.height);
 
-            glBindFramebuffer(GL_FRAMEBUFFER, g_ogl.frame_buffer_id);
+            glBindFramebuffer(GL_FRAMEBUFFER, g_ogl.frame_buffer_id[0]);
 
             glBindVertexArray(g_ogl.main_vao);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
@@ -894,7 +900,7 @@ static void ogl_render()
 
             glUseProgram(g_ogl.scale_program);
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id);
+            glBindTexture(GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id[0]);
 
             static int frames = 1;
             if (g_ogl.frame_count_uni_loc != -1)
@@ -951,13 +957,13 @@ static void ogl_delete_context(HGLRC context)
 
     if (g_ogl.scale_program)
     {
-        glDeleteTextures(1, &g_ogl.frame_buffer_tex_id);
+        glDeleteTextures(FBO_COUNT, g_ogl.frame_buffer_tex_id);
 
         if (glDeleteBuffers)
             glDeleteBuffers(3, g_ogl.scale_vbos);
 
         if (glDeleteFramebuffers)
-            glDeleteFramebuffers(1, &g_ogl.frame_buffer_id);
+            glDeleteFramebuffers(FBO_COUNT, g_ogl.frame_buffer_id);
 
         if (glDeleteVertexArrays)
             glDeleteVertexArrays(1, &g_ogl.scale_vao);
