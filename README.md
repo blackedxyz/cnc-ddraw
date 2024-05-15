@@ -72,6 +72,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
+- Balls Of Steel
 - Blade & Sword
 - Caesar III (Sierra - 1998)
 - Capitalism II
@@ -87,8 +88,10 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Command & Conquer: Red Alert 2: Yuri's Revenge
 - Command & Conquer: Tiberian Sun
 - Commandos
+- Commandos - Beyond The Call Of Duty
 - Corsairs Gold
 - Cossacks (Steam+GOG)
+- Cultures 2
 - Dark Reign: The Future of War
 - Daytona USA (Sega - 1996)
 - Desperados: Wanted Dead or Alive
@@ -112,6 +115,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Grand Theft Auto
 - Gruntz
 - Hearts of Iron 2
+- Heroes of Might and Magic II
 - Heroes of Might and Magic III
 - Heroes of Might and Magic IV
 - Hooligans: Storm over Europe
@@ -126,16 +130,17 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - KKND2: Krossfire
 - Knights and Merchants
 - Kohan: Immortal Sovereigns
-- Lionheart
+- Lionheart - Legacy of the Crusader
 - Locomotion
 - Mech Warrior 3
 - Megaman X4
 - Moorhuhn
 - Moorhuhn 2
+- Moorhuhn Winter Editon
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
-- Need For Speed: High Stakes
 - Need For Speed III: Hot Pursuit
+- Need For Speed: High Stakes
 - New Robinson
 - NexusTk
 - Nox
@@ -145,13 +150,20 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Outlaws
 - Outlive
 - Pharaoh (Sierra - 1999)
+- Pizza Syndicate (AKA Fast Food Tycoon)
 - Populous: The Beginning
 - Quest for Glory 5
 - Rage of Mages 2
 - Red Baron 3D
-- Reksio and the Pirate Treasure (aka Reksio si Comoara Piratilor)
+- Reksio and Captain Nemo (AKA Reksio si Capitanul Nemo)
+- Reksio and Kretes in Action (AKA Reksio si Kretes in Actiune)
+- Reksio and the Pirate Treasure (AKA Reksio si Comoara Piratilor)
+- Reksio and the Time Machine (AKA Reksio si Masina Timpului)
+- Reksio and the UFO (AKA Reksio si OZN-ul)
+- Reksio and the Wizards (AKA Reksio si Magicienii)
 - Road Rash
 - RollerCoaster Tycoon
+- Septerra Core
 - Settlers 3
 - Sim City 3000
 - Sim Copter
@@ -165,6 +177,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Start Trek Armada
 - Steel Panthers: World At War
 - Stronghold Crusader HD
+- Stronghold HD
 - Theme Hospital
 - Three Kingdoms: Fate of the Dragon
 - Total Annihilation
