@@ -58,7 +58,9 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 
 ### Supported Games
 - Age of Empires
+- Age of Empires: The Rise of Rome
 - Age of Empires II
+- Age of Empires II: The Conquerors
 - Age of Wonders
 - Age of Wonders 2
 - Age of Wonders: Shadow Magic
@@ -67,16 +69,27 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Amerzone
 - Anstoss 3
 - Arcanum
+- Anno 1602
+- Atlantis
+- Atlantis 2
+- Atlantis 3
 - Atomic Bomberman
 - Atrox
+- Airline Tycoon Deluxe
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
 - Balls Of Steel
 - Blade & Sword
+- Blood II - The Chosen
+- Close Combat 2: A Bridge Too Far
+- Close Combat 3: The Russian Front
+- Close Combat 4: The Battle of the Bulge
+- Close Combat 5: Invasion: Normandy
 - Caesar III (Sierra - 1998)
 - Capitalism II
 - Capitalism Lab
+- Call To Power 2
 - Captain Claw
 - Carmageddon
 - Carmageddon 2
@@ -87,6 +100,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Command & Conquer: Red Alert 2
 - Command & Conquer: Red Alert 2: Yuri's Revenge
 - Command & Conquer: Tiberian Sun
+- Command & Conquer: Sole Survivor
 - Commandos
 - Commandos - Beyond The Call Of Duty
 - Corsairs Gold
@@ -95,7 +109,9 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Dark Reign: The Future of War
 - Daytona USA (Sega - 1996)
 - Desperados: Wanted Dead or Alive
+- Deadlock 2
 - Diablo
+- Diablo: Hellfire
 - Diablo 2 + Lord of Destruction
 - Divine Divinity
 - Dragon Throne: Battle of Red Cliffs
@@ -105,7 +121,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Economic War
 - Eggsucker
 - Enemy Infestation
-- EV Nova
+- Escape Velocity Nova
 - F-16 Multirole Fighter
 - F-22 Raptor
 - Fairy Tale About Father Frost, Ivan and Nastya
@@ -113,7 +129,11 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Fallout 2
 - Future Cop L.A.P.D
 - Grand Theft Auto
+- Grand Theft Auto: London 1969
+- Grand Theft Auto: London 1961
+- Hard Truck: Road to Victory
 - Gruntz
+- G-Police
 - Hearts of Iron 2
 - Heroes of Might and Magic II
 - Heroes of Might and Magic III
@@ -122,6 +142,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Hugo Gold
 - Hugo Wild River
 - Icewind Dale 2
+- Invictus
+- Interstate 76
 - Infantry Online
 - Jagged Alliance 2
 - Jagged Alliance 2: Unfinished Business
@@ -130,26 +152,33 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - KKND2: Krossfire
 - Knights and Merchants
 - Kohan: Immortal Sovereigns
+- Kings Quest 8
+- Konung
+- Konung 2
 - Lionheart - Legacy of the Crusader
 - Locomotion
 - Mech Warrior 3
+- Majesty Gold
+- Majesty Gold HD
 - Megaman X4
 - Moorhuhn
 - Moorhuhn 2
 - Moorhuhn Winter Editon
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
+- Nancy Draw: Last Train to Blue Moon Canyon
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
 - New Robinson
 - NexusTk
-- Nox
 - Nox (Westwood - 2000)
 - Oddworld: Abe's Exoddus
 - Oddworld: Abe's Oddysee
 - Outlaws
 - Outlive
 - Pharaoh (Sierra - 1999)
+- Pax Imperia
+- Railroad Tycoon II
 - Pizza Syndicate (AKA Fast Food Tycoon)
 - Populous: The Beginning
 - Quest for Glory 5
@@ -168,16 +197,22 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Sim City 3000
 - Sim Copter
 - Sim Theme Park (aka Theme Park World)
-- Sole Survivor
 - Space Rangers
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars: Galactic Battlegrounds
+- Star Wars: Galactic Battlegrounds: Clone Campaigns
 - StarCraft
 - Starship Titanic
 - Start Trek Armada
 - Steel Panthers: World At War
+- Stronghold Crusader Extreme HD
 - Stronghold Crusader HD
 - Stronghold HD
+- Shadow Watch
+- Shadow Flare
+- Uprising
+- Uprising 2
+- Shogo - Mobile Armor Division
 - Theme Hospital
 - Three Kingdoms: Fate of the Dragon
 - Total Annihilation
@@ -193,7 +228,9 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Wizardry 8
 - Wizards and Warriors
 - Worms 2
+- Worms Armageddon
 - Zeus: Master of Olympus
+- Poseidon: Master of Atlantis
  - ...
 
 There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) and the instructions above.
