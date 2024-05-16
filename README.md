@@ -105,6 +105,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Commandos - Beyond The Call Of Duty
 - Corsairs Gold
 - Cossacks (Steam+GOG)
+- Cultures - The Discovery of Vinland
 - Cultures 2
 - Dark Reign: The Future of War
 - Daytona USA (Sega - 1996)
@@ -115,6 +116,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Diablo: Hellfire
 - Divine Divinity
 - Dragon Throne: Battle of Red Cliffs
+- DuelSavior
+- DuelSavior: Justice
 - Dune 2000
 - Dungeon Keeper
 - Dungeon Keeper 2
@@ -127,6 +130,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Fairy Tale About Father Frost, Ivan and Nastya
 - Fallout
 - Fallout 2
+- Final fantasy VII
+- Final fantasy VIII
 - Future Cop L.A.P.D
 - G-Police
 - Grand Theft Auto
@@ -164,7 +169,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Moorhuhn
 - Moorhuhn 2
 - Moorhuhn Winter Editon
-- Nancy Drew: Last Train to Blue Moon Canyon
+- Nancy Draw: Last Train to Blue Moon Canyon
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
 - Need For Speed III: Hot Pursuit
@@ -176,6 +181,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Oddworld: Abe's Oddysee
 - Outlaws
 - Outlive
+- Pacific General
 - Pax Imperia
 - Pharaoh (Sierra - 1999)
 - Pizza Syndicate (AKA Fast Food Tycoon)
@@ -193,6 +199,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reksio and the Wizards (AKA Reksio si Magicienii)
 - Road Rash
 - RollerCoaster Tycoon
+- Sega Rally
+- Sega Touring Car
 - Septerra Core
 - Settlers 3
 - Shadow Flare
@@ -201,6 +209,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Sim City 3000
 - Sim Copter
 - Sim Theme Park (aka Theme Park World)
+- SimCoaster / Theme Park Inc
 - Space Rangers
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars: Galactic Battlegrounds
@@ -231,6 +240,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Worms 2
 - Worms Armageddon
 - Zeus: Master of Olympus
+- Zuma Deluxe
  - ...
 
 There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) and the instructions above.
