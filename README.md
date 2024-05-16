@@ -136,7 +136,6 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Final fantasy VIII
 - Future Cop L.A.P.D
 - G-Police
-- G-POLICE
 - Grand Theft Auto
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
@@ -158,8 +157,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Jagged Alliance 2: Wildfire
 - Jazz Jackrabbit 2
 - Killing Time
-- Kings Quest 8
-- Kings Quest Mask of Eternity
+- Kings Quest 8: Mask of Eternity
 - KKND Xtreme
 - KKND2: Krossfire
 - Knights and Merchants
