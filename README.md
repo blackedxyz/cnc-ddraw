@@ -164,7 +164,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Moorhuhn
 - Moorhuhn 2
 - Moorhuhn Winter Editon
-- Nancy Draw: Last Train to Blue Moon Canyon
+- Nancy Drew: Last Train to Blue Moon Canyon
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
 - Need For Speed III: Hot Pursuit
