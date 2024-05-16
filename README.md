@@ -114,6 +114,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Diablo
 - Diablo 2 + Lord of Destruction
 - Diablo: Hellfire
+- Disciples
+- Disciples 2 - Rise of the Elves
 - Divine Divinity
 - Dragon Throne: Battle of Red Cliffs
 - DuelSavior
@@ -134,6 +136,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Final fantasy VIII
 - Future Cop L.A.P.D
 - G-Police
+- G-POLICE
 - Grand Theft Auto
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
@@ -153,7 +156,10 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Jagged Alliance 2
 - Jagged Alliance 2: Unfinished Business
 - Jagged Alliance 2: Wildfire
+- Jazz Jackrabbit 2
+- Killing Time
 - Kings Quest 8
+- Kings Quest Mask of Eternity
 - KKND Xtreme
 - KKND2: Krossfire
 - Knights and Merchants
@@ -162,6 +168,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Konung 2
 - Lionheart - Legacy of the Crusader
 - Locomotion
+- Lode Runner 2
 - Majesty Gold
 - Majesty Gold HD
 - Mech Warrior 3
@@ -169,6 +176,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Moorhuhn
 - Moorhuhn 2
 - Moorhuhn Winter Editon
+- Moto Racer
+- Moto Racer 2
 - Nancy Drew: Last Train to Blue Moon Canyon
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
@@ -182,11 +191,14 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Outlaws
 - Outlive
 - Pacific General
+- Patrician 3
 - Pax Imperia
 - Pharaoh (Sierra - 1999)
 - Pizza Syndicate (AKA Fast Food Tycoon)
 - Populous: The Beginning
 - Poseidon: Master of Atlantis
+- Pro Pinball - Big Race USA
+- Pro Pinball - Fantastic Journey
 - Quest for Glory 5
 - Rage of Mages 2
 - Railroad Tycoon II
@@ -199,6 +211,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reksio and the Wizards (AKA Reksio si Magicienii)
 - Road Rash
 - RollerCoaster Tycoon
+- Sanitarium
 - Sega Rally
 - Sega Touring Car
 - Septerra Core
@@ -210,6 +223,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Sim Copter
 - Sim Theme Park (aka Theme Park World)
 - SimCoaster / Theme Park Inc
+- Sonic 3D Blast
 - Space Rangers
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars: Galactic Battlegrounds
@@ -234,7 +248,12 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Vermeer
 - Virtua Fighter PC
 - War Wind
+- War Wind II - Human Onslaught
 - Warcraft 2
+- Warlords 3: Darklords Rising
+- Warlords Battlecry
+- Warlords Battlecry 2
+- Warlords Battlecry 3
 - Wizardry 8
 - Wizards and Warriors
 - Worms 2
