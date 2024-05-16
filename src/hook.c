@@ -516,6 +516,8 @@ void hook_create(HOOKLIST* hooks, BOOL initial_hook)
 
                     /* Don't hook reshade/swiftshader/mesa3d */
                     if (_strcmpi(mod_filename, "opengl32") == 0 ||
+                        _strcmpi(mod_filename, "libgallium_wgl") == 0 ||
+                        _strcmpi(mod_filename, "libglapi") == 0 ||
                         _strcmpi(mod_filename, "d3d9") == 0 ||
                         _strcmpi(mod_filename, "Shw32") == 0)
                         continue;
