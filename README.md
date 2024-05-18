@@ -24,7 +24,7 @@ cnc-ddraw can fix compatibility issues in older 2D games, such as black screen, 
 1. Download [cnc-ddraw.zip](https://github.com/FunkyFr3sh/cnc-ddraw/releases/latest/download/cnc-ddraw.zip) and extract it into your game folder
 2. Start the game
 
-Wine (Linux/macOS) only: override `ddraw` in [winecfg](https://wiki.winehq.org/Winecfg#Libraries) manually or run cnc-ddraw config.exe once.
+Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.winehq.org/Winecfg#Libraries) manually or run cnc-ddraw config.exe once.
 
 &nbsp;
 
@@ -68,12 +68,12 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Alien Nations
 - American Conquest (Steam+GOG)
 - Amerzone
-- Anno 1602
+- Anno 1602: Creation of a New World
 - Anstoss 3
-- Arcanum
-- Atlantis
-- Atlantis 2
-- Atlantis 3
+- Arcanum: Of Steamworks and Magick Obscura
+- Atlantis: The Lost Tales
+- Atlantis 2: Beyond Atlantis
+- Atlantis 3: The New World
 - Atomic Bomberman
 - Atrox
 - Baldr Force EXE
@@ -103,6 +103,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Command & Conquer: Tiberian Sun
 - Commandos
 - Commandos - Beyond The Call Of Duty
+- Commandos 2
 - Corsairs Gold
 - Cossacks (Steam+GOG)
 - Cultures - The Discovery of Vinland
@@ -112,7 +113,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Deadlock 2
 - Desperados: Wanted Dead or Alive
 - Diablo
-- Diablo 2 + Lord of Destruction
+- Diablo 2
+- Diablo 2: Lord of Destruction
 - Diablo: Hellfire
 - Disciples
 - Disciples 2 - Rise of the Elves
@@ -148,10 +150,11 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Hooligans: Storm over Europe
 - Hugo Gold
 - Hugo Wild River
+- Icewind Dale
 - Icewind Dale 2
 - Infantry Online
 - Interstate 76
-- Invictus
+- Invictus: In the Shadow of Olympus
 - Jagged Alliance 2
 - Jagged Alliance 2: Unfinished Business
 - Jagged Alliance 2: Wildfire
@@ -170,6 +173,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Majesty Gold
 - Majesty Gold HD
 - Mech Warrior 3
+- Metal Gear Solid
 - Megaman X4
 - Moorhuhn
 - Moorhuhn 2
@@ -227,6 +231,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
 - StarCraft
+- StarCraft: Broodwars
 - Starship Titanic
 - Start Trek Armada
 - Steel Panthers: World At War
@@ -241,8 +246,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Twisted Metal
 - Twisted Metal 2
 - Tzar: The Burden of the Crown
-- Uprising
-- Uprising 2
+- Uprising: Join or Die
+- Uprising 2: Lead and Destroy
 - Vermeer
 - Virtua Fighter PC
 - War Wind
