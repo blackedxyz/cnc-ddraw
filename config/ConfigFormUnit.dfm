@@ -3249,7 +3249,7 @@ object ConfigForm: TConfigForm
       BevelInner = bvNone
       BevelOuter = bvSpace
       Style = csDropDownList
-      DropDownCount = 10
+      DropDownCount = 13
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
