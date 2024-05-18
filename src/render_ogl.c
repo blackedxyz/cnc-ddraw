@@ -169,6 +169,7 @@ static void ogl_build_programs()
             /* detect common upscaling shaders and disable them if no upscaling is required */
 
             BOOL is_upscaler =
+                strstr(g_config.shader, "fsr.glsl") != NULL ||
                 strstr(g_config.shader, "catmull-rom-bilinear.glsl") != NULL ||
                 strstr(g_config.shader, "lanczos2-sharp.glsl") != NULL ||
                 strstr(g_config.shader, "xbr-lv2-noblend.glsl") != NULL ||
