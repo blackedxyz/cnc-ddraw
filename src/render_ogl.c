@@ -507,7 +507,7 @@ static void ogl_init_shader1_program()
 
     GLint vertex_coord_attr_loc = glGetAttribLocation(g_ogl.shader1_program, "VertexCoord");
     g_ogl.shader1_tex_coord_attr_loc = glGetAttribLocation(g_ogl.shader1_program, "TexCoord");
-    g_ogl.frame_count_uni_loc = glGetUniformLocation(g_ogl.shader1_program, "FrameCount");
+    g_ogl.shader1_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader1_program, "FrameCount");
 
     glGenBuffers(3, g_ogl.shader1_vbos);
 
@@ -717,6 +717,7 @@ static void ogl_init_shader2_program()
 
     GLint vertex_coord_attr_loc = glGetAttribLocation(g_ogl.shader2_program, "VertexCoord");
     g_ogl.shader2_tex_coord_attr_loc = glGetAttribLocation(g_ogl.shader2_program, "TexCoord");
+    g_ogl.shader2_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader2_program, "FrameCount");
 
     glGenBuffers(3, g_ogl.shader2_vbos);
 
@@ -1059,6 +1060,9 @@ static void ogl_render()
 
         if (g_ogl.shader1_program && g_ogl.shader2_program && g_ogl.main_program)
         {
+            static int frames = 0;
+            frames++;
+
             /* draw surface into framebuffer */
             glUseProgram(g_ogl.main_program);
 
@@ -1088,6 +1092,9 @@ static void ogl_render()
 
             glBindFramebuffer(GL_FRAMEBUFFER, g_ogl.frame_buffer_id[1]);
 
+            if (g_ogl.shader1_frame_count_uni_loc != -1)
+                glUniform1i(g_ogl.shader1_frame_count_uni_loc, frames);
+
             glBindVertexArray(g_ogl.shader1_vao);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
             glBindVertexArray(0);
@@ -1115,6 +1122,9 @@ static void ogl_render()
 
             glActiveTexture(GL_TEXTURE1);
             glBindTexture(GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id[0]);
+
+            if (g_ogl.shader2_frame_count_uni_loc != -1)
+                glUniform1i(g_ogl.shader2_frame_count_uni_loc, frames);
 
             glBindVertexArray(g_ogl.shader2_vao);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
@@ -1161,8 +1171,8 @@ static void ogl_render()
             glBindTexture(GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id[0]);
 
             static int frames = 1;
-            if (g_ogl.frame_count_uni_loc != -1)
-                glUniform1i(g_ogl.frame_count_uni_loc, frames++);
+            if (g_ogl.shader1_frame_count_uni_loc != -1)
+                glUniform1i(g_ogl.shader1_frame_count_uni_loc, frames++);
 
             glBindVertexArray(g_ogl.shader1_vao);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);

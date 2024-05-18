@@ -27,7 +27,8 @@ typedef struct OGLRENDERER
     GLint main_vertex_coord_attr_loc;
     GLuint main_vbos[3];
     GLuint main_vao;
-    GLint frame_count_uni_loc;
+    GLint shader1_frame_count_uni_loc;
+    GLint shader2_frame_count_uni_loc;
     GLuint frame_buffer_id[FBO_COUNT];
     GLuint frame_buffer_tex_id[FBO_COUNT];
     GLint shader1_tex_coord_attr_loc;
