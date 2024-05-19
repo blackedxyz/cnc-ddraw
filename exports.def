@@ -21,3 +21,4 @@ EXPORTS
     GameHandlesClose                          DATA
     pvBmpBits = FakePrimarySurface            DATA
     DDIsWindowed
+    DDGetProcAddress
