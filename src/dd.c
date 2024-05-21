@@ -916,6 +916,13 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_TOOLWINDOW));
         }
 
+        exstyle = real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE);
+
+        if ((exstyle & WS_EX_CLIENTEDGE))
+        {
+            real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_CLIENTEDGE));
+        }
+
         if (IsWine())
         {
             real_SetWindowLongA(
@@ -1017,6 +1024,13 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         if ((exstyle & WS_EX_TOOLWINDOW))
         {
             real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_TOOLWINDOW));
+        }
+
+        exstyle = real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE);
+
+        if ((exstyle & WS_EX_CLIENTEDGE))
+        {
+            real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_CLIENTEDGE));
         }
 
         BOOL d3d9_active = FALSE;
