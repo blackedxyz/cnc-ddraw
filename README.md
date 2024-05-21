@@ -183,6 +183,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Nancy Drew: Last Train to Blue Moon Canyon
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
+- Nancy Drew: Message in a Haunted Mansion
+- Nancy Drew: Treasure in the Royal Tower
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
 - New Robinson
