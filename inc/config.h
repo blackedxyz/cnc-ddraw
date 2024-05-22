@@ -76,6 +76,7 @@ typedef struct CNCDDRAWCONFIG
     int min_font_size;
     BOOL direct3d_passthrough;
     BOOL center_cursor_fix;
+    char fake_mode[128];
 
     /* Hotkeys */
 
@@ -97,7 +98,6 @@ typedef struct CNCDDRAWCONFIG
     BOOL infantryhack;
     BOOL stronghold_hack;
     BOOL mgs_hack;
-    BOOL vermeer_hack;
 
 } CNCDDRAWCONFIG;
 

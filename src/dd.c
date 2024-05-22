@@ -476,41 +476,56 @@ HRESULT dd_GetDisplayMode(LPDDSURFACEDESC lpDDSurfaceDesc)
 
         memset(lpDDSurfaceDesc, 0, size);
 
+        unsigned long width = 1024;
+        unsigned long height = 768;
+        unsigned long bpp = 16;
+
+        if (g_ddraw.width)
+        {
+            width = g_ddraw.width;
+            height = g_ddraw.height;
+            bpp = g_ddraw.bpp;
+        }
+        else if (g_config.fake_mode[0])
+        {
+            char* e = &g_config.fake_mode[0];
+
+            width = strtoul(e, &e, 0);
+            height = strtoul(e + 1, &e, 0);
+            bpp = strtoul(e + 1, &e, 0);
+        }
+
         lpDDSurfaceDesc->ddpfPixelFormat.dwSize = sizeof(DDPIXELFORMAT);
-        lpDDSurfaceDesc->ddpfPixelFormat.dwFlags = DDPF_PALETTEINDEXED8 | DDPF_RGB;
-        lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount = 8;
+        lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount = bpp;
 
         lpDDSurfaceDesc->dwSize = size;
         lpDDSurfaceDesc->dwFlags = DDSD_HEIGHT | DDSD_REFRESHRATE | DDSD_WIDTH | DDSD_PITCH | DDSD_PIXELFORMAT;
         lpDDSurfaceDesc->dwRefreshRate = 60;
-        lpDDSurfaceDesc->dwHeight = g_ddraw.height ? g_ddraw.height : 768;
-        lpDDSurfaceDesc->dwWidth = g_ddraw.width ? g_ddraw.width : 1024;
+        lpDDSurfaceDesc->dwWidth = width;
+        lpDDSurfaceDesc->dwHeight = height;
 
-        lpDDSurfaceDesc->lPitch = 
-            ((lpDDSurfaceDesc->dwWidth * lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount + 63) & ~63) >> 3;
-
-        if (g_ddraw.bpp == 32 || g_config.vermeer_hack)
+        if (bpp == 32)
         {
             lpDDSurfaceDesc->ddpfPixelFormat.dwFlags = DDPF_RGB;
-            lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount = 32;
             lpDDSurfaceDesc->ddpfPixelFormat.dwRBitMask = 0xFF0000;
             lpDDSurfaceDesc->ddpfPixelFormat.dwGBitMask = 0x00FF00;
             lpDDSurfaceDesc->ddpfPixelFormat.dwBBitMask = 0x0000FF;
-
-            lpDDSurfaceDesc->lPitch =
-                ((lpDDSurfaceDesc->dwWidth * lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount + 63) & ~63) >> 3;
         }
-        else if (g_ddraw.bpp != 8)
+        else if (bpp == 8)
+        {
+            lpDDSurfaceDesc->ddpfPixelFormat.dwFlags = DDPF_PALETTEINDEXED8 | DDPF_RGB;
+        }
+        else
         {
             lpDDSurfaceDesc->ddpfPixelFormat.dwFlags = DDPF_RGB;
             lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount = 16;
             lpDDSurfaceDesc->ddpfPixelFormat.dwRBitMask = 0xF800;
             lpDDSurfaceDesc->ddpfPixelFormat.dwGBitMask = 0x07E0;
             lpDDSurfaceDesc->ddpfPixelFormat.dwBBitMask = 0x001F;
-
-            lpDDSurfaceDesc->lPitch =
-                ((lpDDSurfaceDesc->dwWidth * lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount + 63) & ~63) >> 3;
         }
+
+        lpDDSurfaceDesc->lPitch = 
+            ((lpDDSurfaceDesc->dwWidth * lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount + 63) & ~63) >> 3;
     }
 
     return DD_OK;
@@ -1298,9 +1313,15 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
 
     if (dwFlags & DDSCL_NORMAL)
     {
-        if (g_config.vermeer_hack)
+        if (g_config.fake_mode[0])
         {
-            dd_SetDisplayMode(640, 480, 16, 0);
+            char* e = &g_config.fake_mode[0];
+
+            unsigned long width = strtoul(e, &e, 0);
+            unsigned long height = strtoul(e + 1, &e, 0);
+            unsigned long bpp = strtoul(e + 1, &e, 0);
+
+            dd_SetDisplayMode(width, height, bpp, 0);
         }
     }
 

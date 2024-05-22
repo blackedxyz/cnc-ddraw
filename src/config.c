@@ -89,6 +89,7 @@ void cfg_load()
     GET_INT(g_config.min_font_size, "min_font_size", 0);
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
+    GET_STRING("fake_mode", "", g_config.fake_mode, sizeof(g_config.fake_mode));
 
     /* Hotkeys */
 
@@ -107,7 +108,6 @@ void cfg_load()
     GET_BOOL(g_config.infantryhack, "infantryhack", FALSE);
     GET_BOOL(g_config.stronghold_hack, "stronghold_hack", FALSE);
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
-    GET_BOOL(g_config.vermeer_hack, "vermeer_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -302,6 +302,7 @@ static void cfg_create_ini()
             "min_font_size=0\n"
             "direct3d_passthrough=false\n"
             "center_cursor_fix=false\n"
+            ";fake_mode=640x480x32\n"
             "\n"
             "\n"
             "\n"
@@ -1055,7 +1056,7 @@ static void cfg_create_ini()
             "; Vermeer\n"
             "[vermeer]\n"
             "adjmouse=true\n"
-            "vermeer_hack=true\n"
+            "fake_mode=640x480x32\n"
             "\n"
             "; Wizardry 8\n"
             "[Wiz8]\n"
