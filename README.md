@@ -79,7 +79,6 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
-- Balls Of Steel
 - Blade & Sword
 - Blood II - The Chosen
 - Caesar III (Sierra - 1998)
