@@ -1166,12 +1166,23 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
 {
     dbg_dump_scl_flags(dwFlags);
 
-    if (hwnd == NULL)
+    if (!hwnd)
     {
-        return DD_OK;
+        if (!g_ddraw.hwnd && g_config.fake_mode[0])
+        {
+            EnumThreadWindows(GetCurrentThreadId(), (WNDENUMPROC)util_enum_thread_wnd_proc, 0);
+            hwnd = g_ddraw.hwnd;
+
+            if (!hwnd)
+                return DD_OK;
+        }
+        else
+        {
+            return DD_OK;
+        }
     }
 
-    if (g_ddraw.hwnd == NULL)
+    if (!g_ddraw.hwnd)
     {
         g_ddraw.hwnd = hwnd;
     }

@@ -551,6 +551,14 @@ void util_set_window_rect(int x, int y, int width, int height, UINT flags)
     }
 }
 
+BOOL CALLBACK util_enum_thread_wnd_proc(HWND hwnd, LPARAM lParam)
+{
+    if (!g_ddraw.hwnd)
+        g_ddraw.hwnd = hwnd;
+
+    return FALSE;
+}
+
 BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
 {
     IDirectDrawSurfaceImpl* this = (IDirectDrawSurfaceImpl*)lparam;
