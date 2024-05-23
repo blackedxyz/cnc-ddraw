@@ -755,7 +755,7 @@ static void cfg_create_ini()
             "custom_width=800\n"
             "custom_height=450\n"
             "\n"
-            "; Jazz Jackrabbit 2 plus\n"
+            "; Jazz Jackrabbit 2\n"
             "[Jazz2_NonPlus]\n"
             "keytogglefullscreen=0x08\n"
             "custom_width=800\n"
