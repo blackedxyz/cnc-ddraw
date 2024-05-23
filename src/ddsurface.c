@@ -826,6 +826,17 @@ HRESULT dds_GetAttachedSurface(IDirectDrawSurfaceImpl* This, LPDDSCAPS lpDdsCaps
         return DD_OK;
     }
 
+    if (lpDdsCaps->dwCaps & DDSCAPS_FLIP)
+    {
+        if (This->backbuffer)
+        {
+            IDirectDrawSurface_AddRef(This->backbuffer);
+            *lpDDsurface = This->backbuffer;
+        }
+
+        return DD_OK;
+    }
+
     return DDERR_NOTFOUND;
 }
 
