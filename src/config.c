@@ -90,6 +90,7 @@ void cfg_load()
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
     GET_STRING("fake_mode", "", g_config.fake_mode, sizeof(g_config.fake_mode));
+    GET_BOOL(g_config.wine_allow_resize, "wine_allow_resize", FALSE);
 
     /* Hotkeys */
 
@@ -303,6 +304,7 @@ static void cfg_create_ini()
             "direct3d_passthrough=false\n"
             "center_cursor_fix=false\n"
             ";fake_mode=640x480x32\n"
+            "wine_allow_resize=false\n"
             "\n"
             "\n"
             "\n"

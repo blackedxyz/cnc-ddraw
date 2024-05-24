@@ -431,15 +431,14 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                     g_config.window_rect.right = LOWORD(lParam);
                     g_config.window_rect.bottom = HIWORD(lParam);
                 }
-                /*
-                else if (g_ddraw.wine)
+                else if (!in_size_move && !g_config.fullscreen && g_config.wine_allow_resize && IsLinux())
                 {
-                    WindowRect.right = LOWORD(lParam);
-                    WindowRect.bottom = HIWORD(lParam);
-                    if (WindowRect.right != g_ddraw.render.width || WindowRect.bottom != g_ddraw.render.height)
-                        dd_SetDisplayMode(g_ddraw.width, g_ddraw.height, g_ddraw.bpp);
+                    g_config.window_rect.right = LOWORD(lParam);
+                    g_config.window_rect.bottom = HIWORD(lParam);
+
+                    if (g_config.window_rect.right != g_ddraw.render.width || g_config.window_rect.bottom != g_ddraw.render.height)
+                        dd_SetDisplayMode(g_ddraw.width, g_ddraw.height, g_ddraw.bpp, 0);
                 }
-                */
             }
         }
 

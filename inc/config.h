@@ -77,6 +77,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL direct3d_passthrough;
     BOOL center_cursor_fix;
     char fake_mode[128];
+    BOOL wine_allow_resize;
 
     /* Hotkeys */
 

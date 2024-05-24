@@ -938,7 +938,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_CLIENTEDGE));
         }
 
-        if (IsWine())
+        if (!g_config.wine_allow_resize && IsWine())
         {
             real_SetWindowLongA(
                 g_ddraw.hwnd,
