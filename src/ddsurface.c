@@ -810,29 +810,13 @@ HRESULT dds_Flip(IDirectDrawSurfaceImpl* This, IDirectDrawSurfaceImpl* lpDDSurfa
 
 HRESULT dds_GetAttachedSurface(IDirectDrawSurfaceImpl* This, LPDDSCAPS lpDdsCaps, IDirectDrawSurfaceImpl** lpDDsurface)
 {
-    if (lpDdsCaps->dwCaps & DDSCAPS_BACKBUFFER)
-    {
-        if (This->backbuffer)
-        {
-            IDirectDrawSurface_AddRef(This->backbuffer);
-            *lpDDsurface = This->backbuffer;
-        }
-        else
-        {
-            IDirectDrawSurface_AddRef(This);
-            *lpDDsurface = This;
-        }
+    if (!lpDdsCaps || !lpDDsurface)
+        return DDERR_INVALIDPARAMS;
 
-        return DD_OK;
-    }
-
-    if (lpDdsCaps->dwCaps & DDSCAPS_FLIP)
+    if (This->backbuffer && (This->backbuffer->caps & lpDdsCaps->dwCaps) == lpDdsCaps->dwCaps)
     {
-        if (This->backbuffer)
-        {
-            IDirectDrawSurface_AddRef(This->backbuffer);
-            *lpDDsurface = This->backbuffer;
-        }
+        IDirectDrawSurface_AddRef(This->backbuffer);
+        *lpDDsurface = This->backbuffer;
 
         return DD_OK;
     }
