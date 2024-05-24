@@ -278,6 +278,145 @@ void dbg_draw_frame_info_end()
         g_dbg_frame_time = dbg_counter_stop();
 }
 
+void dbg_dump_wnd_styles(DWORD style, DWORD exstyle)
+{
+#ifdef _DEBUG
+    if (style & WS_BORDER) {
+         TRACE("    WS_BORDER\n");
+    }
+    if (style & WS_CAPTION) {
+        TRACE("     WS_CAPTION\n");
+    }
+    if (style & WS_CHILD) {
+        TRACE("     WS_CHILD\n");
+    }
+    if (style & WS_CHILDWINDOW) {
+        TRACE("     WS_CHILDWINDOW\n");
+    }
+    if (style & WS_CLIPCHILDREN) {
+        TRACE("     WS_CLIPCHILDREN\n");
+    }
+    if (style & WS_CLIPSIBLINGS) {
+        TRACE("     WS_CLIPSIBLINGS\n");
+    }
+    if (style & WS_DISABLED) {
+        TRACE("     WS_DISABLED\n");
+    }
+    if (style & WS_DLGFRAME) {
+        TRACE("     WS_DLGFRAME\n");
+    }
+    if (style & WS_GROUP) {
+        TRACE("     WS_GROUP\n");
+    }
+    if (style & WS_HSCROLL) {
+        TRACE("     WS_HSCROLL\n");
+    }
+    if (style & WS_ICONIC) {
+        TRACE("     WS_ICONIC\n");
+    }
+    if (style & WS_MAXIMIZE) {
+        TRACE("     WS_MAXIMIZE\n");
+    }
+    if (style & WS_MAXIMIZEBOX) {
+        TRACE("     WS_MAXIMIZEBOX\n");
+    }
+    if (style & WS_MINIMIZE) {
+        TRACE("     WS_MINIMIZE\n");
+    }
+    if (style & WS_MINIMIZEBOX) {
+        TRACE("     WS_MINIMIZEBOX\n");
+    }
+    if (style & WS_POPUP) {
+        TRACE("     WS_POPUP\n");
+    }
+    if (style & WS_SIZEBOX) {
+        TRACE("     WS_SIZEBOX\n");
+    }
+    if (style & WS_SYSMENU) {
+        TRACE("     WS_SYSMENU\n");
+    }
+    if (style & WS_TABSTOP) {
+        TRACE("     WS_TABSTOP\n");
+    }
+    if (style & WS_THICKFRAME) {
+        TRACE("     WS_THICKFRAME\n");
+    }
+    if (style & WS_VISIBLE) {
+        TRACE("     WS_VISIBLE\n");
+    }
+    if (style & WS_VSCROLL) {
+        TRACE("     WS_VSCROLL\n");
+    }
+
+    if (exstyle & WS_EX_ACCEPTFILES) {
+        TRACE("     WS_EX_ACCEPTFILES\n");
+    }
+    if (exstyle & WS_EX_APPWINDOW) {
+        TRACE("     WS_EX_APPWINDOW\n");
+    }
+    if (exstyle & WS_EX_CLIENTEDGE) {
+        TRACE("     WS_EX_CLIENTEDGE\n");
+    }
+    if (exstyle & WS_EX_COMPOSITED) {
+        TRACE("     WS_EX_COMPOSITED\n");
+    }
+    if (exstyle & WS_EX_CONTEXTHELP) {
+        TRACE("     WS_EX_CONTEXTHELP\n");
+    }
+    if (exstyle & WS_EX_CONTROLPARENT) {
+        TRACE("     WS_EX_CONTROLPARENT\n");
+    }
+    if (exstyle & WS_EX_DLGMODALFRAME) {
+        TRACE("     WS_EX_DLGMODALFRAME\n");
+    }
+    if (exstyle & WS_EX_LAYERED) {
+        TRACE("     WS_EX_LAYERED\n");
+    }
+    if (exstyle & WS_EX_LAYOUTRTL) {
+        TRACE("     WS_EX_LAYOUTRTL\n");
+    }
+    if (exstyle & WS_EX_LEFTSCROLLBAR) {
+        TRACE("     WS_EX_LEFTSCROLLBAR\n");
+    }
+    if (exstyle & WS_EX_MDICHILD) {
+        TRACE("     WS_EX_MDICHILD\n");
+    }
+    if (exstyle & WS_EX_NOACTIVATE) {
+        TRACE("     WS_EX_NOACTIVATE\n");
+    }
+    if (exstyle & WS_EX_NOINHERITLAYOUT) {
+        TRACE("     WS_EX_NOINHERITLAYOUT\n");
+    }
+    if (exstyle & WS_EX_NOPARENTNOTIFY) {
+        TRACE("     WS_EX_NOPARENTNOTIFY\n");
+    }
+    //if (exstyle & WS_EX_NOREDIRECTIONBITMAP) {
+    //    TRACE("     WS_EX_NOREDIRECTIONBITMAP\n");
+    //}
+    if (exstyle & WS_EX_RIGHT) {
+        TRACE("     WS_EX_RIGHT\n");
+    }
+    if (exstyle & WS_EX_RTLREADING) {
+        TRACE("     WS_EX_RTLREADING\n");
+    }
+    if (exstyle & WS_EX_STATICEDGE) {
+        TRACE("     WS_EX_STATICEDGE\n");
+    }
+    if (exstyle & WS_EX_TOOLWINDOW) {
+        TRACE("     WS_EX_TOOLWINDOW\n");
+    }
+    if (exstyle & WS_EX_TOPMOST) {
+        TRACE("     WS_EX_TOPMOST\n");
+    }
+    if (exstyle & WS_EX_TRANSPARENT) {
+        TRACE("     WS_EX_TRANSPARENT\n");
+    }
+    if (exstyle & WS_EX_WINDOWEDGE) {
+        TRACE("     WS_EX_WINDOWEDGE\n");
+    }
+#endif
+}
+
 void dbg_dump_swp_flags(DWORD flags)
 {
 #ifdef _DEBUG

@@ -1285,6 +1285,26 @@ HWND WINAPI fake_CreateWindowExA(
     DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y,
     int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
 {
+    TRACE("CreateWindowExA("
+        "dwExStyle=%08X, lpClassName=%p, lpWindowName=%p, dwStyle=%08X, X=%d, Y=%d, nWidth=%d, "
+        "nHeight=%d, hWndParent=%p, hMenu=%p, hInstance=%p, lpParam=%p)\n", 
+        dwExStyle, 
+        lpClassName, 
+        lpWindowName, 
+        dwStyle, 
+        X, 
+        Y,
+        nWidth, 
+        nHeight, 
+        hWndParent, 
+        hMenu, 
+        hInstance, 
+        lpParam);
+
+    TRACE("     WindowName=%s, ClassName=%s, g_ddraw.hwnd=%p\n", lpWindowName, HIWORD(lpClassName) ? lpClassName : "", g_ddraw.hwnd);
+
+    dbg_dump_wnd_styles(dwStyle, dwExStyle);
+
     /* Center Claw DVD movies */
     if (HIWORD(lpClassName) &&
         _strcmpi(lpClassName, "Afx:400000:3") == 0 &&
