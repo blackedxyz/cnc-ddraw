@@ -42,6 +42,7 @@ SHOWWINDOWPROC real_ShowWindow = ShowWindow;
 GETTOPWINDOWPROC real_GetTopWindow = GetTopWindow;
 GETFOREGROUNDWINDOWPROC real_GetForegroundWindow = GetForegroundWindow;
 STRETCHBLTPROC real_StretchBlt = StretchBlt;
+BITBLTPROC real_BitBlt = BitBlt;
 SETDIBITSTODEVICEPROC real_SetDIBitsToDevice = SetDIBitsToDevice;
 STRETCHDIBITSPROC real_StretchDIBits = StretchDIBits;
 SETFOREGROUNDWINDOWPROC real_SetForegroundWindow = SetForegroundWindow;
@@ -127,6 +128,7 @@ HOOKLIST g_hook_hooklist[] =
     {
         "gdi32.dll",
         {
+            { "BitBlt", (PROC)fake_BitBlt, (PROC*)&real_BitBlt, HOOK_SKIP_2 },
             { "StretchBlt", (PROC)fake_StretchBlt, (PROC*)&real_StretchBlt, HOOK_SKIP_2 },
             { "SetDIBitsToDevice", (PROC)fake_SetDIBitsToDevice, (PROC*)&real_SetDIBitsToDevice, HOOK_SKIP_2 },
             { "StretchDIBits", (PROC)fake_StretchDIBits, (PROC*)&real_StretchDIBits, HOOK_SKIP_2 },

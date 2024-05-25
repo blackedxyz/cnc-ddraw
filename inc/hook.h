@@ -45,6 +45,7 @@ typedef BOOL (WINAPI* SHOWWINDOWPROC)(HWND, int);
 typedef HWND(WINAPI* GETTOPWINDOWPROC)(HWND);
 typedef HWND(WINAPI* GETFOREGROUNDWINDOWPROC)();
 typedef BOOL(WINAPI* STRETCHBLTPROC)(HDC, int, int, int, int, HDC, int, int, int, int, DWORD);
+typedef BOOL(WINAPI* BITBLTPROC)(HDC, int, int, int, int, HDC, int, int, DWORD);
 
 typedef int (WINAPI* SETDIBITSTODEVICEPROC)(
     HDC, int, int, DWORD, DWORD, int, int, UINT, UINT, const VOID*, const BITMAPINFO*, UINT);
@@ -97,6 +98,7 @@ extern SHOWWINDOWPROC real_ShowWindow;
 extern GETTOPWINDOWPROC real_GetTopWindow;
 extern GETFOREGROUNDWINDOWPROC real_GetForegroundWindow;
 extern STRETCHBLTPROC real_StretchBlt;
+extern BITBLTPROC real_BitBlt;
 extern SETDIBITSTODEVICEPROC real_SetDIBitsToDevice;
 extern STRETCHDIBITSPROC real_StretchDIBits;
 extern SETFOREGROUNDWINDOWPROC real_SetForegroundWindow;

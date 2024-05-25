@@ -573,11 +573,11 @@ HRESULT dds_BltFast(
             }
             else
             {
-                BitBlt(dst_dc, dst_x, dst_y, dst_w, dst_h, src_dc, src_x, src_y, SRCCOPY);
+                real_BitBlt(dst_dc, dst_x, dst_y, dst_w, dst_h, src_dc, src_x, src_y, SRCCOPY);
             }
 
             /*
-            BitBlt(
+            real_BitBlt(
                 dst_dc, 
                 dwX, 
                 dwY, 

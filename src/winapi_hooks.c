@@ -823,6 +823,48 @@ BOOL WINAPI fake_StretchBlt(
     return real_StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, rop);
 }
 
+BOOL WINAPI fake_BitBlt(
+    HDC hdc, 
+    int x, 
+    int y, 
+    int cx, 
+    int cy, 
+    HDC hdcSrc, 
+    int x1, 
+    int y1, 
+    DWORD rop)
+{
+    if (g_ddraw.ref && g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd)
+    {
+        if (g_ddraw.primary && (g_ddraw.primary->bpp == 16 || g_ddraw.primary->bpp == 32 || g_ddraw.primary->palette))
+        {
+            HDC primary_dc;
+            dds_GetDC(g_ddraw.primary, &primary_dc);
+
+            if (primary_dc)
+            {
+                int result =
+                    real_BitBlt(
+                        primary_dc,
+                        x,
+                        y,
+                        cx,
+                        cy,
+                        hdcSrc,
+                        x1,
+                        y1,
+                        rop);
+
+                dds_ReleaseDC(g_ddraw.primary, primary_dc);
+
+                return result;
+            }
+        }
+    }
+
+    return real_BitBlt(hdc, x, y, cx, cy, hdcSrc, x1, y1, rop);
+}
+
 int WINAPI fake_SetDIBitsToDevice(
     HDC hdc,
     int xDest,

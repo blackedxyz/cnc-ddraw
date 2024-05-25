@@ -625,7 +625,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
 
                 real_MapWindowPoints(HWND_DESKTOP, g_ddraw.hwnd, (LPPOINT)&pos, 2);
 
-                BitBlt(dst_dc, 0, 0, size.right, size.bottom, src_dc, pos.left, pos.top, SRCCOPY);
+                real_BitBlt(dst_dc, 0, 0, size.right, size.bottom, src_dc, pos.left, pos.top, SRCCOPY);
 
                 ReleaseDC(hwnd, dst_dc);
             }
