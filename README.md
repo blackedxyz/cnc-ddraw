@@ -76,6 +76,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Atlantis 3: The New World
 - Atomic Bomberman
 - Atrox
+- Barbie(tm) Beach Vacation(tm)
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
