@@ -1285,7 +1285,7 @@ HWND WINAPI fake_CreateWindowExA(
     DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y,
     int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
 {
-    TRACE("CreateWindowExA("
+    TRACE("-> CreateWindowExA("
         "dwExStyle=%08X, lpClassName=%p, lpWindowName=%p, dwStyle=%08X, X=%d, Y=%d, nWidth=%d, "
         "nHeight=%d, hWndParent=%p, hMenu=%p, hInstance=%p, lpParam=%p)\n", 
         dwExStyle, 
@@ -1404,7 +1404,7 @@ HWND WINAPI fake_CreateWindowExA(
         }
     }
 
-    return real_CreateWindowExA(
+    HWND hwnd = real_CreateWindowExA(
         dwExStyle,
         lpClassName,
         lpWindowName,
@@ -1417,6 +1417,10 @@ HWND WINAPI fake_CreateWindowExA(
         hMenu,
         hInstance,
         lpParam);
+
+    TRACE("<- CreateWindowExA(hwnd=%p)\n", hwnd);
+
+    return hwnd;
 }
 
 HRESULT WINAPI fake_CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, REFIID riid, LPVOID* ppv)
