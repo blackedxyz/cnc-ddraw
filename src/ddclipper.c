@@ -69,11 +69,14 @@ HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWOR
     if (This->hwnd)
         return DDERR_CLIPPERISUSINGHWND;
 
-    if (This->region)
-        DeleteObject(This->region);
-
-    if (lpClipList && lpClipList->rdh.nCount >= 1)
+    if (lpClipList)
     {
+        if (!lpClipList->rdh.nCount)
+            return DDERR_INVALIDCLIPLIST;
+
+        if (This->region)
+            DeleteObject(This->region);
+
         RECT* rc = (RECT*)lpClipList->Buffer;
 
         This->region = CreateRectRgnIndirect(&rc[0]);
@@ -88,7 +91,7 @@ HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWOR
             if (!region)
                 return DDERR_INVALIDCLIPLIST;
 
-            if (CombineRgn(This->region, region, This->region, RGN_OR) == ERROR)
+            if (CombineRgn(This->region, region, This->region, RGN_XOR) == ERROR)
             {
                 DeleteObject(region);
                 DeleteObject(This->region);
@@ -102,6 +105,9 @@ HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWOR
     }
     else
     {
+        if (This->region)
+            DeleteObject(This->region);
+
         This->region = NULL;
     }
 
