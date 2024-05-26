@@ -86,12 +86,13 @@ HRESULT dds_Blt(
 
     BOOL is_stretch_blt = src_w != dst_w || src_h != dst_h;
 
-    /* Disable this for now (needs more testing)
     if (This->clipper && !(dwFlags & DDBLT_NO_CLIP) && dst_w > 0 && dst_h > 0)
     {
         DWORD size = 0;
 
-        if (SUCCEEDED(IDirectDrawClipper_GetClipList(This->clipper, &dst_rect, NULL, &size)))
+        HRESULT result = IDirectDrawClipper_GetClipList(This->clipper, &dst_rect, NULL, &size);
+
+        if (SUCCEEDED(result))
         {
             RGNDATA* list = (RGNDATA*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, size);
 
@@ -122,8 +123,15 @@ HRESULT dds_Blt(
                 return DD_OK;
             }
         }
+        else if (result == DDERR_NOCLIPLIST)
+        {
+            return DDERR_NOCLIPLIST;
+        }
+        else
+        {
+            return DDERR_INVALIDCLIPLIST;
+        }
     }
-    */
 
     if (dst_rect.right < 0)
         dst_rect.right = 0;

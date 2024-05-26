@@ -66,25 +66,45 @@ HRESULT ddc_IsClipListChanged(IDirectDrawClipperImpl* This, BOOL FAR* lpbChanged
 
 HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWORD dwFlags)
 {
-    /* Keep this commented out until we found a game that actually needs it
     if (This->hwnd)
         return DDERR_CLIPPERISUSINGHWND;
 
     if (This->region)
         DeleteObject(This->region);
 
-    if (lpClipList)
+    if (lpClipList && lpClipList->rdh.nCount >= 1)
     {
-        This->region = ExtCreateRegion(NULL, 0, lpClipList);
+        RECT* rc = (RECT*)lpClipList->Buffer;
+
+        This->region = CreateRectRgnIndirect(&rc[0]);
 
         if (!This->region)
             return DDERR_INVALIDCLIPLIST;
+
+        for (int i = 1; i < lpClipList->rdh.nCount; ++i)
+        {
+            HRGN region = CreateRectRgnIndirect(&rc[i]);
+
+            if (!region)
+                return DDERR_INVALIDCLIPLIST;
+
+            if (CombineRgn(This->region, region, This->region, RGN_OR) == ERROR)
+            {
+                DeleteObject(region);
+                DeleteObject(This->region);
+                This->region = NULL;
+
+                return DDERR_INVALIDCLIPLIST;
+            }
+
+            DeleteObject(region);
+        }
     }
     else
     {
         This->region = NULL;
     }
-    */
+
     return DD_OK;
 }
 

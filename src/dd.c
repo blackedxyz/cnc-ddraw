@@ -921,7 +921,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             real_SetWindowLongA(
                 g_ddraw.hwnd,
                 GWL_STYLE,
-                (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_OVERLAPPEDWINDOW) & ~WS_MAXIMIZE);
+                (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_OVERLAPPEDWINDOW) & ~(WS_MAXIMIZE | WS_SYSMENU));
         }
 
         LONG exstyle = real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE);
@@ -1003,6 +1003,8 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
         if (lock_mouse || (g_config.fullscreen && real_GetForegroundWindow() == g_ddraw.hwnd))
             mouse_lock();
+
+        real_SendMessageA(g_ddraw.hwnd, WM_ACTIVATEAPP_DDRAW, 1, 0);
     }
     else
     {
