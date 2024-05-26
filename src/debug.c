@@ -282,7 +282,7 @@ void dbg_dump_wnd_styles(DWORD style, DWORD exstyle)
 {
 #ifdef _DEBUG
     if (style & WS_BORDER) {
-         TRACE("    WS_BORDER\n");
+        TRACE("     WS_BORDER\n");
     }
     if (style & WS_CAPTION) {
         TRACE("     WS_CAPTION\n");
