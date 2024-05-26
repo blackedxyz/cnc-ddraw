@@ -91,7 +91,7 @@ HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWOR
             if (!region)
                 return DDERR_INVALIDCLIPLIST;
 
-            if (CombineRgn(This->region, region, This->region, RGN_XOR) == ERROR)
+            if (CombineRgn(This->region, region, This->region, RGN_OR) == ERROR)
             {
                 DeleteObject(region);
                 DeleteObject(This->region);
