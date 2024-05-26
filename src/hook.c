@@ -138,6 +138,16 @@ HOOKLIST g_hook_hooklist[] =
             { "", NULL, NULL, 0 }
         }
     },
+    /*
+    {
+        "WING32.DLL",
+        {
+            { "WinGBitBlt", (PROC)fake_WinGBitBlt, NULL, HOOK_SKIP_2 },
+            { "WinGStretchBlt", (PROC)fake_WinGStretchBlt, NULL, HOOK_SKIP_2 },
+            { "", NULL, NULL, 0 }
+        }
+    },
+    */
     {
         "kernel32.dll",
         {

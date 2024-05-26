@@ -823,6 +823,21 @@ BOOL WINAPI fake_StretchBlt(
     return real_StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, rop);
 }
 
+BOOL WINAPI fake_WinGStretchBlt(
+    HDC hdcDest,
+    int xDest,
+    int yDest,
+    int wDest,
+    int hDest,
+    HDC hdcSrc,
+    int xSrc,
+    int ySrc,
+    int wSrc,
+    int hSrc)
+{
+    return fake_StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, SRCCOPY);
+}
+
 BOOL WINAPI fake_BitBlt(
     HDC hdc, 
     int x, 
@@ -860,9 +875,37 @@ BOOL WINAPI fake_BitBlt(
                 return result;
             }
         }
+        else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
+        {
+            return real_StretchBlt(
+                g_ddraw.render.hdc,
+                x + g_ddraw.render.viewport.x,
+                y + g_ddraw.render.viewport.y,
+                (int)(cx * g_ddraw.render.scale_w),
+                (int)(cy * g_ddraw.render.scale_h),
+                hdcSrc,
+                x1,
+                y1,
+                cx,
+                cy,
+                rop);
+        }
     }
 
     return real_BitBlt(hdc, x, y, cx, cy, hdcSrc, x1, y1, rop);
+}
+
+BOOL WINAPI fake_WinGBitBlt(
+    HDC hdc,
+    int x,
+    int y,
+    int cx,
+    int cy,
+    HDC hdcSrc,
+    int x1,
+    int y1)
+{
+    return fake_BitBlt(hdc, x, y, cx, cy, hdcSrc, x1, y1, SRCCOPY);
 }
 
 int WINAPI fake_SetDIBitsToDevice(

@@ -40,6 +40,12 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index);
 BOOL WINAPI fake_StretchBlt(
     HDC hdcDest, int xDest, int yDest, int wDest, int hDest, HDC hdcSrc, int xSrc, int ySrc, int wSrc, int hSrc, DWORD rop);
 
+BOOL WINAPI fake_WinGStretchBlt(
+    HDC hdcDest, int xDest, int yDest, int wDest, int hDest, HDC hdcSrc, int xSrc, int ySrc, int wSrc, int hSrc);
+
+BOOL WINAPI fake_WinGBitBlt(
+    HDC hdc, int x, int y, int cx, int cy, HDC hdcSrc, int x1, int y1);
+
 BOOL WINAPI fake_BitBlt(
     HDC hdc, int x, int y, int cx, int cy, HDC hdcSrc, int x1, int y1, DWORD rop);
 
