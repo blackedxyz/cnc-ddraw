@@ -71,15 +71,15 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Anno 1602: Creation of a New World
 - Anstoss 3
 - Arcanum: Of Steamworks and Magick Obscura
-- Atlantis: The Lost Tales
 - Atlantis 2: Beyond Atlantis
 - Atlantis 3: The New World
+- Atlantis: The Lost Tales
 - Atomic Bomberman
 - Atrox
-- Barbie(tm) Beach Vacation(tm)
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
+- Barbie(tm) Beach Vacation(tm)
 - Blade & Sword
 - Blood II - The Chosen
 - Caesar III (Sierra - 1998)
@@ -95,6 +95,12 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Close Combat 3: The Russian Front
 - Close Combat 4: The Battle of the Bulge
 - Close Combat 5: Invasion: Normandy
+- ClueFinders 4th Grade Adventures
+- ClueFinders 5th Grade Adventures
+- ClueFinders 6th Grade Adventures
+- ClueFinders Math Adventures 1.0
+- ClueFinders Math Adventures 2.0
+- ClueFinders(R) Reading Adventures Ages 9-12
 - Command & Conquer Gold
 - Command & Conquer: Red Alert
 - Command & Conquer: Red Alert 2
@@ -173,17 +179,17 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Majesty Gold
 - Majesty Gold HD
 - Mech Warrior 3
-- Metal Gear Solid
 - Megaman X4
+- Metal Gear Solid
 - Moorhuhn
 - Moorhuhn 2
 - Moorhuhn Winter Editon
 - Moto Racer
 - Moto Racer 2
 - Nancy Drew: Last Train to Blue Moon Canyon
+- Nancy Drew: Message in a Haunted Mansion
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
-- Nancy Drew: Message in a Haunted Mansion
 - Nancy Drew: Treasure in the Royal Tower
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
@@ -206,6 +212,9 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Quest for Glory 5
 - Rage of Mages 2
 - Railroad Tycoon II
+- Reader Rabbit Reading Ages 4-6
+- Reader Rabbit Reading Ages 6-9
+- Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Red Baron 3D
 - Reksio and Captain Nemo (AKA Reksio si Capitanul Nemo)
 - Reksio and Kretes in Action (AKA Reksio si Kretes in Actiune)
@@ -248,8 +257,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Twisted Metal
 - Twisted Metal 2
 - Tzar: The Burden of the Crown
-- Uprising: Join or Die
 - Uprising 2: Lead and Destroy
+- Uprising: Join or Die
 - Vermeer
 - Virtua Fighter PC
 - War Wind
