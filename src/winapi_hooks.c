@@ -835,7 +835,11 @@ BOOL WINAPI fake_WinGStretchBlt(
     int wSrc,
     int hSrc)
 {
-    return fake_StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, SRCCOPY);
+    int mode = SetStretchBltMode(hdcDest, COLORONCOLOR);
+    BOOL result = fake_StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, SRCCOPY);
+    SetStretchBltMode(hdcDest, mode);
+
+    return result;
 }
 
 BOOL WINAPI fake_BitBlt(
