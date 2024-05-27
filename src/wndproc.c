@@ -431,7 +431,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                     g_config.window_rect.right = LOWORD(lParam);
                     g_config.window_rect.bottom = HIWORD(lParam);
                 }
-                else if (!in_size_move && !g_config.fullscreen && g_config.wine_allow_resize && IsLinux())
+                else if (!in_size_move && g_ddraw.render.thread && !g_config.fullscreen && g_config.wine_allow_resize && IsLinux())
                 {
                     g_config.window_rect.right = LOWORD(lParam);
                     g_config.window_rect.bottom = HIWORD(lParam);
