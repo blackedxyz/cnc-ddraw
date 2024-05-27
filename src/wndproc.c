@@ -175,11 +175,6 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         uMsg = WM_DISPLAYCHANGE;
         break;
     }
-    case WM_ACTIVATEAPP_DDRAW:
-    {
-        uMsg = WM_ACTIVATEAPP;
-        break;
-    }
     case WM_D3D9DEVICELOST:
     {
         if (((!g_config.windowed && !g_config.nonexclusive) || !util_is_minimized(g_ddraw.hwnd)) &&
@@ -672,10 +667,10 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
         if (g_config.windowed || g_config.noactivateapp)
         {
-            /* let it pass through once (tiberian sun) */
+            /* let it pass through once (tiberian sun / ClueFinders) */
             static BOOL one_time;
         
-            if (wParam && !one_time && g_config.tshack)
+            if (wParam && !one_time)
             {
                 one_time = TRUE;
                 break;
