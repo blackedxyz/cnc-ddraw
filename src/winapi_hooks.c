@@ -807,8 +807,8 @@ BOOL WINAPI fake_StretchBlt(
         {
             return real_StretchBlt(
                 g_ddraw.render.hdc,
-                xDest + g_ddraw.render.viewport.x,
-                yDest + g_ddraw.render.viewport.y,
+                (xDest * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
+                (yDest * g_ddraw.render.scale_w) + g_ddraw.render.viewport.y,
                 (int)(wDest * g_ddraw.render.scale_w),
                 (int)(hDest * g_ddraw.render.scale_h),
                 hdcSrc,
@@ -879,8 +879,8 @@ BOOL WINAPI fake_BitBlt(
         {
             return real_StretchBlt(
                 g_ddraw.render.hdc,
-                x + g_ddraw.render.viewport.x,
-                y + g_ddraw.render.viewport.y,
+                (x * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
+                (y * g_ddraw.render.scale_w) + g_ddraw.render.viewport.y,
                 (int)(cx * g_ddraw.render.scale_w),
                 (int)(cy * g_ddraw.render.scale_h),
                 hdcSrc,
@@ -1022,8 +1022,8 @@ int WINAPI fake_StretchDIBits(
             return
                 real_StretchDIBits(
                     g_ddraw.render.hdc,
-                    xDest + g_ddraw.render.viewport.x,
-                    yDest + g_ddraw.render.viewport.y,
+                    (xDest * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
+                    (yDest * g_ddraw.render.scale_h) + g_ddraw.render.viewport.y,
                     (int)(DestWidth * g_ddraw.render.scale_w),
                     (int)(DestHeight * g_ddraw.render.scale_h),
                     xSrc,
