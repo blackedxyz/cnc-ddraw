@@ -578,6 +578,30 @@ HRESULT dd_RestoreDisplayMode()
 
 HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFlags)
 {
+    if (!dwWidth)
+    {
+        dwWidth = g_ddraw.width;
+
+        if (!dwWidth)
+            dwWidth = 800;
+    }
+
+    if (!dwHeight)
+    {
+        dwHeight = g_ddraw.height;
+
+        if (!dwHeight)
+            dwHeight = 600;
+    }
+
+    if (!dwBPP)
+    {
+        dwBPP = g_ddraw.bpp;
+
+        if (!dwBPP)
+            dwBPP = 16;
+    }
+
     if (dwBPP != 8 && dwBPP != 16 && dwBPP != 32)
         return DDERR_INVALIDMODE;
 
