@@ -172,6 +172,19 @@ HRESULT ddc_SetHWnd(IDirectDrawClipperImpl* This, DWORD dwFlags, HWND hWnd)
     return DD_OK;
 }
 
+HRESULT ddc_SetClipRect(IDirectDrawClipperImpl* This, LPRECT lpRect)
+{
+    EnterCriticalSection(&This->cs);
+
+    if (This->region)
+        DeleteObject(This->region);
+
+    This->region = CreateRectRgnIndirect(lpRect);
+
+    LeaveCriticalSection(&This->cs);
+    return DD_OK;
+}
+
 HRESULT dd_CreateClipper(DWORD dwFlags, IDirectDrawClipperImpl** lplpDDClipper, IUnknown FAR* pUnkOuter)
 {
     if (!lplpDDClipper)

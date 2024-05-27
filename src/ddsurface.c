@@ -11,6 +11,7 @@
 #include "utils.h"
 #include "blt.h"
 #include "config.h"
+#include "ddclipper.h"
 #include "versionhelpers.h"
 
 
@@ -90,7 +91,7 @@ HRESULT dds_Blt(
     {
         DWORD size = 0;
 
-        HRESULT result = IDirectDrawClipper_GetClipList(This->clipper, &dst_rect, NULL, &size);
+        HRESULT result = ddc_GetClipList(This->clipper, &dst_rect, NULL, &size);
 
         if (SUCCEEDED(result))
         {
@@ -98,7 +99,7 @@ HRESULT dds_Blt(
 
             if (list)
             {
-                if (SUCCEEDED(IDirectDrawClipper_GetClipList(This->clipper, &dst_rect, list, &size)))
+                if (SUCCEEDED(ddc_GetClipList(This->clipper, &dst_rect, list, &size)))
                 {
                     RECT* dst_c_rect = (RECT*)list->Buffer;
 
@@ -125,11 +126,13 @@ HRESULT dds_Blt(
         }
         else if (result == DDERR_NOCLIPLIST)
         {
-            return DDERR_NOCLIPLIST;
+            TRACE("     DDERR_NOCLIPLIST\n");
+            //return DDERR_NOCLIPLIST;
         }
         else
         {
-            return DDERR_INVALIDCLIPLIST;
+            TRACE("     DDERR_INVALIDCLIPLIST\n");
+            //return DDERR_INVALIDCLIPLIST;
         }
     }
 
@@ -1023,12 +1026,8 @@ HRESULT dds_SetClipper(IDirectDrawSurfaceImpl* This, IDirectDrawClipperImpl* lpC
 
         if ((This->caps & DDSCAPS_PRIMARYSURFACE) && lpClipper->hwnd)
         {
-            if (lpClipper->region)
-                DeleteObject(lpClipper->region);
-
             RECT rc = { 0, 0, This->width, This->height };
-
-            lpClipper->region = CreateRectRgnIndirect(&rc);
+            ddc_SetClipRect(lpClipper, &rc);
         }
     }
 
