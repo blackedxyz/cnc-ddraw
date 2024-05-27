@@ -31,6 +31,8 @@ ULONG __stdcall IDirectDrawClipper__Release(IDirectDrawClipperImpl* This)
         if (This->region)
             DeleteObject(This->region);
 
+        DeleteCriticalSection(&This->cs);
+
         HeapFree(GetProcessHeap(), 0, This);
     }
 

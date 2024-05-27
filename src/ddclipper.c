@@ -7,11 +7,19 @@
 
 HRESULT ddc_GetClipList(IDirectDrawClipperImpl* This, LPRECT lpRect, LPRGNDATA lpClipList, LPDWORD lpdwSiz)
 {
+    EnterCriticalSection(&This->cs);
+
     if (!This->region)
+    {
+        LeaveCriticalSection(&This->cs);
         return DDERR_NOCLIPLIST;
+    }    
 
     if (!lpdwSiz)
+    {
+        LeaveCriticalSection(&This->cs);
         return DDERR_INVALIDPARAMS;
+    }
 
     HRGN region = NULL;
 
@@ -20,11 +28,16 @@ HRESULT ddc_GetClipList(IDirectDrawClipperImpl* This, LPRECT lpRect, LPRGNDATA l
         region = CreateRectRgnIndirect(lpRect);
 
         if (!region)
+        {
+            LeaveCriticalSection(&This->cs);
             return DDERR_INVALIDPARAMS;
+        }
 
         if (CombineRgn(region, This->region, region, RGN_AND) == ERROR)
         {
             DeleteObject(region);
+
+            LeaveCriticalSection(&This->cs);
             return DDERR_GENERIC;
         }
     }
@@ -39,40 +52,64 @@ HRESULT ddc_GetClipList(IDirectDrawClipperImpl* This, LPRECT lpRect, LPRGNDATA l
         DeleteObject(region);
 
     if (*lpdwSiz == 0)
+    {
+        LeaveCriticalSection(&This->cs);
         return DDERR_REGIONTOOSMALL;
+    }
 
+    LeaveCriticalSection(&This->cs);
     return DD_OK;
 }
 
 HRESULT ddc_GetHWnd(IDirectDrawClipperImpl* This, HWND FAR* lphWnd)
 {
+    EnterCriticalSection(&This->cs);
+
     if (!lphWnd)
+    {
+        LeaveCriticalSection(&This->cs);
         return DDERR_INVALIDPARAMS;
+    }
 
     *lphWnd = This->hwnd;
 
+    LeaveCriticalSection(&This->cs);
     return DD_OK;
 }
 
 HRESULT ddc_IsClipListChanged(IDirectDrawClipperImpl* This, BOOL FAR* lpbChanged)
 {
+    EnterCriticalSection(&This->cs);
+
     if (!lpbChanged)
+    {
+        LeaveCriticalSection(&This->cs);
         return DDERR_INVALIDPARAMS;
+    }
 
     *lpbChanged = FALSE; /* Always return FALSE - See ddc_SetHWnd for remarks */
 
+    LeaveCriticalSection(&This->cs);
     return DD_OK;
 }
 
 HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWORD dwFlags)
 {
+    EnterCriticalSection(&This->cs);
+
     if (This->hwnd)
+    {
+        LeaveCriticalSection(&This->cs);
         return DDERR_CLIPPERISUSINGHWND;
+    }
 
     if (lpClipList)
     {
         if (!lpClipList->rdh.nCount)
+        {
+            LeaveCriticalSection(&This->cs);
             return DDERR_INVALIDCLIPLIST;
+        }
 
         if (This->region)
             DeleteObject(This->region);
@@ -82,14 +119,20 @@ HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWOR
         This->region = CreateRectRgnIndirect(&rc[0]);
 
         if (!This->region)
+        {
+            LeaveCriticalSection(&This->cs);
             return DDERR_INVALIDCLIPLIST;
+        }
 
         for (int i = 1; i < lpClipList->rdh.nCount; ++i)
         {
             HRGN region = CreateRectRgnIndirect(&rc[i]);
 
             if (!region)
+            {
+                LeaveCriticalSection(&This->cs);
                 return DDERR_INVALIDCLIPLIST;
+            }
 
             if (CombineRgn(This->region, region, This->region, RGN_OR) == ERROR)
             {
@@ -97,6 +140,7 @@ HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWOR
                 DeleteObject(This->region);
                 This->region = NULL;
 
+                LeaveCriticalSection(&This->cs);
                 return DDERR_INVALIDCLIPLIST;
             }
 
@@ -111,17 +155,20 @@ HRESULT ddc_SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWOR
         This->region = NULL;
     }
 
+    LeaveCriticalSection(&This->cs);
     return DD_OK;
 }
 
 HRESULT ddc_SetHWnd(IDirectDrawClipperImpl* This, DWORD dwFlags, HWND hWnd)
 {
+    EnterCriticalSection(&This->cs);
     /* 
     We don't use the regions from the hwnd here since everything is emulated and we need the entire
     emulated surface to be redrawn all the time
     */
     This->hwnd = hWnd;
 
+    LeaveCriticalSection(&This->cs);
     return DD_OK;
 }
 
@@ -137,6 +184,7 @@ HRESULT dd_CreateClipper(DWORD dwFlags, IDirectDrawClipperImpl** lplpDDClipper, 
 
     c->lpVtbl = &g_ddc_vtbl;
     IDirectDrawClipper_AddRef(c);
+    InitializeCriticalSection(&c->cs);
 
     *lplpDDClipper = c;
 
