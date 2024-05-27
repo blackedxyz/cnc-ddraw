@@ -212,6 +212,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Quest for Glory 5
 - Rage of Mages 2
 - Railroad Tycoon II
+- Reader Rabbit Toddler: Playtime for Baby
+- Reader Rabbit Toddler: Fly the Dreamship
 - Reader Rabbit Learn To Read With Phonics
 - Reader Rabbit Reading Ages 4-6
 - Reader Rabbit Reading Ages 6-9
