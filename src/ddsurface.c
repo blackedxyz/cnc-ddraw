@@ -87,7 +87,7 @@ HRESULT dds_Blt(
 
     BOOL is_stretch_blt = src_w != dst_w || src_h != dst_h;
 
-    if (This->clipper && !(dwFlags & DDBLT_NO_CLIP) && dst_w > 0 && dst_h > 0)
+    if (This->clipper && !This->clipper->hwnd && !(dwFlags & DDBLT_NO_CLIP) && dst_w > 0 && dst_h > 0)
     {
         DWORD size = 0;
 
