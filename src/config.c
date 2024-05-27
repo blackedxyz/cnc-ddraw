@@ -109,6 +109,7 @@ void cfg_load()
     GET_BOOL(g_config.infantryhack, "infantryhack", FALSE);
     GET_BOOL(g_config.stronghold_hack, "stronghold_hack", FALSE);
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
+    GET_BOOL(g_config.learning_company_hack, "learning_company_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -665,6 +666,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders 4th Grade Adventures\n"
             "[4thadv32]\n"
+            "learning_company_hack=true\n" 
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -672,6 +674,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders 4th Grade Adventures\n"
             "[4thad32]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -679,6 +682,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders 5th Grade Adventures\n"
             "[5thadv32]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -686,6 +690,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders 5th Grade Adventures\n"
             "[5thad32]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -693,6 +698,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders 6th Grade Adventures\n"
             "[CF6]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -700,6 +706,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders(R) Reading Adventures Ages 9-12\n"
             "[cfread]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -707,6 +714,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders Math Adventures 1.0\n"
             "[TCFM32]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -714,6 +722,7 @@ static void cfg_create_ini()
             "\n"
             "; ClueFinders Math Adventures 2.0\n"
             "[cfmath32]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
@@ -998,6 +1007,7 @@ static void cfg_create_ini()
             "\n"
             "; Reader Rabbit's(R) Math Ages 6 - 9 (2002)\n"
             "[RRM69_32]\n"
+            "learning_company_hack=true\n"
             "adjmouse=false\n"
             "fixchilds=3\n"
             "maintas=false\n"
