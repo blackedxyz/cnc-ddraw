@@ -109,7 +109,7 @@ void cfg_load()
     GET_BOOL(g_config.infantryhack, "infantryhack", FALSE);
     GET_BOOL(g_config.stronghold_hack, "stronghold_hack", FALSE);
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
-    //GET_BOOL(g_config.learning_company_hack, "learning_company_hack", FALSE);
+    GET_BOOL(g_config.learning_company_hack, "learning_company_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
