@@ -67,6 +67,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Airline Tycoon Deluxe
 - Alien Nations
 - American Conquest (Steam+GOG)
+- American Girls Dress Designer
 - Amerzone
 - Anno 1602: Creation of a New World
 - Anstoss 3
