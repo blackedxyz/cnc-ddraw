@@ -170,7 +170,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Kings Quest 8: Mask of Eternity
 - KKND Xtreme
 - KKND2: Krossfire
-- Knights and Merchants
+- Knights and Merchants: The Shattered Kingdom
+- Knights and Merchants: The Peasants Rebellion
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
