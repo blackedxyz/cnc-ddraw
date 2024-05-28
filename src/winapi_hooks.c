@@ -806,7 +806,7 @@ BOOL WINAPI fake_StretchBlt(
         else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
         {
             return real_StretchBlt(
-                g_ddraw.render.hdc,
+                hwnd == g_ddraw.hwnd ? hdcDest : g_ddraw.render.hdc,
                 (int)(xDest * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
                 (int)(yDest * g_ddraw.render.scale_h) + g_ddraw.render.viewport.y,
                 (int)(wDest * g_ddraw.render.scale_w),
@@ -853,7 +853,9 @@ BOOL WINAPI fake_BitBlt(
     int y1, 
     DWORD rop)
 {
-    if (g_ddraw.ref && g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd)
+    HWND hwnd = WindowFromDC(hdc);
+
+    if (g_ddraw.ref && g_ddraw.hwnd && hwnd == g_ddraw.hwnd)
     {
         if (g_ddraw.primary && (g_ddraw.primary->bpp == 16 || g_ddraw.primary->bpp == 32 || g_ddraw.primary->palette))
         {
@@ -882,7 +884,7 @@ BOOL WINAPI fake_BitBlt(
         else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
         {
             return real_StretchBlt(
-                g_ddraw.render.hdc,
+                hwnd == g_ddraw.hwnd ? hdc : g_ddraw.render.hdc,
                 (int)(x * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
                 (int)(y * g_ddraw.render.scale_h) + g_ddraw.render.viewport.y,
                 (int)(cx * g_ddraw.render.scale_w),
@@ -1025,7 +1027,7 @@ int WINAPI fake_StretchDIBits(
         {
             return
                 real_StretchDIBits(
-                    g_ddraw.render.hdc,
+                    hwnd == g_ddraw.hwnd ? hdc : g_ddraw.render.hdc,
                     (int)(xDest * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
                     (int)(yDest * g_ddraw.render.scale_h) + g_ddraw.render.viewport.y,
                     (int)(DestWidth * g_ddraw.render.scale_w),
