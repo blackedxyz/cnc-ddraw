@@ -546,18 +546,15 @@ HRESULT dd_RestoreDisplayMode()
         return DD_OK;
     }
 
-    if (g_ddraw.renderer != gdi_render_main)
-    {
-        EnterCriticalSection(&g_ddraw.cs);
-        g_ddraw.render.run = FALSE;
-        ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
-        LeaveCriticalSection(&g_ddraw.cs);
+    EnterCriticalSection(&g_ddraw.cs);
+    g_ddraw.render.run = FALSE;
+    ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
+    LeaveCriticalSection(&g_ddraw.cs);
 
-        if (g_ddraw.render.thread)
-        {
-            WaitForSingleObject(g_ddraw.render.thread, INFINITE);
-            g_ddraw.render.thread = NULL;
-        }
+    if (g_ddraw.render.thread)
+    {
+        WaitForSingleObject(g_ddraw.render.thread, INFINITE);
+        g_ddraw.render.thread = NULL;
     }
 
     if (!g_config.windowed)

@@ -11,6 +11,7 @@
 #include "mouse.h"
 #include "wndproc.h"
 #include "render_gdi.h"
+#include "render_d3d9.h"
 #include "directinput.h"
 #include "ddsurface.h"
 #include "ddclipper.h"
@@ -1320,13 +1321,28 @@ BOOL WINAPI fake_DestroyWindow(HWND hWnd)
 {
     TRACE("DestroyWindow(hwnd=%p) - g_ddraw.hwnd=%p\n", hWnd, g_ddraw.hwnd);
 
+    if (g_ddraw.ref && hWnd && hWnd == g_ddraw.hwnd)
+    {
+        dd_RestoreDisplayMode();
+
+        if (g_ddraw.renderer == d3d9_render_main)
+        {
+            d3d9_release();
+        }
+    }
+
     BOOL result = real_DestroyWindow(hWnd);
 
-    if (result && g_ddraw.ref && hWnd == g_ddraw.hwnd)
+    if (result && g_ddraw.ref && hWnd && hWnd == g_ddraw.hwnd)
     {
         g_ddraw.hwnd = NULL;
         g_ddraw.wndproc = NULL;
         g_ddraw.render.hdc = NULL;
+
+        if (g_config.fake_mode[0])
+        {
+            dd_SetCooperativeLevel(NULL, DDSCL_NORMAL);
+        }
     }
 
     if (g_ddraw.ref && g_ddraw.hwnd != hWnd && g_ddraw.bnet_active)

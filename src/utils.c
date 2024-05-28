@@ -553,9 +553,12 @@ void util_set_window_rect(int x, int y, int width, int height, UINT flags)
 
 BOOL CALLBACK util_enum_thread_wnd_proc(HWND hwnd, LPARAM lParam)
 {
+    RECT size = { 0 };
+    real_GetClientRect(hwnd, &size);
+
     LONG sytle = real_GetWindowLongA(hwnd, GWL_STYLE);
 
-    if (!g_ddraw.hwnd && !(sytle & WS_DISABLED))
+    if (!g_ddraw.hwnd && !(sytle & WS_DISABLED) && size.right > 0 && size.bottom > 0)
         g_ddraw.hwnd = hwnd;
 
 #ifdef _DEBUG
@@ -567,9 +570,6 @@ BOOL CALLBACK util_enum_thread_wnd_proc(HWND hwnd, LPARAM lParam)
 
     RECT pos = { 0 };
     real_GetWindowRect(hwnd, &pos);
-
-    RECT size = { 0 };
-    real_GetClientRect(hwnd, &size);
 
     LONG exsytle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
 
