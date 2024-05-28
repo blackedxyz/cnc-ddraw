@@ -78,6 +78,7 @@ void cfg_load()
     GET_BOOL(g_config.limit_bltfast, "limit_bltfast", FALSE);
     GET_BOOL(g_config.lock_surfaces, "lock_surfaces", FALSE);
     GET_BOOL(g_config.allow_wmactivate, "allow_wmactivate", FALSE);
+    g_config.allow_wmactivate = TRUE;
     GET_BOOL(g_config.flipclear, "flipclear", FALSE);
     GET_BOOL(g_config.fixmousehook, "fixmousehook", FALSE);
     GET_BOOL(g_config.rgb555, "rgb555", FALSE);
@@ -481,6 +482,18 @@ static void cfg_create_ini()
             "; Carmageddon 2\n"
             "[Carma2_SW]\n"
             "noactivateapp=true\n"
+            "\n"
+            "; Carmen Sandiego's Great Chase - NOT WORKING YET\n"
+            "[TIME32]\n"
+            "learning_company_hack=true\n"
+            "allow_wmactivate=true\n"
+            "renderer=gdi\n"
+            "adjmouse=false\n"
+            "width=0\n"
+            "height=0\n"
+            "resizable=false\n"
+            "maintas=false\n"
+            "boxing=false\n"
             "\n"
             "; Captain Claw\n"
             "[claw]\n"
