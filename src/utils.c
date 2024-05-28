@@ -553,10 +553,34 @@ void util_set_window_rect(int x, int y, int width, int height, UINT flags)
 
 BOOL CALLBACK util_enum_thread_wnd_proc(HWND hwnd, LPARAM lParam)
 {
-    if (!g_ddraw.hwnd)
+    LONG sytle = real_GetWindowLongA(hwnd, GWL_STYLE);
+
+    if (!g_ddraw.hwnd && !(sytle & WS_DISABLED))
         g_ddraw.hwnd = hwnd;
 
-    return FALSE;
+#ifdef _DEBUG
+    char class[MAX_PATH] = { 0 };
+    GetClassNameA(hwnd, class, sizeof(class) - 1);
+
+    char title[MAX_PATH] = { 0 };
+    GetWindowTextA(hwnd, title, sizeof(title) - 1);
+
+    RECT pos = { 0 };
+    real_GetWindowRect(hwnd, &pos);
+
+    RECT size = { 0 };
+    real_GetClientRect(hwnd, &size);
+
+    LONG exsytle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
+
+    TRACE(
+        "%s(class=%s, title=%s, X=%d, Y=%d, nWidth=%d, nHeight=%d)\n",
+        __FUNCTION__, class, title, pos.left, pos.top, size.right, size.bottom);
+
+    dbg_dump_wnd_styles(sytle, exsytle);
+#endif
+
+    return TRUE;
 }
 
 BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)

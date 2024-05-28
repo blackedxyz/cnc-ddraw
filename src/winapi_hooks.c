@@ -1318,6 +1318,8 @@ BOOL WINAPI fake_GetDiskFreeSpaceA(
 
 BOOL WINAPI fake_DestroyWindow(HWND hWnd)
 {
+    TRACE("DestroyWindow(hwnd=%p) - g_ddraw.hwnd=%p\n", hWnd, g_ddraw.hwnd);
+
     BOOL result = real_DestroyWindow(hWnd);
 
     if (result && g_ddraw.ref && hWnd == g_ddraw.hwnd)
