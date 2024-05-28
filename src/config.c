@@ -78,7 +78,6 @@ void cfg_load()
     GET_BOOL(g_config.limit_bltfast, "limit_bltfast", FALSE);
     GET_BOOL(g_config.lock_surfaces, "lock_surfaces", FALSE);
     GET_BOOL(g_config.allow_wmactivate, "allow_wmactivate", FALSE);
-    g_config.allow_wmactivate = TRUE;
     GET_BOOL(g_config.flipclear, "flipclear", FALSE);
     GET_BOOL(g_config.fixmousehook, "fixmousehook", FALSE);
     GET_BOOL(g_config.rgb555, "rgb555", FALSE);
@@ -110,7 +109,7 @@ void cfg_load()
     GET_BOOL(g_config.infantryhack, "infantryhack", FALSE);
     GET_BOOL(g_config.stronghold_hack, "stronghold_hack", FALSE);
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
-    GET_BOOL(g_config.learning_company_hack, "learning_company_hack", FALSE);
+    //GET_BOOL(g_config.learning_company_hack, "learning_company_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
