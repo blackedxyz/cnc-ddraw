@@ -878,8 +878,11 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         g_ddraw.mouse.unscale_y = ((float)(g_ddraw.height - 1) / (g_ddraw.render.viewport.height - 1));
     }
 
-    g_ddraw.mouse.x_adjust = g_ddraw.render.viewport.x;
-    g_ddraw.mouse.y_adjust = g_ddraw.render.viewport.y;
+    if (!g_config.lock_mouse_top_left)
+    {
+        g_ddraw.mouse.x_adjust = g_ddraw.render.viewport.x;
+        g_ddraw.mouse.y_adjust = g_ddraw.render.viewport.y;
+    }
 
     g_ddraw.mouse.rc.left = g_ddraw.mouse.x_adjust;
     g_ddraw.mouse.rc.top = g_ddraw.mouse.y_adjust;
