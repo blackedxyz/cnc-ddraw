@@ -534,6 +534,13 @@ BOOL WINAPI fake_ShowWindow(HWND hWnd, int nCmdShow)
 {
     if (g_ddraw.ref && g_ddraw.hwnd == hWnd)
     {
+        /* Make sure we got close/move menu items (Almost all of the The Learning Company games) */
+        HMENU menu = GetSystemMenu(hWnd, FALSE);
+        if (!menu || GetMenuState(menu, SC_CLOSE, MF_BYCOMMAND) == -1 || GetMenuState(menu, SC_MOVE, MF_BYCOMMAND) == -1)
+        {
+            GetSystemMenu(hWnd, TRUE);
+        }
+
         if (nCmdShow == SW_SHOWMAXIMIZED)
             nCmdShow = SW_SHOWNORMAL;
 

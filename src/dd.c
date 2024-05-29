@@ -924,12 +924,10 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         }
         else
         {
-            DWORD rem_flags = (g_config.learning_company_hack ? WS_SYSMENU : 0) | WS_MAXIMIZE;
-
             real_SetWindowLongA(
                 g_ddraw.hwnd,
                 GWL_STYLE,
-                (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_OVERLAPPEDWINDOW) & ~(rem_flags));
+                (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_OVERLAPPEDWINDOW) & ~(WS_MAXIMIZE));
         }
 
         LONG exstyle = real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE);
