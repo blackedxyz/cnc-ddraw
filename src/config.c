@@ -494,7 +494,7 @@ static void cfg_create_ini()
             "[TIME32]\n"
             "allow_wmactivate=true\n"
             "renderer=gdi\n"
-            "lock_mouse_top_left=true\n"
+            "adjmouse=false\n"
             "width=0\n"
             "height=0\n"
             "resizable=false\n"
