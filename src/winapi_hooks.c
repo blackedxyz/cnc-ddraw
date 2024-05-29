@@ -222,9 +222,10 @@ BOOL WINAPI fake_GetWindowRect(HWND hWnd, LPRECT lpRect)
     if (lpRect &&
         g_ddraw.ref &&
         g_ddraw.hwnd &&
+        g_ddraw.width &&
         (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
     {
-        if (g_ddraw.hwnd == hWnd)
+        if (hWnd == g_ddraw.hwnd || hWnd == GetDesktopWindow())
         {
             lpRect->bottom = g_ddraw.height;
             lpRect->left = 0;
@@ -253,7 +254,8 @@ BOOL WINAPI fake_GetClientRect(HWND hWnd, LPRECT lpRect)
 {
     if (lpRect &&
         g_ddraw.ref &&
-        g_ddraw.hwnd == hWnd &&
+        g_ddraw.width &&
+        (g_ddraw.hwnd == hWnd || hWnd == GetDesktopWindow()) &&
         (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
     {
         lpRect->bottom = g_ddraw.height;
