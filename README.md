@@ -184,6 +184,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
+- Little Bear Rainy Day Activities
+- Little Bear Kindergarten Thinking Adventures
 - Lionheart - Legacy of the Crusader
 - Locomotion
 - Lode Runner 2
