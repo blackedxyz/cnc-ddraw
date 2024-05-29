@@ -227,7 +227,6 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reader Rabbit 2nd Grade
 - Reader Rabbit Dreamship Tales
 - Reader Rabbit Kindergarten
-- Reader Rabbit Kindergarten
 - Reader Rabbit Kindergarten: Creative 
 - Reader Rabbit Kindergarten: Learning Creations
 - Reader Rabbit Learn To Read With Phonics
