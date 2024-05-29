@@ -72,6 +72,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Anno 1602: Creation of a New World
 - Anstoss 3
 - Arcanum: Of Steamworks and Magick Obscura
+- Arthur's Pet Chase
+- Arthur's Sand Castle Contest
 - Atlantis 2: Beyond Atlantis
 - Atlantis 3: The New World
 - Atlantis: The Lost Tales
@@ -81,6 +83,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Baldur's Gate
 - Baldur's Gate 2
 - Barbie(tm) Beach Vacation(tm)
+- Batman: Justice Unbalanced
+- Batman: Toxic Chill
 - Blade & Sword
 - Blood II - The Chosen
 - Caesar III (Sierra - 1998)
@@ -96,11 +100,15 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Close Combat 3: The Russian Front
 - Close Combat 4: The Battle of the Bulge
 - Close Combat 5: Invasion: Normandy
+- ClueFinders 3rd Grade Adventures
 - ClueFinders 4th Grade Adventures
 - ClueFinders 5th Grade Adventures
 - ClueFinders 6th Grade Adventures
 - ClueFinders Math Adventures 1.0
 - ClueFinders Math Adventures 2.0
+- ClueFinders Mystery Mansion
+- ClueFinders Search
+- ClueFinders toy
 - ClueFinders(R) Reading Adventures Ages 9-12
 - Command & Conquer Gold
 - Command & Conquer: Red Alert
@@ -149,6 +157,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
 - Gruntz
+- Hamtaro: Wake Up Snoozer!
 - Hard Truck: Road to Victory
 - Hearts of Iron 2
 - Heroes of Might and Magic II
@@ -170,8 +179,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Kings Quest 8: Mask of Eternity
 - KKND Xtreme
 - KKND2: Krossfire
-- Knights and Merchants: The Shattered Kingdom
 - Knights and Merchants: The Peasants Rebellion
+- Knights and Merchants: The Shattered Kingdom
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
@@ -214,11 +223,22 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Quest for Glory 5
 - Rage of Mages 2
 - Railroad Tycoon II
-- Reader Rabbit Toddler: Playtime for Baby
-- Reader Rabbit Toddler: Fly the Dreamship
+- Reader Rabbit 1st Grade
+- Reader Rabbit 2nd Grade
+- Reader Rabbit Dreamship Tales
+- Reader Rabbit Kindergarten
+- Reader Rabbit Kindergarten
+- Reader Rabbit Kindergarten: Creative 
+- Reader Rabbit Kindergarten: Learning Creations
 - Reader Rabbit Learn To Read With Phonics
+- Reader Rabbit Learn To Read With Phonics: 1st - 2nd Grade
+- Reader Rabbit Learning Creations: Calendar 
+- Reader Rabbit Learning Creations: Music
+- Reader Rabbit Learning Creations: Paint
 - Reader Rabbit Reading Ages 4-6
 - Reader Rabbit Reading Ages 6-9
+- Reader Rabbit Toddler: Fly the Dreamship
+- Reader Rabbit Toddler: Playtime for Baby
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Red Baron 3D
 - Reksio and Captain Nemo (AKA Reksio si Capitanul Nemo)
@@ -243,17 +263,23 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - SimCoaster / Theme Park Inc
 - Sonic 3D Blast
 - Space Rangers
+- SpongeBob SquarePants: Typing
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
 - StarCraft
 - StarCraft: Broodwars
+- StarFlyers Alien Space Chase
+- StarFlyers Royal Jewel Rescue
 - Starship Titanic
 - Start Trek Armada
 - Steel Panthers: World At War
+- Strawberry Shortcake: Amazing Cookie Party
 - Stronghold Crusader Extreme HD
 - Stronghold Crusader HD
 - Stronghold HD
+- The Powerpuff Girls - Princess Snorebucks
+- The Powerpuff Girls(TM) Mojo Jojo's Clone Zone
 - Theme Hospital
 - Three Kingdoms: Fate of the Dragon
 - Total Annihilation
@@ -278,6 +304,9 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Worms 2
 - Worms Armageddon
 - Zeus: Master of Olympus
+- Zoombinis Island Odyssey
+- Zoombinis Logical Journey
+- Zoombinis Mountain Rescue
 - Zuma Deluxe
  - ...
 
