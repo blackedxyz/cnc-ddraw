@@ -1121,7 +1121,7 @@ static void cfg_create_ini()
             "lock_mouse_top_left=true\n"
             "\n"
             "; Reader Rabbit Kindergarten: Creative\n"
-            "[creative ]\n"
+            "[creative]\n"
             "fixchilds=3\n"
             "lock_mouse_top_left=true\n"
             "\n"
