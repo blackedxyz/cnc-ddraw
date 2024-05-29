@@ -107,8 +107,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - ClueFinders Math Adventures 1.0
 - ClueFinders Math Adventures 2.0
 - ClueFinders Mystery Mansion
-- ClueFinders Search
-- ClueFinders toy
+- ClueFinders Search and Solve Adventures
+- Cluefinders The Incredible Toy Store Adventure
 - ClueFinders(R) Reading Adventures Ages 9-12
 - Command & Conquer Gold
 - Command & Conquer: Red Alert
