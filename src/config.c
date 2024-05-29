@@ -985,7 +985,7 @@ static void cfg_create_ini()
             "maxgameticks=60\n"
             "\n"
             "; Little Bear Kindergarten Thinking Adventures: Parent's Progress Report\n"
-            "[LBSTART]\n"
+            "[LBPR]\n"
             "fixchilds=3\n"
             "lock_mouse_top_left=true\n"
             "\n"
