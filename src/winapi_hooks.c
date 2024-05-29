@@ -532,6 +532,12 @@ int WINAPI fake_MapWindowPoints(HWND hWndFrom, HWND hWndTo, LPPOINT lpPoints, UI
 
 BOOL WINAPI fake_ShowWindow(HWND hWnd, int nCmdShow)
 {
+    /* Don't hide the taskbar (Some of The Learning Company games) */
+    if (nCmdShow == SW_HIDE && hWnd && hWnd != g_ddraw.hwnd && hWnd == FindWindowA("Shell_TrayWnd", NULL))
+    {
+        return TRUE;
+    }
+
     if (g_ddraw.ref && g_ddraw.hwnd == hWnd)
     {
         /* Make sure we got close/move menu items (Almost all of the The Learning Company games) */
