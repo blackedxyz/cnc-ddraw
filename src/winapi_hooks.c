@@ -30,65 +30,31 @@ BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint)
     if (!real_GetCursorPos(&pt))
         return FALSE;
 
-    realpt.x = pt.x;
-    realpt.y = pt.y;
+    realpt = pt;
 
-    if (g_mouse_locked && (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &pt)))
+    if ((g_mouse_locked || g_config.devmode || g_ddraw.bnet_active) && 
+        (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &pt)))
     {
-        /* fallback solution for possible ClipCursor failure */
-        int diffx = 0, diffy = 0;
-
-        int max_width = g_config.adjmouse ? g_ddraw.render.viewport.width : g_ddraw.width;
-        int max_height = g_config.adjmouse ? g_ddraw.render.viewport.height : g_ddraw.height;
-
-        pt.x -= g_ddraw.mouse.x_adjust;
-        pt.y -= g_ddraw.mouse.y_adjust;
-
-        if (pt.x < 0)
-        {
-            diffx = pt.x;
-            pt.x = 0;
-        }
-
-        if (pt.y < 0)
-        {
-            diffy = pt.y;
-            pt.y = 0;
-        }
-
-        if (pt.x > max_width)
-        {
-            diffx = pt.x - max_width;
-            pt.x = max_width;
-        }
-
-        if (pt.y > max_height)
-        {
-            diffy = pt.y - max_height;
-            pt.y = max_height;
-        }
-
-        if (diffx || diffy)
-            real_SetCursorPos(realpt.x - diffx, realpt.y - diffy);
-
-        int x = 0;
-        int y = 0;
+        int x = max(pt.x - g_ddraw.mouse.x_adjust, 0);
+        int y = max(pt.y - g_ddraw.mouse.y_adjust, 0);
 
         if (g_config.adjmouse)
         {
-            x = min((DWORD)(roundf(pt.x * g_ddraw.mouse.unscale_x)), g_ddraw.width - 1);
-            y = min((DWORD)(roundf(pt.y * g_ddraw.mouse.unscale_y)), g_ddraw.height - 1);
-        }
-        else
-        {
-            x = min(pt.x, g_ddraw.width - 1);
-            y = min(pt.y, g_ddraw.height - 1);
+            x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
+            y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
         }
 
-        if (g_config.vhack && !g_ddraw.isworms2 && InterlockedExchangeAdd(&g_ddraw.upscale_hack_active, 0))
+        x = min(x, g_ddraw.width - 1);
+        y = min(y, g_ddraw.height - 1);
+
+        if (g_config.vhack && 
+            !g_ddraw.isworms2 && 
+            !g_config.devmode && 
+            !g_ddraw.bnet_active && 
+            InterlockedExchangeAdd(&g_ddraw.upscale_hack_active, 0))
         {
-            diffx = 0;
-            diffy = 0;
+            int diffx = 0;
+            int diffy = 0;
 
             if (x > g_ddraw.upscale_hack_width)
             {
@@ -116,16 +82,6 @@ BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint)
         }
 
         return TRUE;
-    }
-    else if (lpPoint && g_ddraw.bnet_active && real_ScreenToClient(g_ddraw.hwnd, &pt))
-    {
-        if (pt.x > 0 && pt.x < g_ddraw.width && pt.y > 0 && pt.y < g_ddraw.height)
-        {
-            lpPoint->x = pt.x;
-            lpPoint->y = pt.y;
-
-            return TRUE;
-        }
     }
 
     if (lpPoint)
@@ -720,11 +676,8 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 
     if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
-        if (g_config.hook_getmessage)
-        {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-        }
-        else if (g_mouse_locked && (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
+        if ((g_mouse_locked || g_config.devmode || g_ddraw.bnet_active) && 
+            (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
         {
             int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
             int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
@@ -737,11 +690,19 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 
             lpMsg->pt.x = min(x, g_ddraw.width - 1);
             lpMsg->pt.y = min(y, g_ddraw.height - 1);
+
+            InterlockedExchange((LONG*)&g_ddraw.cursor.x, lpMsg->pt.x);
+            InterlockedExchange((LONG*)&g_ddraw.cursor.y, lpMsg->pt.y);
         }
         else
         {
             lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
             lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
+        }
+
+        if (g_config.hook_getmessage)
+        {
+            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
         }
     }
 
@@ -754,11 +715,8 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
 
     if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
-        if (g_config.hook_peekmessage)
-        {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-        }
-        else if (g_mouse_locked && (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
+        if ((g_mouse_locked || g_config.devmode || g_ddraw.bnet_active) &&
+            (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
         {
             int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
             int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
@@ -771,11 +729,19 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
 
             lpMsg->pt.x = min(x, g_ddraw.width - 1);
             lpMsg->pt.y = min(y, g_ddraw.height - 1);
+
+            InterlockedExchange((LONG*)&g_ddraw.cursor.x, lpMsg->pt.x);
+            InterlockedExchange((LONG*)&g_ddraw.cursor.y, lpMsg->pt.y);
         }
         else
         {
             lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
             lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
+        }
+
+        if (g_config.hook_peekmessage)
+        {
+            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
         }
     }
 
