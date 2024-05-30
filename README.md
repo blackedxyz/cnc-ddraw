@@ -255,6 +255,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - RollerCoaster Tycoon
 - Sanitarium
 - Scooby-Doo(TM), Case File #2 The Scary Stone Dragon
+- Scooby-Doo(TM), Phantom of the Knight(TM)
+- Scooby-Doo(TM), Showdown in Ghost Town(TM)
 - Sega Rally
 - Sega Touring Car
 - Septerra Core
