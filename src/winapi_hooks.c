@@ -718,7 +718,7 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 {
     BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
 
-    if (result && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
+    if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
         if (g_config.hook_getmessage)
         {
@@ -752,7 +752,7 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
 {
     BOOL result = real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 
-    if (result && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
+    if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
         if (g_config.hook_peekmessage)
         {
