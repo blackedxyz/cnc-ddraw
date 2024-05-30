@@ -458,7 +458,7 @@ static void cfg_create_ini()
             "fixchilds=0\n"
             "\n"
             "; Arthur's Wilderness Rescue\n"
-            "[ArthurPP]\n"
+            "[Arthur]\n"
             "renderer=gdi\n"
             "\n"
             "; Arthur's Pet Chase\n"
