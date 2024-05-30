@@ -732,6 +732,33 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
     return result;
 }
 
+BOOL WINAPI fake_GetWindowPlacement(HWND hWnd, WINDOWPLACEMENT* lpwndpl)
+{
+    BOOL result = real_GetWindowPlacement(hWnd, lpwndpl);
+
+    if (result &&
+        lpwndpl &&
+        g_ddraw.ref &&
+        g_ddraw.hwnd &&
+        g_ddraw.width &&
+        (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
+    {
+        if (hWnd == g_ddraw.hwnd || hWnd == GetDesktopWindow())
+        {
+            lpwndpl->rcNormalPosition.bottom = g_ddraw.height;
+            lpwndpl->rcNormalPosition.left = 0;
+            lpwndpl->rcNormalPosition.right = g_ddraw.width;
+            lpwndpl->rcNormalPosition.top = 0;
+        }
+        else
+        {
+            real_MapWindowPoints(HWND_DESKTOP, g_ddraw.hwnd, (LPPOINT)&lpwndpl->rcNormalPosition, 2);
+        }
+    }
+
+    return result;
+}
+
 SHORT WINAPI fake_GetKeyState(int nVirtKey)
 {
     if (g_config.windowed && g_ddraw.ref && g_ddraw.hwnd && !util_in_foreground())
