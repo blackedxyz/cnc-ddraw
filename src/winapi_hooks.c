@@ -701,7 +701,9 @@ BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
             InterlockedExchange((LONG*)&g_ddraw.cursor.y, y);
 
             lpMsg->lParam = MAKELPARAM(x, y);
-            fake_GetCursorPos(&lpMsg->pt);
+
+            lpMsg->pt.x = x;
+            lpMsg->pt.y = y;
 
             break;
         }
@@ -716,8 +718,32 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 {
     BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
 
-    if (result && g_config.hook_getmessage)
-        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+    if (result && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
+    {
+        if (g_config.hook_getmessage)
+        {
+            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+        }
+        else if (g_mouse_locked && (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
+        {
+            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
+            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
+
+            if (g_config.adjmouse)
+            {
+                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
+                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
+            }
+
+            lpMsg->pt.x = min(x, g_ddraw.width - 1);
+            lpMsg->pt.y = min(y, g_ddraw.height - 1);
+        }
+        else
+        {
+            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
+            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
+        }
+    }
 
     return result;
 }
@@ -726,8 +752,32 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
 {
     BOOL result = real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 
-    if (result && g_config.hook_peekmessage)
-        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+    if (result && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
+    {
+        if (g_config.hook_peekmessage)
+        {
+            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+        }
+        else if (g_mouse_locked && (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
+        {
+            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
+            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
+
+            if (g_config.adjmouse)
+            {
+                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
+                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
+            }
+
+            lpMsg->pt.x = min(x, g_ddraw.width - 1);
+            lpMsg->pt.y = min(y, g_ddraw.height - 1);
+        }
+        else
+        {
+            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
+            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
+        }
+    }
 
     return result;
 }
