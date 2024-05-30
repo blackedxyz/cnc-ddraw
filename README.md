@@ -109,7 +109,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - ClueFinders Math Adventures 2.0
 - ClueFinders Mystery Mansion
 - ClueFinders Search and Solve Adventures
-- Cluefinders The Incredible Toy Store Adventure
+- ClueFinders The Incredible Toy Store Adventure
 - ClueFinders(R) Reading Adventures Ages 9-12
 - Command & Conquer Gold
 - Command & Conquer: Red Alert
@@ -236,17 +236,11 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reader Rabbit 2nd Grade
 - Reader Rabbit Dreamship Tales
 - Reader Rabbit Kindergarten
-- Reader Rabbit Kindergarten: Creative 
-- Reader Rabbit Kindergarten: Learning Creations
 - Reader Rabbit Learn To Read With Phonics
-- Reader Rabbit Learn To Read With Phonics: 1st - 2nd Grade
-- Reader Rabbit Learning Creations: Calendar 
-- Reader Rabbit Learning Creations: Music
-- Reader Rabbit Learning Creations: Paint
+- Reader Rabbit Learning Creations
 - Reader Rabbit Reading Ages 4-6
 - Reader Rabbit Reading Ages 6-9
-- Reader Rabbit Toddler: Fly the Dreamship
-- Reader Rabbit Toddler: Playtime for Baby
+- Reader Rabbit Toddler
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Red Baron 3D
 - Reksio and Captain Nemo (AKA Reksio si Capitanul Nemo)
