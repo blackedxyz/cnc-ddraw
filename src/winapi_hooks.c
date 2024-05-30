@@ -676,8 +676,7 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 
     if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
-        if ((g_mouse_locked || g_config.devmode || g_ddraw.bnet_active) && 
-            (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
+        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
         {
             int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
             int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
@@ -715,8 +714,7 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
 
     if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
-        if ((g_mouse_locked || g_config.devmode || g_ddraw.bnet_active) &&
-            (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt)))
+        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
         {
             int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
             int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
