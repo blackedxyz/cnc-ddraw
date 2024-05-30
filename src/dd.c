@@ -1012,11 +1012,6 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
         if (lock_mouse || (g_config.fullscreen && real_GetForegroundWindow() == g_ddraw.hwnd))
             mouse_lock();
-
-        if (dwFlags & SDM_MODE_SET_BY_GAME)
-        {
-            //real_SendMessageA(g_ddraw.hwnd, WM_ACTIVATEAPP, 1, 0);
-        }
     }
     else
     {
