@@ -192,6 +192,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Lionheart - Legacy of the Crusader
 - Locomotion
 - Lode Runner 2
+- Madeline 1st Grade Math
+- Madeline 2nd Grade Math
 - Majesty Gold
 - Majesty Gold HD
 - Mech Warrior 3

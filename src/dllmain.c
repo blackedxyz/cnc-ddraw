@@ -72,7 +72,8 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
                         "then try to start the game again.",
                         s);
 
-                    MessageBoxA(NULL, mes, "Compatibility modes detected - cnc-ddraw", MB_OK);
+                    if (!g_config.no_compat_warning)
+                        MessageBoxA(NULL, mes, "Compatibility modes detected - cnc-ddraw", MB_OK);
 
                     break;
                 }
