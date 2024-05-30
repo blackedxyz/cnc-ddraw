@@ -461,7 +461,6 @@ static void cfg_create_ini()
             "\n"
             "; Arthur's Wilderness Rescue\n"
             "[Arthur]\n"
-            "hook_peekmessage=true\n"
             "renderer=gdi\n"
             "\n"
             "; Arthur's Pet Chase\n"
