@@ -124,6 +124,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Cossacks (Steam+GOG)
 - Cultures - The Discovery of Vinland
 - Cultures 2
+- Cyberchase Castleblanca Quest
+- Cyberchase Carnival Chaos
 - Dark Reign: The Future of War
 - Daytona USA (Sega - 1996)
 - Deadlock 2
