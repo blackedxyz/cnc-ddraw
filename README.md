@@ -254,6 +254,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Road Rash
 - RollerCoaster Tycoon
 - Sanitarium
+- Scooby-Doo(TM), Case File #2 The Scary Stone Dragon
 - Sega Rally
 - Sega Touring Car
 - Septerra Core
