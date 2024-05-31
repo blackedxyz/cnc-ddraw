@@ -101,6 +101,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL infantryhack;
     BOOL stronghold_hack;
     BOOL mgs_hack;
+    BOOL tlc_hack;
 
 } CNCDDRAWCONFIG;
 

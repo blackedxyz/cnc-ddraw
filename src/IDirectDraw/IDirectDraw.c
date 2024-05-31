@@ -487,7 +487,7 @@ HRESULT __stdcall IDirectDraw__RestoreAllSurfaces(IDirectDrawImpl* This)
 HRESULT __stdcall IDirectDraw__TestCooperativeLevel(IDirectDrawImpl* This)
 {
     TRACE_EXT("-> %s(This=%p)\n", __FUNCTION__, This);
-    HRESULT ret = DD_OK;
+    HRESULT ret = g_config.tlc_hack ? DDERR_NOEXCLUSIVEMODE : DD_OK;
     TRACE_EXT("<- %s\n", __FUNCTION__);
     return ret;
 }

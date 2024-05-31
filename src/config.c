@@ -111,6 +111,7 @@ void cfg_load()
     GET_BOOL(g_config.infantryhack, "infantryhack", FALSE);
     GET_BOOL(g_config.stronghold_hack, "stronghold_hack", FALSE);
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
+    GET_BOOL(g_config.tlc_hack, "tlc_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -1358,6 +1359,18 @@ static void cfg_create_ini()
             "[Kingdoms]\n"
             "game_handles_close=true\n"
             "max_resolutions=32\n"
+            "\n"
+            "; The Learning Company Launcher\n"
+            "[TLCLauncher]\n"
+            "tlc_hack=true\n"
+            "windowed=true\n"
+            "fullscreen=false\n"
+            "adjmouse=false\n"
+            "width=0\n"
+            "height=0\n"
+            "resizable=false\n"
+            "maintas=false\n"
+            "boxing=false\n"
             "\n"
             "; Three Kingdoms: Fate of the Dragon\n"
             "[sanguo]\n"
