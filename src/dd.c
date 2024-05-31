@@ -1531,6 +1531,17 @@ HRESULT dd_GetVerticalBlankStatus(LPBOOL lpbIsInVB)
     return DD_OK;
 }
 
+HRESULT dd_TestCooperativeLevel()
+{
+    if (g_config.limiter_type == LIMIT_TESTCOOP && g_ddraw.ticks_limiter.tick_length > 0)
+    {
+        g_ddraw.ticks_limiter.dds_unlock_limiter_disabled = TRUE;
+        util_limit_game_ticks();
+    }
+
+    return g_config.tlc_hack ? DDERR_NOEXCLUSIVEMODE : DD_OK;
+}
+
 HRESULT dd_GetDeviceIdentifier(LPDDDEVICEIDENTIFIER pDDDI, DWORD dwFlags, REFIID riid)
 {
     if (!pDDDI)

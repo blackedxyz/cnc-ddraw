@@ -47,6 +47,7 @@ typedef struct CNCDDRAWCONFIG
 
     BOOL noactivateapp;
     int maxgameticks;
+    int limiter_type;
     int minfps;
     BOOL nonexclusive;
     BOOL singlecpu;
@@ -62,7 +63,6 @@ typedef struct CNCDDRAWCONFIG
     int hook;
     int guard_lines;
     int max_resolutions;
-    BOOL limit_bltfast;
     BOOL lock_surfaces;
     BOOL allow_wmactivate;
     BOOL flipclear;

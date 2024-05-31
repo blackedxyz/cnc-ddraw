@@ -59,6 +59,7 @@ void cfg_load()
 
     GET_BOOL(g_config.noactivateapp, "noactivateapp", FALSE);
     GET_INT(g_config.maxgameticks, "maxgameticks", 0);
+    GET_INT(g_config.limiter_type, "limiter_type", LIMIT_AUTO);
     GET_INT(g_config.minfps, "minfps", 0);
     GET_BOOL(g_config.nonexclusive, "nonexclusive", FALSE);
     GET_BOOL(g_config.singlecpu, "singlecpu", TRUE);
@@ -75,7 +76,6 @@ void cfg_load()
     GET_INT(g_config.hook, "hook", 4);
     GET_INT(g_config.guard_lines, "guard_lines", 200);
     GET_INT(g_config.max_resolutions, "max_resolutions", 0);
-    GET_BOOL(g_config.limit_bltfast, "limit_bltfast", FALSE);
     GET_BOOL(g_config.lock_surfaces, "lock_surfaces", FALSE);
     GET_BOOL(g_config.allow_wmactivate, "allow_wmactivate", FALSE);
     GET_BOOL(g_config.flipclear, "flipclear", FALSE);
@@ -262,6 +262,9 @@ static void cfg_create_ini()
             "; Note: Usually one of the following values will work: 60 / 30 / 25 / 20 / 15 (lower value = slower game speed)\n"
             "maxgameticks=0\n"
             "\n"
+            "; Method that should be used to limit game ticks (maxgameticks=): 0 = Automatic, 1 = TestCooperativeLevel, 2 = BltFast\n"
+            "limiter_type=0\n"
+            "\n"
             "; Force minimum FPS, possible values: 0 = disabled, -1 = use 'maxfps=' value, -2 = same as -1 but force full redraw, 1-1000 = custom FPS\n"
             "; Note: Set this to a low value such as 5 or 10 if some parts of the game are not being displayed (e.g. menus or loading screens)\n"
             "minfps=0\n"
@@ -295,7 +298,6 @@ static void cfg_create_ini()
             "hook=4\n"
             "guard_lines=200\n"
             "max_resolutions=0\n"
-            "limit_bltfast=false\n"
             "lock_surfaces=false\n"
             "allow_wmactivate=false\n"
             "flipclear=false\n"
@@ -779,7 +781,7 @@ static void cfg_create_ini()
             "[AdSanguo]\n"
             "maxgameticks=60\n"
             "noactivateapp=true\n"
-            "limit_bltfast=true\n"
+            "limiter_type=2\n"
             "\n"
             "; Dark Reign: The Future of War\n"
             "[DKReign]\n"
@@ -983,12 +985,12 @@ static void cfg_create_ini()
             "\n"
             "; Knights and Merchants The Shattered Kingdom\n"
             "[KaM_800]\n"
-            "limit_bltfast=true\n"
+            "limiter_type=2\n"
             "maxgameticks=60\n"
             "\n"
             "; Knights and Merchants The Shattered Kingdom\n"
             "[KaM_1024]\n"
-            "limit_bltfast=true\n"
+            "limiter_type=2\n"
             "maxgameticks=60\n"
             "\n"
             "; Little Bear Kindergarten/Preschool Thinking Adventures: Parent's Progress Report\n"
@@ -1083,13 +1085,13 @@ static void cfg_create_ini()
             "; Nancy Drew: Message in a Haunted Mansion\n"
             "[Game/3]\n"
             "checkfile=.\\DataFiles\\ASABYBD.cal\n"
-            "limit_bltfast=true\n"
+            "limiter_type=2\n"
             "maxgameticks=600\n"
             "\n"
             "; Nancy Drew: Secret of Shadow Ranch\n"
             "[Game/4]\n"
             "checkfile=.\\DataFiles\\DGEBody.cal\n"
-            "limit_bltfast=true\n"
+            "limiter_type=2\n"
             "maxgameticks=1000\n"
             "\n"
             "; Nox\n"
@@ -1382,7 +1384,7 @@ static void cfg_create_ini()
             "[sanguo]\n"
             "maxgameticks=60\n"
             "noactivateapp=true\n"
-            "limit_bltfast=true\n"
+            "limiter_type=2\n"
             "\n"
             "; RollerCoaster Tycoon\n"
             "[rct]\n"

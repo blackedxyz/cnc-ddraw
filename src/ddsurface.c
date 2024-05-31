@@ -429,7 +429,7 @@ HRESULT dds_Blt(
 
             if (g_ddraw.ticks_limiter.tick_length > 0)
             {
-                g_ddraw.ticks_limiter.use_blt_or_flip = TRUE;
+                g_ddraw.ticks_limiter.dds_unlock_limiter_disabled = TRUE;
                 util_limit_game_ticks();
             }
         }
@@ -659,9 +659,9 @@ HRESULT dds_BltFast(
         if (!(This->flags & DDSD_BACKBUFFERCOUNT) ||
             (This->last_flip_tick + FLIP_REDRAW_TIMEOUT < time && This->last_blt_tick + FLIP_REDRAW_TIMEOUT < time))
         {
-            if (g_config.limit_bltfast && g_ddraw.ticks_limiter.tick_length > 0)
+            if (g_config.limiter_type == LIMIT_BLTFAST && g_ddraw.ticks_limiter.tick_length > 0)
             {
-                g_ddraw.ticks_limiter.use_blt_or_flip = TRUE;
+                g_ddraw.ticks_limiter.dds_unlock_limiter_disabled = TRUE;
                 util_limit_game_ticks();
             }
         }
@@ -810,7 +810,7 @@ HRESULT dds_Flip(IDirectDrawSurfaceImpl* This, IDirectDrawSurfaceImpl* lpDDSurfa
 
         if (g_ddraw.ticks_limiter.tick_length > 0)
         {
-            g_ddraw.ticks_limiter.use_blt_or_flip = TRUE;
+            g_ddraw.ticks_limiter.dds_unlock_limiter_disabled = TRUE;
             util_limit_game_ticks();
         }
     }
@@ -1133,12 +1133,7 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
 
         if (erase)
         {
-            BOOL x = g_ddraw.ticks_limiter.use_blt_or_flip;
-
-            DDBLTFX fx = { .dwFillColor = 0xFE };
-            IDirectDrawSurface_Blt(This, NULL, NULL, NULL, DDBLT_COLORFILL, &fx);
-
-            g_ddraw.ticks_limiter.use_blt_or_flip = x;
+            blt_clear(This->surface, 0xFE, This->size);
         }
     }
 
@@ -1172,12 +1167,7 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
             ReleaseDC(hwnd, hdc);
         }
 
-        BOOL x = g_ddraw.ticks_limiter.use_blt_or_flip;
-
-        DDBLTFX fx = { .dwFillColor = 0 };
-        IDirectDrawSurface_Blt(This, NULL, NULL, NULL, DDBLT_COLORFILL, &fx);
-
-        g_ddraw.ticks_limiter.use_blt_or_flip = x;
+        blt_clear(This->surface, 0x00, This->size);
     }
 
 
@@ -1191,7 +1181,7 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
         if (!(This->flags & DDSD_BACKBUFFERCOUNT) ||
             (This->last_flip_tick + FLIP_REDRAW_TIMEOUT < time && This->last_blt_tick + FLIP_REDRAW_TIMEOUT < time))
         {
-            if (g_ddraw.ticks_limiter.tick_length > 0 && !g_ddraw.ticks_limiter.use_blt_or_flip)
+            if (g_ddraw.ticks_limiter.tick_length > 0 && !g_ddraw.ticks_limiter.dds_unlock_limiter_disabled)
                 util_limit_game_ticks();
         }
     }

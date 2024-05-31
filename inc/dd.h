@@ -24,6 +24,7 @@ HRESULT dd_GetDisplayMode(LPDDSURFACEDESC lpDDSurfaceDesc);
 HRESULT dd_GetMonitorFrequency(LPDWORD lpdwFreq);
 HRESULT dd_GetAvailableVidMem(LPDDSCAPS lpDDCaps, LPDWORD lpdwTotal, LPDWORD lpdwFree);
 HRESULT dd_GetVerticalBlankStatus(LPBOOL lpbIsInVB);
+HRESULT dd_TestCooperativeLevel();
 HRESULT dd_GetDeviceIdentifier(LPDDDEVICEIDENTIFIER pDDDI, DWORD dwFlags, REFIID riid);
 HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOuter);
 
@@ -45,13 +46,17 @@ HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOute
 #define SDM_LEAVE_WINDOWED   0x00000002l
 #define SDM_LEAVE_FULLSCREEN 0x00000004l
 
+#define LIMIT_AUTO 0
+#define LIMIT_TESTCOOP 1
+#define LIMIT_BLTFAST 2
+
 typedef struct SPEEDLIMITER
 {
     DWORD tick_length;
     LONGLONG tick_length_ns;
     HANDLE htimer;
     LARGE_INTEGER due_time;
-    BOOL use_blt_or_flip;
+    BOOL dds_unlock_limiter_disabled;
 } SPEEDLIMITER;
 
 struct IDirectDrawSurfaceImpl;
