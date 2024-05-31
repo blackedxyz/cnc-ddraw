@@ -241,7 +241,9 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reader Rabbit Reading Ages 4-6
 - Reader Rabbit Reading Ages 6-9
 - Reader Rabbit Toddler
+- Reader Rabbit Math Ages 4-6
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
+- Reader Rabbit Preschool 2002
 - Red Baron 3D
 - Reksio and Captain Nemo (AKA Reksio si Capitanul Nemo)
 - Reksio and Kretes in Action (AKA Reksio si Kretes in Actiune)
