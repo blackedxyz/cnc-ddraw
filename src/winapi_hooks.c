@@ -689,9 +689,6 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 
             lpMsg->pt.x = min(x, g_ddraw.width - 1);
             lpMsg->pt.y = min(y, g_ddraw.height - 1);
-
-            InterlockedExchange((LONG*)&g_ddraw.cursor.x, lpMsg->pt.x);
-            InterlockedExchange((LONG*)&g_ddraw.cursor.y, lpMsg->pt.y);
         }
         else
         {
@@ -727,9 +724,6 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
 
             lpMsg->pt.x = min(x, g_ddraw.width - 1);
             lpMsg->pt.y = min(y, g_ddraw.height - 1);
-
-            InterlockedExchange((LONG*)&g_ddraw.cursor.x, lpMsg->pt.x);
-            InterlockedExchange((LONG*)&g_ddraw.cursor.y, lpMsg->pt.y);
         }
         else
         {
