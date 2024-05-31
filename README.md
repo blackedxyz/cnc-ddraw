@@ -211,6 +211,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
 - Nancy Drew: Treasure in the Royal Tower
+- Nancy Drew: The Secret of Shadow Ranch
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
 - New Robinson
