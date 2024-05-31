@@ -1056,6 +1056,8 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
         if ((exstyle & WS_EX_CLIENTEDGE))
         {
+            swp_flags |= SWP_FRAMECHANGED;
+
             real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_CLIENTEDGE));
         }
 
