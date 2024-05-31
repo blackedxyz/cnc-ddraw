@@ -282,7 +282,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             in_size_move = FALSE;
 
             if (!g_ddraw.render.thread)
-                dd_SetDisplayMode(g_ddraw.width, g_ddraw.height, g_ddraw.bpp, 0);
+                dd_SetDisplayMode(0, 0, 0, 0);
         }
         break;
     }
@@ -437,7 +437,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                     g_config.window_rect.bottom = HIWORD(lParam);
 
                     if (g_config.window_rect.right != g_ddraw.render.width || g_config.window_rect.bottom != g_ddraw.render.height)
-                        dd_SetDisplayMode(g_ddraw.width, g_ddraw.height, g_ddraw.bpp, 0);
+                        dd_SetDisplayMode(0, 0, 0, 0);
                 }
             }
         }
