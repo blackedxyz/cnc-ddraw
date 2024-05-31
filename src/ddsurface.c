@@ -419,12 +419,12 @@ HRESULT dds_Blt(
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
         InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
 
         if (!(This->flags & DDSD_BACKBUFFERCOUNT) || This->last_flip_tick + FLIP_REDRAW_TIMEOUT < timeGetTime())
         {
             This->last_blt_tick = timeGetTime();
 
-            ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
             SwitchToThread();
 
             if (g_ddraw.ticks_limiter.tick_length > 0)
@@ -651,15 +651,14 @@ HRESULT dds_BltFast(
 
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
-        InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
-
         DWORD time = timeGetTime();
+
+        InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
 
         if (!(This->flags & DDSD_BACKBUFFERCOUNT) ||
             (This->last_flip_tick + FLIP_REDRAW_TIMEOUT < time && This->last_blt_tick + FLIP_REDRAW_TIMEOUT < time))
         {
-            ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
-
             if (g_config.limit_bltfast && g_ddraw.ticks_limiter.tick_length > 0)
             {
                 g_ddraw.ticks_limiter.use_blt_or_flip = TRUE;
@@ -1005,14 +1004,7 @@ HRESULT dds_ReleaseDC(IDirectDrawSurfaceImpl* This, HDC hDC)
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
         InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
-
-        DWORD time = timeGetTime();
-
-        if (!(This->flags & DDSD_BACKBUFFERCOUNT) ||
-            (This->last_flip_tick + FLIP_REDRAW_TIMEOUT < time && This->last_blt_tick + FLIP_REDRAW_TIMEOUT < time))
-        {
-            ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
-        }
+        ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
     }
 
     return DD_OK;
@@ -1191,15 +1183,14 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
 
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
-        InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
-
         DWORD time = timeGetTime();
+
+        InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
 
         if (!(This->flags & DDSD_BACKBUFFERCOUNT) ||
             (This->last_flip_tick + FLIP_REDRAW_TIMEOUT < time && This->last_blt_tick + FLIP_REDRAW_TIMEOUT < time))
         {
-            ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
-
             if (g_ddraw.ticks_limiter.tick_length > 0 && !g_ddraw.ticks_limiter.use_blt_or_flip)
                 util_limit_game_ticks();
         }
