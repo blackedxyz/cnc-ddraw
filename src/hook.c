@@ -540,6 +540,7 @@ void hook_create(HOOKLIST* hooks, BOOL initial_hook)
 
                     if (is_local ||
                         _strcmpi(mod_filename, "mciavi32") == 0 ||
+                        _strcmpi(mod_filename, "QuickTime") == 0 ||
                         _strcmpi(mod_filename, "MSVFW32") == 0 ||
                         _strcmpi(mod_filename, "quartz") == 0 ||
                         _strcmpi(mod_filename, "winmm") == 0)
@@ -605,6 +606,7 @@ void hook_revert(HOOKLIST* hooks)
 
                     if (is_local ||
                         _strcmpi(mod_filename, "mciavi32") == 0 ||
+                        _strcmpi(mod_filename, "QuickTime") == 0 ||
                         _strcmpi(mod_filename, "MSVFW32") == 0 ||
                         _strcmpi(mod_filename, "quartz") == 0 ||
                         _strcmpi(mod_filename, "winmm") == 0)
