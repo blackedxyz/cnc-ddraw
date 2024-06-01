@@ -1,4 +1,3 @@
-#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <stdio.h>
 #include "directinput.h"
@@ -63,6 +62,7 @@ LOADLIBRARYEXWPROC real_LoadLibraryExW = LoadLibraryExW;
 GETPROCADDRESSPROC real_GetProcAddress = GetProcAddress;
 GETDISKFREESPACEAPROC real_GetDiskFreeSpaceA = GetDiskFreeSpaceA;
 COCREATEINSTANCEPROC real_CoCreateInstance = CoCreateInstance;
+MCISENDCOMMANDAPROC real_mciSendCommandA = mciSendCommandA;
 SETUNHANDLEDEXCEPTIONFILTERPROC real_SetUnhandledExceptionFilter = SetUnhandledExceptionFilter;
 
 HOOKLIST g_hook_hooklist[] =
@@ -109,6 +109,13 @@ HOOKLIST g_hook_hooklist[] =
         "ole32.dll",
         {
             { "CoCreateInstance", (PROC)fake_CoCreateInstance, (PROC*)&real_CoCreateInstance, HOOK_SKIP_2 },
+            { "", NULL, NULL, 0 }
+        }
+    },
+    {
+        "winmm.dll",
+        {
+            { "mciSendCommandA", (PROC)fake_mciSendCommandA, (PROC*)&real_mciSendCommandA, HOOK_SKIP_2 },
             { "", NULL, NULL, 0 }
         }
     },
