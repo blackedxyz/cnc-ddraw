@@ -1468,7 +1468,7 @@ HWND WINAPI fake_CreateWindowExA(
     if (!dwExStyle &&
         HIWORD(lpClassName) && _strcmpi(lpClassName, "OMWindowChildClass") == 0 &&
         !lpWindowName &&
-        dwStyle == WS_CHILD | WS_CHILDWINDOW | WS_CLIPSIBLINGS &&
+        dwStyle == (WS_CHILD | WS_CHILDWINDOW | WS_CLIPSIBLINGS) &&
         !X &&
         !Y &&
         g_ddraw.ref && g_ddraw.width && g_ddraw.width == nWidth && g_ddraw.height == nHeight &&

@@ -1351,7 +1351,7 @@ static DWORD cfg_get_game_section(LPSTR buf, DWORD size)
 
         if (ini_section_exists(&g_config.ini, section))
         {
-            strncpy(buf, section, size - 1);
+            strncpy(buf, section, size);
             buf[size - 1] = 0;
             return strlen(buf);
         }
@@ -1363,14 +1363,14 @@ static DWORD cfg_get_game_section(LPSTR buf, DWORD size)
         {
             if (FILE_EXISTS(tmp))
             {
-                strncpy(buf, g_config.process_file_name, size - 1);
+                strncpy(buf, g_config.process_file_name, size);
                 buf[size - 1] = 0;
                 return strlen(buf);
             }
         }
         else
         {
-            strncpy(buf, g_config.process_file_name, size - 1);
+            strncpy(buf, g_config.process_file_name, size);
             buf[size - 1] = 0;
             return strlen(buf);
         }
@@ -1387,7 +1387,7 @@ static DWORD cfg_get_game_section(LPSTR buf, DWORD size)
             {
                 if (FILE_EXISTS(tmp))
                 {
-                    strncpy(buf, section, size - 1);
+                    strncpy(buf, section, size);
                     buf[size - 1] = 0;
                     return strlen(buf);
                 }
