@@ -1473,7 +1473,8 @@ HWND WINAPI fake_CreateWindowExA(
         !Y &&
         g_ddraw.ref && g_ddraw.width && g_ddraw.width == nWidth && g_ddraw.height == nHeight &&
         g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
-        !hMenu)
+        !hMenu &&
+        !g_config.game_section[0])
     {
         dwExStyle = WS_EX_TRANSPARENT;
         g_config.lock_mouse_top_left = TRUE;

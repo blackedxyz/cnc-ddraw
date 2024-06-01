@@ -18,6 +18,7 @@ static void cfg_create_ini();
 static BOOL cfg_get_bool(LPCSTR key, BOOL default_value);
 static int cfg_get_int(LPCSTR key, int default_value);
 static DWORD cfg_get_string(LPCSTR key, LPCSTR default_value, LPSTR out_string, DWORD out_size);
+static DWORD cfg_get_game_section(LPSTR buf, DWORD size);
 
 #define GET_INT(a,b,c) a = cfg_get_int(b, c); TRACE("%s=%d\n", b, a)
 #define GET_BOOL(a,b,c) a = cfg_get_bool(b, c); TRACE("%s=%s\n", b, a ? "true" : "false")
@@ -1333,11 +1334,15 @@ static void cfg_init()
     }
 
     ini_create(&g_config.ini, g_config.ini_path);
+    cfg_get_game_section(g_config.game_section, sizeof(g_config.game_section));
 }
 
-static DWORD cfg_get_string(LPCSTR key, LPCSTR default_value, LPSTR out_string, DWORD out_size)
+static DWORD cfg_get_game_section(LPSTR buf, DWORD size)
 {
-    char buf[MAX_PATH] = { 0 };
+    if (!buf || size == 0)
+        return 0;
+
+    char tmp[MAX_PATH] = { 0 };
 
     if (IsWine())
     {
@@ -1346,26 +1351,29 @@ static DWORD cfg_get_string(LPCSTR key, LPCSTR default_value, LPSTR out_string, 
 
         if (ini_section_exists(&g_config.ini, section))
         {
-            DWORD x = ini_get_string(&g_config.ini, section, key, "", out_string, out_size);
-
-            if (x > 0)
-                return x;
-
-            return ini_get_string(&g_config.ini, "ddraw", key, default_value, out_string, out_size);
+            strncpy(buf, section, size - 1);
+            buf[size - 1] = 0;
+            return strlen(buf);
         }
     }
 
-    DWORD s = ini_get_string(&g_config.ini, g_config.process_file_name, key, "", out_string, out_size);
-
-    if (s > 0)
+    if (ini_section_exists(&g_config.ini, g_config.process_file_name))
     {
-        if (ini_get_string(&g_config.ini, g_config.process_file_name, "checkfile", "", buf, sizeof(buf)) > 0)
+        if (ini_get_string(&g_config.ini, g_config.process_file_name, "checkfile", "", tmp, sizeof(tmp)) > 0)
         {
-            if (FILE_EXISTS(buf))
-                return s;
+            if (FILE_EXISTS(tmp))
+            {
+                strncpy(buf, g_config.process_file_name, size - 1);
+                buf[size - 1] = 0;
+                return strlen(buf);
+            }
         }
         else
-            return s;
+        {
+            strncpy(buf, g_config.process_file_name, size - 1);
+            buf[size - 1] = 0;
+            return strlen(buf);
+        }
     }
 
     for (int i = 2; i < 10; i++)
@@ -1373,19 +1381,36 @@ static DWORD cfg_get_string(LPCSTR key, LPCSTR default_value, LPSTR out_string, 
         char section[MAX_PATH] = { 0 };
         _snprintf(section, sizeof(section) - 1, "%s/%d", g_config.process_file_name, i);
 
-        DWORD s = ini_get_string(&g_config.ini, section, key, "", out_string, out_size);
-
-        if (s > 0)
+        if (ini_section_exists(&g_config.ini, section))
         {
-            if (ini_get_string(&g_config.ini, section, "checkfile", "", buf, sizeof(buf)) > 0)
+            if (ini_get_string(&g_config.ini, section, "checkfile", "", tmp, sizeof(tmp)) > 0)
             {
-                if (FILE_EXISTS(buf))
-                    return s;
+                if (FILE_EXISTS(tmp))
+                {
+                    strncpy(buf, section, size - 1);
+                    buf[size - 1] = 0;
+                    return strlen(buf);
+                }
             }
         }
     }
 
-    return ini_get_string(&g_config.ini, "ddraw", key, default_value, out_string, out_size);
+    buf[0] = 0;
+
+    return 0;
+}
+
+static DWORD cfg_get_string(LPCSTR key, LPCSTR default_value, LPSTR buf, DWORD size)
+{
+    if (g_config.game_section[0])
+    {
+        DWORD s = ini_get_string(&g_config.ini, g_config.game_section, key, "", buf, size);
+
+        if (s > 0)
+            return s;
+    }
+
+    return ini_get_string(&g_config.ini, "ddraw", key, default_value, buf, size);
 }
 
 static BOOL cfg_get_bool(LPCSTR key, BOOL default_value)

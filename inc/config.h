@@ -18,6 +18,7 @@ typedef struct CNCDDRAWCONFIG
     char dll_file_name[MAX_PATH];
     char process_file_ext[MAX_PATH];
     char dll_file_ext[MAX_PATH];
+    char game_section[MAX_PATH];
     INIFILE ini;
     BOOL d3d9on12;
     BOOL opengl_core;
