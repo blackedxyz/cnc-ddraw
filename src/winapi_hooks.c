@@ -38,7 +38,7 @@ BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint)
         int x = max(pt.x - g_ddraw.mouse.x_adjust, 0);
         int y = max(pt.y - g_ddraw.mouse.y_adjust, 0);
 
-        if (g_config.adjmouse)
+        if (g_config.adjmouse && !g_ddraw.child_window_exists)
         {
             x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
             y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
@@ -1463,6 +1463,16 @@ HWND WINAPI fake_CreateWindowExA(
     TRACE("     WindowName=%s, ClassName=%s, g_ddraw.hwnd=%p\n", lpWindowName, HIWORD(lpClassName) ? lpClassName : "", g_ddraw.hwnd);
 
     dbg_dump_wnd_styles(dwStyle, dwExStyle);
+
+    /* The American Girls Dress Designer */
+    if (HIWORD(lpClassName) &&
+        _strcmpi(lpClassName, "AfxFrameOrView42s") == 0 &&
+        g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
+        g_config.fake_mode[0] &&
+        (dwStyle & (WS_POPUP | WS_CHILD)) == (WS_POPUP | WS_CHILD))
+    {
+        dwStyle &= ~WS_POPUP;
+    }
 
     /* Center Claw DVD movies */
     if (HIWORD(lpClassName) &&
