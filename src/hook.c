@@ -9,6 +9,7 @@
 #include "dllmain.h"
 #include "config.h"
 #include "utils.h"
+#include "versionhelpers.h"
 
 #ifdef _MSC_VER
 #include "detours.h"
@@ -537,9 +538,10 @@ void hook_create(HOOKLIST* hooks, BOOL initial_hook)
                         continue;
 
                     BOOL is_local = _strnicmp(game_dir, mod_dir, strlen(game_dir)) == 0;
+                    BOOL wine_hook = IsWine() && _strcmpi(mod_filename, "mciavi32") == 0;
 
                     if (is_local ||
-                        _strcmpi(mod_filename, "mciavi32") == 0 ||
+                        wine_hook ||
                         _strcmpi(mod_filename, "QuickTime") == 0 ||
                         _strcmpi(mod_filename, "MSVFW32") == 0 ||
                         _strcmpi(mod_filename, "quartz") == 0 ||
@@ -603,9 +605,10 @@ void hook_revert(HOOKLIST* hooks)
                     _splitpath(mod_path, NULL, mod_dir, mod_filename, NULL);
 
                     BOOL is_local = _strnicmp(game_dir, mod_dir, strlen(game_dir)) == 0;
+                    BOOL wine_hook = IsWine() && _strcmpi(mod_filename, "mciavi32") == 0;
 
                     if (is_local ||
-                        _strcmpi(mod_filename, "mciavi32") == 0 ||
+                        wine_hook ||
                         _strcmpi(mod_filename, "QuickTime") == 0 ||
                         _strcmpi(mod_filename, "MSVFW32") == 0 ||
                         _strcmpi(mod_filename, "quartz") == 0 ||
