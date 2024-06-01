@@ -1362,8 +1362,6 @@ static void cfg_create_ini()
             "; The Learning Company Launcher\n"
             "[TLCLauncher]\n"
             "tlc_hack=true\n"
-            "windowed=true\n"
-            "fullscreen=false\n"
             "adjmouse=false\n"
             "width=0\n"
             "height=0\n"

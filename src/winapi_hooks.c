@@ -511,7 +511,7 @@ BOOL WINAPI fake_ShowWindow(HWND hWnd, int nCmdShow)
         if (nCmdShow == SW_MAXIMIZE)
             nCmdShow = SW_NORMAL;
 
-        if (nCmdShow == SW_MINIMIZE && g_config.hook != 2)
+        if (nCmdShow == SW_MINIMIZE && g_config.hook != 2 && !g_config.tlc_hack)
             return TRUE;
     }
 
