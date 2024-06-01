@@ -1464,9 +1464,25 @@ HWND WINAPI fake_CreateWindowExA(
 
     dbg_dump_wnd_styles(dwStyle, dwExStyle);
 
+    /* Almost all of the Learning Company Games */
+    if (!dwExStyle &&
+        HIWORD(lpClassName) && _strcmpi(lpClassName, "OMWindowChildClass") == 0 &&
+        !lpWindowName &&
+        dwStyle == WS_CHILD | WS_CHILDWINDOW | WS_CLIPSIBLINGS &&
+        !X &&
+        !Y &&
+        g_ddraw.ref && g_ddraw.width && g_ddraw.width == nWidth && g_ddraw.height == nHeight &&
+        g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
+        !hMenu)
+    {
+        dwExStyle = WS_EX_TRANSPARENT;
+        g_config.lock_mouse_top_left = TRUE;
+        g_config.adjmouse = FALSE;
+        dd_SetDisplayMode(0, 0, 0, 0);
+    }
+
     /* The American Girls Dress Designer */
-    if (HIWORD(lpClassName) &&
-        _strcmpi(lpClassName, "AfxFrameOrView42s") == 0 &&
+    if (HIWORD(lpClassName) && _strcmpi(lpClassName, "AfxFrameOrView42s") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
         g_config.fake_mode[0] &&
         (dwStyle & (WS_POPUP | WS_CHILD)) == (WS_POPUP | WS_CHILD))
@@ -1475,8 +1491,7 @@ HWND WINAPI fake_CreateWindowExA(
     }
 
     /* Center Claw DVD movies */
-    if (HIWORD(lpClassName) &&
-        _strcmpi(lpClassName, "Afx:400000:3") == 0 &&
+    if (HIWORD(lpClassName) && _strcmpi(lpClassName, "Afx:400000:3") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width &&
         (dwStyle & (WS_POPUP | WS_CHILD)) == (WS_POPUP | WS_CHILD))
     {
