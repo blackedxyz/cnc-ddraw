@@ -858,10 +858,10 @@ BOOL WINAPI fake_StretchBlt(
         {
             return real_StretchBlt(
                 hwnd == g_ddraw.hwnd ? hdcDest : g_ddraw.render.hdc,
-                (int)(xDest * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
-                (int)(yDest * g_ddraw.render.scale_h) + g_ddraw.render.viewport.y,
-                (int)(wDest * g_ddraw.render.scale_w),
-                (int)(hDest * g_ddraw.render.scale_h),
+                (int)(roundf(xDest * g_ddraw.render.scale_w)) + g_ddraw.render.viewport.x,
+                (int)(roundf(yDest * g_ddraw.render.scale_h)) + g_ddraw.render.viewport.y,
+                (int)(roundf(wDest * g_ddraw.render.scale_w)),
+                (int)(roundf(hDest * g_ddraw.render.scale_h)),
                 hdcSrc,
                 xSrc,
                 ySrc,
@@ -936,10 +936,10 @@ BOOL WINAPI fake_BitBlt(
         {
             return real_StretchBlt(
                 hwnd == g_ddraw.hwnd ? hdc : g_ddraw.render.hdc,
-                (int)(x * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
-                (int)(y * g_ddraw.render.scale_h) + g_ddraw.render.viewport.y,
-                (int)(cx * g_ddraw.render.scale_w),
-                (int)(cy * g_ddraw.render.scale_h),
+                (int)(roundf(x * g_ddraw.render.scale_w)) + g_ddraw.render.viewport.x,
+                (int)(roundf(y * g_ddraw.render.scale_h)) + g_ddraw.render.viewport.y,
+                (int)(roundf(cx * g_ddraw.render.scale_w)),
+                (int)(roundf(cy * g_ddraw.render.scale_h)),
                 hdcSrc,
                 x1,
                 y1,
@@ -1079,10 +1079,10 @@ int WINAPI fake_StretchDIBits(
             return
                 real_StretchDIBits(
                     hwnd == g_ddraw.hwnd ? hdc : g_ddraw.render.hdc,
-                    (int)(xDest * g_ddraw.render.scale_w) + g_ddraw.render.viewport.x,
-                    (int)(yDest * g_ddraw.render.scale_h) + g_ddraw.render.viewport.y,
-                    (int)(DestWidth * g_ddraw.render.scale_w),
-                    (int)(DestHeight * g_ddraw.render.scale_h),
+                    (int)(roundf(xDest * g_ddraw.render.scale_w)) + g_ddraw.render.viewport.x,
+                    (int)(roundf(yDest * g_ddraw.render.scale_h)) + g_ddraw.render.viewport.y,
+                    (int)(roundf(DestWidth * g_ddraw.render.scale_w)),
+                    (int)(roundf(DestHeight * g_ddraw.render.scale_h)),
                     xSrc,
                     ySrc,
                     SrcWidth,

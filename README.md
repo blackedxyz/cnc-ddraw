@@ -230,6 +230,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Poseidon: Master of Atlantis
 - Pro Pinball - Big Race USA
 - Pro Pinball - Fantastic Journey
+- Putt-Putt Saves The Zoo
 - Quest for Glory 5
 - Rage of Mages 2
 - Railroad Tycoon II
