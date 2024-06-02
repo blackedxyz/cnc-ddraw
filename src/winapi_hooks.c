@@ -1195,7 +1195,7 @@ HMODULE WINAPI fake_LoadLibraryA(LPCSTR lpLibFileName)
 
     if (hmod && hmod != hmod_old)
     {
-        hook_init(FALSE);
+        hook_init();
     }
 
     return hmod;
@@ -1223,7 +1223,7 @@ HMODULE WINAPI fake_LoadLibraryW(LPCWSTR lpLibFileName)
 
     if (hmod && hmod != hmod_old)
     {
-        hook_init(FALSE);
+        hook_init();
     }
 
     return hmod;
@@ -1251,7 +1251,7 @@ HMODULE WINAPI fake_LoadLibraryExA(LPCSTR lpLibFileName, HANDLE hFile, DWORD dwF
 
     if (hmod && hmod != hmod_old)
     {
-        hook_init(FALSE);
+        hook_init();
     }
 
     return hmod;
@@ -1279,7 +1279,7 @@ HMODULE WINAPI fake_LoadLibraryExW(LPCWSTR lpLibFileName, HANDLE hFile, DWORD dw
 
     if (hmod && hmod != hmod_old)
     {
-        hook_init(FALSE);
+        hook_init();
     }
 
     return hmod;
@@ -1650,7 +1650,7 @@ HRESULT WINAPI fake_CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter, DWORD
     if ((!quartz_dll && GetModuleHandleA("quartz")) ||
         (!msvfw32_dll && GetModuleHandleA("msvfw32")))
     {
-        hook_init(FALSE);
+        hook_init();
     }
 
     return result;
@@ -1667,7 +1667,7 @@ MCIERROR WINAPI fake_mciSendCommandA(MCIDEVICEID IDDevice, UINT uMsg, DWORD_PTR 
     if ((!quartz_dll && GetModuleHandleA("quartz")) ||
         (!msvfw32_dll && GetModuleHandleA("msvfw32")))
     {
-        hook_init(FALSE);
+        hook_init();
     }
 
     return result;

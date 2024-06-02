@@ -632,9 +632,9 @@ void hook_revert(HOOKLIST* hooks)
     }
 }
 
-void hook_init(BOOL initial_hook)
+void hook_init()
 {
-    if (initial_hook)
+    if (!g_hook_active)
     {
         if (g_config.hook == 4 && hook_got_ddraw_import(GetModuleHandleA(NULL), TRUE))
         {
@@ -646,7 +646,7 @@ void hook_init(BOOL initial_hook)
     if (!g_hook_active || g_config.hook == 3 || g_config.hook == 4)
     {
 #if defined(_DEBUG) && defined(_MSC_VER)
-        if (initial_hook)
+        if (!g_hook_active)
         {
             DetourTransactionBegin();
             DetourUpdateThread(GetCurrentThread());
@@ -655,12 +655,12 @@ void hook_init(BOOL initial_hook)
         }
 #endif
 
-        if (initial_hook)
+        if (!g_hook_active)
         {
             hook_patch_iat(GetModuleHandle("AcGenral"), FALSE, "user32.dll", "SetWindowsHookExA", (PROC)fake_SetWindowsHookExA);
         }
 
-        hook_create((HOOKLIST*)&g_hook_hooklist, initial_hook);
+        hook_create((HOOKLIST*)&g_hook_hooklist, !g_hook_active);
 
         g_hook_active = TRUE;
     }

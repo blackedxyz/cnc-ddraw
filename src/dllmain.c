@@ -121,7 +121,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         }
 
         timeBeginPeriod(1);
-        hook_init(TRUE);
+        hook_init();
         break;
     }
     case DLL_PROCESS_DETACH:

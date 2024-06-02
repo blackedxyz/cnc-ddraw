@@ -125,7 +125,7 @@ extern SETUNHANDLEDEXCEPTIONFILTERPROC real_SetUnhandledExceptionFilter;
 extern BOOL g_hook_active;
 extern HOOKLIST g_hook_hooklist[];
 
-void hook_init(BOOL initial_hook);
+void hook_init();
 void hook_exit();
 void hook_patch_iat(HMODULE hmod, BOOL unhook, char* module_name, char* function_name, PROC new_function);
 void hook_patch_iat_list(HMODULE hmod, BOOL unhook, HOOKLIST* hooks, BOOL is_local);
