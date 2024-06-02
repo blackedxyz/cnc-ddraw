@@ -148,7 +148,6 @@ HOOKLIST g_hook_hooklist[] =
             { "", NULL, NULL, 0 }
         }
     },
-    /*
     {
         "WING32.DLL",
         {
@@ -157,7 +156,6 @@ HOOKLIST g_hook_hooklist[] =
             { "", NULL, NULL, 0 }
         }
     },
-    */
     {
         "kernel32.dll",
         {
