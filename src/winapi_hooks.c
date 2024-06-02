@@ -466,8 +466,8 @@ int WINAPI fake_MapWindowPoints(HWND hWndFrom, HWND hWndTo, LPPOINT lpPoints, UI
             }
             else
             {
-                //real_MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints);
-                //return real_MapWindowPoints(HWND_DESKTOP, g_ddraw.hwnd, lpPoints, cPoints);
+                real_MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints);
+                return real_MapWindowPoints(HWND_DESKTOP, g_ddraw.hwnd, lpPoints, cPoints);
             }
         }
 
@@ -479,8 +479,8 @@ int WINAPI fake_MapWindowPoints(HWND hWndFrom, HWND hWndTo, LPPOINT lpPoints, UI
             }
             else
             {
-                //real_MapWindowPoints(g_ddraw.hwnd, HWND_DESKTOP, lpPoints, cPoints);
-                //return real_MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints);
+                real_MapWindowPoints(g_ddraw.hwnd, HWND_DESKTOP, lpPoints, cPoints);
+                return real_MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints);
             }
         }
     }

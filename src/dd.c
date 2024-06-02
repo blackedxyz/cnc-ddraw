@@ -908,6 +908,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         g_ddraw.render.opengl_y_align = 0;
     }
 
+    dbg_dump_wnd_styles(real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE), real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE));
     if (g_config.windowed)
     {
         if (g_config.remove_menu && GetMenu(g_ddraw.hwnd))
@@ -1018,8 +1019,6 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
     }
     else
     {
-        //dbg_dump_wnd_styles(real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE), real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE));
-
         int menu_height = 0;
 
         if (GetMenu(g_ddraw.hwnd))
