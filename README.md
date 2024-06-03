@@ -154,6 +154,11 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Fallout 2
 - Final fantasy VII
 - Final fantasy VIII
+- Freddi Fish
+- Freddi Fish 4
+- Freddi Fish's One-Stop Fun Shop
+- Freddi Fish: The Case of the Creature of Coral Cove
+- Freddi Fish: The Case of the Haunted Schoolhouse
 - Future Cop L.A.P.D
 - G-Police
 - Grand Theft Auto
@@ -225,6 +230,12 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Pacific General
 - Patrician 3
 - Pax Imperia
+- Pajama Sam: No Need to Hide When It's Dark Outside
+- Pajama Sam
+- Pajama Sam's Games to Play on Any Day
+- Pajama Sam 3
+- Pajama Sam(r): Life is Rough When You Lose Your Stuff(tm)
+- Pajama Sam's One-Stop Fun Shop
 - Pharaoh (Sierra - 1999)
 - Pizza Syndicate (AKA Fast Food Tycoon)
 - Populous: The Beginning
@@ -232,6 +243,12 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Pro Pinball - Big Race USA
 - Pro Pinball - Fantastic Journey
 - Putt-Putt Saves The Zoo
+- Putt-Putt's One-Stop Fun Shop
+- Putt-Putt and Pep's Dog On A Stick
+- Putt-Putt Joins the Circus
+- Putt-Putt: Travels Through Time
+- Putt-Putt: Pep's Birthday Surprise
+- Putt-Putt and Pep's Balloon-o-Rama
 - Quest for Glory 5
 - Rage of Mages 2
 - Railroad Tycoon II
@@ -274,6 +291,10 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - SimCoaster / Theme Park Inc
 - Sonic 3D Blast
 - Space Rangers
+- SPY Fox: Hold the Mustard
+- SPY Fox in Dry Cereal
+- SPY Fox : Some Assembly Required
+- SPY Fox: Operation Ozone
 - SpongeBob SquarePants: Typing
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars: Galactic Battlegrounds
