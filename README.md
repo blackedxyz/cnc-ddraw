@@ -72,9 +72,9 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Anno 1602: Creation of a New World
 - Anstoss 3
 - Arcanum: Of Steamworks and Magick Obscura
-- Arthur's Wilderness Rescue
 - Arthur's Pet Chase
 - Arthur's Sand Castle Contest
+- Arthur's Wilderness Rescue
 - Atlantis 2: Beyond Atlantis
 - Atlantis 3: The New World
 - Atlantis: The Lost Tales
@@ -126,8 +126,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Cossacks (Steam+GOG)
 - Cultures - The Discovery of Vinland
 - Cultures 2
-- Cyberchase Castleblanca Quest
 - Cyberchase Carnival Chaos
+- Cyberchase Castleblanca Quest
 - Dark Reign: The Future of War
 - Daytona USA (Sega - 1996)
 - Deadlock 2
@@ -159,9 +159,10 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Freddi Fish
 - Freddi Fish 4
 - Freddi Fish's One-Stop Fun Shop
+- Freddi Fish: Maze Madness
 - Freddi Fish: The Case of the Creature of Coral Cove
 - Freddi Fish: The Case of the Haunted Schoolhouse
-- Freddi Fish: Maze Madness
+- Freddi Water Worries
 - Future Cop L.A.P.D
 - G-Police
 - Grand Theft Auto
@@ -195,11 +196,11 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
-- Little Bear Toddler Discovery Adventures
+- Lionheart - Legacy of the Crusader
+- Little Bear Kindergarten Thinking Adventures
 - Little Bear Preschool Thinking Adventures
 - Little Bear Rainy Day Activities
-- Little Bear Kindergarten Thinking Adventures
-- Lionheart - Legacy of the Crusader
+- Little Bear Toddler Discovery Adventures
 - Locomotion
 - Lode Runner 2
 - Madeline 1st Grade Math
@@ -214,13 +215,13 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Moorhuhn Winter Editon
 - Moto Racer
 - Moto Racer 2
+- Nancy Drew: Danger on Deception Island
 - Nancy Drew: Last Train to Blue Moon Canyon
 - Nancy Drew: Message in a Haunted Mansion
 - Nancy Drew: Secrets Can Kill
 - Nancy Drew: Stay Tuned For Danger
-- Nancy Drew: Treasure in the Royal Tower
 - Nancy Drew: The Secret of Shadow Ranch
-- Nancy Drew: Danger on Deception Island
+- Nancy Drew: Treasure in the Royal Tower
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
 - New Robinson
@@ -231,27 +232,27 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Outlaws
 - Outlive
 - Pacific General
+- Pajama Sam
+- Pajama Sam 3
+- Pajama Sam's Games to Play on Any Day
+- Pajama Sam's One-Stop Fun Shop
+- Pajama Sam(r): Life is Rough When You Lose Your Stuff(tm)
+- Pajama Sam: No Need to Hide When It's Dark Outside
 - Patrician 3
 - Pax Imperia
-- Pajama Sam: No Need to Hide When It's Dark Outside
-- Pajama Sam
-- Pajama Sam's Games to Play on Any Day
-- Pajama Sam 3
-- Pajama Sam(r): Life is Rough When You Lose Your Stuff(tm)
-- Pajama Sam's One-Stop Fun Shop
 - Pharaoh (Sierra - 1999)
 - Pizza Syndicate (AKA Fast Food Tycoon)
 - Populous: The Beginning
 - Poseidon: Master of Atlantis
 - Pro Pinball - Big Race USA
 - Pro Pinball - Fantastic Journey
-- Putt-Putt Saves The Zoo
-- Putt-Putt's One-Stop Fun Shop
+- Putt-Putt and Pep's Balloon-o-Rama
 - Putt-Putt and Pep's Dog On A Stick
 - Putt-Putt Joins the Circus
-- Putt-Putt: Travels Through Time
+- Putt-Putt Saves The Zoo
+- Putt-Putt's One-Stop Fun Shop
 - Putt-Putt: Pep's Birthday Surprise
-- Putt-Putt and Pep's Balloon-o-Rama
+- Putt-Putt: Travels Through Time
 - Quest for Glory 5
 - Rage of Mages 2
 - Railroad Tycoon II
@@ -261,13 +262,13 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reader Rabbit Kindergarten
 - Reader Rabbit Learn To Read With Phonics
 - Reader Rabbit Learning Creations
+- Reader Rabbit Math Ages 4-6
+- Reader Rabbit Preschool 2002
 - Reader Rabbit Reading Ages 4-6
 - Reader Rabbit Reading Ages 6-9
-- Reader Rabbit Toddler
-- Reader Rabbit Math Ages 4-6
-- Reader Rabbit's(R) Math Ages 6 - 9 (2002)
-- Reader Rabbit Preschool 2002
 - Reader Rabbit Thinking Ages 4-6 (US)
+- Reader Rabbit Toddler
+- Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Red Baron 3D
 - Reksio and Captain Nemo (AKA Reksio si Capitanul Nemo)
 - Reksio and Kretes in Action (AKA Reksio si Kretes in Actiune)
@@ -294,11 +295,11 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - SimCoaster / Theme Park Inc
 - Sonic 3D Blast
 - Space Rangers
-- SPY Fox: Hold the Mustard
-- SPY Fox in Dry Cereal
-- SPY Fox : Some Assembly Required
-- SPY Fox: Operation Ozone
 - SpongeBob SquarePants: Typing
+- SPY Fox : Some Assembly Required
+- SPY Fox in Dry Cereal
+- SPY Fox: Hold the Mustard
+- SPY Fox: Operation Ozone
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
