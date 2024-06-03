@@ -592,22 +592,15 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
 
     if (real_GetClientRect(hwnd, &size) && real_GetWindowRect(hwnd, &pos) && size.right > 1 && size.bottom > 1)
     {
-        /*
-        TRACE(
-            "     util_enum_child_proc width=%u, Height=%u, left=%d, top=%d\n",
-            size.right,
-            size.bottom,
-            pos.left,
-            pos.top);
-            */
-
         char class_name[MAX_PATH] = { 0 };
         GetClassNameA(hwnd, class_name, sizeof(class_name) - 1);
 
-        //LONG style = real_GetWindowLongA(hwnd, GWL_STYLE);
         LONG exstyle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
 
-        //TRACE("     AVIWINDOW class=%s, style=%p, exstyle=%p\n", class_name, style, exstyle);
+        //TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d\n", 
+        //    class_name, hwnd, size.right, size.bottom, pos.left, pos.top);
+
+        //dbg_dump_wnd_styles(real_GetWindowLongA(hwnd, GWL_STYLE), exstyle);
 
         if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
             strcmp(class_name, "VideoRenderer") == 0 ||
