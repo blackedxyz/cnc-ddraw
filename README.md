@@ -159,6 +159,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Freddi Fish's One-Stop Fun Shop
 - Freddi Fish: The Case of the Creature of Coral Cove
 - Freddi Fish: The Case of the Haunted Schoolhouse
+- Freddi Fish: Maze Madness
 - Future Cop L.A.P.D
 - G-Police
 - Grand Theft Auto
