@@ -968,12 +968,16 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE | RDW_ALLCHILDREN);
         }
 
-        ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
+        if (g_ddraw.primary)
+        {
+            ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
+        }
+
         break;
     }
     case WM_ERASEBKGND:
     {
-        if (g_ddraw.render.viewport.x != 0 || g_ddraw.render.viewport.y != 0)
+        if (g_ddraw.primary && (g_ddraw.render.viewport.x != 0 || g_ddraw.render.viewport.y != 0))
         {
             InterlockedExchange(&g_ddraw.render.clear_screen, TRUE);
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
