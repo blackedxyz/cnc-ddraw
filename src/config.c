@@ -1468,7 +1468,8 @@ static void cfg_init()
     ini_create(&g_config.ini, g_config.ini_path);
     cfg_get_game_section(g_config.game_section, sizeof(g_config.game_section));
 
-    TRACE("section = %s\n", g_config.game_section[0] ? g_config.game_section : "ddraw");
+    TRACE("filename = %s\n", g_config.process_file_name);
+    TRACE("section  = %s\n", g_config.game_section[0] ? g_config.game_section : "ddraw");
 }
 
 static DWORD cfg_get_game_section(LPSTR buf, DWORD size)
