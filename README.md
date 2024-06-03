@@ -88,6 +88,8 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Batman: Toxic Chill
 - Blade & Sword
 - Blood II - The Chosen
+- Blue's 123 Time Activities
+- Blue's Treasure Hunt
 - Caesar III (Sierra - 1998)
 - Call To Power 2
 - Capitalism II
