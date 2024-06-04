@@ -162,6 +162,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Freddi Fish: Maze Madness
 - Freddi Fish: The Case of the Creature of Coral Cove
 - Freddi Fish: The Case of the Haunted Schoolhouse
+- Freddi Fish: The Case of the Hogfish Rustlers of Briny Gulch
 - Freddi Water Worries
 - Future Cop L.A.P.D
 - G-Police
