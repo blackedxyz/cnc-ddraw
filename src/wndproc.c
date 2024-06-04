@@ -798,8 +798,8 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         HWND video_hwnd = (HWND)InterlockedExchangeAdd((LONG*)&g_ddraw.video_window_hwnd, 0);
         if (video_hwnd)
         {
-            PostMessageA(video_hwnd, uMsg, wParam, lParam);
-            return 0;
+            //PostMessageA(video_hwnd, uMsg, wParam, lParam);
+            //return 0;
         }
 
         break;
@@ -812,8 +812,8 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         HWND video_hwnd = (HWND)InterlockedExchangeAdd((LONG*)&g_ddraw.video_window_hwnd, 0);
         if (video_hwnd)
         {
-            PostMessageA(video_hwnd, uMsg, wParam, lParam);
-            return 0;
+            //PostMessageA(video_hwnd, uMsg, wParam, lParam);
+            //return 0;
         }
 
         break;
@@ -910,8 +910,8 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         HWND video_hwnd = (HWND)InterlockedExchangeAdd((LONG*)&g_ddraw.video_window_hwnd, 0);
         if (video_hwnd)
         {
-            PostMessageA(video_hwnd, uMsg, wParam, lParam);
-            return 0;
+            //PostMessageA(video_hwnd, uMsg, wParam, lParam);
+            //return 0;
         }
 
         break;
