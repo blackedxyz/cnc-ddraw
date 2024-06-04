@@ -587,6 +587,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
 {
     IDirectDrawSurfaceImpl* this = (IDirectDrawSurfaceImpl*)lparam;
 
+    HWND parent = GetParent(hwnd);
     RECT size;
     RECT pos;
 
@@ -601,10 +602,15 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
         LONG style = real_GetWindowLongA(hwnd, GWL_STYLE);
         LONG exstyle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
 
-        //TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d, parent=%p\n", 
-        //    class_name, hwnd, size.right, size.bottom, pos.left, pos.top, GetParent(hwnd));
+#ifdef _DEBUG_X
+        TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d, parent=%p\n", 
+            class_name, hwnd, size.right, size.bottom, pos.left, pos.top, parent);
 
-        //dbg_dump_wnd_styles(style, exstyle);
+        dbg_dump_wnd_styles(style, exstyle);
+#endif
+
+        if (parent != g_ddraw.hwnd)
+            return TRUE;
 
         /* Atrox */
         if (style == 0x500100C4 && strcmp(class_name, "Edit") == 0)
@@ -657,7 +663,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
         }
     }
 
-    return FALSE;
+    return parent == g_ddraw.hwnd ? FALSE : TRUE;
 }
 
 static unsigned char util_get_pixel(int x, int y)
