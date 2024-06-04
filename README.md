@@ -272,12 +272,12 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reader Rabbit Toddler
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Red Baron 3D
-- Reksio and Captain Nemo (AKA Reksio si Capitanul Nemo)
-- Reksio and Kretes in Action (AKA Reksio si Kretes in Actiune)
-- Reksio and the Pirate Treasure (AKA Reksio si Comoara Piratilor)
-- Reksio and the Time Machine (AKA Reksio si Masina Timpului)
-- Reksio and the UFO (AKA Reksio si OZN-ul)
-- Reksio and the Wizards (AKA Reksio si Magicienii)
+- Reksio and the Pirate Treasure (Reksio i Skarb Piratów)
+- Reksio and the UFO (Reksio i Ufo)
+- Reksio and the Wizards (Reksio i Czarodzieje)
+- Reksio and the Time Machine (Reksio i Wehikuł Czasu)
+- Reksio and Captain Nemo (Reksio i Kapitan Nemo)
+- Reksio and Kretes in Action (Reksio i Kretes w Akcji!)
 - Road Rash
 - RollerCoaster Tycoon
 - Sanitarium
