@@ -590,17 +590,25 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
     RECT size;
     RECT pos;
 
-    if (real_GetClientRect(hwnd, &size) && real_GetWindowRect(hwnd, &pos) && size.right > 1 && size.bottom > 1)
+    if (real_GetClientRect(hwnd, &size) && 
+        real_GetWindowRect(hwnd, &pos) && 
+        size.right > 1 && 
+        size.bottom > 1)
     {
         char class_name[MAX_PATH] = { 0 };
         GetClassNameA(hwnd, class_name, sizeof(class_name) - 1);
 
+        LONG style = real_GetWindowLongA(hwnd, GWL_STYLE);
         LONG exstyle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
 
-        //TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d\n", 
-        //    class_name, hwnd, size.right, size.bottom, pos.left, pos.top);
+        //TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d, parent=%p\n", 
+        //    class_name, hwnd, size.right, size.bottom, pos.left, pos.top, GetParent(hwnd));
 
-        //dbg_dump_wnd_styles(real_GetWindowLongA(hwnd, GWL_STYLE), exstyle);
+        //dbg_dump_wnd_styles(style, exstyle);
+
+        /* Atrox */
+        if (style == 0x500100C4 && strcmp(class_name, "Edit") == 0)
+            return TRUE;
 
         if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
             strcmp(class_name, "VideoRenderer") == 0 ||

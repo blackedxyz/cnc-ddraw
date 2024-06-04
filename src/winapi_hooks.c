@@ -834,6 +834,7 @@ BOOL WINAPI fake_StretchBlt(
         (hwnd == g_ddraw.hwnd ||
             (g_config.fixchilds && IsChild(g_ddraw.hwnd, hwnd) &&
                 (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
+                    strcmp(class_name, "VideoRenderer") == 0 ||
                     strcmp(class_name, "AVI Window") == 0 ||
                     strcmp(class_name, "MCIAVI") == 0 ||
                     strcmp(class_name, "AVIWnd32") == 0 ||
@@ -846,8 +847,22 @@ BOOL WINAPI fake_StretchBlt(
 
             if (primary_dc)
             {
+                POINT pt = { 0 };
+                real_MapWindowPoints(hwnd, g_ddraw.hwnd, &pt, 1);
+
                 BOOL result =
-                    real_StretchBlt(primary_dc, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, rop);
+                    real_StretchBlt(
+                        primary_dc, 
+                        xDest + pt.x,
+                        yDest + pt.y, 
+                        wDest, 
+                        hDest, 
+                        hdcSrc, 
+                        xSrc, 
+                        ySrc, 
+                        wSrc, 
+                        hSrc, 
+                        rop);
 
                 dds_ReleaseDC(g_ddraw.primary, primary_dc);
 
@@ -1053,11 +1068,14 @@ int WINAPI fake_StretchDIBits(
 
             if (primary_dc)
             {
+                POINT pt = {0};
+                real_MapWindowPoints(hwnd, g_ddraw.hwnd, &pt, 1);
+
                 int result =
                     real_StretchDIBits(
                         primary_dc,
-                        xDest,
-                        yDest,
+                        xDest + pt.x,
+                        yDest + pt.y,
                         DestWidth,
                         DestHeight,
                         xSrc,

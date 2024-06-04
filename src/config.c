@@ -366,7 +366,6 @@ static void cfg_create_ini()
             "; Atrox\n"
             "[Atrox]\n"
             "nonexclusive=true\n"
-            "fixchilds=0\n"
             "allow_wmactivate=true\n"
             "\n"
             "; Atomic Bomberman\n"
