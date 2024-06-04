@@ -239,6 +239,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Pajama Sam's One-Stop Fun Shop
 - Pajama Sam(r): Life is Rough When You Lose Your Stuff(tm)
 - Pajama Sam: No Need to Hide When It's Dark Outside
+- Pajama Sam 3: You Are What You Eat From Your Head To Your Feet
 - Patrician 3
 - Pax Imperia
 - Pharaoh (Sierra - 1999)
