@@ -601,10 +601,17 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
         LONG style = real_GetWindowLongA(hwnd, GWL_STYLE);
         LONG exstyle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
 
-        //TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d, parent=%p\n", 
-        //    class_name, hwnd, size.right, size.bottom, pos.left, pos.top, GetParent(hwnd));
+#ifdef _DEBUG_X
+        HWND parent = GetParent(hwnd);
 
-        //dbg_dump_wnd_styles(style, exstyle);
+        TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d, parent=%p\n", 
+            class_name, hwnd, size.right, size.bottom, pos.left, pos.top, parent);
+
+        dbg_dump_wnd_styles(style, exstyle);
+
+        if (parent != g_ddraw.hwnd)
+            return TRUE;
+#endif
 
         /* Atrox */
         if (style == 0x500100C4 && strcmp(class_name, "Edit") == 0)
@@ -657,7 +664,11 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
         }
     }
 
+#ifdef _DEBUG_X
+    return TRUE;
+#else
     return FALSE;
+#endif
 }
 
 static unsigned char util_get_pixel(int x, int y)
