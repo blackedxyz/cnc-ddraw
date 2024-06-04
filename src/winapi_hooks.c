@@ -1532,9 +1532,13 @@ HWND WINAPI fake_CreateWindowExA(
 
     /* Center Claw DVD movies */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "Afx:400000:3") == 0 &&
-        g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width &&
+        g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
+        g_ddraw.width &&
         (dwStyle & (WS_POPUP | WS_CHILD)) == (WS_POPUP | WS_CHILD))
     {
+        //dwStyle &= ~WS_POPUP;
+        //dwExStyle = WS_EX_TRANSPARENT;
+
         POINT pt = { 0, 0 };
         real_ClientToScreen(g_ddraw.hwnd, &pt);
 
@@ -1548,8 +1552,7 @@ HWND WINAPI fake_CreateWindowExA(
     }
 
     /* Road Rash movies */
-    if (HIWORD(lpClassName) &&
-        _strcmpi(lpClassName, "AVI Window") == 0 &&
+    if (HIWORD(lpClassName) && _strcmpi(lpClassName, "AVI Window") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width &&
         (dwStyle & WS_POPUP))
     {
