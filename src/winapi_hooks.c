@@ -994,7 +994,9 @@ int WINAPI fake_SetDIBitsToDevice(
     const BITMAPINFO* lpbmi,
     UINT ColorUse)
 {
-    if (g_ddraw.ref && g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd)
+    HWND hwnd = WindowFromDC(hdc);
+
+    if (g_ddraw.ref && g_ddraw.hwnd && hwnd == g_ddraw.hwnd)
     {
         if (g_ddraw.primary && (g_ddraw.primary->bpp == 16 || g_ddraw.primary->bpp == 32 || g_ddraw.primary->palette))
         {
@@ -1022,6 +1024,24 @@ int WINAPI fake_SetDIBitsToDevice(
 
                 return result;
             }
+        }
+        else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
+        {
+            return
+                real_StretchDIBits(
+                    hwnd == g_ddraw.hwnd ? hdc : g_ddraw.render.hdc,
+                    (int)(roundf(xDest * g_ddraw.render.scale_w)) + g_ddraw.render.viewport.x,
+                    (int)(roundf(yDest * g_ddraw.render.scale_h)) + g_ddraw.render.viewport.y,
+                    (int)(roundf(w * g_ddraw.render.scale_w)),
+                    (int)(roundf(h * g_ddraw.render.scale_h)),
+                    xSrc,
+                    ySrc,
+                    w,
+                    h,
+                    lpvBits,
+                    lpbmi,
+                    ColorUse,
+                    SRCCOPY);
         }
     }
 
@@ -1056,6 +1076,7 @@ int WINAPI fake_StretchDIBits(
         (hwnd == g_ddraw.hwnd ||
             (g_config.fixchilds && IsChild(g_ddraw.hwnd, hwnd) &&
                 (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
+                    strcmp(class_name, "VideoRenderer") == 0 ||
                     strcmp(class_name, "AVI Window") == 0 ||
                     strcmp(class_name, "MCIAVI") == 0 ||
                     strcmp(class_name, "AVIWnd32") == 0 ||
