@@ -671,10 +671,12 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             /* let it pass through once (tiberian sun / ClueFinders) */
             static BOOL one_time;
         
-            if (wParam && !one_time)
+            if (!one_time)
             {
                 one_time = TRUE;
-                break;
+
+                if (wParam)
+                    break;
             }
             
             if (wParam && g_ddraw.alt_key_down && !g_config.releasealt)
