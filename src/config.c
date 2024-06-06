@@ -1352,6 +1352,7 @@ static void cfg_create_ini()
             "[XFiles]\n"
             "windowed=true\n"
             "fullscreen=true\n"
+            "toggle_borderless=true\n"
             "\n"
             "; The Learning Company Launcher\n"
             "[TLCLauncher]\n"
