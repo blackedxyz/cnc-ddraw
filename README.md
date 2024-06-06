@@ -318,6 +318,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Stronghold HD
 - The Powerpuff Girls - Princess Snorebucks
 - The Powerpuff Girls(TM) Mojo Jojo's Clone Zone
+- The X-Files DVD
 - Theme Hospital
 - Three Kingdoms: Fate of the Dragon
 - Total Annihilation
