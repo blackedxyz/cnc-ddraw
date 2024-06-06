@@ -850,6 +850,11 @@ BOOL WINAPI fake_StretchBlt(
                 POINT pt = { 0 };
                 real_MapWindowPoints(hwnd, g_ddraw.hwnd, &pt, 1);
 
+                int org_mode = SetStretchBltMode(hdcDest, COLORONCOLOR);
+                SetStretchBltMode(hdcDest, org_mode);
+
+                int mode = SetStretchBltMode(primary_dc, org_mode);
+
                 BOOL result =
                     real_StretchBlt(
                         primary_dc, 
@@ -863,6 +868,8 @@ BOOL WINAPI fake_StretchBlt(
                         wSrc, 
                         hSrc, 
                         rop);
+
+                SetStretchBltMode(primary_dc, mode);
 
                 dds_ReleaseDC(g_ddraw.primary, primary_dc);
 
