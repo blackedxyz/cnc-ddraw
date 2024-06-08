@@ -279,6 +279,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Reksio and Captain Nemo (Reksio i Kapitan Nemo)
 - Reksio and Kretes in Action (Reksio i Kretes w Akcji!)
 - Road Rash
+- Robin Hood - The Legend of Sherwood
 - RollerCoaster Tycoon
 - Sanitarium
 - Scooby-Doo(TM), Case File #2 The Scary Stone Dragon
