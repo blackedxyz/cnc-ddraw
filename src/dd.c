@@ -541,20 +541,18 @@ HRESULT dd_GetMonitorFrequency(LPDWORD lpdwFreq)
 
 HRESULT dd_RestoreDisplayMode()
 {
-    if (!g_ddraw.render.run)
+    if (g_ddraw.render.run)
     {
-        return DD_OK;
-    }
+        EnterCriticalSection(&g_ddraw.cs);
+        g_ddraw.render.run = FALSE;
+        ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
+        LeaveCriticalSection(&g_ddraw.cs);
 
-    EnterCriticalSection(&g_ddraw.cs);
-    g_ddraw.render.run = FALSE;
-    ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
-    LeaveCriticalSection(&g_ddraw.cs);
-
-    if (g_ddraw.render.thread)
-    {
-        WaitForSingleObject(g_ddraw.render.thread, INFINITE);
-        g_ddraw.render.thread = NULL;
+        if (g_ddraw.render.thread)
+        {
+            WaitForSingleObject(g_ddraw.render.thread, INFINITE);
+            g_ddraw.render.thread = NULL;
+        }
     }
 
     if (!g_config.windowed)
@@ -1433,32 +1431,7 @@ ULONG dd_Release()
             cfg_save();
         }
 
-        if (g_ddraw.render.run)
-        {
-            EnterCriticalSection(&g_ddraw.cs);
-            g_ddraw.render.run = FALSE;
-            ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
-            LeaveCriticalSection(&g_ddraw.cs);
-
-            if (g_ddraw.render.thread)
-            {
-                WaitForSingleObject(g_ddraw.render.thread, INFINITE);
-                g_ddraw.render.thread = NULL;
-            }
-        }
-
-        if (!g_config.windowed)
-        {
-            if (g_ddraw.renderer == d3d9_render_main && !g_config.nonexclusive)
-            {
-                if (!d3d9_reset(TRUE))
-                    d3d9_release();
-            }
-            else
-            {
-                ChangeDisplaySettings(NULL, 0);
-            }
-        }
+        dd_RestoreDisplayMode();
 
         if (g_ddraw.render.hdc)
         {
