@@ -62,7 +62,7 @@ HRESULT dd_EnumDisplayModes(
     memset(&reg_m, 0, sizeof(DEVMODE));
     reg_m.dmSize = sizeof(DEVMODE);
 
-    if (EnumDisplaySettings(NULL, ENUM_REGISTRY_SETTINGS, &reg_m))
+    if (real_EnumDisplaySettingsA(NULL, ENUM_REGISTRY_SETTINGS, &reg_m))
     {
         max_w = reg_m.dmPelsWidth;
         max_h = reg_m.dmPelsHeight;
@@ -138,7 +138,7 @@ HRESULT dd_EnumDisplayModes(
         memset(&m, 0, sizeof(DEVMODE));
         m.dmSize = sizeof(DEVMODE);
 
-        while (EnumDisplaySettings(NULL, i, &m))
+        while (real_EnumDisplaySettingsA(NULL, i, &m))
         {
             TRACE_EXT(
                 "     %u: %ux%u@%u %u bpp | flags=0x%08X, FO=%u\n",
@@ -177,7 +177,7 @@ HRESULT dd_EnumDisplayModes(
 
         BOOL custom_res_injected = FALSE;
 
-        while (EnumDisplaySettings(NULL, i, &m))
+        while (real_EnumDisplaySettingsA(NULL, i, &m))
         {
             if (refresh_rate == m.dmDisplayFrequency &&
                 bpp == m.dmBitsPerPel &&
@@ -607,7 +607,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         g_ddraw.mode.dmSize = sizeof(DEVMODE);
         g_ddraw.mode.dmDriverExtra = 0;
 
-        if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &g_ddraw.mode) == FALSE)
+        if (real_EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &g_ddraw.mode) == FALSE)
         {
             g_ddraw.mode.dmSize = sizeof(DEVMODE);
             g_ddraw.mode.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL | DM_DISPLAYFREQUENCY;

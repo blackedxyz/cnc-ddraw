@@ -308,7 +308,7 @@ BOOL util_get_lowest_resolution(
     memset(&m, 0, sizeof(DEVMODE));
     m.dmSize = sizeof(DEVMODE);
 
-    while (EnumDisplaySettings(NULL, i, &m))
+    while (real_EnumDisplaySettingsA(NULL, i, &m))
     {
         if (m.dmPelsWidth >= min_width &&
             m.dmPelsHeight >= min_height &&
