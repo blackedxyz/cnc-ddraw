@@ -50,6 +50,7 @@ SETWINDOWSHOOKEXAPROC real_SetWindowsHookExA = SetWindowsHookExA;
 PEEKMESSAGEAPROC real_PeekMessageA = PeekMessageA;
 GETMESSAGEAPROC real_GetMessageA = GetMessageA;
 GETWINDOWPLACEMENTPROC real_GetWindowPlacement = GetWindowPlacement;
+ENUMDISPLAYSETTINGSAPROC real_EnumDisplaySettingsA = EnumDisplaySettingsA;
 GETKEYSTATEPROC real_GetKeyState = GetKeyState;
 GETASYNCKEYSTATEPROC real_GetAsyncKeyState = GetAsyncKeyState;
 GETDEVICECAPSPROC real_GetDeviceCaps = GetDeviceCaps;
@@ -98,6 +99,7 @@ HOOKLIST g_hook_hooklist[] =
             { "PeekMessageA", (PROC)fake_PeekMessageA, (PROC*)&real_PeekMessageA, 0 },
             { "GetMessageA", (PROC)fake_GetMessageA, (PROC*)&real_GetMessageA, 0 },
             { "GetWindowPlacement", (PROC)fake_GetWindowPlacement, (PROC*)&real_GetWindowPlacement, 0 },
+            { "EnumDisplaySettingsA", (PROC)fake_EnumDisplaySettingsA, (PROC*)&real_EnumDisplaySettingsA, 0 },
             { "GetKeyState", (PROC)fake_GetKeyState, (PROC*)&real_GetKeyState, 0 },
             { "GetAsyncKeyState", (PROC)fake_GetAsyncKeyState, (PROC*)&real_GetAsyncKeyState, 0 },
             { "SetForegroundWindow", (PROC)fake_SetForegroundWindow, (PROC*)&real_SetForegroundWindow, 0 },

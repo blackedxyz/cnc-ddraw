@@ -767,6 +767,39 @@ BOOL WINAPI fake_GetWindowPlacement(HWND hWnd, WINDOWPLACEMENT* lpwndpl)
     return result;
 }
 
+BOOL WINAPI fake_EnumDisplaySettingsA(LPCSTR lpszDeviceName, DWORD iModeNum, DEVMODEA* lpDevMode)
+{
+    BOOL result = real_EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode);
+
+    if (result && !lpszDeviceName && lpDevMode && iModeNum == ENUM_CURRENT_SETTINGS)
+    {
+        if (g_ddraw.ref && g_ddraw.width)
+        {
+            lpDevMode->dmPelsWidth = g_ddraw.width;
+            lpDevMode->dmPelsHeight = g_ddraw.height;
+            lpDevMode->dmBitsPerPel = g_ddraw.bpp;
+        }
+        else if (g_config.fake_mode[0])
+        {
+            char* e = &g_config.fake_mode[0];
+
+            lpDevMode->dmPelsWidth = strtoul(e, &e, 0);
+            lpDevMode->dmPelsHeight = strtoul(e + 1, &e, 0);
+            lpDevMode->dmBitsPerPel = strtoul(e + 1, &e, 0);
+        }
+        else
+        {
+            lpDevMode->dmPelsWidth = 1024;
+            lpDevMode->dmPelsHeight = 768;
+            lpDevMode->dmBitsPerPel = 16;
+        }
+
+        lpDevMode->dmDisplayFrequency = 60;
+    }
+
+    return result;
+}
+
 SHORT WINAPI fake_GetKeyState(int nVirtKey)
 {
     if (g_config.windowed && g_ddraw.ref && g_ddraw.hwnd && !util_in_foreground())
