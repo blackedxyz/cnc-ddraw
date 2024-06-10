@@ -317,6 +317,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 - Stronghold Crusader Extreme HD
 - Stronghold Crusader HD
 - Stronghold HD
+- Sudden Strike 2
 - The Powerpuff Girls - Princess Snorebucks
 - The Powerpuff Girls(TM) Mojo Jojo's Clone Zone
 - The X-Files DVD
