@@ -19,19 +19,24 @@ DIRECTINPUTCREATEEXPROC real_DirectInputCreateEx;
 DIRECTINPUT8CREATEPROC real_DirectInput8Create;
 
 static DICREATEDEVICEPROC real_di_CreateDevice;
-static PROC* di_CreateDevice_vtbl_addr;
 static DICREATEDEVICEEXPROC real_di_CreateDeviceEx;
-static PROC* di_CreateDeviceEx_vtbl_addr;
 static DIDSETCOOPERATIVELEVELPROC real_did_SetCooperativeLevel;
-static PROC* did_SetCooperativeLevel_vtbl_addr;
 static DIDGETDEVICEDATAPROC real_did_GetDeviceData;
-static PROC* did_GetDeviceData_vtbl_addr;
 static DIDGETDEVICESTATEPROC real_did_GetDeviceState;
-static PROC* did_GetDeviceState_vtbl_addr;
+
+static PROC* g_di_CreateDevice_vtbl_addr;
+static PROC* g_di_CreateDeviceEx_vtbl_addr;
+static PROC* g_did_SetCooperativeLevel_vtbl_addr;
+static PROC* g_did_GetDeviceData_vtbl_addr;
+static PROC* g_did_GetDeviceState_vtbl_addr;
+
 static LPDIRECTINPUTDEVICEA g_mouse_device;
 
 static PROC hook_func(PROC* org_func, PROC new_func)
 {
+    if (!org_func)
+        return 0;
+
     PROC org = *org_func;
     DWORD old_protect;
 
@@ -126,20 +131,20 @@ static HRESULT WINAPI fake_di_CreateDevice(
 
         if (!real_did_SetCooperativeLevel)
         {
-            did_SetCooperativeLevel_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->SetCooperativeLevel;
+            g_did_SetCooperativeLevel_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->SetCooperativeLevel;
 
             real_did_SetCooperativeLevel =
-                (DIDSETCOOPERATIVELEVELPROC)hook_func(did_SetCooperativeLevel_vtbl_addr, (PROC)fake_did_SetCooperativeLevel);
+                (DIDSETCOOPERATIVELEVELPROC)hook_func(g_did_SetCooperativeLevel_vtbl_addr, (PROC)fake_did_SetCooperativeLevel);
 
-            did_GetDeviceData_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceData;
+            g_did_GetDeviceData_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceData;
 
             real_did_GetDeviceData =
-                (DIDGETDEVICEDATAPROC)hook_func(did_GetDeviceData_vtbl_addr, (PROC)fake_did_GetDeviceData);
+                (DIDGETDEVICEDATAPROC)hook_func(g_did_GetDeviceData_vtbl_addr, (PROC)fake_did_GetDeviceData);
 
-            did_GetDeviceState_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceState;
+            g_did_GetDeviceState_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceState;
 
             real_did_GetDeviceState =
-                (DIDGETDEVICESTATEPROC)hook_func(did_GetDeviceState_vtbl_addr, (PROC)fake_did_GetDeviceState);
+                (DIDGETDEVICESTATEPROC)hook_func(g_did_GetDeviceState_vtbl_addr, (PROC)fake_did_GetDeviceState);
         }
     }
 
@@ -166,20 +171,20 @@ static HRESULT WINAPI fake_di_CreateDeviceEx(
 
         if (!real_did_SetCooperativeLevel)
         {
-            did_SetCooperativeLevel_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->SetCooperativeLevel;
+            g_did_SetCooperativeLevel_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->SetCooperativeLevel;
 
             real_did_SetCooperativeLevel =
-                (DIDSETCOOPERATIVELEVELPROC)hook_func(did_SetCooperativeLevel_vtbl_addr, (PROC)fake_did_SetCooperativeLevel);
+                (DIDSETCOOPERATIVELEVELPROC)hook_func(g_did_SetCooperativeLevel_vtbl_addr, (PROC)fake_did_SetCooperativeLevel);
 
-            did_GetDeviceData_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceData;
+            g_did_GetDeviceData_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceData;
 
             real_did_GetDeviceData =
-                (DIDGETDEVICEDATAPROC)hook_func(did_GetDeviceData_vtbl_addr, (PROC)fake_did_GetDeviceData);
+                (DIDGETDEVICEDATAPROC)hook_func(g_did_GetDeviceData_vtbl_addr, (PROC)fake_did_GetDeviceData);
 
-            did_GetDeviceState_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceState;
+            g_did_GetDeviceState_vtbl_addr = (PROC*)&(*lplpDIDevice)->lpVtbl->GetDeviceState;
 
             real_did_GetDeviceState =
-                (DIDGETDEVICESTATEPROC)hook_func(did_GetDeviceState_vtbl_addr, (PROC)fake_did_GetDeviceState);
+                (DIDGETDEVICESTATEPROC)hook_func(g_did_GetDeviceState_vtbl_addr, (PROC)fake_did_GetDeviceState);
         }
     }
 
@@ -215,10 +220,10 @@ HRESULT WINAPI fake_DirectInputCreateA(
 
     if (SUCCEEDED(result) && !real_di_CreateDevice && !g_config.no_dinput_hook)
     {
-        di_CreateDevice_vtbl_addr = (PROC*)&(*lplpDirectInput)->lpVtbl->CreateDevice;
+        g_di_CreateDevice_vtbl_addr = (PROC*)&(*lplpDirectInput)->lpVtbl->CreateDevice;
 
         real_di_CreateDevice =
-            (DICREATEDEVICEPROC)hook_func(di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
+            (DICREATEDEVICEPROC)hook_func(g_di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
     }
 
     return result;
@@ -253,10 +258,10 @@ HRESULT WINAPI fake_DirectInputCreateW(
 
     if (SUCCEEDED(result) && !real_di_CreateDevice && !g_config.no_dinput_hook)
     {
-        di_CreateDevice_vtbl_addr = (PROC*)&(*lplpDirectInput)->lpVtbl->CreateDevice;
+        g_di_CreateDevice_vtbl_addr = (PROC*)&(*lplpDirectInput)->lpVtbl->CreateDevice;
 
         real_di_CreateDevice =
-            (DICREATEDEVICEPROC)hook_func(di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
+            (DICREATEDEVICEPROC)hook_func(g_di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
     }
 
     return result;
@@ -292,10 +297,10 @@ HRESULT WINAPI fake_DirectInputCreateEx(
 
     if (SUCCEEDED(result) && !real_di_CreateDevice && !g_config.no_dinput_hook)
     {
-        di_CreateDevice_vtbl_addr = (PROC*)&(*ppvOut)->lpVtbl->CreateDevice;
+        g_di_CreateDevice_vtbl_addr = (PROC*)&(*ppvOut)->lpVtbl->CreateDevice;
 
         real_di_CreateDevice =
-            (DICREATEDEVICEPROC)hook_func(di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
+            (DICREATEDEVICEPROC)hook_func(g_di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
     }
 
     if (SUCCEEDED(result) &&
@@ -304,10 +309,10 @@ HRESULT WINAPI fake_DirectInputCreateEx(
         (IsEqualGUID(&IID_IDirectInput7A, riidltf) || IsEqualGUID(&IID_IDirectInput7W, riidltf)) 
         && !g_config.no_dinput_hook)
     {
-        di_CreateDeviceEx_vtbl_addr = (PROC*)&(*ppvOut)->lpVtbl->CreateDeviceEx;
+        g_di_CreateDeviceEx_vtbl_addr = (PROC*)&(*ppvOut)->lpVtbl->CreateDeviceEx;
 
         real_di_CreateDeviceEx =
-            (DICREATEDEVICEEXPROC)hook_func(di_CreateDeviceEx_vtbl_addr, (PROC)fake_di_CreateDeviceEx);
+            (DICREATEDEVICEEXPROC)hook_func(g_di_CreateDeviceEx_vtbl_addr, (PROC)fake_di_CreateDeviceEx);
     }
 
     return result;
@@ -343,10 +348,10 @@ HRESULT WINAPI fake_DirectInput8Create(
 
     if (SUCCEEDED(result) && !real_di_CreateDevice && !g_config.no_dinput_hook)
     {
-        di_CreateDevice_vtbl_addr = (PROC*)&(*ppvOut)->lpVtbl->CreateDevice;
+        g_di_CreateDevice_vtbl_addr = (PROC*)&(*ppvOut)->lpVtbl->CreateDevice;
 
         real_di_CreateDevice =
-            (DICREATEDEVICEPROC)hook_func(di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
+            (DICREATEDEVICEPROC)hook_func(g_di_CreateDevice_vtbl_addr, (PROC)fake_di_CreateDevice);
     }
 
     return result;
@@ -404,30 +409,11 @@ void dinput_hook_init()
 
 void dinput_hook_exit()
 {
-    if (di_CreateDevice_vtbl_addr && *di_CreateDevice_vtbl_addr == (PROC)fake_di_CreateDevice)
-    {
-        hook_func(di_CreateDevice_vtbl_addr, (PROC)real_di_CreateDevice);
-    }
-
-    if (di_CreateDeviceEx_vtbl_addr && *di_CreateDeviceEx_vtbl_addr == (PROC)fake_di_CreateDeviceEx)
-    {
-        hook_func(di_CreateDeviceEx_vtbl_addr, (PROC)real_di_CreateDeviceEx);
-    }
-
-    if (did_SetCooperativeLevel_vtbl_addr && *did_SetCooperativeLevel_vtbl_addr == (PROC)fake_did_SetCooperativeLevel)
-    {
-        hook_func(did_SetCooperativeLevel_vtbl_addr, (PROC)real_did_SetCooperativeLevel);
-    }
-
-    if (did_GetDeviceData_vtbl_addr && *did_GetDeviceData_vtbl_addr == (PROC)fake_did_GetDeviceData)
-    {
-        hook_func(did_GetDeviceData_vtbl_addr, (PROC)real_did_GetDeviceData);
-    }
-
-    if (did_GetDeviceState_vtbl_addr && *did_GetDeviceState_vtbl_addr == (PROC)fake_did_GetDeviceState)
-    {
-        hook_func(did_GetDeviceState_vtbl_addr, (PROC)real_did_GetDeviceState);
-    }
+    hook_func(g_di_CreateDevice_vtbl_addr, (PROC)real_di_CreateDevice);
+    hook_func(g_di_CreateDeviceEx_vtbl_addr, (PROC)real_di_CreateDeviceEx);
+    hook_func(g_did_SetCooperativeLevel_vtbl_addr, (PROC)real_did_SetCooperativeLevel);
+    hook_func(g_did_GetDeviceData_vtbl_addr, (PROC)real_did_GetDeviceData);
+    hook_func(g_did_GetDeviceState_vtbl_addr, (PROC)real_did_GetDeviceState);
 
 #ifdef _MSC_VER
     if (g_dinput_hook_active)
