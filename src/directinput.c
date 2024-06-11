@@ -34,7 +34,7 @@ static LPDIRECTINPUTDEVICEA g_mouse_device;
 
 static PROC hook_func(PROC* org_func, PROC new_func)
 {
-    if (!org_func)
+    if (!org_func || !new_func)
         return 0;
 
     PROC org = *org_func;
