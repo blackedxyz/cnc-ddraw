@@ -113,6 +113,7 @@ void cfg_load()
     GET_BOOL(g_config.stronghold_hack, "stronghold_hack", FALSE);
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
     GET_BOOL(g_config.tlc_hack, "tlc_hack", FALSE);
+    GET_BOOL(g_config.homm_hack, "homm_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -874,11 +875,17 @@ static void cfg_create_ini()
             "[Heroes3]\n"
             "renderer=opengl\n"
             "game_handles_close=true\n"
+            "homm_hack=true\n"
             "\n"
             "; Heroes of Might and Magic III HD Mod\n"
             "[Heroes3 HD]\n"
             "renderer=opengl\n"
             "game_handles_close=true\n"
+            "homm_hack=true\n"
+            "\n"
+            "; Heroes of Might and Magic IV\n"
+            "[heroes4]\n"
+            "homm_hack=true\n"
             "\n"
             "; Hard Truck: Road to Victory\n"
             "[htruck]\n"

@@ -103,6 +103,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL stronghold_hack;
     BOOL mgs_hack;
     BOOL tlc_hack;
+    BOOL homm_hack;
 
 } CNCDDRAWCONFIG;
 
