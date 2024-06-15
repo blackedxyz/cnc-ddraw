@@ -1578,12 +1578,28 @@ HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOute
         if (g_config.minfps > 0)
             g_ddraw.minfps_tick_len = (DWORD)(1000.0f / g_config.minfps);
 
+
+        HANDLE (WINAPI *createTimerExW)(LPSECURITY_ATTRIBUTES, LPCWSTR, DWORD, DWORD) = NULL;
+
+        if (!IsWine() && IsWindows10Version1803OrGreater())
+        {
+            createTimerExW = (void*)real_GetProcAddress(real_LoadLibraryA("Kernel32.dll"), "CreateWaitableTimerExW");
+        }
+
+        DWORD timer_flags = CREATE_WAITABLE_TIMER_MANUAL_RESET | CREATE_WAITABLE_TIMER_HIGH_RESOLUTION;
+
         /* can't fully set it up here due to missing g_ddraw.mode.dmDisplayFrequency  */
-        g_fpsl.htimer = CreateWaitableTimer(NULL, TRUE, NULL);
+        g_fpsl.htimer = createTimerExW ? createTimerExW(NULL, NULL, timer_flags, TIMER_ALL_ACCESS) : NULL;
+        
+        if (!g_fpsl.htimer) 
+            g_fpsl.htimer = CreateWaitableTimer(NULL, TRUE, NULL);
 
         if (g_config.maxgameticks > 0 && g_config.maxgameticks <= 1000)
         {
-            g_ddraw.ticks_limiter.htimer = CreateWaitableTimer(NULL, TRUE, NULL);
+            g_ddraw.ticks_limiter.htimer = createTimerExW ? createTimerExW(NULL, NULL, timer_flags, TIMER_ALL_ACCESS) : NULL;
+
+            if (!g_ddraw.ticks_limiter.htimer)
+                g_ddraw.ticks_limiter.htimer = CreateWaitableTimer(NULL, TRUE, NULL);
 
             float len = 1000.0f / g_config.maxgameticks;
             g_ddraw.ticks_limiter.tick_length_ns = (LONGLONG)(len * 10000);
@@ -1593,7 +1609,10 @@ HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOute
         if (g_config.maxgameticks >= 0 || g_config.maxgameticks == -2)
         {
             /* always using 60 fps for flip...  */
-            g_ddraw.flip_limiter.htimer = CreateWaitableTimer(NULL, TRUE, NULL);
+            g_ddraw.flip_limiter.htimer = createTimerExW ? createTimerExW(NULL, NULL, timer_flags, TIMER_ALL_ACCESS) : NULL;
+
+            if (!g_ddraw.flip_limiter.htimer)
+                g_ddraw.flip_limiter.htimer = CreateWaitableTimer(NULL, TRUE, NULL);
 
             float flip_len = 1000.0f / 60;
             g_ddraw.flip_limiter.tick_length_ns = (LONGLONG)(flip_len * 10000);

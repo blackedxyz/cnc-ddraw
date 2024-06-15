@@ -50,6 +50,10 @@ HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOute
 #define LIMIT_TESTCOOP 1
 #define LIMIT_BLTFAST 2
 
+#ifndef CREATE_WAITABLE_TIMER_HIGH_RESOLUTION
+#define CREATE_WAITABLE_TIMER_HIGH_RESOLUTION 0x00000002
+#endif
+
 typedef struct SPEEDLIMITER
 {
     DWORD tick_length;

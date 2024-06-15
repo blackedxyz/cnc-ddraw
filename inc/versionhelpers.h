@@ -119,6 +119,10 @@ VERSIONHELPERAPI IsWindows10OrGreater(void) {
     return IsWindowsThresholdOrGreater();
 }
 
+VERSIONHELPERAPI IsWindows10Version1803OrGreater(void) {
+    return IsWindowsVersionOrGreater(HIBYTE(_WIN32_WINNT_WIN10), LOBYTE(_WIN32_WINNT_WIN10), 17134, 0);
+}
+
 VERSIONHELPERAPI IsWindows11OrGreater(void) {
     return IsWindowsVersionOrGreater(HIBYTE(_WIN32_WINNT_WIN11), LOBYTE(_WIN32_WINNT_WIN11), 22000, 0);
 }
