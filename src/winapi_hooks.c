@@ -550,7 +550,13 @@ BOOL WINAPI fake_SetForegroundWindow(HWND hWnd)
 
 HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, DWORD dwThreadId)
 {
-    TRACE("SetWindowsHookExA(idHook=%d, lpfn=%p, hmod=%p, dwThreadId=%d)\n", idHook, lpfn, hmod, dwThreadId);
+    TRACE(
+        "SetWindowsHookExA(idHook=%d, lpfn=%p, hmod=%p, dwThreadId=%d) [%p]\n",
+        idHook,
+        lpfn, 
+        hmod, 
+        dwThreadId, 
+        _ReturnAddress());
 
     if (idHook == WH_KEYBOARD_LL && hmod && GetModuleHandle("AcGenral") == hmod)
     {
@@ -1261,7 +1267,7 @@ HMODULE WINAPI fake_LoadLibraryA(LPCSTR lpLibFileName)
     char mod_path[MAX_PATH] = { 0 };
     if (hmod && hmod != hmod_old && GetModuleFileNameA(hmod, mod_path, MAX_PATH))
     {
-        TRACE("LoadLibraryA Module %s = %p (%s)\n", mod_path, hmod, lpLibFileName);
+        TRACE("LoadLibraryA Module %s = %p (%s) [%p]\n", mod_path, hmod, lpLibFileName, _ReturnAddress());
     }
 #endif
 
@@ -1289,7 +1295,7 @@ HMODULE WINAPI fake_LoadLibraryW(LPCWSTR lpLibFileName)
     char mod_path[MAX_PATH] = { 0 };
     if (hmod && hmod != hmod_old && GetModuleFileNameA(hmod, mod_path, MAX_PATH))
     {
-        TRACE("LoadLibraryW Module %s = %p\n", mod_path, hmod);
+        TRACE("LoadLibraryW Module %s = %p [%p]\n", mod_path, hmod, _ReturnAddress());
     }
 #endif
 
@@ -1317,7 +1323,7 @@ HMODULE WINAPI fake_LoadLibraryExA(LPCSTR lpLibFileName, HANDLE hFile, DWORD dwF
     char mod_path[MAX_PATH] = { 0 };
     if (hmod && hmod != hmod_old && GetModuleFileNameA(hmod, mod_path, MAX_PATH))
     {
-        TRACE("LoadLibraryExA Module %s = %p (%s)\n", mod_path, hmod, lpLibFileName);
+        TRACE("LoadLibraryExA Module %s = %p (%s) [%p]\n", mod_path, hmod, lpLibFileName, _ReturnAddress());
     }
 #endif
 
@@ -1345,7 +1351,7 @@ HMODULE WINAPI fake_LoadLibraryExW(LPCWSTR lpLibFileName, HANDLE hFile, DWORD dw
     char mod_path[MAX_PATH] = { 0 };
     if (hmod && hmod != hmod_old && GetModuleFileNameA(hmod, mod_path, MAX_PATH))
     {
-        TRACE("LoadLibraryExW Module %s = %p\n", mod_path, hmod);
+        TRACE("LoadLibraryExW Module %s = %p [%p]\n", mod_path, hmod, _ReturnAddress());
     }
 #endif
 
@@ -1370,7 +1376,7 @@ FARPROC WINAPI fake_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
     char mod_path[MAX_PATH] = { 0 };
     if (hModule && GetModuleFileNameA(hModule, mod_path, MAX_PATH))
     {
-        TRACE("GetProcAddress %s (%s)\n", HIWORD(lpProcName) ? lpProcName : NULL, mod_path);
+        TRACE("GetProcAddress %s (%s) [%p]\n", HIWORD(lpProcName) ? lpProcName : NULL, mod_path, _ReturnAddress());
     }
 #endif
 
@@ -1448,7 +1454,7 @@ BOOL WINAPI fake_GetDiskFreeSpaceA(
 
 BOOL WINAPI fake_DestroyWindow(HWND hWnd)
 {
-    TRACE("DestroyWindow(hwnd=%p) - g_ddraw.hwnd=%p\n", hWnd, g_ddraw.hwnd);
+    TRACE("DestroyWindow(hwnd=%p) - g_ddraw.hwnd=%p [%p]\n", hWnd, g_ddraw.hwnd, _ReturnAddress());
 
     if (g_ddraw.ref && hWnd && hWnd == g_ddraw.hwnd)
     {
@@ -1525,7 +1531,7 @@ HWND WINAPI fake_CreateWindowExA(
 {
     TRACE("-> CreateWindowExA("
         "dwExStyle=%08X, lpClassName=%p, lpWindowName=%p, dwStyle=%08X, X=%d, Y=%d, nWidth=%d, "
-        "nHeight=%d, hWndParent=%p, hMenu=%p, hInstance=%p, lpParam=%p)\n", 
+        "nHeight=%d, hWndParent=%p, hMenu=%p, hInstance=%p, lpParam=%p) [%p]\n", 
         dwExStyle, 
         lpClassName, 
         lpWindowName, 
@@ -1537,7 +1543,8 @@ HWND WINAPI fake_CreateWindowExA(
         hWndParent, 
         hMenu, 
         hInstance, 
-        lpParam);
+        lpParam, 
+        _ReturnAddress());
 
     TRACE("     WindowName=%s, ClassName=%s, g_ddraw.hwnd=%p\n", lpWindowName, HIWORD(lpClassName) ? lpClassName : "", g_ddraw.hwnd);
 
@@ -1694,7 +1701,11 @@ HRESULT WINAPI fake_CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter, DWORD
 {
     if (rclsid && riid)
     {
-        TRACE("CoCreateInstance rclsid = %08X, riid = %08X\n", ((GUID*)rclsid)->Data1, ((GUID*)riid)->Data1);
+        TRACE(
+            "CoCreateInstance rclsid = %08X, riid = %08X [%p]\n", 
+            ((GUID*)rclsid)->Data1,
+            ((GUID*)riid)->Data1, 
+            _ReturnAddress());
 
         if (IsEqualGUID(&CLSID_DirectDraw, rclsid) || IsEqualGUID(&CLSID_DirectDraw7, rclsid))
         {

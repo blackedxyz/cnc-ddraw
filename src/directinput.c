@@ -1,11 +1,14 @@
 #include <windows.h>
 #include <initguid.h>
+#include <intrin.h>
 #include "directinput.h"
 #include "debug.h"
 #include "hook.h"
 #include "dd.h"
 #include "mouse.h"
 #include "config.h"
+
+#pragma intrinsic(_ReturnAddress)
 
 #ifdef _MSC_VER
 #include "detours.h"
@@ -53,7 +56,7 @@ static PROC hook_func(PROC* org_func, PROC new_func)
 
 static HRESULT WINAPI fake_did_SetCooperativeLevel(IDirectInputDeviceA* This, HWND hwnd, DWORD dwFlags)
 {
-    TRACE("DirectInput SetCooperativeLevel(This=%p, hwnd=%p, dwFlags=0x%08X)\n", This, hwnd, dwFlags);
+    TRACE("DirectInput SetCooperativeLevel(This=%p, hwnd=%p, dwFlags=0x%08X) [%p]\n", This, hwnd, dwFlags, _ReturnAddress());
 
     if (This == g_mouse_device && g_ddraw.ref && (dwFlags & DISCL_EXCLUSIVE))
     {
@@ -118,7 +121,7 @@ static HRESULT WINAPI fake_di_CreateDevice(
     LPDIRECTINPUTDEVICEA* lplpDIDevice,
     LPUNKNOWN pUnkOuter)
 {
-    TRACE("DirectInput CreateDevice\n");
+    TRACE("DirectInput CreateDevice [%p]\n", _ReturnAddress());
 
     HRESULT result = real_di_CreateDevice(This, rguid, lplpDIDevice, pUnkOuter);
 
@@ -158,7 +161,7 @@ static HRESULT WINAPI fake_di_CreateDeviceEx(
     LPDIRECTINPUTDEVICEA* lplpDIDevice,
     LPUNKNOWN pUnkOuter)
 {
-    TRACE("DirectInput CreateDeviceEx\n");
+    TRACE("DirectInput CreateDeviceEx [%p]\n", _ReturnAddress());
 
     HRESULT result = real_di_CreateDeviceEx(This, rguid, riid, lplpDIDevice, pUnkOuter);
 
@@ -197,7 +200,7 @@ HRESULT WINAPI fake_DirectInputCreateA(
     LPDIRECTINPUTA* lplpDirectInput,
     LPUNKNOWN punkOuter)
 {
-    TRACE("DirectInputCreateA\n");
+    TRACE("DirectInputCreateA [%p]\n", _ReturnAddress());
 
     if (!real_DirectInputCreateA)
     {
@@ -235,7 +238,7 @@ HRESULT WINAPI fake_DirectInputCreateW(
     LPDIRECTINPUTW* lplpDirectInput,
     LPUNKNOWN punkOuter)
 {
-    TRACE("DirectInputCreateW\n");
+    TRACE("DirectInputCreateW [%p]\n", _ReturnAddress());
 
     if (!real_DirectInputCreateW)
     {
@@ -274,7 +277,7 @@ HRESULT WINAPI fake_DirectInputCreateEx(
     LPDIRECTINPUT7A* ppvOut,
     LPUNKNOWN punkOuter)
 {
-    TRACE("DirectInputCreateEx\n");
+    TRACE("DirectInputCreateEx [%p]\n", _ReturnAddress());
 
     if (!real_DirectInputCreateEx)
     {
@@ -325,7 +328,7 @@ HRESULT WINAPI fake_DirectInput8Create(
     LPDIRECTINPUT8* ppvOut,
     LPUNKNOWN punkOuter)
 {
-    TRACE("DirectInput8Create\n");
+    TRACE("DirectInput8Create [%p]\n", _ReturnAddress());
 
     if (!real_DirectInput8Create)
     {
