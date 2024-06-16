@@ -4,7 +4,14 @@
 #include "ddsurface.h"
 #include "debug.h"
 
+#if defined(__GNUC__) /* wrap msvc intrinsics onto gcc builtins */
+#undef  _ReturnAddress
+#undef  _AddressOfReturnAddress
+#define _ReturnAddress()		__builtin_return_address(0)
+#define _AddressOfReturnAddress()	__builtin_frame_address (0)
+#else
 #pragma intrinsic(_ReturnAddress)
+#endif /* __GNUC__ */
 
 HRESULT __stdcall IDirectDrawPalette__QueryInterface(IDirectDrawPaletteImpl* This, REFIID riid, LPVOID FAR* ppvObj)
 {
