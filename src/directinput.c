@@ -85,7 +85,7 @@ static HRESULT WINAPI fake_did_GetDeviceData(
     LPDWORD pdwInOut,
     DWORD dwFlags)
 {
-    //TRACE("DirectInput GetDeviceData\n");
+    //TRACE("DirectInput GetDeviceData [%p]\n", _ReturnAddress());
 
     HRESULT result = real_did_GetDeviceData(This, cbObjectData, rgdod, pdwInOut, dwFlags);
 
@@ -107,7 +107,7 @@ static HRESULT WINAPI fake_did_GetDeviceData(
 
 static HRESULT WINAPI fake_did_GetDeviceState(IDirectInputDeviceA* This, DWORD cbData, LPVOID lpvData)
 {
-    //TRACE("DirectInput GetDeviceState\n");
+    //TRACE("DirectInput GetDeviceState [%p]\n", _ReturnAddress());
 
     HRESULT result = real_did_GetDeviceState(This, cbData, lpvData);
 
