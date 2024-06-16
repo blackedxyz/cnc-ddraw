@@ -252,7 +252,7 @@ HRESULT __stdcall IDirectDrawSurface__EnumOverlayZOrders(
     LPVOID lpContext,
     LPDDENUMSURFACESCALLBACK7 lpfnCallback)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     HRESULT ret = DD_OK;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
