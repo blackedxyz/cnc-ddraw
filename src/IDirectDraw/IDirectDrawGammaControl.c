@@ -1,9 +1,19 @@
+#include <intrin.h>
 #include "IDirectDrawGammaControl.h"
 #include "debug.h"
 
+#pragma intrinsic(_ReturnAddress)
+
 HRESULT __stdcall IDirectDrawGammaControl__QueryInterface(IDirectDrawGammaControlImpl* This, REFIID riid, LPVOID FAR* ppvObj)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, ppvObj=%p)\n", __FUNCTION__, This, (unsigned int)riid, ppvObj);
+    TRACE(
+        "NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, ppvObj=%p) [%p]\n", 
+        __FUNCTION__, 
+        This, 
+        (unsigned int)riid,
+        ppvObj, 
+        _ReturnAddress());
+
     HRESULT ret = E_NOINTERFACE;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -11,7 +21,7 @@ HRESULT __stdcall IDirectDrawGammaControl__QueryInterface(IDirectDrawGammaContro
 
 ULONG __stdcall IDirectDrawGammaControl__AddRef(IDirectDrawGammaControlImpl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     ULONG ret = ++This->ref;
     TRACE("<- %s(This ref=%u)\n", __FUNCTION__, ret);
     return ret;
@@ -19,7 +29,7 @@ ULONG __stdcall IDirectDrawGammaControl__AddRef(IDirectDrawGammaControlImpl* Thi
 
 ULONG __stdcall IDirectDrawGammaControl__Release(IDirectDrawGammaControlImpl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
 
     ULONG ret = --This->ref;
 
@@ -36,7 +46,7 @@ ULONG __stdcall IDirectDrawGammaControl__Release(IDirectDrawGammaControlImpl* Th
 
 HRESULT __stdcall IDirectDrawGammaControl__GetGammaRamp(IDirectDrawGammaControlImpl* This, DWORD dwFlags, LPDDGAMMARAMP lpRampData)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     HRESULT ret = DDERR_EXCEPTION;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -44,7 +54,7 @@ HRESULT __stdcall IDirectDrawGammaControl__GetGammaRamp(IDirectDrawGammaControlI
 
 HRESULT __stdcall IDirectDrawGammaControl__SetGammaRamp(IDirectDrawGammaControlImpl* This, DWORD dwFlags, LPDDGAMMARAMP lpRampData)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     HRESULT ret = DDERR_EXCEPTION;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;

@@ -1,10 +1,12 @@
+#include <intrin.h>
 #include "IDirect3D.h"
 #include "debug.h"
 
+#pragma intrinsic(_ReturnAddress)
 
 HRESULT __stdcall IDirect3D2__QueryInterface(IDirect3D2Impl* This, REFIID riid, void** obj)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, obj=%p)\n", __FUNCTION__, This, (unsigned int)riid, obj);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, obj=%p) [%p]\n", __FUNCTION__, This, (unsigned int)riid, obj);
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -12,7 +14,7 @@ HRESULT __stdcall IDirect3D2__QueryInterface(IDirect3D2Impl* This, REFIID riid, 
 
 ULONG __stdcall IDirect3D2__AddRef(IDirect3D2Impl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This);
     ULONG ret = ++This->ref;
     TRACE("<- %s(This ref=%u)\n", __FUNCTION__, ret);
     return ret;
@@ -20,7 +22,7 @@ ULONG __stdcall IDirect3D2__AddRef(IDirect3D2Impl* This)
 
 ULONG __stdcall IDirect3D2__Release(IDirect3D2Impl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This);
 
     ULONG ret = --This->ref;
 
@@ -37,7 +39,7 @@ ULONG __stdcall IDirect3D2__Release(IDirect3D2Impl* This)
 
 HRESULT __stdcall IDirect3D2__EnumDevices(IDirect3D2Impl* This, int a, int b)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This);
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -45,7 +47,7 @@ HRESULT __stdcall IDirect3D2__EnumDevices(IDirect3D2Impl* This, int a, int b)
 
 HRESULT __stdcall IDirect3D2__CreateLight(IDirect3D2Impl* This, int a, int b)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This);
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -53,7 +55,7 @@ HRESULT __stdcall IDirect3D2__CreateLight(IDirect3D2Impl* This, int a, int b)
 
 HRESULT __stdcall IDirect3D2__CreateMaterial(IDirect3D2Impl* This, int a, int b)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This);
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -61,7 +63,7 @@ HRESULT __stdcall IDirect3D2__CreateMaterial(IDirect3D2Impl* This, int a, int b)
 
 HRESULT __stdcall IDirect3D2__CreateViewport(IDirect3D2Impl* This, int a, int b)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This);
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -69,7 +71,7 @@ HRESULT __stdcall IDirect3D2__CreateViewport(IDirect3D2Impl* This, int a, int b)
 
 HRESULT __stdcall IDirect3D2__FindDevice(IDirect3D2Impl* This, int a, int b)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This);
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -77,7 +79,7 @@ HRESULT __stdcall IDirect3D2__FindDevice(IDirect3D2Impl* This, int a, int b)
 
 HRESULT __stdcall IDirect3D2__CreateDevice(IDirect3D2Impl* This, int a, int b, int c)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This);
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;

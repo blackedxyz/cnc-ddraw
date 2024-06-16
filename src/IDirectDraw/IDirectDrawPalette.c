@@ -1,12 +1,21 @@
+#include <intrin.h>
 #include "IDirectDrawPalette.h"
 #include "ddpalette.h"
 #include "ddsurface.h"
 #include "debug.h"
 
+#pragma intrinsic(_ReturnAddress)
 
 HRESULT __stdcall IDirectDrawPalette__QueryInterface(IDirectDrawPaletteImpl* This, REFIID riid, LPVOID FAR* ppvObj)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, ppvObj=%p)\n", __FUNCTION__, This, (unsigned int)riid, ppvObj);
+    TRACE(
+        "NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, ppvObj=%p) [%p]\n", 
+        __FUNCTION__, 
+        This, 
+        (unsigned int)riid, 
+        ppvObj, 
+        _ReturnAddress());
+
     HRESULT ret = E_NOINTERFACE;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -14,7 +23,7 @@ HRESULT __stdcall IDirectDrawPalette__QueryInterface(IDirectDrawPaletteImpl* Thi
 
 ULONG __stdcall IDirectDrawPalette__AddRef(IDirectDrawPaletteImpl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     ULONG ret = ++This->ref;
     TRACE("<- %s(This ref=%u)\n", __FUNCTION__, ret);
     return ret;
@@ -22,7 +31,7 @@ ULONG __stdcall IDirectDrawPalette__AddRef(IDirectDrawPaletteImpl* This)
 
 ULONG __stdcall IDirectDrawPalette__Release(IDirectDrawPaletteImpl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
 
     ULONG ret = --This->ref;
 
@@ -42,7 +51,7 @@ ULONG __stdcall IDirectDrawPalette__Release(IDirectDrawPaletteImpl* This)
 
 HRESULT __stdcall IDirectDrawPalette__GetCaps(IDirectDrawPaletteImpl* This, LPDWORD lpdwCaps)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p, lpdwCaps=%p)\n", __FUNCTION__, This, lpdwCaps);
+    TRACE("NOT_IMPLEMENTED -> %s(This=%p, lpdwCaps=%p) [%p]\n", __FUNCTION__, This, lpdwCaps, _ReturnAddress());
     HRESULT ret = DDERR_INVALIDOBJECT;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -56,13 +65,14 @@ HRESULT __stdcall IDirectDrawPalette__GetEntries(
     LPPALETTEENTRY lpEntries)
 {
     TRACE(
-        "-> %s(This=%p, dwFlags=%08X, dwBase=%u, dwNumEntries=%u, lpEntries=%p)\n",
+        "-> %s(This=%p, dwFlags=%08X, dwBase=%u, dwNumEntries=%u, lpEntries=%p) [%p]\n",
         __FUNCTION__,
         This,
         dwFlags,
         dwBase,
         dwNumEntries,
-        lpEntries);
+        lpEntries, 
+        _ReturnAddress());
 
     HRESULT ret = ddp_GetEntries(This, dwFlags, dwBase, dwNumEntries, lpEntries);
 
@@ -76,7 +86,7 @@ HRESULT __stdcall IDirectDrawPalette__Initialize(
     DWORD dwFlags,
     LPPALETTEENTRY lpDDColorTable)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     HRESULT ret = DD_OK;
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
@@ -90,13 +100,14 @@ HRESULT __stdcall IDirectDrawPalette__SetEntries(
     LPPALETTEENTRY lpEntries)
 {
     TRACE_EXT(
-        "-> %s(This=%p, dwFlags=%08X, dwStartingEntry=%u, dwCount=%u, lpEntries=%p)\n",
+        "-> %s(This=%p, dwFlags=%08X, dwStartingEntry=%u, dwCount=%u, lpEntries=%p) [%p]\n",
         __FUNCTION__,
         This,
         dwFlags,
         dwStartingEntry,
         dwCount,
-        lpEntries);
+        lpEntries, 
+        _ReturnAddress());
 
     HRESULT ret = ddp_SetEntries(This, dwFlags, dwStartingEntry, dwCount, lpEntries);
 

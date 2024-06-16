@@ -1,10 +1,20 @@
+#include <intrin.h>
 #include "IDirectDrawClipper.h"
 #include "ddclipper.h"
 #include "debug.h"
 
+#pragma intrinsic(_ReturnAddress)
+
 HRESULT __stdcall IDirectDrawClipper__QueryInterface(IDirectDrawClipperImpl* This, REFIID riid, LPVOID FAR* ppvObj)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, ppvObj=%p)\n", __FUNCTION__, This, (unsigned int)riid, ppvObj);
+    TRACE(
+        "NOT_IMPLEMENTED -> %s(This=%p, riid=%08X, ppvObj=%p) [%p]\n", 
+        __FUNCTION__, 
+        This, 
+        (unsigned int)riid, 
+        ppvObj, 
+        _ReturnAddress());
+
     HRESULT ret = E_NOINTERFACE;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -12,7 +22,7 @@ HRESULT __stdcall IDirectDrawClipper__QueryInterface(IDirectDrawClipperImpl* Thi
 
 ULONG __stdcall IDirectDrawClipper__AddRef(IDirectDrawClipperImpl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     ULONG ret = ++This->ref;
     TRACE("<- %s(This ref=%u)\n", __FUNCTION__, ret);
     return ret;
@@ -20,7 +30,7 @@ ULONG __stdcall IDirectDrawClipper__AddRef(IDirectDrawClipperImpl* This)
 
 ULONG __stdcall IDirectDrawClipper__Release(IDirectDrawClipperImpl* This)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
 
     ULONG ret = --This->ref;
 
@@ -47,12 +57,13 @@ HRESULT __stdcall IDirectDrawClipper__GetClipList(
     LPDWORD lpdwSiz)
 {
     TRACE(
-        "-> %s(This=%p, lpRect=%p, lpClipList=%p, lpdwSiz=%p)\n", 
+        "-> %s(This=%p, lpRect=%p, lpClipList=%p, lpdwSiz=%p) [%p]\n", 
         __FUNCTION__, 
         This, 
         lpRect, 
         lpClipList, 
-        lpdwSiz);
+        lpdwSiz,
+        _ReturnAddress());
 
     HRESULT ret = ddc_GetClipList(This, lpRect, lpClipList, lpdwSiz);
 
@@ -62,7 +73,7 @@ HRESULT __stdcall IDirectDrawClipper__GetClipList(
 
 HRESULT __stdcall IDirectDrawClipper__GetHWnd(IDirectDrawClipperImpl* This, HWND FAR* lphWnd)
 {
-    TRACE("-> %s(This=%p, lphWnd=%p)\n", __FUNCTION__, This, lphWnd);
+    TRACE("-> %s(This=%p, lphWnd=%p) [%p]\n", __FUNCTION__, This, lphWnd, _ReturnAddress());
     HRESULT ret = ddc_GetHWnd(This, lphWnd);
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
@@ -70,7 +81,7 @@ HRESULT __stdcall IDirectDrawClipper__GetHWnd(IDirectDrawClipperImpl* This, HWND
 
 HRESULT __stdcall IDirectDrawClipper__Initialize(IDirectDrawClipperImpl* This, LPDIRECTDRAW lpDD, DWORD dwFlags)
 {
-    TRACE("-> %s(This=%p)\n", __FUNCTION__, This);
+    TRACE("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     HRESULT ret = DD_OK;
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
@@ -78,7 +89,7 @@ HRESULT __stdcall IDirectDrawClipper__Initialize(IDirectDrawClipperImpl* This, L
 
 HRESULT __stdcall IDirectDrawClipper__IsClipListChanged(IDirectDrawClipperImpl* This, BOOL FAR* lpbChanged)
 {
-    TRACE("-> %s(This=%p, lpbChanged=%p)\n", __FUNCTION__, This, lpbChanged);
+    TRACE("-> %s(This=%p, lpbChanged=%p) [%p]\n", __FUNCTION__, This, lpbChanged, _ReturnAddress());
     HRESULT ret = ddc_IsClipListChanged(This, lpbChanged);
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
@@ -86,7 +97,7 @@ HRESULT __stdcall IDirectDrawClipper__IsClipListChanged(IDirectDrawClipperImpl* 
 
 HRESULT __stdcall IDirectDrawClipper__SetClipList(IDirectDrawClipperImpl* This, LPRGNDATA lpClipList, DWORD dwFlags)
 {
-    TRACE("-> %s(This=%p, lpClipList=%p, dwFlags=%08X)\n", __FUNCTION__, This, lpClipList, dwFlags);
+    TRACE("-> %s(This=%p, lpClipList=%p, dwFlags=%08X) [%p]\n", __FUNCTION__, This, lpClipList, dwFlags, _ReturnAddress());
     HRESULT ret = ddc_SetClipList(This, lpClipList, dwFlags);
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
@@ -94,7 +105,7 @@ HRESULT __stdcall IDirectDrawClipper__SetClipList(IDirectDrawClipperImpl* This, 
 
 HRESULT __stdcall IDirectDrawClipper__SetHWnd(IDirectDrawClipperImpl* This, DWORD dwFlags, HWND hWnd)
 {
-    TRACE("-> %s(This=%p, dwFlags=%08X, hWnd=%p)\n", __FUNCTION__, This, dwFlags, hWnd);
+    TRACE("-> %s(This=%p, dwFlags=%08X, hWnd=%p) [%p]\n", __FUNCTION__, This, dwFlags, hWnd, _ReturnAddress());
     HRESULT ret = ddc_SetHWnd(This, dwFlags, hWnd);
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
