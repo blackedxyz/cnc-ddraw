@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <math.h>
+#include <intrin.h>
 #include "debug.h"
 #include "config.h"
 #include "dd.h"
@@ -19,6 +20,7 @@
 #include "hook.h"
 #include "directinput.h"
 
+#pragma intrinsic(_ReturnAddress)
 
 BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint)
 {
