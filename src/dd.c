@@ -1211,19 +1211,20 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
         {
             g_ddraw.render.hdc = GetDC(g_ddraw.hwnd);
 
-            PIXELFORMATDESCRIPTOR pfd;
-            memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
-            pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+            if (g_ddraw.renderer == ogl_render_main)
+            {
+                PIXELFORMATDESCRIPTOR pfd;
+                memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
+                pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 
-            pfd.nVersion = 1;
-            pfd.dwFlags =
-                PFD_DRAW_TO_WINDOW | PFD_DOUBLEBUFFER | (g_ddraw.renderer == ogl_render_main ? PFD_SUPPORT_OPENGL : 0);
+                pfd.nVersion = 1;
+                pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_DOUBLEBUFFER | PFD_SUPPORT_OPENGL;
+                pfd.iPixelType = PFD_TYPE_RGBA;
+                pfd.cColorBits = g_ddraw.mode.dmBitsPerPel;
+                pfd.iLayerType = PFD_MAIN_PLANE;
 
-            pfd.iPixelType = PFD_TYPE_RGBA;
-            pfd.cColorBits = g_ddraw.mode.dmBitsPerPel;
-            pfd.iLayerType = PFD_MAIN_PLANE;
-
-            SetPixelFormat(g_ddraw.render.hdc, ChoosePixelFormat(g_ddraw.render.hdc, &pfd), &pfd);
+                SetPixelFormat(g_ddraw.render.hdc, ChoosePixelFormat(g_ddraw.render.hdc, &pfd), &pfd);
+            }
         }
 
         if (!g_config.devmode)
