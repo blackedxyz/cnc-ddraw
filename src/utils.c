@@ -155,6 +155,40 @@ void util_limit_game_ticks()
     if (GetCurrentThreadId() != g_ddraw.gui_thread_id)
         return;
 
+    /*
+    static void (WINAPI * getSystemTimePreciseAsFileTime)(LPFILETIME);
+
+    if (!getSystemTimePreciseAsFileTime)
+    {
+        getSystemTimePreciseAsFileTime = GetProcAddress(LoadLibraryA("Kernel32.dll"), "GetSystemTimePreciseAsFileTime");
+
+        //if (!getSystemTimePreciseAsFileTime)
+        //    getSystemTimePreciseAsFileTime = GetSystemTimeAsFileTime;
+    }
+
+
+    if (1)
+    {
+        FILETIME ft = { 0 };
+        getSystemTimePreciseAsFileTime(&ft);
+
+        if (CompareFileTime((FILETIME*)&g_ddraw.ticks_limiter.due_time, &ft) == -1)
+        {
+            memcpy(&g_ddraw.ticks_limiter.due_time, &ft, sizeof(LARGE_INTEGER));
+        }
+        else
+        {
+            while (TRUE)
+            {
+                getSystemTimePreciseAsFileTime(&ft);
+                if (CompareFileTime((FILETIME*)&g_ddraw.ticks_limiter.due_time, &ft) <= 0)
+                    break;
+            }
+        }
+
+        g_ddraw.ticks_limiter.due_time.QuadPart += g_ddraw.ticks_limiter.tick_length_ns;
+    }
+    else */
     if (g_ddraw.ticks_limiter.htimer)
     {
         FILETIME ft = { 0 };

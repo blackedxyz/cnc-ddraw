@@ -1,6 +1,5 @@
 #include <windows.h>
 #include <initguid.h>
-#include <intrin.h>
 #include "IDirectDraw.h"
 #include "IDirect3D.h"
 #include "IAMMediaStream.h"
@@ -11,15 +10,6 @@
 #include "debug.h"
 #include "hook.h"
 #include "config.h"
-
-#if defined(__GNUC__) /* wrap msvc intrinsics onto gcc builtins */
-#undef  _ReturnAddress
-#undef  _AddressOfReturnAddress
-#define _ReturnAddress()		__builtin_return_address(0)
-#define _AddressOfReturnAddress()	__builtin_frame_address (0)
-#else
-#pragma intrinsic(_ReturnAddress)
-#endif /* __GNUC__ */
 
 
 HRESULT __stdcall IDirectDraw__QueryInterface(IDirectDrawImpl* This, REFIID riid, LPVOID FAR* ppvObj)

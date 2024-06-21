@@ -3,6 +3,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <intrin.h>
 
 LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception);
 void dbg_counter_start();
@@ -30,6 +31,15 @@ char* dbg_mes_to_str(int id);
 extern double g_dbg_frame_time;
 extern DWORD g_dbg_frame_count;
 extern LPTOP_LEVEL_EXCEPTION_FILTER g_dbg_exception_filter;
+
+#if defined(__GNUC__) /* wrap msvc intrinsics onto gcc builtins */
+#undef  _ReturnAddress
+#undef  _AddressOfReturnAddress
+#define _ReturnAddress()		__builtin_return_address(0)
+#define _AddressOfReturnAddress()	__builtin_frame_address (0)
+#else
+#pragma intrinsic(_ReturnAddress)
+#endif /* __GNUC__ */
 
 //#define _DEBUG 1
 
