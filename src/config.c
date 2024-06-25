@@ -459,7 +459,7 @@ static void cfg_create_ini()
             "\n"
             "; Airline Tycoon Deluxe\n"
             "[AT]\n"
-            "lock_mouse_top_left=false\n"
+            "lock_mouse_top_left=true\n"
             "fixchilds=3\n"
             "\n"
             "; Arthur's Wilderness Rescue\n"
