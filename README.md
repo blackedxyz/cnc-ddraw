@@ -322,11 +322,13 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Stronghold Crusader HD
 - Stronghold HD
 - Sudden Strike 2
+- The Missing on Lost Island
 - The Powerpuff Girls - Princess Snorebucks
 - The Powerpuff Girls(TM) Mojo Jojo's Clone Zone
 - The X-Files DVD
 - Theme Hospital
 - Three Kingdoms: Fate of the Dragon
+- Throne of Darkness
 - Total Annihilation
 - Total Annihilation (Unofficial Beta Patch v3.9.02)
 - Total Annihilation: Kingdoms
