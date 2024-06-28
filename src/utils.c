@@ -697,6 +697,9 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
                 ReleaseDC(hwnd, dst_dc);
             }
         }
+
+        if (strcmp(class_name, "TMediaPlayer") == 0)
+            return TRUE;
     }
 
 #ifdef _DEBUG_X
