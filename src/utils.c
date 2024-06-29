@@ -697,7 +697,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
                 ReleaseDC(hwnd, dst_dc);
             }
         }
-        // ping discordf user test
+
         if (strcmp(class_name, "TMediaPlayer") == 0)
             return TRUE;
     }
