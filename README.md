@@ -48,7 +48,7 @@ Some games may require additional steps before they can be used with cnc-ddraw, 
 
 &nbsp;
 
-Need help and don't have a github account? Ask your questions on [Discord](https://discord.gg/HUBx4ktzfs) (No registration required)
+Need help and don't have a github account? Ask your questions on [Discord](https://discord.gg/afWXJNDDF5) (No registration required)
 
 &nbsp;
 
