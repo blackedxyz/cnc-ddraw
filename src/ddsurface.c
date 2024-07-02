@@ -1397,10 +1397,15 @@ HRESULT dd_CreateSurface(
             dst_surface->caps |= DDSCAPS_FRONTBUFFER;
         }
 
+        if (!(dst_surface->caps & DDSCAPS_SYSTEMMEMORY))
+        {
+            dst_surface->caps |= DDSCAPS_VIDEOMEMORY;
+        }
+
+        dst_surface->caps |= DDSCAPS_VISIBLE;
+
         dst_surface->width = g_ddraw.width;
         dst_surface->height = g_ddraw.height;
-
-        dst_surface->caps |= DDSCAPS_VIDEOMEMORY;
     }
     else
     {
@@ -1575,9 +1580,19 @@ HRESULT dd_CreateSurface(
             desc.ddsCaps.dwCaps |= DDSCAPS_FLIP;
         }
 
+        if (dst_surface->caps & DDSCAPS_COMPLEX)
+        {
+            desc.ddsCaps.dwCaps |= DDSCAPS_COMPLEX;
+        }
+
         if (dst_surface->caps & DDSCAPS_VIDEOMEMORY)
         {
             desc.ddsCaps.dwCaps |= DDSCAPS_VIDEOMEMORY;
+        }
+
+        if (dst_surface->caps & DDSCAPS_SYSTEMMEMORY)
+        {
+            desc.ddsCaps.dwCaps |= DDSCAPS_SYSTEMMEMORY;
         }
 
         desc.dwWidth = dst_surface->width;
