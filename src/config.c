@@ -114,7 +114,7 @@ void cfg_load()
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
     GET_BOOL(g_config.tlc_hack, "tlc_hack", FALSE);
     GET_BOOL(g_config.homm_hack, "homm_hack", FALSE);
-    GET_BOOL(g_config.homm_hack, "carma95_hack", FALSE);
+    GET_BOOL(g_config.carma95_hack, "carma95_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
