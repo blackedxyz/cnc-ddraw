@@ -755,6 +755,7 @@ HRESULT dds_EnumAttachedSurfaces(
 
     if (This->backbuffer)
     {
+        /* Hack for carmageddon 1 lowres mode */
         if (g_config.carma95_hack && g_ddraw.height == 200)
         {
             dds_GetSurfaceDesc(This, (LPDDSURFACEDESC)&desc);
