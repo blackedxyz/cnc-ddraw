@@ -104,6 +104,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL mgs_hack;
     BOOL tlc_hack;
     BOOL homm_hack;
+    BOOL carma95_hack;
 
 } CNCDDRAWCONFIG;
 

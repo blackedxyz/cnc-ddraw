@@ -755,8 +755,16 @@ HRESULT dds_EnumAttachedSurfaces(
 
     if (This->backbuffer)
     {
-        dds_GetSurfaceDesc(This->backbuffer, (LPDDSURFACEDESC)&desc);
-        lpEnumSurfacesCallback((LPDIRECTDRAWSURFACE)This->backbuffer, (LPDDSURFACEDESC)&desc, lpContext);
+        if (g_config.carma95_hack && g_ddraw.height == 200)
+        {
+            dds_GetSurfaceDesc(This, (LPDDSURFACEDESC)&desc);
+            lpEnumSurfacesCallback((LPDIRECTDRAWSURFACE)This, (LPDDSURFACEDESC)&desc, lpContext);
+        }
+        else
+        {
+            dds_GetSurfaceDesc(This->backbuffer, (LPDDSURFACEDESC)&desc);
+            lpEnumSurfacesCallback((LPDIRECTDRAWSURFACE)This->backbuffer, (LPDDSURFACEDESC)&desc, lpContext);
+        }
     }
 
     return DD_OK;
@@ -766,7 +774,7 @@ HRESULT dds_Flip(IDirectDrawSurfaceImpl* This, IDirectDrawSurfaceImpl* lpDDSurfa
 {
     dbg_dump_dds_flip_flags(dwFlags);
 
-    if (This->backbuffer && !This->skip_flip)
+    if (This->backbuffer && !This->skip_flip && !(g_config.carma95_hack && g_ddraw.height == 200))
     {
         EnterCriticalSection(&g_ddraw.cs);
         IDirectDrawSurfaceImpl* backbuffer = lpDDSurfaceTargetOverride ? lpDDSurfaceTargetOverride : This->backbuffer;

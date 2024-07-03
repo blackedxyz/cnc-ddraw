@@ -114,6 +114,7 @@ void cfg_load()
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
     GET_BOOL(g_config.tlc_hack, "tlc_hack", FALSE);
     GET_BOOL(g_config.homm_hack, "homm_hack", FALSE);
+    GET_BOOL(g_config.homm_hack, "carma95_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -510,11 +511,13 @@ static void cfg_create_ini()
             "[CARMA95]\n"
             "noactivateapp=true\n"
             "flipclear=true\n"
+            "carma95_hack=true\n"
             "\n"
             "; Carmageddon\n"
             "[CARM95]\n"
             "noactivateapp=true\n"
             "flipclear=true\n"
+            "carma95_hack=true\n"
             "\n"
             "; Carmageddon 2\n"
             "[Carma2_SW]\n"
