@@ -9,6 +9,7 @@
 #include "debug.h"
 #include "config.h"
 #include "hook.h"
+#include "indeo.h"
 #include "versionhelpers.h"
 
 
@@ -120,6 +121,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
                 set_aware();
         }
 
+        indeo_enable();
         timeBeginPeriod(1);
         hook_init();
         break;
@@ -133,6 +135,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
         cfg_save();
 
+        indeo_disable();
         timeEndPeriod(1);
         dinput_hook_exit();
         hook_exit();

@@ -162,6 +162,9 @@
     <ClCompile Include="src\versionhelpers.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\indeo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\debug.h">
@@ -279,6 +282,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\versionhelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\indeo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
