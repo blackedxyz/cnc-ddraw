@@ -19,16 +19,16 @@ void indeo_enable()
     if (status == ERROR_SUCCESS)
     {
         LPCTSTR iv31 = "ir32_32.dll";
-        RegSetValueExA(hkey, "vidc.iv31", 0, REG_SZ, iv31, strlen(iv31) + 1);
+        RegSetValueExA(hkey, "vidc.iv31", 0, REG_SZ, (const BYTE*)iv31, strlen(iv31) + 1);
 
         LPCTSTR iv32 = "ir32_32.dll";
-        RegSetValueExA(hkey, "vidc.iv32", 0, REG_SZ, iv32, strlen(iv32) + 1);
+        RegSetValueExA(hkey, "vidc.iv32", 0, REG_SZ, (const BYTE*)iv32, strlen(iv32) + 1);
 
         LPCTSTR iv41 = "ir41_32.ax";
-        RegSetValueExA(hkey, "vidc.iv41", 0, REG_SZ, iv41, strlen(iv41) + 1);
+        RegSetValueExA(hkey, "vidc.iv41", 0, REG_SZ, (const BYTE*)iv41, strlen(iv41) + 1);
 
         LPCTSTR iv50 = "ir50_32.dll";
-        RegSetValueExA(hkey, "vidc.iv50", 0, REG_SZ, iv50, strlen(iv50) + 1);
+        RegSetValueExA(hkey, "vidc.iv50", 0, REG_SZ, (const BYTE*)iv50, strlen(iv50) + 1);
 
         RegCloseKey(hkey);
     }
