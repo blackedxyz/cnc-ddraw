@@ -174,6 +174,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
 - Gruntz
+- Gorasul: The Legacy of the Dragon
 - Hamtaro: Wake Up Snoozer!
 - Hard Truck: Road to Victory
 - Hearts of Iron 2
