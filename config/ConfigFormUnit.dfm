@@ -3125,6 +3125,8 @@ object ConfigForm: TConfigForm
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
     end
     object MaxfpsLbl: TLabel
       Left = 40
@@ -3200,6 +3202,8 @@ object ConfigForm: TConfigForm
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 6
       Visible = False
       OnChange = ShaderD3DCbxChange
@@ -3266,6 +3270,8 @@ object ConfigForm: TConfigForm
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 3
       OnChange = ShaderCbxChange
     end
