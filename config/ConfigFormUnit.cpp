@@ -117,6 +117,8 @@ void __fastcall TConfigForm::RestoreDefaultsBtnClick(TObject *Sender)
 
 void TConfigForm::ApplyTranslation(TIniFile *ini)
 {
+	Application->HintHidePause = 100 * 1000;
+
 	auto lang = LowerCase(ini->ReadString("ddraw", "configlang", "auto"));
 	int priID = SysLocale.PriLangID;
 
@@ -178,6 +180,18 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"30tick每秒", NULL);
 		MaxgameticksCbx->AddItem(L"25tick每秒", NULL);
 		MaxgameticksCbx->AddItem(L"15tick每秒", NULL);
+
+		auto upscaleHint =
+			L"必须启用升级才能使此设置发挥作用。\n\n"
+			"要启用放大功能，请将演示文稿设置为'拉伸至全屏'、\n"
+			"'无边框'或以'窗口化'模式启动游戏并调整窗口大小。";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 	else if (lang == "spanish" || (lang == "auto" && priID == LANG_SPANISH)) {
 		LanguageImg->Visible = true;
@@ -237,6 +251,19 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"30 tics por segundo", NULL);
 		MaxgameticksCbx->AddItem(L"25 tics por segundo", NULL);
 		MaxgameticksCbx->AddItem(L"15 tics por segundo", NULL);
+
+		auto upscaleHint =
+			L"La ampliación debe estar habilitada para que esta configuración funcione. \n\n"
+			"Para habilitar la mejora, configura tu presentación en 'Sin bordes', \n"
+			"'Pantalla completa ampliada' o inicia el juego en modo 'Ventana' \n"
+			"y cambia el tamaño de la ventana.";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 	else if (lang == "german" || (lang == "auto" && priID == LANG_GERMAN)) {
 		LanguageImg->Visible = true;
@@ -296,6 +323,19 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"30 Ticks pro Sekunde", NULL);
 		MaxgameticksCbx->AddItem(L"25 Ticks pro Sekunde", NULL);
 		MaxgameticksCbx->AddItem(L"15 Ticks pro Sekunde", NULL);
+
+		auto upscaleHint =
+			L"Damit diese Einstellung funktioniert, muss die Hochskalierung aktiviert sein. \n\n"
+			"Um die Hochskalierung zu aktivieren, stellen Sie Ihre Präsentation \n"
+			"entweder auf 'Ränderfreies Fenster', 'Hochskaliertes Vollbild' ein \n"
+			"oder starten Sie das Spiel im 'Fenstermodus' und ändern Sie die Fenstergröße.";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 	else if (lang == "russian" || (lang == "auto" && priID == LANG_RUSSIAN)) {
 		LanguageImg->Visible = true;
@@ -356,6 +396,19 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"30 тиков в секунду", NULL);
 		MaxgameticksCbx->AddItem(L"25 тиков в секунду", NULL);
 		MaxgameticksCbx->AddItem(L"15 тиков в секунду", NULL);
+
+		auto upscaleHint =
+			L"Чтобы этот параметр работал, необходимо включить масштабирование. \n\n"
+			"Чтобы включить масштабирование, установите для презентации режим \n"
+			"'Без границ', 'Полноэкранный масштабированный' или запустите игру \n"
+			"в 'Оконный' режиме и измените размер окна.";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 	else if (lang == "hungarian" || (lang == "auto" && priID == LANG_HUNGARIAN)) {
 		LanguageImg->Visible = true;
@@ -415,6 +468,19 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"30 tick másodpercenként", NULL);
 		MaxgameticksCbx->AddItem(L"25 tick másodpercenként", NULL);
 		MaxgameticksCbx->AddItem(L"15 tick másodpercenként", NULL);
+
+		auto upscaleHint =
+			L"A beállítás működéséhez engedélyezni kell a felskálázást. \n\n"
+			"A felskálázás engedélyezéséhez állítsa be a prezentációt 'Keret nélkül', \n"
+			"'Teljes képernyő felskálázva' értékre, vagy indítsa el a játékot 'Ablakban' \n"
+			"módban, és méretezze át az ablakot.";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 	else if (lang == "french" || (lang == "auto" && priID == LANG_FRENCH)) {
 		LanguageImg->Visible = true;
@@ -474,6 +540,19 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"30 tics par seconde", NULL);
 		MaxgameticksCbx->AddItem(L"25 tics par seconde", NULL);
 		MaxgameticksCbx->AddItem(L"15 tics par seconde", NULL);
+
+		auto upscaleHint =
+			L"La mise à l'échelle doit être activée pour que ce paramètre fonctionne. \n\n"
+			"Pour activer la mise à l'échelle, définissez votre présentation sur 'Sans Bordure', \n"
+			"'Plein Écran Mis à l'Échelle' ou démarrez le jeu en mode 'Fenêtré' \n"
+			"et redimensionnez la fenêtre.";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 	else if (lang == "italian" || (lang == "auto" && priID == LANG_ITALIAN)) {
 		LanguageImg->Visible = true;
@@ -533,6 +612,19 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"30 tick al secondo", NULL);
 		MaxgameticksCbx->AddItem(L"25 tick al secondo", NULL);
 		MaxgameticksCbx->AddItem(L"15 tick al secondo", NULL);
+
+		auto upscaleHint =
+			L"Affinché questa impostazione funzioni, è necessario abilitare l'upscaling. \n\n"
+			"Per abilitare l'upscaling, imposta la presentazione su 'Senza Bordi', \n"
+			"'Schermo Intero Ridimensionato' oppure avvia il gioco in modalità \n"
+			"'In Finestra' e ridimensiona la finestra.";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 	else {
 		IsEnglish = true;
@@ -638,6 +730,19 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"25 ticks per second", NULL);
 		MaxgameticksCbx->AddItem(L"15 ticks per second", NULL);
 		*/
+
+		auto upscaleHint =
+			L"Upscaling must be enabled for this setting to work. \n\n"
+			"To enable upscaling, set your presentation to either 'Borderless', \n"
+			"'Fullscreen Upscaled' or start the game in 'Windowed' mode and \n"
+			"resize the window.";
+
+		MaintasLbl->Hint = upscaleHint;
+		MaintasChk->Hint = upscaleHint;
+		AdjmouseLbl->Hint = upscaleHint;
+		AdjmouseChk->Hint = upscaleHint;
+		BoxingLbl->Hint = upscaleHint;
+		BoxingChk->Hint = upscaleHint;
 	}
 
 	ToggleWindowedKeyLbl->Caption = GetKeyText(VK_MENU) + L" +";

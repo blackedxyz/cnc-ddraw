@@ -2727,6 +2727,8 @@ object ConfigForm: TConfigForm
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
     end
     object VsyncLbl: TLabel
       Left = 40
@@ -2755,6 +2757,8 @@ object ConfigForm: TConfigForm
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
     end
     object DevmodeLbl: TLabel
       Left = 40
@@ -2834,6 +2838,8 @@ object ConfigForm: TConfigForm
       Top = 132
       Width = 50
       Height = 20
+      ParentShowHint = False
+      ShowHint = True
       ShowStateCaption = False
       TabOrder = 0
       OnClick = MaintasChkClick
@@ -2852,6 +2858,8 @@ object ConfigForm: TConfigForm
       Top = 268
       Width = 50
       Height = 20
+      ParentShowHint = False
+      ShowHint = True
       ShowStateCaption = False
       TabOrder = 3
       OnClick = AdjmouseChkClick
@@ -3159,6 +3167,8 @@ object ConfigForm: TConfigForm
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
     end
     object RendererPbox: TPaintBox
       Left = 40
@@ -3273,6 +3283,8 @@ object ConfigForm: TConfigForm
       Top = 277
       Width = 50
       Height = 20
+      ParentShowHint = False
+      ShowHint = True
       ShowStateCaption = False
       TabOrder = 5
       OnClick = BoxingChkClick
