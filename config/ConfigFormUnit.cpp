@@ -326,7 +326,7 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 
 		auto upscaleHint =
 			L"Damit diese Einstellung funktioniert, muss die Hochskalierung aktiviert sein. \n\n"
-			"Um die Hochskalierung zu aktivieren, stellen Sie Ihre Präsentation \n"
+			"Um die Hochskalierung zu aktivieren, stellen Sie Ihre Darstellung \n"
 			"entweder auf 'Ränderfreies Fenster', 'Hochskaliertes Vollbild' ein \n"
 			"oder starten Sie das Spiel im 'Fenstermodus' und ändern Sie die Fenstergröße.";
 
