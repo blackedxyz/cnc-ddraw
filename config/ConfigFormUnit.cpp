@@ -967,6 +967,9 @@ void __fastcall TConfigForm::FormCreate(TObject *Sender)
 		RendererCbx->ItemIndex = 0;
 	}
 
+	ShaderD3DCbx->Enabled = !ContainsStr(RendererCbx->Text, "GDI");
+	ShaderCbx->Enabled = ShaderD3DCbx->Enabled;
+
 	try
 	{
 		TStringDynArray list = TDirectory::GetFiles(
@@ -1553,6 +1556,9 @@ void __fastcall TConfigForm::DevmodeChkClick(TObject *Sender)
 
 void __fastcall TConfigForm::RendererCbxChange(TObject *Sender)
 {
+	ShaderD3DCbx->Enabled = !ContainsStr(RendererCbx->Text, "GDI");
+	ShaderCbx->Enabled = ShaderD3DCbx->Enabled;
+
 	if (ContainsStr(RendererCbx->Text, "Direct3D")) {
 
 		ShaderLbl->Caption =
