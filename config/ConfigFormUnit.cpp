@@ -118,6 +118,7 @@ void __fastcall TConfigForm::RestoreDefaultsBtnClick(TObject *Sender)
 void TConfigForm::ApplyTranslation(TIniFile *ini)
 {
 	Application->HintHidePause = 100 * 1000;
+	Application->HintPause = 0;
 
 	auto lang = LowerCase(ini->ReadString("ddraw", "configlang", "auto"));
 	int priID = SysLocale.PriLangID;
