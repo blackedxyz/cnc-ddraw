@@ -352,7 +352,8 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		System::UnicodeString enableUpscaleHint =
 			L"Um die Hochskalierung zu aktivieren, stellen Sie Ihre Darstellung \n"
 			"entweder auf 'Ränderfreies Fenster' oder 'Hochskaliertes Vollbild' ein. \n"
-			"Für die 'Fenster'-Darstellung müssen Sie die Größe des Fensters ändern oder es maximieren.";
+			"Für die 'Fenstermodus'-Darstellung müssen Sie die Größe des Fensters \n"
+			"ändern oder es maximieren.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
