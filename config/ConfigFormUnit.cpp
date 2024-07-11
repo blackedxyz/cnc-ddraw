@@ -189,8 +189,8 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			L"必须启用升级才能使此设置发挥作用。\n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"要启用放大功能，请将演示文稿设置为'拉伸至全屏'、\n"
-			"'无边框'或以'窗口化'模式启动游戏并调整窗口大小。";
+			L"要启用放大功能，请将演示文稿设置为“无边框”或“拉伸至全屏”。\n"
+			"为了使设置在“窗口化”演示中起作用，您必须调整窗口大小或最大化窗口。";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
@@ -269,9 +269,9 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			L"La ampliación debe estar habilitada para que esta configuración funcione. \n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"Para habilitar la mejora, configura tu presentación en 'Sin bordes', \n"
-			"'Pantalla completa ampliada' o inicia el juego en modo 'Ventana' \n"
-			"y cambia el tamaño de la ventana.";
+			L"Para habilitar la mejora, configure su presentación en 'Sin bordes' \n"
+			"o 'Pantalla completa ampliada'. Para que la configuración funcione en \n"
+			"la presentación 'Ventana', debe cambiar el tamaño o maximizar la ventana.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
@@ -351,8 +351,9 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 
 		System::UnicodeString enableUpscaleHint =
 			L"Um die Hochskalierung zu aktivieren, stellen Sie Ihre Darstellung \n"
-			"entweder auf 'Ränderfreies Fenster', 'Hochskaliertes Vollbild' ein \n"
-			"oder starten Sie das Spiel im 'Fenstermodus' und ändern Sie die Fenstergröße.";
+			"entweder auf 'Ränderfreies Fenster' oder 'Hochskaliertes Vollbild' ein. \n"
+			"Damit die Einstellung in der 'Fenstermodus' Darstellung funktioniert, \n"
+			"müssen Sie die Größe des Fensters ändern oder es maximieren.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
@@ -433,8 +434,8 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 
 		System::UnicodeString enableUpscaleHint =
 			L"Чтобы включить масштабирование, установите для презентации режим \n"
-			"'Без границ', 'Полноэкранный масштабированный' или запустите игру \n"
-			"в 'Оконный' режиме и измените размер окна.";
+			"'Без границ' или 'Полноэкранный масштабированный'. Чтобы эта настройка \n"
+			"работала в 'оконной' презентации, необходимо изменить размер или развернуть окно.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
@@ -513,9 +514,10 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			L"A beállítás működéséhez engedélyezni kell a felskálázást. \n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"A felskálázás engedélyezéséhez állítsa be a prezentációt 'Keret nélkül', \n"
-			"'Teljes képernyő felskálázva' értékre, vagy indítsa el a játékot 'Ablakban' \n"
-			"módban, és méretezze át az ablakot.";
+			L"A felskálázás engedélyezéséhez állítsa a prezentációt 'Keret nélkül' \n"
+			"vagy 'Teljes képernyő felskálázva' értékre. Ahhoz, hogy a beállítás \n"
+			"működjön az 'Ablakban' prezentációban, át kell méretezni vagy \n"
+			"maximalizálni kell az ablakot.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
@@ -594,9 +596,10 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			L"La mise à l'échelle doit être activée pour que ce paramètre fonctionne. \n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"Pour activer la mise à l'échelle, définissez votre présentation sur 'Sans Bordure', \n"
-			"'Plein Écran Mis à l'Échelle' ou démarrez le jeu en mode 'Fenêtré' \n"
-			"et redimensionnez la fenêtre.";
+			L"Pour activer la mise à l'échelle, définissez votre présentation \n"
+			"sur 'Sans Bordure' ou 'Plein Écran Mis à l'Échelle'. Pour que le \n"
+			"paramètre fonctionne dans la présentation 'Fenêtré', vous devez \n"
+			"redimensionner ou agrandir la fenêtre.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
@@ -675,9 +678,10 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			L"Affinché questa impostazione funzioni, è necessario abilitare l'upscaling. \n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"Per abilitare l'upscaling, imposta la presentazione su 'Senza Bordi', \n"
-			"'Schermo Intero Ridimensionato' oppure avvia il gioco in modalità \n"
-			"'In Finestra' e ridimensiona la finestra.";
+			L"Per abilitare l'ingrandimento, imposta la presentazione su 'Senza Bordi' \n"
+			"o 'Schermo Intero Ridimensionato'. Affinché l'impostazione funzioni \n"
+			"nella presentazione 'In Finestra', è necessario ridimensionare \n"
+			"o ingrandire la finestra.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
@@ -802,9 +806,9 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			L"Upscaling must be enabled for this setting to work. \n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"To enable upscaling, set your presentation to either 'Borderless', \n"
-			"'Fullscreen Upscaled' or start the game in 'Windowed' mode and \n"
-			"resize the window.";
+			L"To enable upscaling, set your presentation to either 'Borderless' \n"
+			"or 'Fullscreen Upscaled'. For the setting to work in the 'Windowed' \n"
+			"presentation, you must resize or maximize the window.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
