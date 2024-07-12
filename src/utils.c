@@ -624,31 +624,24 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
     RECT size;
     RECT pos;
 
-    if (real_GetClientRect(hwnd, &size) && 
-        real_GetWindowRect(hwnd, &pos) && 
-        size.right > 1 && 
-        size.bottom > 1)
+    if (real_GetClientRect(hwnd, &size) && real_GetWindowRect(hwnd, &pos))
     {
         char class_name[MAX_PATH] = { 0 };
         GetClassNameA(hwnd, class_name, sizeof(class_name) - 1);
 
-        LONG style = real_GetWindowLongA(hwnd, GWL_STYLE);
         LONG exstyle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
-
-#ifdef _DEBUG_X
         HWND parent = GetParent(hwnd);
 
-        TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d, parent=%p\n", 
-            class_name, hwnd, size.right, size.bottom, pos.left, pos.top, parent);
+#ifdef _DEBUG_X
+        LONG style = real_GetWindowLongA(hwnd, GWL_STYLE);
+
+        TRACE("util_enum_child_proc class=%s, hwnd=%p, width=%u, height=%u, left=%d, top=%d, parent=%p, style=%08X\n", 
+            class_name, hwnd, size.right, size.bottom, pos.left, pos.top, parent, style);
 
         dbg_dump_wnd_styles(style, exstyle);
-
-        if (parent != g_ddraw.hwnd)
-            return TRUE;
 #endif
 
-        /* Atrox */
-        if (style == 0x500100C4 && strcmp(class_name, "Edit") == 0)
+        if (parent != g_ddraw.hwnd || size.right <= 1 || size.bottom <= 1 || strcmp(class_name, "Edit") == 0)
             return TRUE;
 
         if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
