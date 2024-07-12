@@ -183,14 +183,14 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"15tick每秒", NULL);
 
 		System::UnicodeString shaderHint =
-			L"某些着色器仅在启用升级时才起作用。\n\n";
+			L"某些着色器仅在打开放大功能时生效。\n\n";
 
 		System::UnicodeString upscaleHint =
-			L"必须启用升级才能使此设置发挥作用。\n\n";
+			L"必须打开放大功能才能使此设置生效。\n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"要启用放大功能，请将演示文稿设置为“无边框”或“拉伸至全屏”。\n"
-			"对于'窗口化'演示，您必须调整窗口大小或最大化窗口。";
+			L"要打开放大功能，请将显示方式设置为‘无边框’或‘拉伸至全屏’。\n"
+			"对于‘窗口化’显示方式，您必须调整窗口大小或最大化窗口。";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
