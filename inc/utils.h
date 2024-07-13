@@ -6,7 +6,8 @@
 
 
 HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast);
-BOOL util_caller_is_ddraw_wrapper(void* returnAddress);
+FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name);
+BOOL util_caller_is_ddraw_wrapper(void* return_address);
 BOOL util_is_bad_read_ptr(void* p);
 BOOL util_is_minimized(HWND hwnd);
 BOOL util_in_foreground();

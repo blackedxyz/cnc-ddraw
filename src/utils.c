@@ -69,62 +69,164 @@ HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast)
     return NULL;
 }
 
-BOOL util_caller_is_ddraw_wrapper(void* returnAddress)
+FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
 {
+    if (!mod || mod == INVALID_HANDLE_VALUE)
+        return NULL;
+
+    __try
+    {
+        PIMAGE_DOS_HEADER dos_header = (PIMAGE_DOS_HEADER)mod;
+        if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
+            return NULL;
+
+        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)dos_header + (DWORD)dos_header->e_lfanew);
+        if (nt_headers->Signature != IMAGE_NT_SIGNATURE)
+            return NULL;
+
+        DWORD import_desc_rva = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
+        DWORD import_desc_size = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size;
+
+        if (import_desc_rva == 0 || import_desc_size == 0)
+            return NULL;
+
+        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)dos_header + import_desc_rva);
+
+        while (import_desc->FirstThunk)
+        {
+            if (!import_desc->OriginalFirstThunk || !import_desc->Name)
+            {
+                import_desc++;
+                continue;
+            }
+
+            char* imp_module_name = (char*)((DWORD)dos_header + import_desc->Name);
+
+            if (_stricmp(imp_module_name, module_name) == 0)
+            {
+                PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)dos_header + import_desc->FirstThunk);
+                PIMAGE_THUNK_DATA o_first_thunk = (void*)((DWORD)dos_header + import_desc->OriginalFirstThunk);
+
+                while (first_thunk->u1.Function)
+                {
+                    if (!o_first_thunk->u1.AddressOfData)
+                    {
+                        first_thunk++;
+                        o_first_thunk++;
+                        continue;
+                    }
+
+                    PIMAGE_IMPORT_BY_NAME import = (void*)((DWORD)dos_header + o_first_thunk->u1.AddressOfData);
+
+                    if ((o_first_thunk->u1.Ordinal & IMAGE_ORDINAL_FLAG) == 0)
+                    {
+#if defined(__GNUC__)
+                        if (util_is_bad_read_ptr((void*)import->Name))
+                            continue;
+#endif
+
+                        if (strcmp((const char*)import->Name, function_name) == 0 && first_thunk->u1.Function)
+                        {
+                            return (FARPROC)first_thunk->u1.Function;
+                        }
+                    }
+
+                    first_thunk++;
+                    o_first_thunk++;
+                }
+            }
+
+            import_desc++;
+        }
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+    }
+
+    return NULL;
+}
+
+BOOL util_caller_is_ddraw_wrapper(void* return_address)
+{
+    void* directDrawCreate = util_get_iat_proc(GetModuleHandleA(NULL), "ddraw.dll", "DirectDrawCreate");
+    void* directDrawCreateEx = util_get_iat_proc(GetModuleHandleA(NULL), "ddraw.dll", "DirectDrawCreateEx");
+
+    TRACE("%s directDrawCreate = %p, directDrawCreateEx = %p\n", __FUNCTION__, directDrawCreate, directDrawCreateEx);
+
     HMODULE mod = NULL;
     DWORD flags = GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT;
 
     HMODULE wndmode_dll = GetModuleHandleA("wndmode.dll");
-    if (wndmode_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == wndmode_dll)
+    if (wndmode_dll)
     {
-        MessageBoxA(
-            NULL,
-            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
-                "Please remove/disable wndmode.dll and then try to start the game again.",
-            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
-            MB_OK | MB_TOPMOST);
+        if ((GetModuleHandleExA(flags, return_address, &mod) && mod == wndmode_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == wndmode_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == wndmode_dll))
+        {
+            MessageBoxA(
+                NULL,
+                "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                    "Please remove/disable wndmode.dll and then try to start the game again.",
+                "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+                MB_OK | MB_TOPMOST);
 
-        return TRUE;
+            return TRUE;
+        }
     }
 
     HMODULE windmode_dll = GetModuleHandleA("windmode.dll");
-    if (windmode_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == windmode_dll)
+    if (windmode_dll)
     {
-        MessageBoxA(
-            NULL,
-            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
-                "Please remove/disable windmode.dll and then try to start the game again.",
-            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
-            MB_OK | MB_TOPMOST);
+        if ((GetModuleHandleExA(flags, return_address, &mod) && mod == windmode_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == windmode_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == windmode_dll))
+        {
+            MessageBoxA(
+                NULL,
+                "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                    "Please remove/disable windmode.dll and then try to start the game again.",
+                "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+                MB_OK | MB_TOPMOST);
 
-        return TRUE;
+            return TRUE;
+        }
     }
 
     HMODULE dxwnd_dll = GetModuleHandleA("dxwnd.dll");
-    if (dxwnd_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == dxwnd_dll)
+    if (dxwnd_dll)
     {
-        MessageBoxA(
-            NULL,
-            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
-                "Please disable DxWnd and then try to start the game again.",
-            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
-            MB_OK | MB_TOPMOST);
+        if ((GetModuleHandleExA(flags, return_address, &mod) && mod == dxwnd_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == dxwnd_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == dxwnd_dll))
+        {
+            MessageBoxA(
+                NULL,
+                "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                    "Please disable DxWnd and then try to start the game again.",
+                "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+                MB_OK | MB_TOPMOST);
 
-        return TRUE;
+            return TRUE;
+        }
     }
 
     HMODULE age_dll = GetModuleHandleA("age.dll");
-    if (age_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == age_dll)
+    if (age_dll)
     {
-        MessageBoxA(
-            NULL,
-            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
-                "Please disable the other wrapper by clicking in the game room on the very top \n"
-                "on 'Game', now select 'DirectX' and disable 'Render in 32-bit color'.",
-            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
-            MB_OK | MB_TOPMOST);
+        if ((GetModuleHandleExA(flags, return_address, &mod) && mod == age_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == age_dll) ||
+            (GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == age_dll))
+        {
+            MessageBoxA(
+                NULL,
+                "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                    "Please disable the other wrapper by clicking in the game room on the very top \n"
+                    "on 'Game', now select 'DirectX' and disable 'Render in 32-bit color'.",
+                "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+                MB_OK | MB_TOPMOST);
 
-        return TRUE;
+            return TRUE;
+        }
     }
 
     return FALSE;
