@@ -119,7 +119,8 @@ BOOL util_caller_is_ddraw_wrapper(void* returnAddress)
         MessageBoxA(
             NULL,
             "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
-                "Please disable the other wrapper by clicking in the game room on the very top on 'Game', now select 'DirectX' and disable 'Render in 32-bit color'.",
+                "Please disable the other wrapper by clicking in the game room on the very top \n"
+                "on 'Game', now select 'DirectX' and disable 'Render in 32-bit color'.",
             "Conflicting DirectDraw wrapper detected - cnc-ddraw",
             MB_OK | MB_TOPMOST);
 
