@@ -10,6 +10,7 @@
 #include "config.h"
 #include "hook.h"
 #include "indeo.h"
+#include "utils.h"
 #include "versionhelpers.h"
 
 
@@ -158,31 +159,74 @@ FARPROC WINAPI DDGetProcAddress(HMODULE hModule, LPCSTR lpProcName)
 
 HRESULT WINAPI DirectDrawCreate(GUID FAR* lpGUID, LPDIRECTDRAW FAR* lplpDD, IUnknown FAR* pUnkOuter)
 {
-    TRACE("-> %s(lpGUID=%p, lplpDD=%p, pUnkOuter=%p)\n", __FUNCTION__, lpGUID, lplpDD, pUnkOuter);
-    HRESULT ret = dd_CreateEx(lpGUID, (LPVOID*)lplpDD, &IID_IDirectDraw, pUnkOuter);
+    TRACE("-> %s(lpGUID=%p, lplpDD=%p, pUnkOuter=%p) [%p]\n", __FUNCTION__, lpGUID, lplpDD, pUnkOuter, _ReturnAddress());
+
+    HRESULT ret;
+
+    if (util_caller_is_ddraw_wrapper(_ReturnAddress()))
+    {
+        if (lplpDD)
+            *lplpDD = NULL;
+
+        ret = DDERR_GENERIC;
+    }
+    else
+    {
+        ret = dd_CreateEx(lpGUID, (LPVOID*)lplpDD, &IID_IDirectDraw, pUnkOuter);
+    }
+
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
 }
 
 HRESULT WINAPI DirectDrawCreateClipper(DWORD dwFlags, LPDIRECTDRAWCLIPPER FAR* lplpDDClipper, IUnknown FAR* pUnkOuter)
 {
-    TRACE("-> %s(dwFlags=%08X, DDClipper=%p, unkOuter=%p)\n", __FUNCTION__, (int)dwFlags, lplpDDClipper, pUnkOuter);
+    TRACE(
+        "-> %s(dwFlags=%08X, DDClipper=%p, unkOuter=%p) [%p]\n", 
+        __FUNCTION__,
+        (int)dwFlags,
+        lplpDDClipper, 
+        pUnkOuter, 
+        _ReturnAddress());
+
     HRESULT ret = dd_CreateClipper(dwFlags, (IDirectDrawClipperImpl**)lplpDDClipper, pUnkOuter);
+
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
 }
 
 HRESULT WINAPI DirectDrawCreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOuter)
 {
-    TRACE("-> %s(lpGUID=%p, lplpDD=%p, riid=%08X, pUnkOuter=%p)\n", __FUNCTION__, lpGuid, lplpDD, iid, pUnkOuter);
-    HRESULT ret = dd_CreateEx(lpGuid, lplpDD, &IID_IDirectDraw7, pUnkOuter);
+    TRACE(
+        "-> %s(lpGUID=%p, lplpDD=%p, riid=%08X, pUnkOuter=%p) [%p]\n",
+        __FUNCTION__, 
+        lpGuid,
+        lplpDD, 
+        iid,
+        pUnkOuter, 
+        _ReturnAddress());
+
+    HRESULT ret;
+
+    if (util_caller_is_ddraw_wrapper(_ReturnAddress()))
+    {
+        if (lplpDD)
+            *lplpDD = NULL;
+
+        ret = DDERR_GENERIC;
+    }
+    else
+    {
+        ret = dd_CreateEx(lpGuid, lplpDD, &IID_IDirectDraw7, pUnkOuter);
+    }
+
     TRACE("<- %s\n", __FUNCTION__);
     return ret;
 }
 
 HRESULT WINAPI DirectDrawEnumerateA(LPDDENUMCALLBACK lpCallback, LPVOID lpContext)
 {
-    TRACE("-> %s(lpCallback=%p, lpContext=%p)\n", __FUNCTION__, lpCallback, lpContext);
+    TRACE("-> %s(lpCallback=%p, lpContext=%p) [%p]\n", __FUNCTION__, lpCallback, lpContext, _ReturnAddress());
 
     if (lpCallback)
         lpCallback(NULL, "Primary Display Driver", "display", lpContext);
@@ -193,7 +237,13 @@ HRESULT WINAPI DirectDrawEnumerateA(LPDDENUMCALLBACK lpCallback, LPVOID lpContex
 
 HRESULT WINAPI DirectDrawEnumerateExA(LPDDENUMCALLBACKEXA lpCallback, LPVOID lpContext, DWORD dwFlags)
 {
-    TRACE("-> %s(lpCallback=%p, lpContext=%p, dwFlags=%d)\n", __FUNCTION__, lpCallback, lpContext, dwFlags);
+    TRACE(
+        "-> %s(lpCallback=%p, lpContext=%p, dwFlags=%d) [%p]\n", 
+        __FUNCTION__, 
+        lpCallback, 
+        lpContext, 
+        dwFlags, 
+        _ReturnAddress());
 
     if (lpCallback)
         lpCallback(NULL, "Primary Display Driver", "display", lpContext, NULL);
@@ -204,7 +254,12 @@ HRESULT WINAPI DirectDrawEnumerateExA(LPDDENUMCALLBACKEXA lpCallback, LPVOID lpC
 
 HRESULT WINAPI DirectDrawEnumerateExW(LPDDENUMCALLBACKEXW lpCallback, LPVOID lpContext, DWORD dwFlags)
 {
-    TRACE("-> %s(lpCallback=%p, lpContext=%p, dwFlags=%d)\n", __FUNCTION__, lpCallback, lpContext, dwFlags);
+    TRACE(
+        "-> %s(lpCallback=%p, lpContext=%p, dwFlags=%d) [%p]\n", __FUNCTION__, 
+        lpCallback, 
+        lpContext, 
+        dwFlags, 
+        _ReturnAddress());
 
     if (lpCallback)
         lpCallback(NULL, L"Primary Display Driver", L"display", lpContext, NULL);
@@ -215,7 +270,7 @@ HRESULT WINAPI DirectDrawEnumerateExW(LPDDENUMCALLBACKEXW lpCallback, LPVOID lpC
 
 HRESULT WINAPI DirectDrawEnumerateW(LPDDENUMCALLBACKW lpCallback, LPVOID lpContext)
 {
-    TRACE("-> %s(lpCallback=%p, lpContext=%p)\n", __FUNCTION__, lpCallback, lpContext);
+    TRACE("-> %s(lpCallback=%p, lpContext=%p) [%p]\n", __FUNCTION__, lpCallback, lpContext, _ReturnAddress());
 
     if (lpCallback)
         lpCallback(NULL, L"Primary Display Driver", L"display", lpContext);
@@ -226,7 +281,7 @@ HRESULT WINAPI DirectDrawEnumerateW(LPDDENUMCALLBACKW lpCallback, LPVOID lpConte
 
 DWORD WINAPI CompleteCreateSysmemSurface(DWORD a)
 {
-    TRACE("NOT_IMPLEMENTED -> %s()\n", __FUNCTION__);
+    TRACE("NOT_IMPLEMENTED -> %s() [%p]\n", __FUNCTION__, _ReturnAddress());
     DWORD ret = 0;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -234,7 +289,7 @@ DWORD WINAPI CompleteCreateSysmemSurface(DWORD a)
 
 HRESULT WINAPI D3DParseUnknownCommand(LPVOID lpCmd, LPVOID* lpRetCmd)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(lpCmd=%p, lpRetCmd=%p)\n", __FUNCTION__, lpCmd, lpRetCmd);
+    TRACE("NOT_IMPLEMENTED -> %s(lpCmd=%p, lpRetCmd=%p) [%p]\n", __FUNCTION__, lpCmd, lpRetCmd, _ReturnAddress());
     HRESULT ret = E_FAIL;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -242,7 +297,7 @@ HRESULT WINAPI D3DParseUnknownCommand(LPVOID lpCmd, LPVOID* lpRetCmd)
 
 DWORD WINAPI AcquireDDThreadLock()
 {
-    TRACE("NOT_IMPLEMENTED -> %s()\n", __FUNCTION__);
+    TRACE("NOT_IMPLEMENTED -> %s() [%p]\n", __FUNCTION__, _ReturnAddress());
     DWORD ret = 0;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -250,7 +305,7 @@ DWORD WINAPI AcquireDDThreadLock()
 
 DWORD WINAPI ReleaseDDThreadLock()
 {
-    TRACE("NOT_IMPLEMENTED -> %s()\n", __FUNCTION__);
+    TRACE("NOT_IMPLEMENTED -> %s() [%p]\n", __FUNCTION__, _ReturnAddress());
     DWORD ret = 0;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -258,7 +313,7 @@ DWORD WINAPI ReleaseDDThreadLock()
 
 DWORD WINAPI DDInternalLock(DWORD a, DWORD b)
 {
-    TRACE("NOT_IMPLEMENTED -> %s()\n", __FUNCTION__);
+    TRACE("NOT_IMPLEMENTED -> %s() [%p]\n", __FUNCTION__, _ReturnAddress());
     DWORD ret = 0;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
@@ -266,7 +321,7 @@ DWORD WINAPI DDInternalLock(DWORD a, DWORD b)
 
 DWORD WINAPI DDInternalUnlock(DWORD a)
 {
-    TRACE("NOT_IMPLEMENTED -> %s()\n", __FUNCTION__);
+    TRACE("NOT_IMPLEMENTED -> %s() [%p]\n", __FUNCTION__, _ReturnAddress());
     DWORD ret = 0;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;

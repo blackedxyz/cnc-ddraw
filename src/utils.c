@@ -69,6 +69,67 @@ HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast)
     return NULL;
 }
 
+BOOL util_caller_is_ddraw_wrapper(void* returnAddress)
+{
+    HMODULE windmode_dll = GetModuleHandleA("windmode.dll");
+    HMODULE wndmode_dll = GetModuleHandleA("wndmode.dll");
+    HMODULE dxwnd_dll = GetModuleHandleA("dxwnd.dll");
+    HMODULE age_dll = GetModuleHandleA("age.dll");
+
+    HMODULE mod = NULL;
+    DWORD flags = GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT;
+
+    if (wndmode_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == wndmode_dll)
+    {
+        MessageBoxA(
+            NULL,
+            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                "Please remove/disable wndmode.dll and then try to start the game again.",
+            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+            MB_OK | MB_TOPMOST);
+
+        return TRUE;
+    }
+
+    if (windmode_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == windmode_dll)
+    {
+        MessageBoxA(
+            NULL,
+            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                "Please remove/disable windmode.dll and then try to start the game again.",
+            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+            MB_OK | MB_TOPMOST);
+
+        return TRUE;
+    }
+
+    if (dxwnd_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == dxwnd_dll)
+    {
+        MessageBoxA(
+            NULL,
+            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                "Please disable DxWnd and then try to start the game again.",
+            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+            MB_OK | MB_TOPMOST);
+
+        return TRUE;
+    }
+
+    if (age_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == age_dll)
+    {
+        MessageBoxA(
+            NULL,
+            "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                "Please disable the other wrapper by clicking in the game room on the very top on 'Game', now select 'DirectX' and disable 'Render in 32-bit color'.",
+            "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+            MB_OK | MB_TOPMOST);
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 BOOL util_is_bad_read_ptr(void* p)
 {
     MEMORY_BASIC_INFORMATION mbi = { 0 };
