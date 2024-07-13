@@ -71,14 +71,10 @@ HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast)
 
 BOOL util_caller_is_ddraw_wrapper(void* returnAddress)
 {
-    HMODULE windmode_dll = GetModuleHandleA("windmode.dll");
-    HMODULE wndmode_dll = GetModuleHandleA("wndmode.dll");
-    HMODULE dxwnd_dll = GetModuleHandleA("dxwnd.dll");
-    HMODULE age_dll = GetModuleHandleA("age.dll");
-
     HMODULE mod = NULL;
     DWORD flags = GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT;
 
+    HMODULE wndmode_dll = GetModuleHandleA("wndmode.dll");
     if (wndmode_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == wndmode_dll)
     {
         MessageBoxA(
@@ -91,6 +87,7 @@ BOOL util_caller_is_ddraw_wrapper(void* returnAddress)
         return TRUE;
     }
 
+    HMODULE windmode_dll = GetModuleHandleA("windmode.dll");
     if (windmode_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == windmode_dll)
     {
         MessageBoxA(
@@ -103,6 +100,7 @@ BOOL util_caller_is_ddraw_wrapper(void* returnAddress)
         return TRUE;
     }
 
+    HMODULE dxwnd_dll = GetModuleHandleA("dxwnd.dll");
     if (dxwnd_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == dxwnd_dll)
     {
         MessageBoxA(
@@ -115,6 +113,7 @@ BOOL util_caller_is_ddraw_wrapper(void* returnAddress)
         return TRUE;
     }
 
+    HMODULE age_dll = GetModuleHandleA("age.dll");
     if (age_dll && GetModuleHandleExA(flags, returnAddress, &mod) && mod == age_dll)
     {
         MessageBoxA(
