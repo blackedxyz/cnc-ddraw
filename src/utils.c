@@ -149,7 +149,7 @@ FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
 BOOL util_caller_is_ddraw_wrapper(void* return_address)
 {
     BOOL (WINAPI *getModuleHandleExA)(DWORD, LPCSTR, HMODULE*) = 
-        real_GetProcAddress(GetModuleHandleA("Kernel32.dll"), "GetModuleHandleExA");;
+        (void*)real_GetProcAddress(GetModuleHandleA("Kernel32.dll"), "GetModuleHandleExA");
 
     if (!getModuleHandleExA)
         return FALSE;
