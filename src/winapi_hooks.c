@@ -373,6 +373,7 @@ BOOL WINAPI fake_MoveWindow(HWND hWnd, int X, int Y, int nWidth, int nHeight, BO
         }
         else if (hWnd == g_ddraw.textbox.hwnd && IsWindow(hWnd) && GetParent(hWnd) == g_ddraw.hwnd && g_ddraw.width)
         {
+            /* Age Of Empires 2 textbox align */
             char class_name[MAX_PATH] = { 0 };
             GetClassNameA(hWnd, class_name, sizeof(class_name) - 1);
 
@@ -1706,7 +1707,7 @@ HWND WINAPI fake_CreateWindowExA(
         hInstance,
         lpParam);
 
-    /* Age Of Empires 2 */
+    /* Age Of Empires 2 textbox align */
     if (!dwExStyle &&
         HIWORD(lpClassName) && _strcmpi(lpClassName, "edit") == 0 &&
         !lpWindowName &&

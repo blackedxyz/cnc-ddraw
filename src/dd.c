@@ -1149,6 +1149,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         mouse_lock();
     }
 
+    /* Age Of Empires 2 textbox align */
     if (g_ddraw.textbox.hwnd &&
         g_ddraw.textbox.x &&
         g_ddraw.textbox.y &&
