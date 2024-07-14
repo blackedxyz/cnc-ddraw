@@ -381,8 +381,8 @@ BOOL WINAPI fake_MoveWindow(HWND hWnd, int X, int Y, int nWidth, int nHeight, BO
                 g_ddraw.textbox.x = X;
                 g_ddraw.textbox.y = Y;
 
-                X *= g_ddraw.render.scale_w;
-                Y *= g_ddraw.render.scale_h;
+                X = g_ddraw.render.viewport.x + (X * g_ddraw.render.scale_w);
+                Y = g_ddraw.render.viewport.y + (Y * g_ddraw.render.scale_h);
             }
         }
     }

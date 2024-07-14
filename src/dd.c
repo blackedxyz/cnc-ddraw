@@ -1163,8 +1163,8 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             real_SetWindowPos(
                 g_ddraw.textbox.hwnd,
                 0,
-                g_ddraw.textbox.x * g_ddraw.render.scale_w,
-                g_ddraw.textbox.y * g_ddraw.render.scale_h,
+                g_ddraw.render.viewport.x + (g_ddraw.textbox.x * g_ddraw.render.scale_w),
+                g_ddraw.render.viewport.y + (g_ddraw.textbox.y * g_ddraw.render.scale_h),
                 0,
                 0,
                 SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER
