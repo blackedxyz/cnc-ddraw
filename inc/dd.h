@@ -158,6 +158,13 @@ typedef struct CNCDDRAW
     DWORD gui_thread_id;
     BOOL show_driver_warning;
 
+    struct
+    {
+        HWND hwnd;
+        int x;
+        int y;
+    } textbox; /* Age Of Empires 2 textbox align */
+
 } CNCDDRAW;
 
 #endif

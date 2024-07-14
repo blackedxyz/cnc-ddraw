@@ -810,7 +810,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
         dbg_dump_wnd_styles(style, exstyle);
 #endif
 
-        if (parent != g_ddraw.hwnd || size.right <= 1 || size.bottom <= 1 || strcmp(class_name, "Edit") == 0)
+        if (parent != g_ddraw.hwnd || size.right <= 1 || size.bottom <= 1 || _strcmpi(class_name, "Edit") == 0)
             return TRUE;
 
         if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||

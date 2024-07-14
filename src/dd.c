@@ -1149,6 +1149,29 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         mouse_lock();
     }
 
+    if (g_ddraw.textbox.hwnd &&
+        g_ddraw.textbox.x &&
+        g_ddraw.textbox.y &&
+        IsWindow(g_ddraw.textbox.hwnd) &&
+        GetParent(g_ddraw.textbox.hwnd) == g_ddraw.hwnd)
+    {
+        char class_name[MAX_PATH] = { 0 };
+        GetClassNameA(g_ddraw.textbox.hwnd, class_name, sizeof(class_name) - 1);
+
+        if (_strcmpi(class_name, "Edit") == 0)
+        {
+            real_SetWindowPos(
+                g_ddraw.textbox.hwnd,
+                0,
+                g_ddraw.textbox.x * g_ddraw.render.scale_w,
+                g_ddraw.textbox.y * g_ddraw.render.scale_h,
+                0,
+                0,
+                SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER
+            );
+        }
+    }
+
     RedrawWindow(g_ddraw.hwnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE);
 
     if (g_ddraw.render.viewport.x != 0 || g_ddraw.render.viewport.y != 0)

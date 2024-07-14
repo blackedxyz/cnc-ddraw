@@ -371,6 +371,20 @@ BOOL WINAPI fake_MoveWindow(HWND hWnd, int X, int Y, int nWidth, int nHeight, BO
                 Y += pt.y;
             }
         }
+        else if (hWnd == g_ddraw.textbox.hwnd && IsWindow(hWnd) && GetParent(hWnd) == g_ddraw.hwnd && g_ddraw.width)
+        {
+            char class_name[MAX_PATH] = { 0 };
+            GetClassNameA(hWnd, class_name, sizeof(class_name) - 1);
+
+            if (_strcmpi(class_name, "Edit") == 0)
+            {
+                g_ddraw.textbox.x = X;
+                g_ddraw.textbox.y = Y;
+
+                X *= g_ddraw.render.scale_w;
+                Y *= g_ddraw.render.scale_h;
+            }
+        }
     }
 
     return real_MoveWindow(hWnd, X, Y, nWidth, nHeight, bRepaint);
@@ -1691,6 +1705,17 @@ HWND WINAPI fake_CreateWindowExA(
         hMenu,
         hInstance,
         lpParam);
+
+    /* Age Of Empires 2 */
+    if (!dwExStyle &&
+        HIWORD(lpClassName) && _strcmpi(lpClassName, "edit") == 0 &&
+        !lpWindowName &&
+        g_ddraw.ref && g_ddraw.width &&
+        g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
+        hMenu == 1)
+    {
+        g_ddraw.textbox.hwnd = hwnd;
+    }
 
     TRACE("<- CreateWindowExA(hwnd=%p)\n", hwnd);
 
