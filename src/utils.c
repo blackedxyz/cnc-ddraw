@@ -223,15 +223,30 @@ BOOL util_caller_is_ddraw_wrapper(void* return_address)
             (getModuleHandleExA(flags, directDrawCreate, &mod) && mod == age_dll) ||
             (getModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == age_dll))
         {
-            MessageBoxA(
-                NULL,
-                "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
-                    "Please disable the other wrapper by clicking in the game room on the very top \n"
-                    "on 'Game', now select 'DirectX' and disable 'Render in 32-bit color'.",
-                "Conflicting DirectDraw wrapper detected - cnc-ddraw",
-                MB_OK | MB_TOPMOST);
+            HKEY hkey;
+            LONG status =
+                RegOpenKeyExA(HKEY_CURRENT_USER, "SOFTWARE\\Voobly\\Voobly\\game\\13", 0L, KEY_READ, &hkey);
 
-            return TRUE;
+            if (status == ERROR_SUCCESS)
+            {
+                char windowed[256] = { 0 };
+                DWORD size = sizeof(windowed);
+                RegQueryValueExA(hkey, "windowmode", NULL, NULL, (PVOID)&windowed, &size);
+                RegCloseKey(hkey);
+
+                if (tolower(windowed[0]) == 't')
+                {
+                    MessageBoxA(
+                        NULL,
+                        "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                            "Please disable the other wrapper by clicking in the game room on the very top "
+                            "on 'Game', now select 'DirectX' and disable 'Start in Window-Mode'.",
+                        "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+                        MB_OK | MB_TOPMOST);
+
+                    return TRUE;
+                }
+            }
         }
     }
 
