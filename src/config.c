@@ -1367,8 +1367,6 @@ static void cfg_create_ini()
             "[ShadowFlare]\n"
             "nonexclusive=true\n"
             "adjmouse=true\n"
-            "maintas=false\n"
-            "boxing=false\n"
             "\n"
             "; Total Annihilation (Unofficial Beta Patch v3.9.02)\n"
             "[TotalA]\n"
