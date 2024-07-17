@@ -382,8 +382,8 @@ BOOL WINAPI fake_MoveWindow(HWND hWnd, int X, int Y, int nWidth, int nHeight, BO
                 g_ddraw.textbox.x = X;
                 g_ddraw.textbox.y = Y;
 
-                X = g_ddraw.render.viewport.x + (X * g_ddraw.render.scale_w);
-                Y = g_ddraw.render.viewport.y + (Y * g_ddraw.render.scale_h);
+                X = (int)(g_ddraw.render.viewport.x + (X * g_ddraw.render.scale_w));
+                Y = (int)(g_ddraw.render.viewport.y + (Y * g_ddraw.render.scale_h));
             }
         }
     }
@@ -1713,7 +1713,7 @@ HWND WINAPI fake_CreateWindowExA(
         !lpWindowName &&
         g_ddraw.ref && g_ddraw.width &&
         g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
-        hMenu == 1)
+        (int)hMenu == 1)
     {
         g_ddraw.textbox.hwnd = hwnd;
     }
