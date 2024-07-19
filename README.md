@@ -88,6 +88,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Baldur's Gate
 - Baldur's Gate 2
 - Barbie(tm) Beach Vacation(tm)
+- Barbie(R) Photo Designer
 - Batman: Justice Unbalanced
 - Batman: Toxic Chill
 - Blade & Sword
