@@ -162,6 +162,24 @@ BOOL util_caller_is_ddraw_wrapper(void* return_address)
     HMODULE mod = NULL;
     DWORD flags = GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT;
 
+    HMODULE D3dHook_dll = GetModuleHandleA("D3dHook.dll");
+    if (D3dHook_dll)
+    {
+        if ((getModuleHandleExA(flags, return_address, &mod) && mod == D3dHook_dll) ||
+            (getModuleHandleExA(flags, directDrawCreate, &mod) && mod == D3dHook_dll) ||
+            (getModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == D3dHook_dll))
+        {
+            MessageBoxA(
+                NULL,
+                "Error: You cannot combine cnc-ddraw with other DirectDraw wrappers. \n\n"
+                    "Please disable D3DWindower and then try to start the game again.",
+                "Conflicting DirectDraw wrapper detected - cnc-ddraw",
+                MB_OK | MB_TOPMOST);
+
+            return TRUE;
+        }
+    }
+
     HMODULE wndmode_dll = GetModuleHandleA("wndmode.dll");
     if (wndmode_dll)
     {
