@@ -214,6 +214,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Madeline 2nd Grade Math
 - Majesty Gold
 - Majesty Gold HD
+- ​M.A.X. 2 Mechanized Assault & Exploration
 - Mech Warrior 3
 - Megaman X4
 - Metal Gear Solid
