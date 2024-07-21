@@ -41,7 +41,8 @@ DWORD WINAPI gdi_render_main(void)
     DWORD timeout = g_config.minfps > 0 ? g_ddraw.minfps_tick_len : INFINITE;
 
     while (g_ddraw.render.run &&
-        (g_config.minfps < 0 || WaitForSingleObject(g_ddraw.render.sem, timeout) != WAIT_FAILED))
+        (g_config.minfps < 0 || WaitForSingleObject(g_ddraw.render.sem, timeout) != WAIT_FAILED) &&
+        g_ddraw.render.run)
     {
 #if _DEBUG
         dbg_draw_frame_info_start();
@@ -161,6 +162,9 @@ DWORD WINAPI gdi_render_main(void)
         }
 
         LeaveCriticalSection(&g_ddraw.cs);
+
+        if (!g_ddraw.render.run)
+            break;
 
 #if _DEBUG
         dbg_draw_frame_info_end();

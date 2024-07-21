@@ -549,7 +549,8 @@ DWORD WINAPI d3d9_render_main(void)
     DWORD timeout = g_config.minfps > 0 ? g_ddraw.minfps_tick_len : INFINITE;
 
     while (g_ddraw.render.run &&
-        (g_config.minfps < 0 || WaitForSingleObject(g_ddraw.render.sem, timeout) != WAIT_FAILED))
+        (g_config.minfps < 0 || WaitForSingleObject(g_ddraw.render.sem, timeout) != WAIT_FAILED) &&
+        g_ddraw.render.run)
     {
 #if _DEBUG
         dbg_draw_frame_info_start();
@@ -681,6 +682,9 @@ DWORD WINAPI d3d9_render_main(void)
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
             Sleep(50);
         }
+
+        if (!g_ddraw.render.run)
+            break;
 
 #if _DEBUG
         dbg_draw_frame_info_end();

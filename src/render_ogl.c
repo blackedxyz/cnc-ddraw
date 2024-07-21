@@ -837,7 +837,8 @@ static void ogl_render()
     DWORD timeout = g_config.minfps > 0 ? g_ddraw.minfps_tick_len : INFINITE;
 
     while (g_ogl.use_opengl && g_ddraw.render.run &&
-        (g_config.minfps < 0 || WaitForSingleObject(g_ddraw.render.sem, timeout) != WAIT_FAILED))
+        (g_config.minfps < 0 || WaitForSingleObject(g_ddraw.render.sem, timeout) != WAIT_FAILED) &&
+        g_ddraw.render.run)
     {
 #if _DEBUG
         dbg_draw_frame_info_start();
@@ -1200,6 +1201,9 @@ static void ogl_render()
             glClear(GL_COLOR_BUFFER_BIT);
 
         SwapBuffers(g_ddraw.render.hdc);
+
+        if (!g_ddraw.render.run)
+            break;
 
 #if _DEBUG
         dbg_draw_frame_info_end();
