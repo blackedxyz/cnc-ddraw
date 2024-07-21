@@ -248,13 +248,10 @@ static void ogl_create_textures(int width, int height)
     int h = g_ogl.shader2_program ? max(height, g_ddraw.render.viewport.height) : height;
 
     g_ogl.surface_tex_width =
-        w <= 1024 ? 1024 : w <= 2048 ? 2048 : w <= 4096 ? 4096 : w <= 8192 ? 8192 : w <= 16384 ? 16384 : w;
+        w <= 1024 ? 1024 : w <= 2048 ? 2048 : w <= 4096 ? 4096 : w <= 8192 ? 8192 : w;
 
     g_ogl.surface_tex_height =
-        h <= 512 ? 512 : h <= 1024 ? 1024 : h <= 2048 ? 2048 : h <= 4096 ? 4096 : h <= 8192 ? 8192 : h <= 16384 ? 16384 : h;
-
-    g_ogl.surface_tex =
-        HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, g_ogl.surface_tex_width * g_ogl.surface_tex_height * sizeof(int));
+        h <= 512 ? 512 : h <= 1024 ? 1024 : h <= 2048 ? 2048 : h <= 4096 ? 4096 : h <= 8192 ? 8192 : h;
 
     g_ogl.scale_w = (float)width / g_ogl.surface_tex_width;
     g_ogl.scale_h = (float)height / g_ogl.surface_tex_height;
@@ -638,7 +635,7 @@ static void ogl_init_shader1_program()
             0,
             GL_RGBA,
             GL_UNSIGNED_BYTE,
-            g_ogl.surface_tex);
+            0);
 
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, g_ogl.frame_buffer_tex_id[i], 0);
 
@@ -703,6 +700,10 @@ static void ogl_init_shader1_program()
             }
 
             break;
+        }
+        else
+        {
+            glClear(GL_COLOR_BUFFER_BIT);
         }
     }
 
@@ -1213,9 +1214,6 @@ static void ogl_render()
 
 static void ogl_delete_context(HGLRC context)
 {
-    if (g_ogl.surface_tex)
-        HeapFree(GetProcessHeap(), 0, g_ogl.surface_tex);
-
     glDeleteTextures(TEXTURE_COUNT, g_ogl.surface_tex_ids);
 
     if (g_ddraw.bpp == 8)
@@ -1277,7 +1275,13 @@ static void ogl_delete_context(HGLRC context)
 
 static BOOL ogl_texture_upload_test()
 {
-    if (!g_ogl.surface_tex)
+    if (g_ogl.surface_tex_width > 4096 || g_ogl.surface_tex_height > 4096)
+        return TRUE;
+
+    int* surface_tex =
+        HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, g_ogl.surface_tex_width * g_ogl.surface_tex_height * sizeof(int));
+
+    if (!surface_tex)
         return TRUE;
 
     static char test_data[] = { 0,1,2,0,0,2,3,0,0,4,5,0,0,6,7,0,0,8,9,0 };
@@ -1285,7 +1289,7 @@ static BOOL ogl_texture_upload_test()
     int i;
     for (i = 0; i < TEXTURE_COUNT; i++)
     {
-        memcpy(g_ogl.surface_tex, test_data, sizeof(test_data));
+        memcpy(surface_tex, test_data, sizeof(test_data));
 
         glBindTexture(GL_TEXTURE_2D, g_ogl.surface_tex_ids[i]);
 
@@ -1298,14 +1302,17 @@ static BOOL ogl_texture_upload_test()
             g_ddraw.height,
             g_ogl.surface_format,
             g_ogl.surface_type,
-            g_ogl.surface_tex);
+            surface_tex);
 
-        memset(g_ogl.surface_tex, 0, sizeof(test_data));
+        memset(surface_tex, 0, sizeof(test_data));
 
-        glGetTexImage(GL_TEXTURE_2D, 0, g_ogl.surface_format, g_ogl.surface_type, g_ogl.surface_tex);
+        glGetTexImage(GL_TEXTURE_2D, 0, g_ogl.surface_format, g_ogl.surface_type, surface_tex);
 
-        if (memcmp(g_ogl.surface_tex, test_data, sizeof(test_data)) != 0)
+        if (memcmp(surface_tex, test_data, sizeof(test_data)) != 0)
+        {
+            HeapFree(GetProcessHeap(), 0, surface_tex);
             return FALSE;
+        }
     }
 
     if (g_ddraw.bpp == 8)
@@ -1323,32 +1330,41 @@ static BOOL ogl_texture_upload_test()
                 1,
                 GL_RGBA,
                 GL_UNSIGNED_BYTE,
-                g_ogl.surface_tex);
+                surface_tex);
 
-            memset(g_ogl.surface_tex, 0, sizeof(test_data));
+            memset(surface_tex, 0, sizeof(test_data));
 
-            glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, g_ogl.surface_tex);
+            glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface_tex);
 
-            if (memcmp(g_ogl.surface_tex, test_data, sizeof(test_data)) != 0)
+            if (memcmp(surface_tex, test_data, sizeof(test_data)) != 0)
+            {
+                HeapFree(GetProcessHeap(), 0, surface_tex);
                 return FALSE;
+            }
+                
         }
     }
+
+    HeapFree(GetProcessHeap(), 0, surface_tex);
     return TRUE;
 }
 
 static BOOL ogl_shader_test()
 {
-    if (!g_ogl.surface_tex)
-        return TRUE;
-
     BOOL result = TRUE;
 
-    if (g_ddraw.bpp != 8)
+    if (g_ddraw.bpp != 8 || g_ogl.surface_tex_width > 4096 || g_ogl.surface_tex_height > 4096)
         return result;
+
+    int* surface_tex =
+        HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, g_ogl.surface_tex_width * g_ogl.surface_tex_height * sizeof(int));
+
+    if (!surface_tex)
+        return TRUE;
 
     if (g_oglu_got_version3 && g_ogl.main_program)
     {
-        memset(g_ogl.surface_tex, 0, g_ogl.surface_tex_height * g_ogl.surface_tex_width * sizeof(int));
+        memset(surface_tex, 0, g_ogl.surface_tex_height * g_ogl.surface_tex_width * sizeof(int));
 
         GLuint fbo_id = 0;
         glGenFramebuffers(1, &fbo_id);
@@ -1369,7 +1385,7 @@ static BOOL ogl_shader_test()
             0,
             GL_RGBA,
             GL_UNSIGNED_BYTE,
-            g_ogl.surface_tex);
+            surface_tex);
 
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fbo_tex_id, 0);
 
@@ -1404,7 +1420,7 @@ static BOOL ogl_shader_test()
                 g_ogl.surface_tex_height,
                 g_ogl.surface_format,
                 GL_UNSIGNED_BYTE,
-                g_ogl.surface_tex);
+                surface_tex);
 
             glViewport(0, 0, g_ogl.surface_tex_width, g_ogl.surface_tex_height);
 
@@ -1423,12 +1439,12 @@ static BOOL ogl_shader_test()
             glActiveTexture(GL_TEXTURE0);
 
             glBindTexture(GL_TEXTURE_2D, fbo_tex_id);
-            glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, g_ogl.surface_tex);
+            glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface_tex);
 
             int i;
             for (i = 0; i < g_ogl.surface_tex_height * g_ogl.surface_tex_width; i++)
             {
-                if (g_ogl.surface_tex[i] != 0x80808080)
+                if (surface_tex[i] != 0x80808080)
                 {
                     result = FALSE;
                     break;
@@ -1446,5 +1462,6 @@ static BOOL ogl_shader_test()
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
+    HeapFree(GetProcessHeap(), 0, surface_tex);
     return result;
 }

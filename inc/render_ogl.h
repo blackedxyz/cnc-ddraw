@@ -16,7 +16,6 @@ typedef struct OGLRENDERER
     BOOL got_error;
     int surface_tex_width;
     int surface_tex_height;
-    int* surface_tex;
     GLenum surface_format;
     GLenum surface_type;
     GLuint surface_tex_ids[TEXTURE_COUNT];
