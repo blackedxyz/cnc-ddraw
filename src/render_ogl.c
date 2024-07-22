@@ -54,7 +54,15 @@ DWORD WINAPI ogl_render_main(void)
     Sleep(250);
     g_ogl.got_error = g_ogl.use_opengl = FALSE;
 
-    if (xwglMakeCurrent(g_ogl.hdc, g_ogl.context) && glGetError() == GL_NO_ERROR)
+    BOOL made_current = xwglMakeCurrent(g_ogl.hdc, g_ogl.context);
+    if (!made_current)
+    {
+        /* make sure we retry at least once */
+        Sleep(50);
+        made_current = xwglMakeCurrent(g_ogl.hdc, g_ogl.context);
+    }
+
+    if (made_current && glGetError() == GL_NO_ERROR)
     {
         oglu_init();
 
