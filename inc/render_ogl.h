@@ -9,6 +9,8 @@
 
 typedef struct OGLRENDERER
 {
+    HWND hwnd;
+    HDC hdc;
     HGLRC context;
     GLuint main_program;
     GLuint shader1_program;
@@ -42,5 +44,7 @@ typedef struct OGLRENDERER
 } OGLRENDERER;
 
 DWORD WINAPI ogl_render_main(void);
+BOOL ogl_create();
+BOOL ogl_release();
 
 #endif

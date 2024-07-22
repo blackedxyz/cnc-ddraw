@@ -13,26 +13,48 @@
 
 
 static HGLRC ogl_create_core_context(HDC hdc);
-static HGLRC ogl_create_context(HDC hdc);
 static void ogl_build_programs();
 static void ogl_create_textures(int width, int height);
 static void ogl_init_main_program();
 static void ogl_init_shader1_program();
 static void ogl_init_shader2_program();
 static void ogl_render();
-static void ogl_delete_context(HGLRC context);
+static BOOL ogl_release_resources();
 static BOOL ogl_texture_upload_test();
 static BOOL ogl_shader_test();
 
 static OGLRENDERER g_ogl;
+
+BOOL ogl_create()
+{
+    if (g_ogl.hwnd == g_ddraw.hwnd && g_ogl.hdc == g_ddraw.render.hdc && g_ogl.context)
+    {
+        return TRUE;
+    }
+
+    ogl_release();
+
+    g_ogl.context = xwglCreateContext(g_ddraw.render.hdc);
+    if (g_ogl.context)
+    {
+        g_ogl.hwnd = g_ddraw.hwnd;
+        g_ogl.hdc = g_ddraw.render.hdc;
+
+        return TRUE;
+    }
+
+    g_ogl.hwnd = NULL;
+    g_ogl.hdc = NULL;
+
+    return FALSE;
+}
 
 DWORD WINAPI ogl_render_main(void)
 {
     Sleep(250);
     g_ogl.got_error = g_ogl.use_opengl = FALSE;
 
-    g_ogl.context = ogl_create_context(g_ddraw.render.hdc);
-    if (g_ogl.context)
+    if (xwglMakeCurrent(g_ogl.hdc, g_ogl.context) && glGetError() == GL_NO_ERROR)
     {
         oglu_init();
 
@@ -43,9 +65,9 @@ DWORD WINAPI ogl_render_main(void)
         TRACE("| GL_SHADING_LANGUAGE_VERSION: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
         TRACE("+------------------------------------------------\n");
 
-        g_ogl.context = ogl_create_core_context(g_ddraw.render.hdc);
+        g_ogl.context = ogl_create_core_context(g_ogl.hdc);
 
-        if (oglu_ext_exists("WGL_EXT_swap_control", g_ddraw.render.hdc) && wglSwapIntervalEXT)
+        if (oglu_ext_exists("WGL_EXT_swap_control", g_ogl.hdc) && wglSwapIntervalEXT)
             wglSwapIntervalEXT(g_config.vsync ? 1 : 0);
 
         fpsl_init();
@@ -62,9 +84,11 @@ DWORD WINAPI ogl_render_main(void)
 
         ogl_render();
 
-        ogl_delete_context(g_ogl.context);
+        ogl_release_resources();
     }
 
+    xwglMakeCurrent(NULL, NULL);
+    
     if (!g_ogl.use_opengl)
     {
         g_ddraw.show_driver_warning = TRUE;
@@ -110,25 +134,6 @@ static HGLRC ogl_create_core_context(HDC hdc)
     }
 
     return g_ogl.context;
-}
-
-static HGLRC ogl_create_context(HDC hdc)
-{
-    HGLRC context = xwglCreateContext(hdc);
-    BOOL made_current = context && xwglMakeCurrent(hdc, context);
-
-    if (!made_current || glGetError() != GL_NO_ERROR)
-    {
-        if (made_current)
-        {
-            xwglMakeCurrent(NULL, NULL);
-            xwglDeleteContext(context);
-        }
-
-        context = 0;
-    }
-
-    return context;
 }
 
 static void ogl_build_programs()
@@ -1200,7 +1205,7 @@ static void ogl_render()
         if (g_ddraw.bnet_active)
             glClear(GL_COLOR_BUFFER_BIT);
 
-        SwapBuffers(g_ddraw.render.hdc);
+        SwapBuffers(g_ogl.hdc);
 
         if (!g_ddraw.render.run)
             break;
@@ -1216,7 +1221,7 @@ static void ogl_render()
         InterlockedExchange(&g_ddraw.upscale_hack_active, FALSE);
 }
 
-static void ogl_delete_context(HGLRC context)
+static BOOL ogl_release_resources()
 {
     glDeleteTextures(TEXTURE_COUNT, g_ogl.surface_tex_ids);
 
@@ -1273,8 +1278,22 @@ static void ogl_delete_context(HGLRC context)
         }
     }
 
-    xwglMakeCurrent(NULL, NULL);
-    xwglDeleteContext(context);
+    return TRUE;
+}
+
+BOOL ogl_release()
+{
+    if (g_ddraw.render.thread)
+        return FALSE;
+
+    if (g_ogl.context)
+    {
+        xwglMakeCurrent(NULL, NULL);
+        xwglDeleteContext(g_ogl.context);
+        g_ogl.context = NULL;
+    }
+
+    return TRUE;
 }
 
 static BOOL ogl_texture_upload_test()

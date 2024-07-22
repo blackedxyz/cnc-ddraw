@@ -1013,6 +1013,15 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 g_ddraw.renderer = gdi_render_main;
             }
         }
+        else if (g_ddraw.renderer == ogl_render_main)
+        {
+            if (!ogl_create())
+            {
+                ogl_release();
+                g_ddraw.show_driver_warning = TRUE;
+                g_ddraw.renderer = gdi_render_main;
+            }
+        }
 
         if (lock_mouse || (g_config.fullscreen && real_GetForegroundWindow() == g_ddraw.hwnd))
             mouse_lock();
@@ -1089,6 +1098,15 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             if (!d3d9_active)
             {
                 d3d9_release();
+                g_ddraw.show_driver_warning = TRUE;
+                g_ddraw.renderer = gdi_render_main;
+            }
+        }
+        else if (g_ddraw.renderer == ogl_render_main)
+        {
+            if (!ogl_create())
+            {
+                ogl_release();
                 g_ddraw.show_driver_warning = TRUE;
                 g_ddraw.renderer = gdi_render_main;
             }
@@ -1483,6 +1501,11 @@ ULONG dd_Release()
             {
                 ChangeDisplaySettings(NULL, 0);
             }
+        }
+
+        if (g_ddraw.renderer == ogl_render_main)
+        {
+            ogl_release();
         }
 
         if (g_ddraw.render.hdc)
