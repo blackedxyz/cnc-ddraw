@@ -165,6 +165,11 @@ typedef struct CNCDDRAW
         int y;
     } textbox; /* Age Of Empires 2 textbox align */
 
+
+    struct
+    {
+        BOOL enabled;
+    } zoom; /* Age Of Empires 2 textbox align */
 } CNCDDRAW;
 
 #endif

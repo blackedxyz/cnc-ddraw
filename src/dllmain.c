@@ -147,13 +147,24 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
     return TRUE;
 }
 
+void DDEnableZoom()
+{
+    TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
+
+    g_ddraw.zoom.enabled = TRUE;
+}
+
 BOOL DDIsWindowed()
 {
+    TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
+
     return g_config.windowed && !g_config.fullscreen;
 }
 
 FARPROC WINAPI DDGetProcAddress(HMODULE hModule, LPCSTR lpProcName)
 {
+    TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
+
     return real_GetProcAddress(hModule, lpProcName);
 }
 
