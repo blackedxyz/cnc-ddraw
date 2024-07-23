@@ -169,7 +169,7 @@ typedef struct CNCDDRAW
     struct
     {
         BOOL enabled;
-    } zoom; /* Age Of Empires 2 textbox align */
+    } zoom;
 } CNCDDRAW;
 
 #endif
