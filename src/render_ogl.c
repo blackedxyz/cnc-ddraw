@@ -54,12 +54,14 @@ DWORD WINAPI ogl_render_main(void)
     Sleep(250);
     g_ogl.got_error = g_ogl.use_opengl = FALSE;
 
-    BOOL made_current = xwglMakeCurrent(g_ogl.hdc, g_ogl.context);
-    if (!made_current)
+    BOOL made_current = FALSE;
+
+    for (int i = 0; i < 5; i++)
     {
-        /* make sure we retry at least once */
+        if ((made_current = xwglMakeCurrent(g_ogl.hdc, g_ogl.context)))
+            break;
+
         Sleep(50);
-        made_current = xwglMakeCurrent(g_ogl.hdc, g_ogl.context);
     }
 
     if (made_current && glGetError() == GL_NO_ERROR)
