@@ -623,6 +623,9 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         }
     }
 
+    BOOL zooming = g_ddraw.zoom.enabled;
+    g_ddraw.zoom.enabled = FALSE;
+
     g_ddraw.render.width = g_config.window_rect.right;
     g_ddraw.render.height = g_config.window_rect.bottom;
 
@@ -665,15 +668,35 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
         }
     }
-
-    if (g_ddraw.render.width < g_ddraw.width)
+    else if (zooming)
     {
-        g_ddraw.render.width = g_ddraw.width;
+        if (g_ddraw.width > g_ddraw.mode.dmPelsWidth ||
+            g_ddraw.height > g_ddraw.mode.dmPelsHeight)
+        {
+            /* Downscaling requires adjmouse to be enabled */
+            g_config.adjmouse = TRUE;
+        }
+
+        /* Do not change display resolution when zooming */
+        g_ddraw.render.width = g_ddraw.render.mode.dmPelsWidth;
+        g_ddraw.render.height = g_ddraw.render.mode.dmPelsHeight;
+
+        /* Resize and alt+enter are not supported yet with zooming */
+        g_config.resizable = FALSE;
+        g_config.hotkeys.toggle_fullscreen = 0;
     }
 
-    if (g_ddraw.render.height < g_ddraw.height)
+    if (!zooming || g_config.fullscreen)
     {
-        g_ddraw.render.height = g_ddraw.height;
+        if (g_ddraw.render.width < g_ddraw.width)
+        {
+            g_ddraw.render.width = g_ddraw.width;
+        }
+
+        if (g_ddraw.render.height < g_ddraw.height)
+        {
+            g_ddraw.render.height = g_ddraw.height;
+        }
     }
 
     g_ddraw.render.run = TRUE;
@@ -1114,7 +1137,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
         if (!d3d9_active || g_config.nonexclusive)
         {
-            if (ChangeDisplaySettings(&g_ddraw.render.mode, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+            if (!zooming && ChangeDisplaySettings(&g_ddraw.render.mode, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
             {
                 g_ddraw.render.run = FALSE;
                 g_config.windowed = TRUE;
