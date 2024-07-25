@@ -152,6 +152,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Dungeon Keeper 2
 - Economic War
 - Eggsucker
+- Emperor: Rise of the Middle Kingdom
 - Enemy Infestation
 - Escape Velocity Nova
 - F-16 Multirole Fighter
