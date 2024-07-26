@@ -22,6 +22,7 @@ static void ogl_render();
 static BOOL ogl_release_resources();
 static BOOL ogl_texture_upload_test();
 static BOOL ogl_shader_test();
+static void ogl_check_error(const char* stmt);
 
 static OGLRENDERER g_ogl;
 
@@ -53,7 +54,7 @@ DWORD WINAPI ogl_render_main(void)
 {
     Sleep(250);
     g_ogl.got_error = g_ogl.use_opengl = FALSE;
-
+    GLenum err = GL_NO_ERROR;
     BOOL made_current = FALSE;
 
     for (int i = 0; i < 5; i++)
@@ -64,9 +65,9 @@ DWORD WINAPI ogl_render_main(void)
         Sleep(50);
     }
 
-    if (made_current && glGetError() == GL_NO_ERROR)
+    if (made_current && (err = glGetError()) == GL_NO_ERROR)
     {
-        oglu_init();
+        GL_CHECK(oglu_init());
 
         TRACE("+--OpenGL-----------------------------------------\n");
         TRACE("| GL_VERSION:                  %s\n", glGetString(GL_VERSION));
@@ -75,26 +76,36 @@ DWORD WINAPI ogl_render_main(void)
         TRACE("| GL_SHADING_LANGUAGE_VERSION: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
         TRACE("+------------------------------------------------\n");
 
-        g_ogl.context = ogl_create_core_context(g_ogl.hdc);
+        GL_CHECK(g_ogl.context = ogl_create_core_context(g_ogl.hdc));
 
-        if (oglu_ext_exists("WGL_EXT_swap_control", g_ogl.hdc) && wglSwapIntervalEXT)
+        BOOL got_swap_ctrl;
+        GL_CHECK(got_swap_ctrl = oglu_ext_exists("WGL_EXT_swap_control", g_ogl.hdc));
+
+        if (got_swap_ctrl && wglSwapIntervalEXT)
             wglSwapIntervalEXT(g_config.vsync ? 1 : 0);
 
         fpsl_init();
-        ogl_build_programs();
-        ogl_create_textures(g_ddraw.width, g_ddraw.height);
-        ogl_init_main_program();
-        ogl_init_shader1_program();
-        ogl_init_shader2_program();
+        GL_CHECK(ogl_build_programs());
+        GL_CHECK(ogl_create_textures(g_ddraw.width, g_ddraw.height));
+        GL_CHECK(ogl_init_main_program());
+        GL_CHECK(ogl_init_shader1_program());
+        GL_CHECK(ogl_init_shader2_program());
 
-        g_ogl.got_error = g_ogl.got_error || !ogl_texture_upload_test();
-        g_ogl.got_error = g_ogl.got_error || !ogl_shader_test();
-        g_ogl.got_error = g_ogl.got_error || glGetError() != GL_NO_ERROR;
+        GL_CHECK(g_ogl.got_error = g_ogl.got_error || !ogl_texture_upload_test());
+        GL_CHECK(g_ogl.got_error = g_ogl.got_error || !ogl_shader_test());
+        g_ogl.got_error = g_ogl.got_error || (err = glGetError()) != GL_NO_ERROR;
         g_ogl.use_opengl = (g_ogl.main_program || g_ddraw.bpp == 16 || g_ddraw.bpp == 32) && !g_ogl.got_error;
 
-        ogl_render();
+        GL_CHECK(ogl_render());
 
-        ogl_release_resources();
+        GL_CHECK(ogl_release_resources());
+
+        while (glGetError() != GL_NO_ERROR);
+    }
+    else
+    {
+        TRACE("OpenGL error %08x, GetLastError %lu (xwglMakeCurrent())\n", err, GetLastError());
+        ogl_check_error("xwglMakeCurrent()");
     }
 
     xwglMakeCurrent(NULL, NULL);
@@ -107,6 +118,19 @@ DWORD WINAPI ogl_render_main(void)
     }
 
     return 0;
+}
+
+
+static void ogl_check_error(const char* stmt)
+{
+#ifdef _DEBUG
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR)
+    {
+        g_ogl.got_error = TRUE;
+        TRACE("OpenGL error %08x (%s)\n", err, stmt);
+    }
+#endif
 }
 
 static HGLRC ogl_create_core_context(HDC hdc)
@@ -259,6 +283,8 @@ static void ogl_build_programs()
 
 static void ogl_create_textures(int width, int height)
 {
+    GLenum err = GL_NO_ERROR;
+
     int w = g_ogl.shader2_program ? max(width, g_ddraw.render.viewport.width) : width;
     int h = g_ogl.shader2_program ? max(height, g_ddraw.render.viewport.height) : height;
 
@@ -279,7 +305,13 @@ static void ogl_create_textures(int width, int height)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        g_ogl.got_error = g_ogl.got_error || glGetError() != GL_NO_ERROR;
+        g_ogl.got_error = g_ogl.got_error || (err = glGetError()) != GL_NO_ERROR;
+        
+        if (err != GL_NO_ERROR)
+        {
+            TRACE("OpenGL error %08x (ogl_create_textures())\n", err);
+            ogl_check_error("ogl_create_textures()");
+        }
 
         while (glGetError() != GL_NO_ERROR);
 
@@ -952,7 +984,12 @@ static void ogl_render()
                 GLenum err = glGetError();
 
                 if (err != GL_NO_ERROR && err != GL_INVALID_FRAMEBUFFER_OPERATION)
+                {
                     g_ogl.use_opengl = FALSE;
+
+                    TRACE("OpenGL error %08x (ogl_render())\n", err);
+                    ogl_check_error("ogl_render()");
+                }
             }
 
             if (g_config.fixchilds)

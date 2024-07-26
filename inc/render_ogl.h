@@ -7,6 +7,15 @@
 #define TEXTURE_COUNT 4
 #define FBO_COUNT 2
 
+#ifdef _DEBUG
+#define GL_CHECK(stmt) do { \
+            stmt; \
+            ogl_check_error(#stmt); \
+        } while (0)
+#else
+#define GL_CHECK(stmt) stmt
+#endif
+
 typedef struct OGLRENDERER
 {
     HWND hwnd;
