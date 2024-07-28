@@ -265,7 +265,7 @@ static void cfg_create_ini()
             "; Note: Usually one of the following values will work: 60 / 30 / 25 / 20 / 15 (lower value = slower game speed)\n"
             "maxgameticks=0\n"
             "\n"
-            "; Method that should be used to limit game ticks (maxgameticks=): 0 = Automatic, 1 = TestCooperativeLevel, 2 = BltFast\n"
+            "; Method that should be used to limit game ticks (maxgameticks=): 0 = Automatic, 1 = TestCooperativeLevel, 2 = BltFast, 3 = Unlock\n"
             "limiter_type=0\n"
             "\n"
             "; Force minimum FPS, possible values: 0 = disabled, -1 = use 'maxfps=' value, -2 = same as -1 but force full redraw, 1-1000 = custom FPS\n"
