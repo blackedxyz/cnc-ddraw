@@ -279,6 +279,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Reader Rabbit Thinking Ages 4-6 (US)
 - Reader Rabbit Toddler
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
+- Real War
 - Red Baron 3D
 - Reksio and the Pirate Treasure (Reksio i Skarb Piratów)
 - Reksio and the UFO (Reksio i Ufo)
