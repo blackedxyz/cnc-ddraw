@@ -1262,6 +1262,7 @@ static void cfg_create_ini()
             "\n"
             "; Real War\n"
             "[RealWar]\n"
+            "maxgameticks=60\n"
             "limiter_type=3\n"
             "\n"
             "; ROAD RASH\n"
