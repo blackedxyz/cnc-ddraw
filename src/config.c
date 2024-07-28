@@ -62,7 +62,7 @@ void cfg_load()
     GET_INT(g_config.maxgameticks, "maxgameticks", 0);
     GET_INT(g_config.limiter_type, "limiter_type", LIMIT_AUTO);
     GET_INT(g_config.minfps, "minfps", 0);
-    GET_BOOL(g_config.nonexclusive, "nonexclusive", FALSE);
+    GET_BOOL(g_config.nonexclusive, "nonexclusive", TRUE);
     GET_BOOL(g_config.singlecpu, "singlecpu", TRUE);
     GET_INT(g_config.resolutions, "resolutions", RESLIST_NORMAL);
     GET_INT(g_config.fixchilds, "fixchilds", FIX_CHILDS_DETECT_PAINT);
@@ -274,7 +274,7 @@ static void cfg_create_ini()
             "\n"
             "; Disable fullscreen-exclusive mode for the direct3d9*/opengl* renderers\n"
             "; Note: Can be used in case some GUI elements like buttons/textboxes/videos/etc.. are invisible\n"
-            "nonexclusive=false\n"
+            "nonexclusive=true\n"
             "\n"
             "; Force CPU0 affinity, avoids crashes/freezing, *might* have a performance impact\n"
             "; Note: Disable this if the game is not running smooth or there are sound issues\n"
@@ -589,6 +589,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Tiberian Sun / Command & Conquer: Red Alert 2\n"
             "[game]\n"
+            "nonexclusive=false\n"
             "checkfile=.\\blowfish.dll\n"
             "tshack=true\n"
             "noactivateapp=true\n"
@@ -600,6 +601,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Tiberian Sun Demo\n"
             "[SUN]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "adjmouse=true\n"
@@ -610,6 +612,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Tiberian Sun - CnCNet\n"
             "[ts-spawn]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "adjmouse=true\n"
@@ -620,6 +623,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Red Alert 2 - XWIS\n"
             "[ra2]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "maxfps=60\n"
@@ -629,6 +633,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Red Alert 2 - XWIS\n"
             "[Red Alert 2]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "maxfps=60\n"
@@ -638,6 +643,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Red Alert 2: Yuri's Revenge\n"
             "[gamemd]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "maxfps=60\n"
@@ -647,6 +653,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Red Alert 2: Yuri's Revenge - ?ModExe?\n"
             "[ra2md]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "maxfps=60\n"
@@ -656,6 +663,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Red Alert 2: Yuri's Revenge - CnCNet\n"
             "[gamemd-spawn]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "maxfps=60\n"
@@ -665,6 +673,7 @@ static void cfg_create_ini()
             "\n"
             "; Command & Conquer: Red Alert 2: Yuri's Revenge - XWIS\n"
             "[Yuri's Revenge]\n"
+            "nonexclusive=false\n"
             "noactivateapp=true\n"
             "tshack=true\n"
             "maxfps=60\n"
