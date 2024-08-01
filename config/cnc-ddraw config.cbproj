@@ -203,6 +203,10 @@
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>PngImage_US</ResourceId>
         </RcItem>
+        <RcItem Include="Resources\VN.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>PngImage_VN</ResourceId>
+        </RcItem>
         <FormResources Include="ConfigFormUnit.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -296,14 +300,74 @@
                 </DeployFile>
                 <DeployFile LocalName=".\Win32\Debug\cnc-ddraw_config.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName=".\Win32\Release\cnc-ddraw config.exe" Configuration="Release" Class="ProjectOutput"/>
+                <DeployFile LocalName=".\Win32\Release\cnc-ddraw config.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>cnc-ddraw_config.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\CN.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\CN.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\DE.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\DE.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\ES.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\ES.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\IT.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\IT.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\RU.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\RU.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\US.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\US.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Resources\VN.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\fr.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\fr.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Resources\hu.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Resources\hu.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>

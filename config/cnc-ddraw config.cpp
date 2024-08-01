@@ -11,7 +11,6 @@
 #include <Vcl.Themes.hpp>
 USEFORM("ConfigFormUnit.cpp", ConfigForm);
 //---------------------------------------------------------------------------
-
 #define GAME_PATH (TPath::GetDirectoryName(Application->ExeName) + "\\")
 
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)

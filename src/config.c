@@ -347,7 +347,7 @@ static void cfg_create_ini()
             "; The following settings are for cnc-ddraw config.exe\n"
             "\n"
             "\n"
-            "; cnc-ddraw config program language, possible values: auto, english, chinese, german, spanish, russian, hungarian, french, italian\n"
+            "; cnc-ddraw config program language, possible values: auto, english, chinese, german, spanish, russian, hungarian, french, italian, vietnamese\n"
             "configlang=auto\n"
             "\n"
             "; cnc-ddraw config program theme, possible values: Windows10, Cobalt XEMedia\n"

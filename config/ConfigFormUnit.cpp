@@ -691,6 +691,87 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		BoxingLbl->Hint = upscaleHint + enableUpscaleHint;
 		BoxingChk->Hint = upscaleHint + enableUpscaleHint;
 	}
+	else if (lang == "vietnamese" || (lang == "auto" && priID == LANG_VIETNAMESE)) {
+		LanguageImg->Visible = true;
+
+		/* -vietnamese - made by TheBuck338 @ github */
+
+		ConfigForm->Caption = L"Thiết lập cnc-ddraw";
+		DisplayBtn->Caption = L"Cài Đặt Hình Ảnh";
+		AdvancedBtn->Caption = L"Cài Đặt Nâng Cao";
+		HotkeyBtn->Caption = L"Cài Đặt Phím Tắt";
+		CompatibilityBtn->Caption = L"Cài Đặt Tương Thích";
+		RestoreDefaultsBtn->Caption = L"Khôi phục cài đặt gốc";
+		PresentationLbl->Caption = L"Chế Độ Hiển Thị";
+		MaintasLbl->Caption = L"Giữ nguyên tỉ lệ khung hình";
+		VsyncLbl->Caption = L"Bật VSync";
+		AdjmouseLbl->Caption = L"Điều chỉnh độ nhạy của chuột";
+		DevmodeLbl->Caption = L"Khóa con trỏ vào cửa sổ / màn hình";
+		RendererLbl->Caption = L"Trình kết xuất";
+		BorderLbl->Caption = L"Hiển thị thanh tiêu đề trong chế độ cửa sổ";
+		SavesettingsLbl->Caption = L"Ghi nhớ vị trí kích thước và cửa sổ";
+		ShaderLbl->Caption = L"Shader OpenGL";
+		MaxfpsLbl->Caption = L"Giới hạn tốc độ khung hình";
+		BoxingLbl->Caption = L"Bật windowboxing / chia tỷ lệ theo số nguyên";
+		ToggleWindowedLbl->Caption = L"Bật/tắt chế độ cửa sổ";
+		MaximizeWindowLbl->Caption = L"Phóng to cửa sổ";
+		UnlockCursor1Lbl->Caption = L"Mở khóa con trỏ 1";
+		UnlockCursor2Lbl->Caption = L"Mở khóa con trỏ 2";
+		ScreenshotLbl->Caption = L"Chụp màn hình";
+		MaxgameticksLbl->Caption = L"Giới hạn tốc độ trò chơi";
+		NoactivateappLbl->Caption = L"Sửa lỗi Alt+Tab";
+		ResolutionsLbl->Caption = L"Mở khóa thêm độ phân giải màn hình";
+		MinfpsLbl->Caption = L"Khắc phục hiện tượng giật hình khi sử dụng Freesync/G-Sync";
+		SinglecpuLbl->Caption = L"Khắc phục các vấn đề về hiệu năng và âm thanh kém";
+		NonexclusiveLbl->Caption = L"Sửa lỗi các video / phần tử UI không hiển thị";
+
+		RendererCbx->Items->Clear();
+		RendererCbx->AddItem(L"Tự Động", NULL);
+		RendererCbx->AddItem(L"Direct3D 9", NULL);
+		RendererCbx->AddItem(L"OpenGL", NULL);
+		RendererCbx->AddItem(L"GDI", NULL);
+
+		PresentationCbx->Items->Clear();
+		PresentationCbx->AddItem(L"Toàn Màn Hình", NULL);
+		PresentationCbx->AddItem(L"Toàn Màn Hình Nâng Cao Độ Phân Giải", NULL);
+		PresentationCbx->AddItem(L"Toàn Màn Hình Không Viền", NULL);
+		PresentationCbx->AddItem(L"Cửa Sổ", NULL);
+
+		MaxgameticksCbx->Items->Clear();
+		MaxgameticksCbx->AddItem(L"Không giới hạn", NULL);
+		MaxgameticksCbx->AddItem(L"Đồng bộ hóa với tần số quét màn hình", NULL);
+		MaxgameticksCbx->AddItem(L"Mô phỏng màn hình với tần số quét 60Hz", NULL);
+		MaxgameticksCbx->AddItem(L"1000 ticks mỗi giây", NULL);
+		MaxgameticksCbx->AddItem(L"500 ticks mỗi giây", NULL);
+		MaxgameticksCbx->AddItem(L"250 ticks mỗi giây", NULL);
+		MaxgameticksCbx->AddItem(L"125 ticks mỗi giây", NULL);
+		MaxgameticksCbx->AddItem(L"60 ticks mỗi giây", NULL);
+		MaxgameticksCbx->AddItem(L"30 ticks mỗi giây", NULL);
+		MaxgameticksCbx->AddItem(L"25 ticks mỗi giây", NULL);
+		MaxgameticksCbx->AddItem(L"15 ticks mỗi giây", NULL);
+
+		System::UnicodeString shaderHint =
+			L"Một số shader chỉ hoạt động khi bật chế độ nâng cao độ phân giải. \n\n";
+
+		System::UnicodeString upscaleHint =
+			L"Phải bật chế độ nâng cao độ phân giải để cài đặt này hoạt động. \n\n";
+
+		System::UnicodeString enableUpscaleHint =
+			L"Để bật chế độ nâng cao độ phân giải, hãy đặt chế độ hiển thị của bạn\n"
+			"thành 'Toàn Màn Hình Không Viền' hoặc 'Toàn Màn Hình Nâng Cao Độ Phân Giải'.\n"
+			"Đối với chế độ 'Cửa Sổ', bạn phải thay đổi kích thước hoặc phóng to cửa sổ.";
+
+		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
+		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
+		ShaderCbx->Hint = shaderHint + enableUpscaleHint;
+
+		MaintasLbl->Hint = upscaleHint + enableUpscaleHint;
+		MaintasChk->Hint = upscaleHint + enableUpscaleHint;
+		AdjmouseLbl->Hint = upscaleHint + enableUpscaleHint;
+		AdjmouseChk->Hint = upscaleHint + enableUpscaleHint;
+		BoxingLbl->Hint = upscaleHint + enableUpscaleHint;
+		BoxingChk->Hint = upscaleHint + enableUpscaleHint;
+	}
 	else {
 		IsEnglish = true;
 
@@ -734,6 +815,12 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			else if (priID == LANG_ITALIAN) {
 				TPngImage *png = new TPngImage();
 				png->LoadFromResourceName((int)HInstance, "PngImage_IT");
+				LanguageImg->Picture->Graphic = png;
+				LanguageImg->Visible = true;
+			}
+			else if (priID == LANG_VIETNAMESE) {
+				TPngImage *png = new TPngImage();
+				png->LoadFromResourceName((int)HInstance, "PngImage_VN");
 				LanguageImg->Picture->Graphic = png;
 				LanguageImg->Visible = true;
 			}
