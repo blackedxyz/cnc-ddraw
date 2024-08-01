@@ -670,15 +670,15 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksCbx->AddItem(L"15 tick al secondo", NULL);
 
 		System::UnicodeString shaderHint =
-			L"Alcuni shader funzionano solo quando l'upscaling è abilitato. \n\n";
+			L"Alcuni shader funzionano solo quando il ridimensionamento dell'immagine è abilitato. \n\n";
 
 		System::UnicodeString upscaleHint =
-			L"Affinché questa impostazione funzioni, è necessario abilitare l'upscaling. \n\n";
+			L"Affinché questa impostazione funzioni, è necessario abilitare il ridimensionamento dell'immagine. \n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"Per abilitare l'ingrandimento, imposta la presentazione su 'Senza Bordi' \n"
-			"o 'Schermo Intero Ridimensionato'. Per la presentazione 'In Finestra', \n"
-			"è necessario ridimensionare o ingrandire la finestra.";
+			L"Per abilitare il ridimensionamento dell'immagine, imposta la modalità di presentazione \n"
+			"su 'Senza Bordi o 'Schermo Intero Ridimensionato'. Per la modalità 'In Finestra', \n"
+			"è necessario ridimensionare o ingrandire la finestra manualmente.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
