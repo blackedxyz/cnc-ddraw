@@ -1567,6 +1567,8 @@ static BOOL ogl_shader_test()
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
+    while (glGetError() != GL_NO_ERROR);
+
     HeapFree(GetProcessHeap(), 0, surface_tex);
     return result;
 }
