@@ -120,9 +120,11 @@ DWORD WINAPI ogl_render_main(void)
         GL_CHECK(ogl_init_shader1_program());
         GL_CHECK(ogl_init_shader2_program());
 
+        g_ogl.got_error = g_ogl.got_error || (err = glGetError()) != GL_NO_ERROR;
         GL_CHECK(g_ogl.got_error = g_ogl.got_error || !ogl_texture_upload_test());
         GL_CHECK(g_ogl.got_error = g_ogl.got_error || !ogl_shader_test());
         g_ogl.got_error = g_ogl.got_error || (err = glGetError()) != GL_NO_ERROR;
+
         g_ogl.use_opengl = (g_ogl.main_program || g_ddraw.bpp == 16 || g_ddraw.bpp == 32) && !g_ogl.got_error;
 
         GL_CHECK(ogl_render());
@@ -1546,13 +1548,16 @@ static BOOL ogl_shader_test()
             glBindTexture(GL_TEXTURE_2D, fbo_tex_id);
             glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface_tex);
 
-            int i;
-            for (i = 0; i < g_ogl.surface_tex_height * g_ogl.surface_tex_width; i++)
+            if (glGetError() == GL_NO_ERROR)
             {
-                if (surface_tex[i] != 0x80808080)
+                int i;
+                for (i = 0; i < g_ogl.surface_tex_height * g_ogl.surface_tex_width; i++)
                 {
-                    result = FALSE;
-                    break;
+                    if (surface_tex[i] != 0x80808080)
+                    {
+                        result = FALSE;
+                        break;
+                    }
                 }
             }
         }
