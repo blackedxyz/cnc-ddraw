@@ -1479,7 +1479,7 @@ static void cfg_create_ini()
             "; WarCraft 2000: Nuclear Epidemic\n"
             "[war2000]\n"
             "resolutions=2\n"
-            "guard_lines=300\n"
+            "guard_lines=600\n"
             "minfps=-2\n"
             "\n"
             "; Wizardry 8\n"
