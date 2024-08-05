@@ -69,6 +69,8 @@ jobs:
   - name:  Prepare artifact
     run:   |
            :
+           
+           mkdir -p cnc-ddraw-experimental
 
            if [[ -f "${{ steps.build-release.outputs.release }}" ]]; then
               mkdir -p cnc-ddraw-release
@@ -80,6 +82,8 @@ jobs:
               mkdir -p cnc-ddraw-releasexp
               
               cp "${{ steps.build-releasexp.outputs.releasexp }}" cnc-ddraw-releasexp
+              
+              7z a -tzip -mm=Deflate -mfb=258 -mpass=15 "./cnc-ddraw-experimental/cnc-ddraw-experimental-release.zip" "./cnc-ddraw-releasexp/*"
            fi
 
            if [[ -f "${{ steps.build-debug.outputs.debug }}" ]]; then
@@ -94,6 +98,8 @@ jobs:
 
               cp "${{ steps.build-debuglogxp.outputs.debuglogxp }}" cnc-ddraw-debuglogxp
               cp "${{ steps.build-debuglogxp.outputs.debuglogxp-pdb }}" cnc-ddraw-debuglogxp
+              
+              7z a -tzip -mm=Deflate -mfb=258 -mpass=15 "./cnc-ddraw-experimental/cnc-ddraw-experimental-debuglog.zip" "./cnc-ddraw-debuglogxp/*"
            fi
 
            if [[ -f "${{ steps.build-debuglogminixp.outputs.debuglogminixp }}" ]]; then
@@ -139,3 +145,13 @@ jobs:
      name: cnc-ddraw-debuglogminixp
      path: cnc-ddraw-debuglogminixp
      retention-days: 14
+     
+  - name: Release experimental
+    uses: softprops/action-gh-release@v1
+    with:
+      prerelease: true
+      name: experimental
+      tag_name: experimental
+      files: cnc-ddraw-experimental/* 
+      fail_on_unmatched_files: true
+      draft: true
