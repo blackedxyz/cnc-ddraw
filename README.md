@@ -346,6 +346,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Virtua Fighter PC
 - War Wind
 - War Wind II - Human Onslaught
+- WarCraft 2000: Nuclear Epidemic
 - Warcraft 2
 - Warlords 3: Darklords Rising
 - Warlords Battlecry
