@@ -225,7 +225,7 @@ VERSIONHELPERAPI IsAndroid(void) {
     const char* release = NULL;
     verhelp_wine_get_host_version(&sysname, &release);
 
-    return release && strstr(release, "android") == 0;
+    return release && strstr(release, "android") != NULL;
 }
 
 #endif
