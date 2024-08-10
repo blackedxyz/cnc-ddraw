@@ -306,7 +306,7 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		SavesettingsLbl->Caption = L"Fensterposition und Größe merken";
 		ShaderLbl->Caption = L"OpenGL Shader";
 		MaxfpsLbl->Caption = L"Limitiere Aktualisierungsrate";
-		BoxingLbl->Caption = L"Fensterboxing / Integer Skalierung aktivieren"; //Not 100% sure if "windowboxing" can be translated better.
+		BoxingLbl->Caption = L"Windowboxing / Integer Skalierung aktivieren"; //Not 100% sure if "windowboxing" can be translated better.
 		ToggleWindowedLbl->Caption = L"Fenstermodus umschalten";
 		MaximizeWindowLbl->Caption = L"Fenster maximieren";
 		UnlockCursor1Lbl->Caption = L"Cursor entsperren 1";
