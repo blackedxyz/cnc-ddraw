@@ -2696,8 +2696,6 @@ object ConfigForm: TConfigForm
     ShowCaption = False
     TabOrder = 1
     StyleElements = [seFont, seBorder]
-    ExplicitWidth = 495
-    ExplicitHeight = 464
     DesignSize = (
       499
       465)
@@ -2885,7 +2883,6 @@ object ConfigForm: TConfigForm
       TabOrder = 5
       StyleElements = [seFont, seBorder]
       OnClick = ThemePnlClick
-      ExplicitLeft = 471
     end
   end
   object CompatibilityPnl: TPanel
@@ -2901,8 +2898,6 @@ object ConfigForm: TConfigForm
     TabOrder = 3
     Visible = False
     StyleElements = [seFont, seBorder]
-    ExplicitWidth = 495
-    ExplicitHeight = 464
     object MaxgameticksLbl: TLabel
       Left = 40
       Top = 28
@@ -3083,8 +3078,6 @@ object ConfigForm: TConfigForm
     TabOrder = 2
     Visible = False
     StyleElements = [seFont, seBorder]
-    ExplicitWidth = 495
-    ExplicitHeight = 464
     object RendererLbl: TLabel
       Left = 40
       Top = 28
@@ -3309,8 +3302,6 @@ object ConfigForm: TConfigForm
     TabOrder = 4
     Visible = False
     StyleElements = [seFont, seBorder]
-    ExplicitWidth = 495
-    ExplicitHeight = 464
     object ToggleWindowedLbl: TLabel
       Left = 40
       Top = 27
@@ -3538,7 +3529,6 @@ object ConfigForm: TConfigForm
     Color = clMenu
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 467
     DesignSize = (
       233
       468)
