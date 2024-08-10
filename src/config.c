@@ -78,7 +78,6 @@ void cfg_load()
     GET_INT(g_config.guard_lines, "guard_lines", 200);
     GET_INT(g_config.max_resolutions, "max_resolutions", 0);
     GET_BOOL(g_config.lock_surfaces, "lock_surfaces", FALSE);
-    GET_BOOL(g_config.allow_wmactivate, "allow_wmactivate", FALSE);
     GET_BOOL(g_config.flipclear, "flipclear", FALSE);
     GET_BOOL(g_config.fixmousehook, "fixmousehook", FALSE);
     GET_BOOL(g_config.rgb555, "rgb555", FALSE);
@@ -302,7 +301,6 @@ static void cfg_create_ini()
             "guard_lines=200\n"
             "max_resolutions=0\n"
             "lock_surfaces=false\n"
-            "allow_wmactivate=false\n"
             "flipclear=false\n"
             "fixmousehook=false\n"
             "rgb555=false\n"
@@ -368,7 +366,6 @@ static void cfg_create_ini()
             "; Atrox\n"
             "[Atrox]\n"
             "nonexclusive=true\n"
-            "allow_wmactivate=true\n"
             "\n"
             "; Atomic Bomberman\n"
             "[BM]\n"
@@ -473,10 +470,6 @@ static void cfg_create_ini()
             "[Arthur]\n"
             "renderer=gdi\n"
             "\n"
-            "; Barbie(R) Photo Designer\n"
-            "[pdcam]\n"
-            "allow_wmactivate=true\n"
-            "\n"
             "; Baldur's Gate II\n"
             "; Note: 'Use 3D Acceleration' must be disabled and 'Full Screen' must be enabled in BGConfig.exe\n"
             "[BGMain]\n"
@@ -535,7 +528,6 @@ static void cfg_create_ini()
             "\n"
             "; Carmen Sandiego's Great Chase - NOT WORKING YET\n"
             "[TIME32]\n"
-            "allow_wmactivate=true\n"
             "renderer=gdi\n"
             "adjmouse=false\n"
             "width=0\n"

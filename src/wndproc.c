@@ -557,13 +557,13 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_ACTIVATE:
     {
-        if (wParam == WA_ACTIVE || wParam == WA_CLICKACTIVE)
+        if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
         {
             if (g_ddraw.got_child_windows)
                 RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE | RDW_ALLCHILDREN);
         }
 
-        if (wParam == WA_INACTIVE)
+        if (LOWORD(wParam) == WA_INACTIVE)
         {
             if (g_config.windowed && !g_config.fullscreen && lParam && GetParent((HWND)lParam) == hWnd)
             {
@@ -600,10 +600,21 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             }
         }
 
-        //if (g_ddraw.windowed || g_ddraw.noactivateapp)
+        if (g_config.windowed || g_config.noactivateapp)
+        {
+            /* let it pass through once (Atrox) */
+            static BOOL one_time;
 
-        if (!g_config.allow_wmactivate)
+            if (!one_time)
+            {
+                one_time = TRUE;
+
+                if (LOWORD(wParam))
+                    break;
+            }
+
             return 0;
+        }
 
         break;
     }

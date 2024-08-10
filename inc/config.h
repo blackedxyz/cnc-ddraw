@@ -65,7 +65,6 @@ typedef struct CNCDDRAWCONFIG
     int guard_lines;
     int max_resolutions;
     BOOL lock_surfaces;
-    BOOL allow_wmactivate;
     BOOL flipclear;
     BOOL fixmousehook;
     BOOL rgb555;
