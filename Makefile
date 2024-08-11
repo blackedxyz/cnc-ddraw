@@ -12,8 +12,8 @@ ifdef DEBUG
 	CFLAGS   += -D _DEBUG -D _DEBUG_X
 endif
 
-SRCS     := $(wildcard src/*.c) $(wildcard src/*/*.c)
-OBJS     := $(SRCS:c=o) res.o
+SRCS     := $(wildcard src/*.c) $(wildcard src/*/*.c) res.rc
+OBJS     := $(addsuffix .o, $(basename $(SRCS)))
 
 .PHONY: clean all
 all: $(TARGET)
