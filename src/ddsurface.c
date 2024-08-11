@@ -1200,7 +1200,7 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
 
             if (g_ddraw.ticks_limiter.tick_length > 0 &&
-                (!g_ddraw.ticks_limiter.dds_unlock_limiter_disabled || g_config.limiter_type == LIMIT_UNLÖCK))
+                (!g_ddraw.ticks_limiter.dds_unlock_limiter_disabled || g_config.limiter_type == LIMIT_UNLOCK))
             {
                 util_limit_game_ticks();
             }
