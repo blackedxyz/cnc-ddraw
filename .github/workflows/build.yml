@@ -83,8 +83,10 @@ jobs:
               
               cp "${{ steps.build-releasexp.outputs.releasexp }}" cnc-ddraw-releasexp
               
+              rundll32.exe ./cnc-ddraw-releasexp/ddraw.dll, DDIsWindowed
+              
               cp "${{ steps.build-releasexp.outputs.releasexp-pdb }}" cnc-ddraw-experimental
-              7z a -tzip -mm=Deflate -mfb=258 -mpass=15 "./cnc-ddraw-experimental/cnc-ddraw-experimental-release.zip" "./cnc-ddraw-releasexp/ddraw.dll"
+              7z a -tzip -mm=Deflate -mfb=258 -mpass=15 "./cnc-ddraw-experimental/cnc-ddraw-experimental-release.zip" "./cnc-ddraw-releasexp/ddraw.*"
            fi
 
            if [[ -f "${{ steps.build-debug.outputs.debug }}" ]]; then
