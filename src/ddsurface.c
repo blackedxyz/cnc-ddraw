@@ -239,7 +239,7 @@ HRESULT dds_Blt(
         BOOL mirror_left_right = got_fx && (lpDDBltFx->dwDDFX & DDBLTFX_MIRRORLEFTRIGHT);
         BOOL mirror_up_down = got_fx && (lpDDBltFx->dwDDFX & DDBLTFX_MIRRORUPDOWN);
 
-        if (This->bpp != src_surface->bpp)
+        if (This->bpp != src_surface->bpp || (is_stretch_blt && This == src_surface))
         {
             TRACE_EXT("     NOT_IMPLEMENTED This->bpp=%u, src_surface->bpp=%u\n", This->bpp, src_surface->bpp);
 
