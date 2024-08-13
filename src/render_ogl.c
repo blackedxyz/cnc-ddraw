@@ -259,7 +259,9 @@ static void ogl_build_programs()
             {
                 g_ogl.shader1_program = oglu_build_program_from_file(shader_path, core_profile);
 
-                if (g_ogl.shader1_program && strstr(g_config.shader, "xbrz-freescale-multipass.glsl") != NULL)
+                if (g_ogl.shader1_program && 
+                    (strstr(g_config.shader, "xbrz-freescale-multipass.glsl") != NULL || 
+                        strstr(g_config.shader, "-noscale") != NULL))
                 {
                     g_ogl.shader2_upscale = TRUE;
                 }
