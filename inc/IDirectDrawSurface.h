@@ -38,6 +38,7 @@ typedef struct IDirectDrawSurfaceImpl
     PBITMAPINFO bmi;
     HBITMAP bitmap;
     HDC hdc;
+    int dc_state;
     DDCOLORKEY color_key;
     DWORD last_flip_tick;
     DWORD last_blt_tick;

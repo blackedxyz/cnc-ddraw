@@ -914,6 +914,8 @@ HRESULT dds_GetDC(IDirectDrawSurfaceImpl* This, HDC FAR* lpHDC)
     if (lpHDC)
         *lpHDC = dc;
 
+    InterlockedExchange(&This->dc_state, SaveDC(dc));
+
     return DD_OK;
 }
 
@@ -1023,6 +1025,8 @@ HRESULT dds_ReleaseDC(IDirectDrawSurfaceImpl* This, HDC hDC)
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
         }
     }
+
+    RestoreDC(hDC, InterlockedExchangeAdd((LONG*)&This->dc_state, 0));
 
     return DD_OK;
 }
