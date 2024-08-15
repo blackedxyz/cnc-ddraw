@@ -39,6 +39,7 @@ void cfg_load()
     GET_BOOL(g_config.windowed, "windowed", FALSE);
     GET_BOOL(g_config.maintas, "maintas", FALSE);
     GET_BOOL(g_config.boxing, "boxing", FALSE);
+    GET_STRING("aspect_ratio", "", g_config.aspect_ratio, sizeof(g_config.aspect_ratio));
     GET_INT(g_config.maxfps, "maxfps", -1);
     GET_BOOL(g_config.vsync, "vsync", FALSE);
     GET_BOOL(g_config.adjmouse, "adjmouse", TRUE);
@@ -119,6 +120,9 @@ void cfg_load()
 
     if (g_config.lock_mouse_top_left)
         g_config.adjmouse = FALSE;
+
+    if (g_config.aspect_ratio[0])
+        g_config.maintas = TRUE;
 
     ini_free(&g_config.ini);
 }

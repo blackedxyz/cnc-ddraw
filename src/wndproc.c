@@ -317,8 +317,24 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                         real_GetWindowLongA(hWnd, GWL_EXSTYLE)) &&
                     SetRect(&clientrc, 0, 0, clientrc.right - clientrc.left, clientrc.bottom - clientrc.top))
                 {
-                    double scaleH = (double)g_ddraw.height / g_ddraw.width;
-                    double scaleW = (double)g_ddraw.width / g_ddraw.height;
+                    double scale_h;
+                    double scale_w;
+
+                    if (g_config.aspect_ratio[0])
+                    {
+                        char* e = &g_config.aspect_ratio[0];
+
+                        DWORD cx = strtoul(e, &e, 0);
+                        DWORD cy = strtoul(e + 1, &e, 0);
+
+                        scale_h = (double)cy / cx;
+                        scale_w = (double)cx / cy;
+                    }
+                    else
+                    {
+                        scale_h = (double)g_ddraw.height / g_ddraw.width;
+                        scale_w = (double)g_ddraw.width / g_ddraw.height;
+                    }
 
                     switch (wParam)
                     {
@@ -327,19 +343,19 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                     case WMSZ_LEFT:
                     case WMSZ_RIGHT:
                     {
-                        windowrc->bottom += (LONG)round(scaleH * clientrc.right - clientrc.bottom);
+                        windowrc->bottom += (LONG)round(scale_h * clientrc.right - clientrc.bottom);
                         break;
                     }
                     case WMSZ_TOP:
                     case WMSZ_BOTTOM:
                     {
-                        windowrc->right += (LONG)round(scaleW * clientrc.bottom - clientrc.right);
+                        windowrc->right += (LONG)round(scale_w * clientrc.bottom - clientrc.right);
                         break;
                     }
                     case WMSZ_TOPRIGHT:
                     case WMSZ_TOPLEFT:
                     {
-                        windowrc->top -= (LONG)round(scaleH * clientrc.right - clientrc.bottom);
+                        windowrc->top -= (LONG)round(scale_h * clientrc.right - clientrc.bottom);
                         break;
                     }
                     }

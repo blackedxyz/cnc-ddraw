@@ -581,6 +581,8 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
     if (!dwHeight)
         dwHeight = g_ddraw.height ? g_ddraw.height : 600;
 
+    //if (dwHeight == 400) dwHeight = 480;
+
     if (!dwBPP)
         dwBPP = g_ddraw.bpp ? g_ddraw.bpp : 16;
 
@@ -859,8 +861,22 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
     }
     else if (g_config.maintas)
     {
-        double dst_ar = (double)g_ddraw.height / g_ddraw.width;
-        double src_ar = (double)g_ddraw.render.height / g_ddraw.render.width;
+        double dst_ar;
+        double src_ar = (double)g_ddraw.render.height / g_ddraw.render.width;;
+
+        if (g_config.aspect_ratio[0])
+        {
+            char* e = &g_config.aspect_ratio[0];
+
+            DWORD cx = strtoul(e, &e, 0);
+            DWORD cy = strtoul(e + 1, &e, 0);
+
+            dst_ar = (double)cy / cx;
+        }
+        else
+        {
+            dst_ar = (double)g_ddraw.height / g_ddraw.width;
+        }
 
         g_ddraw.render.viewport.width = g_ddraw.render.width;
         g_ddraw.render.viewport.height = (int)round(dst_ar * g_ddraw.render.viewport.width);

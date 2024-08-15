@@ -622,8 +622,22 @@ void util_toggle_maximize()
             int w = dst_rc.right - dst_rc.left;
             int h = dst_rc.bottom - dst_rc.top;
 
-            double dst_ar = (double)g_ddraw.height / g_ddraw.width;
+            double dst_ar;
             double src_ar = (double)h / w;
+
+            if (g_config.aspect_ratio[0])
+            {
+                char* e = &g_config.aspect_ratio[0];
+
+                DWORD cx = strtoul(e, &e, 0);
+                DWORD cy = strtoul(e + 1, &e, 0);
+
+                dst_ar = (double)cy / cx;
+            }
+            else
+            {
+                dst_ar = (double)g_ddraw.height / g_ddraw.width;
+            }
 
             dst_rc.top = 0;
             dst_rc.left = 0;
