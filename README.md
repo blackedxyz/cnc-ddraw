@@ -204,6 +204,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
+- Lapis (lapis.mgame.com)
 - Lionheart - Legacy of the Crusader
 - Little Bear Kindergarten Thinking Adventures
 - Little Bear Preschool Thinking Adventures
