@@ -581,8 +581,6 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
     if (!dwHeight)
         dwHeight = g_ddraw.height ? g_ddraw.height : 600;
 
-    //if (dwHeight == 400) dwHeight = 480;
-
     if (!dwBPP)
         dwBPP = g_ddraw.bpp ? g_ddraw.bpp : 16;
 
