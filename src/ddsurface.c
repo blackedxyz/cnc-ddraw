@@ -1420,8 +1420,8 @@ HRESULT dd_CreateSurface(
 
         dst_surface->caps |= DDSCAPS_VISIBLE;
 
-        dst_surface->width = g_ddraw.width;
-        dst_surface->height = g_ddraw.height;
+        dst_surface->width = g_ddraw.width == 0 ? 1024 : g_ddraw.width;
+        dst_surface->height = g_ddraw.height == 0 ? 768 : g_ddraw.height;
     }
     else
     {
