@@ -28,8 +28,8 @@ typedef struct CNCDDRAWCONFIG
     BOOL fullscreen;
     BOOL windowed;
     BOOL maintas;
-    BOOL boxing;
     char aspect_ratio[16];
+    BOOL boxing;
     int maxfps;
     BOOL vsync;
     BOOL adjmouse;

@@ -38,8 +38,8 @@ void cfg_load()
     GET_BOOL(g_config.fullscreen, "fullscreen", FALSE);
     GET_BOOL(g_config.windowed, "windowed", FALSE);
     GET_BOOL(g_config.maintas, "maintas", FALSE);
-    GET_BOOL(g_config.boxing, "boxing", FALSE);
     GET_STRING("aspect_ratio", "", g_config.aspect_ratio, sizeof(g_config.aspect_ratio));
+    GET_BOOL(g_config.boxing, "boxing", FALSE);
     GET_INT(g_config.maxfps, "maxfps", -1);
     GET_BOOL(g_config.vsync, "vsync", FALSE);
     GET_BOOL(g_config.adjmouse, "adjmouse", TRUE);
@@ -196,6 +196,9 @@ static void cfg_create_ini()
             "\n"
             "; Maintain aspect ratio\n"
             "maintas=false\n"
+            "\n"
+            "; Use custom aspect ratio - Example values: 4:3, 16:10, 16:9, 21:9\n"
+            "aspect_ratio=\n"
             "\n"
             "; Windowboxing / Integer Scaling\n"
             "boxing=false\n"
