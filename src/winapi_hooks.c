@@ -819,6 +819,11 @@ BOOL WINAPI fake_EnumDisplaySettingsA(LPCSTR lpszDeviceName, DWORD iModeNum, DEV
         lpDevMode->dmDisplayFrequency = 60;
     }
 
+    if (result && !lpszDeviceName && lpDevMode && iModeNum != ENUM_CURRENT_SETTINGS)
+    {
+        //lpDevMode->dmBitsPerPel = 16;
+    }
+
     return result;
 }
 
