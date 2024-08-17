@@ -96,6 +96,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Blue's 123 Time Activities
 - Blue's Treasure Hunt
 - Caesar III (Sierra - 1998)
+- Callus 95 - CPS-1 (Capcom Play System 1) emulator
 - Call To Power 2
 - Capitalism II
 - Capitalism Lab
