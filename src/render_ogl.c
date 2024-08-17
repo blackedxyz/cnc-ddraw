@@ -1293,6 +1293,12 @@ static void ogl_render()
 
         SwapBuffers(g_ogl.hdc);
 
+        /* Force redraw for GDI games (ClueFinders) */
+        if (!g_ddraw.primary)
+        {
+            RedrawWindow(g_ddraw.hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ALLCHILDREN);
+        }
+
         if (!g_ddraw.render.run)
             break;
 

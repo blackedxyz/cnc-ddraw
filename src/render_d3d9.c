@@ -682,6 +682,14 @@ DWORD WINAPI d3d9_render_main(void)
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
             Sleep(50);
         }
+        else
+        {
+            /* Force redraw for GDI games (ClueFinders) */
+            if (!g_ddraw.primary)
+            {
+                RedrawWindow(g_ddraw.hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ALLCHILDREN);
+            }
+        }
 
         if (!g_ddraw.render.run)
             break;
