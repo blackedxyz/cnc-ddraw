@@ -291,7 +291,7 @@ static void cfg_create_ini()
             "; Note: Set this to 1 if the game is crashing on startup\n"
             "resolutions=0\n"
             "\n"
-            "; Child window handling, possible values: 0 = Disabled, 1 = Display top left, 2 = Display top left + repaint, 3 = Hide\n"
+            "; Child window handling, possible values: 0 = Disabled, 1 = Display top left, 2 = Display top left + repaint, 3 = Hide, 4 = Display top left + hide\n"
             "; Note: Disables upscaling if a child window was detected (to ensure the game is fully playable, may look weird though)\n"
             "fixchilds=2\n"
             "\n"

@@ -861,6 +861,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
             return TRUE;
 
         if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
+            g_config.fixchilds == FIX_CHILDS_DETECT_HIDE_NOSCALE ||
             strcmp(class_name, "msctls_statusbar32") == 0 ||
             strcmp(class_name, "VideoRenderer") == 0 ||
             strcmp(class_name, "MCIQTZ_Window") == 0 ||
@@ -869,9 +870,9 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
             strcmp(class_name, "MCIWndClass") == 0 ||
             strcmp(class_name, "AVI Window") == 0)
         {
-            if (g_config.fixchilds != FIX_CHILDS_DETECT_HIDE)
+            if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE_NOSCALE)
             {
-                InterlockedExchangePointer((void*)&g_ddraw.video_window_hwnd, hwnd);
+                g_ddraw.got_child_windows = g_ddraw.child_window_exists = TRUE;
             }
 
             if (!(exstyle & WS_EX_TRANSPARENT))

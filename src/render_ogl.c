@@ -1034,7 +1034,6 @@ static void ogl_render()
             if (g_config.fixchilds)
             {
                 g_ddraw.child_window_exists = FALSE;
-                InterlockedExchangePointer((void*)&g_ddraw.video_window_hwnd, NULL);
                 EnumChildWindows(g_ddraw.hwnd, util_enum_child_proc, (LPARAM)g_ddraw.primary);
 
                 if (g_ddraw.render.width != g_ddraw.width || g_ddraw.render.height != g_ddraw.height)
