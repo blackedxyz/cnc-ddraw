@@ -861,6 +861,7 @@ BOOL CALLBACK util_enum_child_proc(HWND hwnd, LPARAM lparam)
             return TRUE;
 
         if (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
+            strcmp(class_name, "msctls_statusbar32") == 0 ||
             strcmp(class_name, "VideoRenderer") == 0 ||
             strcmp(class_name, "MCIQTZ_Window") == 0 ||
             strcmp(class_name, "MCIAVI") == 0 ||
