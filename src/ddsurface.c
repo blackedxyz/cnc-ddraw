@@ -914,7 +914,7 @@ HRESULT dds_GetDC(IDirectDrawSurfaceImpl* This, HDC FAR* lpHDC)
     if (lpHDC)
         *lpHDC = dc;
 
-    InterlockedExchange(&This->dc_state, SaveDC(dc));
+    InterlockedExchange((LONG*)&This->dc_state, SaveDC(dc));
 
     return DD_OK;
 }
