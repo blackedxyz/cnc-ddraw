@@ -1069,7 +1069,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
         if (GetMenu(g_ddraw.hwnd))
         {
-            if (g_config.remove_menu || !g_config.nonexclusive)
+            if (1) // g_config.remove_menu || !g_config.nonexclusive)
             {
                 SetMenu(g_ddraw.hwnd, NULL);
             }
