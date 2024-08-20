@@ -128,6 +128,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Commandos
 - Commandos - Beyond The Call Of Duty
 - Commandos 2
+- Constructor
 - Corsairs Gold
 - Cossacks (Steam+GOG)
 - Cultures - The Discovery of Vinland
