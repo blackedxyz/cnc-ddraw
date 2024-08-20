@@ -322,6 +322,7 @@ static void cfg_create_ini()
             "wine_allow_resize=false\n"
             "lock_mouse_top_left=false\n"
             "no_compat_warning=false\n"
+            "remove_menu=false\n"
             "\n"
             "\n"
             "\n"
