@@ -94,6 +94,7 @@ void cfg_load()
     GET_BOOL(g_config.wine_allow_resize, "wine_allow_resize", FALSE);
     GET_BOOL(g_config.lock_mouse_top_left, "lock_mouse_top_left", FALSE);
     GET_BOOL(g_config.no_compat_warning, "no_compat_warning", FALSE);
+    GET_BOOL(g_config.remove_menu, "remove_menu", FALSE);
 
     /* Hotkeys */
 
@@ -104,8 +105,6 @@ void cfg_load()
     GET_INT(g_config.hotkeys.screenshot, "keyscreenshot", VK_SNAPSHOT);
 
     /* Game specific settings */
-
-    GET_BOOL(g_config.remove_menu, "remove_menu", FALSE); /* Added for HoMM4 */
     
     GET_BOOL(g_config.armadahack, "armadahack", FALSE);
     GET_BOOL(g_config.tshack, "tshack", FALSE);
@@ -925,6 +924,7 @@ static void cfg_create_ini()
             "\n"
             "; Heroes of Might and Magic IV\n"
             "[heroes4]\n"
+            "remove_menu=true\n"
             "homm_hack=true\n"
             "\n"
             "; Hard Truck: Road to Victory\n"
