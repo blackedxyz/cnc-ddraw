@@ -1646,6 +1646,7 @@ HWND WINAPI fake_CreateWindowExA(
         dwStyle &= ~WS_VISIBLE;
     }
 
+    /* Battle.net */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "SDlgDialog") == 0 && g_ddraw.ref && g_ddraw.hwnd)
     {
         if (!g_ddraw.bnet_active)
