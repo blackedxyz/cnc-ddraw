@@ -1602,6 +1602,14 @@ HWND WINAPI fake_CreateWindowExA(
         dwStyle &= ~WS_POPUP;
     }
 
+    /* Fallout 2 */
+    if (HIWORD(lpClassName) && _strcmpi(lpClassName, "GNW95 Class") == 0 &&
+        _strcmpi(lpWindowName, "FALLOUT II") == 0)
+    {
+        /* Workaround for window not showing up in taskbar sometimes */
+        dwExStyle |= WS_EX_APPWINDOW;
+    }
+
     /* Center Claw DVD movies */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "Afx:400000:3") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
