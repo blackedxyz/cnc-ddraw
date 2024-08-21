@@ -1463,10 +1463,8 @@ HRESULT dd_CreateSurface(
 
         WORD clr_bits = (WORD)(dst_surface->bmi->bmiHeader.biPlanes * dst_surface->bmi->bmiHeader.biBitCount);
 
-        if (clr_bits < 24)
-        {
-            dst_surface->bmi->bmiHeader.biClrUsed = (1 << clr_bits);
-        }
+        dst_surface->bmi->bmiHeader.biClrUsed = 
+            dst_surface->bmi->bmiHeader.biCompression == BI_BITFIELDS ? 3 : (1 << clr_bits);
 
         dst_surface->bmi->bmiHeader.biSizeImage =
             ((aligned_width * clr_bits + 63) & ~63) / 8 * dst_surface->height;
