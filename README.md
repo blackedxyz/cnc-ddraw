@@ -222,6 +222,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Mech Warrior 3
 - Megaman X4
 - Metal Gear Solid
+- Mob Rule (AKA Constructor: Street Wars / Street Wars: Constructor Underworld)
 - Moorhuhn
 - Moorhuhn 2
 - Moorhuhn Winter Editon
