@@ -229,7 +229,7 @@ VERSIONHELPERAPI IsAndroid(void) {
 }
 
 VERSIONHELPERAPI IsSteamDeck(void) {
-    return IsWine() && !GetEnvironmentVariable("STEAMDECK", NULL, 0);
+    return IsWine() && GetEnvironmentVariable("STEAMDECK", NULL, 0);
 }
 
 #endif
