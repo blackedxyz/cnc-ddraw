@@ -1163,7 +1163,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 Fix wayland bug: 
                 ChangeDisplaySettings fails silently - enable borderless mode in case display resolution was not changed 
             */
-            if (IsWine() && !GetEnvironmentVariable("STEAMDECK", NULL, 0) &&
+            if (IsWine() && !IsSteamDeck() &&
                 (g_ddraw.render.mode.dmPelsWidth != real_GetSystemMetrics(SM_CXSCREEN) || 
                     g_ddraw.render.mode.dmPelsHeight != real_GetSystemMetrics(SM_CYSCREEN)))
             {
