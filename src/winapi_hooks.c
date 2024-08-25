@@ -1602,9 +1602,9 @@ HWND WINAPI fake_CreateWindowExA(
         dwStyle &= ~WS_POPUP;
     }
 
-    /* Fallout 2 */
+    /* Fallout 1/2 */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "GNW95 Class") == 0 &&
-        _strcmpi(lpWindowName, "FALLOUT II") == 0)
+        strstr(lpWindowName, "FALLOUT"))
     {
         /* Workaround for window not showing up in taskbar sometimes */
         dwExStyle |= WS_EX_APPWINDOW;
