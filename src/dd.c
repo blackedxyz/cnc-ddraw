@@ -1415,7 +1415,7 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
         }
     }
 
-    if (dwFlags & DDSCL_NORMAL)
+    if ((dwFlags & DDSCL_NORMAL) && !(dwFlags & DDSCL_FULLSCREEN))
     {
         if (g_config.fake_mode[0])
         {
