@@ -448,7 +448,18 @@ HRESULT dd_GetCaps(LPDDCAPS_DX1 lpDDDriverCaps, LPDDCAPS_DX1 lpDDEmulCaps)
 
         lpDDDriverCaps->dwVidMemTotal = 16777216;
         lpDDDriverCaps->dwVidMemFree = 16777216;
-        lpDDDriverCaps->ddsCaps.dwCaps = DDSCAPS_FLIP;
+
+        lpDDDriverCaps->ddsCaps.dwCaps = 
+            DDSCAPS_BACKBUFFER | 
+            DDSCAPS_COMPLEX | 
+            DDSCAPS_FLIP | 
+            DDSCAPS_FRONTBUFFER | 
+            DDSCAPS_OFFSCREENPLAIN | 
+            DDSCAPS_PRIMARYSURFACE | 
+            DDSCAPS_VIDEOMEMORY | 
+            DDSCAPS_OWNDC | 
+            DDSCAPS_LOCALVIDMEM | 
+            DDSCAPS_NONLOCALVIDMEM;
     }
 
     if (lpDDEmulCaps)
