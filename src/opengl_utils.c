@@ -88,6 +88,8 @@ PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT;
 PFNWGLGETEXTENSIONSSTRINGARBPROC wglGetExtensionsStringARB;
 PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
 PFNGLTEXBUFFERPROC glTexBuffer;
+PFNGLGETINTEGERVPROC glGetIntegerv;
+PFNGLGETSTRINGIPROC glGetStringi;
 
 HMODULE g_oglu_hmodule;
 BOOL g_oglu_got_version2;
@@ -192,6 +194,8 @@ void oglu_init()
     wglGetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)xwglGetProcAddress("wglGetExtensionsStringARB");
 
     glTexBuffer = (PFNGLTEXBUFFERPROC)xwglGetProcAddress("glTexBuffer");
+    glGetIntegerv = (PFNGLGETINTEGERVPROC)xwglGetProcAddress("glGetIntegerv");
+    glGetStringi = (PFNGLGETSTRINGIPROC)xwglGetProcAddress("glGetStringi");
 
     char* glversion = (char*)glGetString(GL_VERSION);
     if (glversion)
@@ -227,11 +231,24 @@ void oglu_init()
 
 BOOL oglu_ext_exists(char* ext, HDC hdc)
 {
-    char* glext = (char*)glGetString(GL_EXTENSIONS);
-
-    if (glext)
+    if (glGetIntegerv && glGetStringi)
     {
-        if (strstr(glext, ext))
+        GLint n = 0;
+        glGetIntegerv(GL_NUM_EXTENSIONS, &n);
+
+        for (GLint i = 0; i < n; i++)
+        {
+            char* glext = (char*)glGetStringi(GL_EXTENSIONS, i);
+
+            if (glext && strcmp(glext, ext) == 0)
+                return TRUE;
+        }
+    }
+    else
+    {
+        char* glext = (char*)glGetString(GL_EXTENSIONS);
+
+        if (glext && strstr(glext, ext))
             return TRUE;
     }
 

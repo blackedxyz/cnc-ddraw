@@ -108,6 +108,8 @@ extern PFNGLDRAWBUFFERSPROC glDrawBuffers;
 extern PFNGLCHECKFRAMEBUFFERSTATUSPROC glCheckFramebufferStatus;
 extern PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
 extern PFNGLTEXBUFFERPROC glTexBuffer;
+extern PFNGLGETINTEGERVPROC glGetIntegerv;
+extern PFNGLGETSTRINGIPROC glGetStringi;
 
 extern HMODULE g_oglu_hmodule;
 extern BOOL g_oglu_got_version2;
