@@ -27,6 +27,7 @@ HRESULT dd_EnumDisplayModes(
 {
     dbg_dump_edm_flags(dwFlags);
 
+    DDSURFACEDESC2 s = { 0 };
     DWORD bpp_filter = 0;
 
     if (lpDDSurfaceDesc)
@@ -46,12 +47,48 @@ HRESULT dd_EnumDisplayModes(
                 bpp_filter = lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount;
                 break;
             }
+
+            if ((lpDDSurfaceDesc->dwFlags & DDSD_WIDTH) && (lpDDSurfaceDesc->dwFlags & DDSD_HEIGHT))
+            {
+                TRACE("     dwWidth=%u, dwHeight=%u\n", lpDDSurfaceDesc->dwWidth, lpDDSurfaceDesc->dwHeight);
+
+                s.dwSize = sizeof(DDSURFACEDESC);
+                s.dwFlags = DDSD_HEIGHT | DDSD_REFRESHRATE | DDSD_WIDTH | DDSD_PITCH | DDSD_PIXELFORMAT;
+                s.dwRefreshRate = 60;
+                s.dwHeight = lpDDSurfaceDesc->dwHeight;
+                s.dwWidth = lpDDSurfaceDesc->dwWidth;
+
+                s.ddpfPixelFormat.dwSize = sizeof(DDPIXELFORMAT);
+                s.ddpfPixelFormat.dwFlags = DDPF_PALETTEINDEXED8 | DDPF_RGB;
+                s.ddpfPixelFormat.dwRGBBitCount = 8;
+
+                if (lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount == 16)
+                {
+                    s.ddpfPixelFormat.dwFlags = DDPF_RGB;
+                    s.ddpfPixelFormat.dwRGBBitCount = 16;
+                    s.ddpfPixelFormat.dwRBitMask = 0xF800;
+                    s.ddpfPixelFormat.dwGBitMask = 0x07E0;
+                    s.ddpfPixelFormat.dwBBitMask = 0x001F;
+                }
+                else if (lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount == 32)
+                {
+                    s.ddpfPixelFormat.dwFlags = DDPF_RGB;
+                    s.ddpfPixelFormat.dwRGBBitCount = 32;
+                    s.ddpfPixelFormat.dwRBitMask = 0xFF0000;
+                    s.ddpfPixelFormat.dwGBitMask = 0x00FF00;
+                    s.ddpfPixelFormat.dwBBitMask = 0x0000FF;
+                }
+
+                s.lPitch = ((s.dwWidth * s.ddpfPixelFormat.dwRGBBitCount + 63) & ~63) >> 3;
+
+                lpEnumModesCallback((LPDDSURFACEDESC)&s, lpContext);
+                return DD_OK;
+            }
         }
     }
 
     DWORD i = 0;
     DWORD res_count = 0;
-    DDSURFACEDESC2 s;
 
     /* Some games crash when you feed them with too many resolutions so we have to keep the list short */
 
