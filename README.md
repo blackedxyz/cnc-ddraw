@@ -61,6 +61,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 &nbsp;
 
 ### Supported Games
+- Addiction Pinball
 - Age of Empires
 - Age of Empires II
 - Age of Empires II: The Conquerors
