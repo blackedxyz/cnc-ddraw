@@ -63,6 +63,8 @@ BOOL ogl_create()
             TRACE("| GL_SHADING_LANGUAGE_VERSION: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
             TRACE("+------------------------------------------------\n");
 
+            while (glGetError() != GL_NO_ERROR); /* Ignore errors from glGetString */
+
             GL_CHECK(g_ogl.context = ogl_create_core_context(g_ogl.hdc));
         }
         else
