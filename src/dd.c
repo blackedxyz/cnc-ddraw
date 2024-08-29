@@ -587,6 +587,27 @@ HRESULT dd_GetMonitorFrequency(LPDWORD lpdwFreq)
     return DD_OK;
 }
 
+HRESULT dd_GetVerticalBlankStatus(LPBOOL lpbIsInVB)
+{
+    if (!lpbIsInVB)
+        return DDERR_INVALIDPARAMS;
+
+    static DWORD last_vb;
+    DWORD tick = GetTickCount();
+
+    if (last_vb + 16 > tick)
+    {
+        *lpbIsInVB = FALSE;
+    }
+    else
+    {
+        last_vb = tick;
+        *lpbIsInVB = TRUE;
+    }
+
+    return DD_OK;
+}
+
 HRESULT dd_RestoreDisplayMode()
 {
     if (!g_ddraw.render.run)
@@ -1681,14 +1702,6 @@ HRESULT dd_GetAvailableVidMem(LPDDSCAPS lpDDCaps, LPDWORD lpdwTotal, LPDWORD lpd
 
     if (lpdwFree)
         *lpdwFree = 16777216;
-
-    return DD_OK;
-}
-
-HRESULT dd_GetVerticalBlankStatus(LPBOOL lpbIsInVB)
-{
-    if (lpbIsInVB)
-        *lpbIsInVB = TRUE;
 
     return DD_OK;
 }
