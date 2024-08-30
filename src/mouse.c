@@ -63,7 +63,7 @@ void mouse_unlock()
         g_mouse_locked = FALSE;
 
         real_ClipCursor(NULL);
-        //ReleaseCapture();
+        ReleaseCapture();
 
         RECT rc = { 0 };
         real_GetClientRect(g_ddraw.hwnd, &rc);

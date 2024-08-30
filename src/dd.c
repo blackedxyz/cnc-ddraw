@@ -1378,10 +1378,7 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
 
         if (!g_config.devmode)
         {
-            HCURSOR cursor = real_SetCursor(LoadCursor(NULL, IDC_ARROW));
-
-            if (cursor != LoadCursor(NULL, IDC_WAIT))
-                InterlockedExchange((LONG*)&g_ddraw.old_cursor, (LONG)cursor);
+            InterlockedExchange((LONG*)&g_ddraw.old_cursor, (LONG)real_SetCursor(LoadCursor(NULL, IDC_ARROW)));
         }
 
         int cursor_count = real_ShowCursor(TRUE) - 1;
