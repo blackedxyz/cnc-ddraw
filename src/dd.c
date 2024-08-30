@@ -339,7 +339,7 @@ HRESULT dd_EnumDisplayModes(
         }
     }
 
-    if (!g_ddraw.bpp || g_config.resolutions != RESLIST_NORMAL)
+    if (!g_ddraw.bpp || g_config.resolutions != RESLIST_NORMAL || g_ddraw.windowed_hack)
     {
         for (i = 0; i < sizeof(resolutions) / sizeof(resolutions[0]); i++)
         {
