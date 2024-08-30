@@ -158,6 +158,7 @@ typedef struct CNCDDRAW
     DWORD minfps_tick_len;
     DWORD gui_thread_id;
     BOOL show_driver_warning;
+    BOOL windowed_hack;
 
     struct
     {
