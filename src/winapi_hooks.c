@@ -856,13 +856,18 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
     {
         return g_ddraw.bpp;
     }
-    
-    if (g_ddraw.ref &&
-        g_ddraw.bpp == 8 &&
-        index == RASTERCAPS &&
-        (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
+
+    if (g_ddraw.ref && g_ddraw.bpp == 8 && (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
     {
-        return RC_PALETTE | real_GetDeviceCaps(hdc, index);
+        if (index == RASTERCAPS)
+        {
+            return RC_PALETTE | real_GetDeviceCaps(hdc, index);
+        }
+
+        if (index == SIZEPALETTE || index == NUMCOLORS)
+        {
+            return 256;
+        }
     }
 
     return real_GetDeviceCaps(hdc, index);
