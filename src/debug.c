@@ -18,6 +18,11 @@ LPTOP_LEVEL_EXCEPTION_FILTER g_dbg_exception_filter;
 static LONGLONG g_dbg_counter_start_time = 0;
 static double g_dbg_counter_freq = 0.0;
 static FILE* g_dbg_log_file;
+static char g_dbg_log_path1[MAX_PATH] = "cnc-ddraw-1.log";
+static char g_dbg_log_path2[MAX_PATH] = "cnc-ddraw-2.log";
+static char g_dbg_log_path3[MAX_PATH] = "cnc-ddraw-3.log";
+static char g_dbg_dmp_path1[MAX_PATH] = "cnc-ddraw-1.dmp";
+static char g_dbg_dmp_path2[MAX_PATH] = "cnc-ddraw-2.dmp";
 static BOOL g_dbg_log_rotate;
 
 #ifdef _DEBUG 
@@ -27,12 +32,9 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
 {
     g_dbg_crash_count++;
 
-    char filename[MAX_PATH] = { 0 };
-    _snprintf(filename, sizeof(filename) - 1, "cnc-ddraw-%d.dmp", g_dbg_crash_count == 1 ? 1 : 2);
-
     HANDLE dmp =
         CreateFile(
-            filename,
+            g_dbg_crash_count == 1 ? g_dbg_dmp_path1 : g_dbg_dmp_path2,
             GENERIC_READ | GENERIC_WRITE,
             FILE_SHARE_WRITE | FILE_SHARE_READ,
             0,
@@ -96,14 +98,32 @@ void dbg_init()
     {
         once = TRUE;
 
-        remove("cnc-ddraw-1.dmp");
-        remove("cnc-ddraw-2.dmp");
+        char exe_path[MAX_PATH] = { 0 };
+        if (GetModuleFileNameA(NULL, exe_path, sizeof(exe_path) - 1) > 0)
+        {
+            char drive[MAX_PATH] = { 0 };
+            char dir[MAX_PATH] = { 0 };
+            _splitpath(exe_path, drive, dir, NULL, NULL);
 
-        remove("cnc-ddraw-1.log");
-        remove("cnc-ddraw-2.log");
-        remove("cnc-ddraw-3.log");
+            char game_path[MAX_PATH] = { 0 };
+            _makepath(game_path, drive, dir, NULL, NULL);
 
-        g_dbg_log_file = fopen("cnc-ddraw-1.log", "w");
+            _snprintf(g_dbg_dmp_path1, sizeof(g_dbg_dmp_path1) - 1, "%s%s", game_path, "cnc-ddraw-1.dmp");
+            _snprintf(g_dbg_dmp_path2, sizeof(g_dbg_dmp_path2) - 1, "%s%s", game_path, "cnc-ddraw-2.dmp");
+
+            _snprintf(g_dbg_log_path1, sizeof(g_dbg_log_path1) - 1, "%s%s", game_path, "cnc-ddraw-1.log");
+            _snprintf(g_dbg_log_path2, sizeof(g_dbg_log_path2) - 1, "%s%s", game_path, "cnc-ddraw-2.log");
+            _snprintf(g_dbg_log_path3, sizeof(g_dbg_log_path3) - 1, "%s%s", game_path, "cnc-ddraw-3.log");
+        }
+
+        remove(g_dbg_dmp_path1);
+        remove(g_dbg_dmp_path2);
+
+        remove(g_dbg_log_path1);
+        remove(g_dbg_log_path2);
+        remove(g_dbg_log_path3);
+
+        g_dbg_log_file = fopen(g_dbg_log_path1, "w");
         if (g_dbg_log_file)
         {
             setvbuf(g_dbg_log_file, NULL, _IOLBF, 1024);
@@ -187,12 +207,15 @@ void dbg_printf(const char* fmt, ...)
 
     if (g_dbg_log_file && ftell(g_dbg_log_file) >= 1024 * 1024 * 100) /* rotate every 100MB */
     {
-        char filename[MAX_PATH] = { 0 };
-        _snprintf(filename, sizeof(filename) - 1, "cnc-ddraw-%d.log", g_dbg_log_rotate ? 3 : 2);
+        g_dbg_log_file = 
+            freopen(
+                g_dbg_log_rotate ? g_dbg_log_path3 : g_dbg_log_path2,
+                "w", 
+                g_dbg_log_file);
 
         g_dbg_log_rotate = !g_dbg_log_rotate;
 
-        if ((g_dbg_log_file = freopen(filename, "w", g_dbg_log_file)))
+        if (g_dbg_log_file)
         {
             setvbuf(g_dbg_log_file, NULL, _IOLBF, 1024);
         }
