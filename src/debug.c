@@ -104,7 +104,10 @@ void dbg_init()
         remove("cnc-ddraw-3.log");
 
         g_dbg_log_file = fopen("cnc-ddraw-1.log", "w");
-        setvbuf(g_dbg_log_file, NULL, _IOLBF, 1024);
+        if (g_dbg_log_file)
+        {
+            setvbuf(g_dbg_log_file, NULL, _IOLBF, 1024);
+        }
 
         TRACE("cnc-ddraw version = %d.%d.%d.%d\n", VERSION_MAJOR, VERSION_MINOR, VERSION_BUILD, VERSION_REVISION);
 
