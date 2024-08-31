@@ -14,6 +14,12 @@ HRESULT __stdcall IDirectDrawClipper__QueryInterface(IDirectDrawClipperImpl* Thi
         _ReturnAddress());
 
     HRESULT ret = E_NOINTERFACE;
+
+    if (!ppvObj)
+    {
+        ret = E_INVALIDARG;
+    }
+
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }

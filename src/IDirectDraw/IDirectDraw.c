@@ -18,7 +18,11 @@ HRESULT __stdcall IDirectDraw__QueryInterface(IDirectDrawImpl* This, REFIID riid
 
     HRESULT ret = E_NOINTERFACE;
 
-    if (riid)
+    if (!ppvObj)
+    {
+        ret = E_INVALIDARG;
+    }
+    else if (riid)
     {
         if (IsEqualGUID(&IID_IDirectDraw2, riid) ||
             IsEqualGUID(&IID_IDirectDraw4, riid) ||

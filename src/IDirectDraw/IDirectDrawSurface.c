@@ -11,7 +11,11 @@ HRESULT __stdcall IDirectDrawSurface__QueryInterface(IDirectDrawSurfaceImpl* Thi
     TRACE("-> %s(This=%p, riid=%08X, ppvObj=%p) [%p]\n", __FUNCTION__, This, (unsigned int)riid, ppvObj, _ReturnAddress());
     HRESULT ret = S_OK;
 
-    if (riid)
+    if (!ppvObj)
+    {
+        ret = E_INVALIDARG;
+    }
+    else if (riid)
     {
         if (IsEqualGUID(&IID_IDirectDrawSurface, riid) ||
             IsEqualGUID(&IID_IDirectDrawSurface2, riid) ||

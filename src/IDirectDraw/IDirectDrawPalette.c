@@ -15,6 +15,12 @@ HRESULT __stdcall IDirectDrawPalette__QueryInterface(IDirectDrawPaletteImpl* Thi
         _ReturnAddress());
 
     HRESULT ret = E_NOINTERFACE;
+
+    if (!ppvObj)
+    {
+        ret = E_INVALIDARG;
+    }
+
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }

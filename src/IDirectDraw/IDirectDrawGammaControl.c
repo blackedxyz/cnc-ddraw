@@ -13,6 +13,12 @@ HRESULT __stdcall IDirectDrawGammaControl__QueryInterface(IDirectDrawGammaContro
         _ReturnAddress());
 
     HRESULT ret = E_NOINTERFACE;
+
+    if (!ppvObj)
+    {
+        ret = E_INVALIDARG;
+    }
+
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }
