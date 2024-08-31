@@ -128,6 +128,12 @@ HRESULT __stdcall IDirectDraw__QueryInterface(IDirectDrawImpl* This, REFIID riid
             ret = S_OK;
             */
         }
+        else if (((GUID*)riid)->Data1 == 0 && ((GUID*)riid)->Data2 == 0 && ((GUID*)riid)->Data3 == 0)
+        {
+            TRACE("NOT_IMPLEMENTED     GUID = 0 0 0\n");
+
+            ret = E_NOINTERFACE;
+        }
         else
         {
             TRACE("NOT_IMPLEMENTED     GUID = %08X\n", ((GUID*)riid)->Data1);
