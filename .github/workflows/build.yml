@@ -119,35 +119,30 @@ jobs:
     with:
      name: cnc-ddraw-release
      path: cnc-ddraw-release
-     retention-days: 14
 
   - name: Upload artifacts cnc-ddraw-releasexp
     uses: actions/upload-artifact@v4
     with:
      name: cnc-ddraw-releasexp
      path: cnc-ddraw-releasexp
-     retention-days: 14
 
   - name: Upload artifacts cnc-ddraw-debug
     uses: actions/upload-artifact@v4
     with:
      name: cnc-ddraw-debug
      path: cnc-ddraw-debug
-     retention-days: 14
 
   - name: Upload artifacts cnc-ddraw-debuglogxp
     uses: actions/upload-artifact@v4
     with:
      name: cnc-ddraw-debuglogxp
      path: cnc-ddraw-debuglogxp
-     retention-days: 14
 
   - name: Upload artifacts cnc-ddraw-debuglogminixp
     uses: actions/upload-artifact@v4
     with:
      name: cnc-ddraw-debuglogminixp
      path: cnc-ddraw-debuglogminixp
-     retention-days: 14
      
   - name: Release experimental
     uses: softprops/action-gh-release@v1
