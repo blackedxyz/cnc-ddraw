@@ -28,6 +28,13 @@ void dbg_dump_dds_blt_fast_flags(DWORD flags);
 void dbg_dump_dds_lock_flags(DWORD flags);
 char* dbg_mes_to_str(int id);
 
+__declspec(noreturn) void __cdecl dbg_invoke_watson(
+    _In_opt_z_ wchar_t const*,
+    _In_opt_z_ wchar_t const*,
+    _In_opt_z_ wchar_t const*,
+    _In_       unsigned int,
+    _In_       uintptr_t);
+
 extern double g_dbg_frame_time;
 extern DWORD g_dbg_frame_count;
 extern LPTOP_LEVEL_EXCEPTION_FILTER g_dbg_exception_filter;

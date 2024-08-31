@@ -88,6 +88,28 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
 
     return EXCEPTION_EXECUTE_HANDLER;
 }
+
+__declspec(noreturn) void __cdecl dbg_invoke_watson(
+    wchar_t const* const expression,
+    wchar_t const* const function_name,
+    wchar_t const* const file_name,
+    unsigned int   const line_number,
+    uintptr_t      const reserved
+)
+{
+    UNREFERENCED_PARAMETER(expression);
+    UNREFERENCED_PARAMETER(function_name);
+    UNREFERENCED_PARAMETER(file_name);
+    UNREFERENCED_PARAMETER(line_number);
+    UNREFERENCED_PARAMETER(reserved);
+
+    TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
+
+    /* Force access violation to produce a dmp file for debugging */
+    *(int*)0 = 0;
+
+    TerminateProcess(GetCurrentProcess(), STATUS_INVALID_CRUNTIME_PARAMETER);
+}
 #endif
 
 void dbg_init()

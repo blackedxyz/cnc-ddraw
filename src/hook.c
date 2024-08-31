@@ -659,8 +659,7 @@ void hook_init()
 
             if (!IsDebuggerPresent())
             {
-                /* Force access violation to produce a dmp file for debugging (disables watson) */
-                PATCH_SET((void*)_invoke_watson, "\xC6\x05\x00\x00\x00\x00\x00");
+                patch_ljmp((void*)_invoke_watson, (void*)dbg_invoke_watson);
             }
         }
 #endif
