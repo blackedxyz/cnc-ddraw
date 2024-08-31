@@ -232,8 +232,8 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
 
 SET ERRORLEVEL = 0
 </Command>
@@ -267,8 +267,8 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
 
 SET ERRORLEVEL = 0
 </Command>
@@ -302,8 +302,8 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
 
 SET ERRORLEVEL = 0
 </Command>
@@ -337,8 +337,8 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
 
 SET ERRORLEVEL = 0
 </Command>
@@ -372,8 +372,8 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
 
 SET ERRORLEVEL = 0
 </Command>
