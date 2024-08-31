@@ -1,12 +1,6 @@
 #include "inc/version.h"
-
-#ifndef __GNUC__
 #include "inc/version_tmp.h"
-#endif
 
-#ifndef GIT_COMMIT
-#define GIT_COMMIT UNKNOWN
-#endif
 
 1 VERSIONINFO
 FILEVERSION VERSION

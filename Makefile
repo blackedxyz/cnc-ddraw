@@ -1,6 +1,8 @@
 -include config.mk
 
 TARGET    = ddraw.dll
+GIT_REV  := $(shell git rev-parse --short @{0} || echo "UNKNOWN")
+GIT_FILE := $(shell echo "#define GIT_COMMIT" $(GIT_REV) > inc/version_tmp.h)
 LDFLAGS   = -Wl,--enable-stdcall-fixup -s -static -shared
 CFLAGS    = -Iinc -O2 -march=i486 -Wall
 LIBS      = -lgdi32 -lwinmm -ldbghelp -lole32

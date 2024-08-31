@@ -8,15 +8,8 @@
 #include "debug.h"
 #include "hook.h"
 #include "version.h"
-#include "versionhelpers.h"
-
-#ifndef __GNUC__
 #include "version_tmp.h"
-#endif
-
-#ifndef GIT_COMMIT
-#define GIT_COMMIT UNKNOWN
-#endif
+#include "versionhelpers.h"
 
 
 double g_dbg_frame_time = 0;
