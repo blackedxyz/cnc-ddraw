@@ -10,6 +10,14 @@
 #include "version.h"
 #include "versionhelpers.h"
 
+#ifndef __GNUC__
+#include "version_tmp.h"
+#endif
+
+#ifndef GIT_COMMIT
+#define GIT_COMMIT UNKNOWN
+#endif
+
 
 double g_dbg_frame_time = 0;
 DWORD g_dbg_frame_count = 0;
@@ -151,7 +159,13 @@ void dbg_init()
             setvbuf(g_dbg_log_file, NULL, _IOLBF, 1024);
         }
 
-        TRACE("cnc-ddraw version = %d.%d.%d.%d\n", VERSION_MAJOR, VERSION_MINOR, VERSION_BUILD, VERSION_REVISION);
+        TRACE(
+            "cnc-ddraw version = %d.%d.%d.%d (git~%s)\n", 
+            VERSION_MAJOR, 
+            VERSION_MINOR, 
+            VERSION_BUILD, 
+            VERSION_REVISION, 
+            git_str(GIT_COMMIT));
 
         HKEY hkey;
         LONG status =

@@ -230,6 +230,12 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
 )
 </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --verify HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+
+SET ERRORLEVEL = 0</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -257,6 +263,12 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
 )
 </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --verify HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+
+SET ERRORLEVEL = 0</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseXP|Win32'">
     <ClCompile>
@@ -284,6 +296,12 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
 )
 </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --verify HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+
+SET ERRORLEVEL = 0</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugLogXP|Win32'">
     <ClCompile>
@@ -311,6 +329,12 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
 )
 </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --verify HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+
+SET ERRORLEVEL = 0</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugLogMiniXP|Win32'">
     <ClCompile>
@@ -338,6 +362,12 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
 )
 </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>echo | set /p dummyName=#define GIT_COMMIT &gt;  inc/version_tmp.h
+"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt;  inc/version_tmp.h || git rev-parse --verify HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt;  inc/version_tmp.h
+
+SET ERRORLEVEL = 0</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
