@@ -8,6 +8,7 @@
 #include "dllmain.h"
 #include "config.h"
 #include "utils.h"
+#include "patch.h"
 #include "versionhelpers.h"
 
 #ifdef _MSC_VER
@@ -655,6 +656,12 @@ void hook_init()
             DetourUpdateThread(GetCurrentThread());
             DetourAttach((PVOID*)&real_SetUnhandledExceptionFilter, (PVOID)fake_SetUnhandledExceptionFilter);
             DetourTransactionCommit();
+
+            if (!IsDebuggerPresent())
+            {
+                /* Force access violation to produce a dmp file for debugging (disables watson) */
+                PATCH_SET((void*)_invoke_watson, "\xC6\x05\x00\x00\x00\x00\x00");
+            }
         }
 #endif
 
