@@ -153,12 +153,13 @@ void dbg_init()
         }
 
         TRACE(
-            "cnc-ddraw version = %d.%d.%d.%d (git~%s)\n", 
+            "cnc-ddraw version = %d.%d.%d.%d (git~%s, %s)\n", 
             VERSION_MAJOR, 
             VERSION_MINOR, 
             VERSION_BUILD, 
             VERSION_REVISION, 
-            git_str(GIT_COMMIT));
+            git_str(GIT_COMMIT),
+            git_str(GIT_BRANCH));
 
         HKEY hkey;
         LONG status =

@@ -232,8 +232,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
+SET DST_FILE="inc/version_tmp.h"
+SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+
+if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+
+echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
+%GIT_PATH% rev-parse --short HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+
+echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
+%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -267,8 +276,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
+SET DST_FILE="inc/version_tmp.h"
+SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+
+if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+
+echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
+%GIT_PATH% rev-parse --short HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+
+echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
+%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -302,8 +320,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
+SET DST_FILE="inc/version_tmp.h"
+SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+
+if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+
+echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
+%GIT_PATH% rev-parse --short HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+
+echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
+%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -337,8 +364,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
+SET DST_FILE="inc/version_tmp.h"
+SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+
+if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+
+echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
+%GIT_PATH% rev-parse --short HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+
+echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
+%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -372,8 +408,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-echo | set /p dummyName=#define GIT_COMMIT &gt; inc/version_tmp.h
-"$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || "$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git" rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || git rev-parse --short HEAD &gt;&gt; inc/version_tmp.h || echo UNKNOWN &gt;&gt; inc/version_tmp.h
+SET DST_FILE="inc/version_tmp.h"
+SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+
+if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+
+echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
+%GIT_PATH% rev-parse --short HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+
+echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
+%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
