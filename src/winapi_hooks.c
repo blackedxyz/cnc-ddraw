@@ -849,15 +849,27 @@ SHORT WINAPI fake_GetAsyncKeyState(int vKey)
 
 int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
 {
-    if (g_ddraw.ref &&
-        g_ddraw.bpp &&
-        index == BITSPIXEL &&
-        (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
+    DWORD bpp = 0;
+
+    if (g_ddraw.ref && g_ddraw.bpp)
     {
-        return g_ddraw.bpp;
+        bpp = g_ddraw.bpp;
+    }
+    else if (g_config.fake_mode[0])
+    {
+        char* e = &g_config.fake_mode[0];
+
+        strtoul(e, &e, 0);
+        strtoul(e + 1, &e, 0);
+        bpp = strtoul(e + 1, &e, 0);
     }
 
-    if (g_ddraw.ref && g_ddraw.bpp == 8 && (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
+    if (bpp && index == BITSPIXEL && (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
+    {
+        return bpp;
+    }
+
+    if (bpp == 8 && (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
     {
         if (index == RASTERCAPS)
         {
