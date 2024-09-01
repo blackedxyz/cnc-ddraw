@@ -307,13 +307,29 @@ BOOL WINAPI fake_GetCursorInfo(PCURSORINFO pci)
 
 int WINAPI fake_GetSystemMetrics(int nIndex)
 {
+    DWORD width = 0;
+    DWORD height = 0;
+
     if (g_ddraw.ref && g_ddraw.width)
     {
+        width = g_ddraw.width;
+        height = g_ddraw.height;
+    }
+    else if (g_config.fake_mode[0])
+    {
+        char* e = &g_config.fake_mode[0];
+
+        width = strtoul(e, &e, 0);
+        height = strtoul(e + 1, &e, 0);
+    }
+
+    if (width)
+    {
         if (nIndex == SM_CXSCREEN)
-            return g_ddraw.width;
+            return width;
 
         if (nIndex == SM_CYSCREEN)
-            return g_ddraw.height;
+            return height;
     }
 
     return real_GetSystemMetrics(nIndex);
