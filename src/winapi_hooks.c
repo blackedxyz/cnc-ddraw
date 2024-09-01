@@ -1637,7 +1637,7 @@ HWND WINAPI fake_CreateWindowExA(
 
     /* Fallout 1/2 */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "GNW95 Class") == 0 &&
-        strstr(lpWindowName, "FALLOUT"))
+        lpWindowName && strstr(lpWindowName, "FALLOUT"))
     {
         /* Workaround for window not showing up in taskbar sometimes */
         dwExStyle |= WS_EX_APPWINDOW;
@@ -1665,7 +1665,7 @@ HWND WINAPI fake_CreateWindowExA(
     }
 
     /* Center Lego Loco overlays */
-    if (_strcmpi(lpWindowName, "LEGO LOCO") == 0 &&
+    if (lpWindowName && _strcmpi(lpWindowName, "LEGO LOCO") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
         g_ddraw.width &&
         (dwStyle & WS_POPUP))
