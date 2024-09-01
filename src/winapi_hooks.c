@@ -1664,6 +1664,26 @@ HWND WINAPI fake_CreateWindowExA(
         Y = pt.y + align_y;
     }
 
+    /* Center Lego Loco overlays */
+    if (_strcmpi(lpWindowName, "LEGO LOCO") == 0 &&
+        g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
+        g_ddraw.width &&
+        (dwStyle & WS_POPUP))
+    {
+        /* not working currently, game probably moves it with SetWindowPos or MoveWindow afterwards
+        POINT pt = { 0, 0 };
+        real_ClientToScreen(g_ddraw.hwnd, &pt);
+
+        int added_height = g_ddraw.render.height - g_ddraw.height;
+        int added_width = g_ddraw.render.width - g_ddraw.width;
+        int align_y = added_height > 0 ? added_height / 2 : 0;
+        int align_x = added_width > 0 ? added_width / 2 : 0;
+
+        X = pt.x + align_x;
+        Y = pt.y + align_y;
+        */
+    }
+
     /* Road Rash movies */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "AVI Window") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width &&
