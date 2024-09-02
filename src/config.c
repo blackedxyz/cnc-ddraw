@@ -879,7 +879,7 @@ static void cfg_create_ini()
             "\n"
             "; Glover\n"
             "[glover]\n"
-            "singlecpu=false\n"
+            "fixnotresponding=true\n"
             "\n"
             "; G-Police\n"
             "[GPOLICE]\n"
