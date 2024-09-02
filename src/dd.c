@@ -640,6 +640,8 @@ HRESULT dd_RestoreDisplayMode()
         }
     }
 
+    real_ShowWindow(g_ddraw.hwnd, SW_MINIMIZE);
+
     return DD_OK;
 }
 
