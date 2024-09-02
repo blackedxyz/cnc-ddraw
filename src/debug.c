@@ -8,7 +8,7 @@
 #include "debug.h"
 #include "hook.h"
 #include "version.h"
-#include "version_tmp.h"
+#include "git.h"
 #include "versionhelpers.h"
 
 
@@ -158,8 +158,8 @@ void dbg_init()
             VERSION_MINOR, 
             VERSION_BUILD, 
             VERSION_REVISION, 
-            git_str(GIT_COMMIT),
-            git_str(GIT_BRANCH));
+            GIT_COMMIT,
+            GIT_BRANCH);
 
         HKEY hkey;
         LONG status =

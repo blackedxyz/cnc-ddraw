@@ -7,8 +7,8 @@ LIBS      = -lgdi32 -lwinmm -ldbghelp -lole32
 
 COMMIT   := $(shell git describe --match=NeVeRmAtCh --always --dirty || echo "UNKNOWN")
 BRANCH   := $(shell git rev-parse --abbrev-ref HEAD || echo "UNKNOWN")
-ECOMMIT  := $(shell echo "#define GIT_COMMIT" $(COMMIT) > inc/version_tmp.h)
-EBRANCH  := $(shell echo "#define GIT_BRANCH" $(BRANCH) >> inc/version_tmp.h)
+ECOMMIT  := $(shell echo "#define GIT_COMMIT" \"$(COMMIT)\" > inc/git.h)
+EBRANCH  := $(shell echo "#define GIT_BRANCH" \"$(BRANCH)\" >> inc/git.h)
 
 CC        = i686-w64-mingw32-gcc
 WINDRES  ?= i686-w64-mingw32-windres

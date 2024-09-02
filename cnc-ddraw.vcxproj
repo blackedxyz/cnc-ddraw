@@ -232,17 +232,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-SET DST_FILE="inc/version_tmp.h"
-SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+set DST_FILE="inc/git.h"
+set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
 
-if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
-if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+if not exist %GIT_PATH% set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% set GIT_PATH=git.exe
 
-echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+for /f "tokens=*" %%I in ('%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty ^|^| echo UNKNOWN') do set GIT_COMMIT="%%I"
+for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKNOWN') do set GIT_BRANCH="%%I"
 
-echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
-%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+echo #define GIT_COMMIT %GIT_COMMIT% &gt; %DST_FILE%
+echo #define GIT_BRANCH %GIT_BRANCH% &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -276,17 +276,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-SET DST_FILE="inc/version_tmp.h"
-SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+set DST_FILE="inc/git.h"
+set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
 
-if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
-if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+if not exist %GIT_PATH% set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% set GIT_PATH=git.exe
 
-echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+for /f "tokens=*" %%I in ('%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty ^|^| echo UNKNOWN') do set GIT_COMMIT="%%I"
+for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKNOWN') do set GIT_BRANCH="%%I"
 
-echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
-%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+echo #define GIT_COMMIT %GIT_COMMIT% &gt; %DST_FILE%
+echo #define GIT_BRANCH %GIT_BRANCH% &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -320,17 +320,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-SET DST_FILE="inc/version_tmp.h"
-SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+set DST_FILE="inc/git.h"
+set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
 
-if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
-if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+if not exist %GIT_PATH% set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% set GIT_PATH=git.exe
 
-echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+for /f "tokens=*" %%I in ('%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty ^|^| echo UNKNOWN') do set GIT_COMMIT="%%I"
+for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKNOWN') do set GIT_BRANCH="%%I"
 
-echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
-%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+echo #define GIT_COMMIT %GIT_COMMIT% &gt; %DST_FILE%
+echo #define GIT_BRANCH %GIT_BRANCH% &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -364,17 +364,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-SET DST_FILE="inc/version_tmp.h"
-SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+set DST_FILE="inc/git.h"
+set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
 
-if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
-if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+if not exist %GIT_PATH% set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% set GIT_PATH=git.exe
 
-echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+for /f "tokens=*" %%I in ('%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty ^|^| echo UNKNOWN') do set GIT_COMMIT="%%I"
+for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKNOWN') do set GIT_BRANCH="%%I"
 
-echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
-%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+echo #define GIT_COMMIT %GIT_COMMIT% &gt; %DST_FILE%
+echo #define GIT_BRANCH %GIT_BRANCH% &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
@@ -408,17 +408,17 @@ if NOT "$(LocalDebuggerWorkingDirectory)" == "$(ProjectDir)" if exist "$(LocalDe
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-SET DST_FILE="inc/version_tmp.h"
-SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
+set DST_FILE="inc/git.h"
+set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe"
 
-if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
-if not exist %GIT_PATH% SET GIT_PATH="git.exe"
+if not exist %GIT_PATH% set GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw32\bin\git.exe"
+if not exist %GIT_PATH% set GIT_PATH=git.exe
 
-echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+for /f "tokens=*" %%I in ('%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty ^|^| echo UNKNOWN') do set GIT_COMMIT="%%I"
+for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKNOWN') do set GIT_BRANCH="%%I"
 
-echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
-%GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+echo #define GIT_COMMIT %GIT_COMMIT% &gt; %DST_FILE%
+echo #define GIT_BRANCH %GIT_BRANCH% &gt;&gt; %DST_FILE%
 
 SET ERRORLEVEL = 0
 </Command>
