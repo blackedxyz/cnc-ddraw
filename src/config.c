@@ -809,7 +809,6 @@ static void cfg_create_ini()
             "[DisneyTr]\n"
             "fixchilds=3\n"
             "lock_mouse_top_left=true\n"
-            "noactivateapp=true\n"
             "renderer=gdi\n"
             "\n"
             "; Escape Velocity Nova\n"
