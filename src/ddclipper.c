@@ -3,6 +3,7 @@
 #include "IDirectDrawClipper.h"
 #include "ddclipper.h"
 #include "debug.h"
+#include "dd.h"
 
 
 HRESULT ddc_GetClipList(IDirectDrawClipperImpl* This, LPRECT lpRect, LPRGNDATA lpClipList, LPDWORD lpdwSiz)
@@ -167,6 +168,12 @@ HRESULT ddc_SetHWnd(IDirectDrawClipperImpl* This, DWORD dwFlags, HWND hWnd)
     emulated surface to be redrawn all the time
     */
     This->hwnd = hWnd;
+
+    if (hWnd && !This->region && g_ddraw.width)
+    {
+        RECT rc = { 0, 0, g_ddraw.width, g_ddraw.height };
+        ddc_SetClipRect(This, &rc);
+    }
 
     LeaveCriticalSection(&This->cs);
     return DD_OK;
