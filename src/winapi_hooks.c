@@ -1706,6 +1706,13 @@ HWND WINAPI fake_CreateWindowExA(
         Y = pt.y + align_y;
     }
 
+    /* Disney Trivia Challenge */
+    if (HIWORD(lpClassName) && _strcmpi(lpClassName, "Disney Trivia Challenge") == 0 &&
+        hWndParent && (dwStyle & WS_CHILD))
+    {
+        dwExStyle = WS_EX_TRANSPARENT;
+    }
+
     /* Center Lego Loco overlays */
     if (lpWindowName && _strcmpi(lpWindowName, "LEGO LOCO") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
