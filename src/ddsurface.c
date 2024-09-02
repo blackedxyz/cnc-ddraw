@@ -50,9 +50,15 @@ HRESULT dds_Blt(
     dbg_dump_dds_blt_flags(dwFlags);
     dbg_dump_dds_blt_fx_flags((dwFlags & DDBLT_DDFX) && lpDDBltFx ? lpDDBltFx->dwDDFX : 0);
 
-    if (g_ddraw.ref && g_config.fixnotresponding && !IsWine())
+    if (g_config.fixnotresponding && 
+        g_ddraw.hwnd && 
+        g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
+        GetCurrentThreadId() == g_ddraw.gui_thread_id && 
+        !IsWine())
     {
-        MSG msg; /* workaround for "Not Responding" window problem */
+        /* workaround for "Not Responding" window problem */
+        g_ddraw.last_msg_pull_tick = timeGetTime();
+        MSG msg;
         real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE);
     }
 
@@ -988,9 +994,15 @@ HRESULT dds_Lock(
 
     dbg_dump_dds_lock_flags(dwFlags);
 
-    if (g_ddraw.ref && g_config.fixnotresponding && !IsWine())
+    if (g_config.fixnotresponding &&
+        g_ddraw.hwnd &&
+        g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
+        GetCurrentThreadId() == g_ddraw.gui_thread_id &&
+        !IsWine())
     {
-        MSG msg; /* workaround for "Not Responding" window problem */
+        /* workaround for "Not Responding" window problem */
+        g_ddraw.last_msg_pull_tick = timeGetTime();
+        MSG msg;
         real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE);
     }
 

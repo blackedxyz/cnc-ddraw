@@ -1021,9 +1021,13 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         if (g_config.remove_menu && GetMenu(g_ddraw.hwnd))
             SetMenu(g_ddraw.hwnd, NULL);
 
-        if (!IsWine())
+        if (g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
+            GetCurrentThreadId() == g_ddraw.gui_thread_id && 
+            !IsWine())
         {
-            MSG msg; /* workaround for "Not Responding" window problem in cnc games */
+            /* workaround for "Not Responding" window problem in cnc games */
+            g_ddraw.last_msg_pull_tick = timeGetTime();
+            MSG msg;
             real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE | PM_QS_INPUT);
         }
 

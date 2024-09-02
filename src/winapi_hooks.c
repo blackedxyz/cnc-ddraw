@@ -710,6 +710,9 @@ BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
 
 BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax)
 {
+    if (g_ddraw.ref && hWnd == g_ddraw.hwnd)
+        g_ddraw.last_msg_pull_tick = timeGetTime();
+
     BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
 
     if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)
@@ -745,6 +748,9 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 
 BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
 {
+    if (g_ddraw.ref && hWnd == g_ddraw.hwnd)
+        g_ddraw.last_msg_pull_tick = timeGetTime();
+
     BOOL result = real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 
     if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)

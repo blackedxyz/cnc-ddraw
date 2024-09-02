@@ -153,6 +153,7 @@ typedef struct CNCDDRAW
     BOOL child_window_exists;
     BOOL got_child_windows;
     DWORD last_set_window_pos_tick; /* WINE hack */
+    DWORD last_msg_pull_tick;
     SPEEDLIMITER ticks_limiter;
     SPEEDLIMITER flip_limiter;
     DWORD minfps_tick_len;
