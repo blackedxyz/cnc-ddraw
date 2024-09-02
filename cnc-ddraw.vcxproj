@@ -239,7 +239,7 @@ if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\Te
 if not exist %GIT_PATH% SET GIT_PATH="git.exe"
 
 echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --abbrev=7 --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
 %GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
@@ -283,7 +283,7 @@ if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\Te
 if not exist %GIT_PATH% SET GIT_PATH="git.exe"
 
 echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --abbrev=7 --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
 %GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
@@ -327,7 +327,7 @@ if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\Te
 if not exist %GIT_PATH% SET GIT_PATH="git.exe"
 
 echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --abbrev=7 --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
 %GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
@@ -371,7 +371,7 @@ if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\Te
 if not exist %GIT_PATH% SET GIT_PATH="git.exe"
 
 echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --abbrev=7 --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
 %GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
@@ -415,7 +415,7 @@ if not exist %GIT_PATH% SET GIT_PATH="$(DevEnvDir)\CommonExtensions\Microsoft\Te
 if not exist %GIT_PATH% SET GIT_PATH="git.exe"
 
 echo | set /p dummyName=#define GIT_COMMIT &gt; %DST_FILE%
-%GIT_PATH% describe --match=NeVeRmAtCh --always --abbrev=7 --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
+%GIT_PATH% describe --match=NeVeRmAtCh --always --dirty &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
 
 echo | set /p dummyName=#define GIT_BRANCH &gt;&gt; %DST_FILE%
 %GIT_PATH% rev-parse --abbrev-ref HEAD &gt;&gt; %DST_FILE% || echo UNKNOWN &gt;&gt; %DST_FILE%
