@@ -50,6 +50,12 @@ HRESULT dds_Blt(
     dbg_dump_dds_blt_flags(dwFlags);
     dbg_dump_dds_blt_fx_flags((dwFlags & DDBLT_DDFX) && lpDDBltFx ? lpDDBltFx->dwDDFX : 0);
 
+    if (g_ddraw.ref && g_config.fixnotresponding && !IsWine())
+    {
+        MSG msg; /* workaround for "Not Responding" window problem */
+        real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE);
+    }
+
     if (g_ddraw.ref && 
         g_ddraw.iskkndx &&
         (dwFlags & DDBLT_COLORFILL) &&
