@@ -1120,7 +1120,22 @@ int WINAPI fake_SetDIBitsToDevice(
 {
     HWND hwnd = WindowFromDC(hdc);
 
-    if (g_ddraw.ref && g_ddraw.hwnd && hwnd == g_ddraw.hwnd)
+    char class_name[MAX_PATH] = { 0 };
+
+    if (g_ddraw.ref && g_ddraw.hwnd && hwnd && hwnd != g_ddraw.hwnd)
+    {
+        GetClassNameA(hwnd, class_name, sizeof(class_name) - 1);
+    }
+
+    if (g_ddraw.ref && g_ddraw.hwnd &&
+        (hwnd == g_ddraw.hwnd ||
+            (g_config.fixchilds && IsChild(g_ddraw.hwnd, hwnd) &&
+                (g_config.fixchilds == FIX_CHILDS_DETECT_HIDE ||
+                    strcmp(class_name, "VideoRenderer") == 0 ||
+                    strcmp(class_name, "AVI Window") == 0 ||
+                    strcmp(class_name, "MCIAVI") == 0 ||
+                    strcmp(class_name, "AVIWnd32") == 0 ||
+                    strcmp(class_name, "MCIWndClass") == 0))))
     {
         if (g_ddraw.primary && (g_ddraw.primary->bpp == 16 || g_ddraw.primary->bpp == 32 || g_ddraw.primary->palette))
         {
@@ -1129,19 +1144,22 @@ int WINAPI fake_SetDIBitsToDevice(
 
             if (primary_dc)
             {
+                POINT pt = { 0 };
+                real_MapWindowPoints(hwnd, g_ddraw.hwnd, &pt, 1);
+
                 int result =
                     real_SetDIBitsToDevice(
-                        primary_dc, 
-                        xDest, 
-                        yDest, 
-                        w, 
-                        h, 
-                        xSrc, 
-                        ySrc, 
-                        StartScan, 
-                        cLines, 
-                        lpvBits, 
-                        lpbmi, 
+                        primary_dc,
+                        xDest + pt.x,
+                        yDest + pt.y,
+                        w,
+                        h,
+                        xSrc,
+                        ySrc,
+                        StartScan,
+                        cLines,
+                        lpvBits,
+                        lpbmi,
                         ColorUse);
 
                 dds_ReleaseDC(g_ddraw.primary, primary_dc);
