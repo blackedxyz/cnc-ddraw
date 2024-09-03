@@ -1,2 +1,0 @@
-#define GIT_COMMIT "UNKNOWN" 
-#define GIT_BRANCH "UNKNOWN" 
