@@ -243,8 +243,6 @@ for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKN
 
 echo #define GIT_COMMIT "%GIT_COMMIT%" &gt; %DST_FILE%
 echo #define GIT_BRANCH "%GIT_BRANCH%" &gt;&gt; %DST_FILE%
-
-SET ERRORLEVEL = 0
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -287,8 +285,6 @@ for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKN
 
 echo #define GIT_COMMIT "%GIT_COMMIT%" &gt; %DST_FILE%
 echo #define GIT_BRANCH "%GIT_BRANCH%" &gt;&gt; %DST_FILE%
-
-SET ERRORLEVEL = 0
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -331,8 +327,6 @@ for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKN
 
 echo #define GIT_COMMIT "%GIT_COMMIT%" &gt; %DST_FILE%
 echo #define GIT_BRANCH "%GIT_BRANCH%" &gt;&gt; %DST_FILE%
-
-SET ERRORLEVEL = 0
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -375,8 +369,6 @@ for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKN
 
 echo #define GIT_COMMIT "%GIT_COMMIT%" &gt; %DST_FILE%
 echo #define GIT_BRANCH "%GIT_BRANCH%" &gt;&gt; %DST_FILE%
-
-SET ERRORLEVEL = 0
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -419,8 +411,6 @@ for /f "tokens=*" %%I in ('%GIT_PATH% rev-parse --abbrev-ref HEAD ^|^| echo UNKN
 
 echo #define GIT_COMMIT "%GIT_COMMIT%" &gt; %DST_FILE%
 echo #define GIT_BRANCH "%GIT_BRANCH%" &gt;&gt; %DST_FILE%
-
-SET ERRORLEVEL = 0
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
