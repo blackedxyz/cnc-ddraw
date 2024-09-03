@@ -1548,6 +1548,98 @@ BOOL WINAPI fake_GetDiskFreeSpaceA(
     return result; 
 }
 
+DWORD WINAPI fake_GetVersion()
+{
+    if (_strcmpi(g_config.win_version, "95") == 0) 
+        return 0xC3B60004;
+
+    if (_strcmpi(g_config.win_version, "98") == 0)
+        return 0xC0000A04;
+
+    if (_strcmpi(g_config.win_version, "nt4") == 0)
+        return 0x05650004;
+
+    if (_strcmpi(g_config.win_version, "2000") == 0)
+        return 0x08930005;
+
+    if (_strcmpi(g_config.win_version, "xp") == 0)
+        return 0x0A280105;
+
+    return real_GetVersion();
+}
+
+BOOL WINAPI fake_GetVersionExA(LPOSVERSIONINFOA info)
+{
+    if (info && info->dwOSVersionInfoSize == sizeof(OSVERSIONINFOA))
+    {
+        if (_strcmpi(g_config.win_version, "95") == 0)
+        {
+            *info = (OSVERSIONINFOA){ sizeof(OSVERSIONINFOA), 4, 0, 950, 1, "" };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "98") == 0)
+        {
+            *info = (OSVERSIONINFOA){ sizeof(OSVERSIONINFOA), 4, 10, 67766446, 1, "" };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "nt4") == 0) 
+        {
+            *info = (OSVERSIONINFOA){ sizeof(OSVERSIONINFOA), 4, 0, 1381, 2, "Service Pack 5" };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "2000") == 0) 
+        {
+            *info = (OSVERSIONINFOA){ sizeof(OSVERSIONINFOA), 5, 0, 2195, 2, "" };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "xp") == 0) 
+        {
+            *info = (OSVERSIONINFOA){ sizeof(OSVERSIONINFOA), 5, 1, 2600, 2, "Service Pack 3" };
+            return TRUE;
+        }
+    }
+
+    if (info && info->dwOSVersionInfoSize == sizeof(OSVERSIONINFOEXA))
+    {
+        LPOSVERSIONINFOEXA ex = (LPOSVERSIONINFOEXA)info;
+        if (_strcmpi(g_config.win_version, "95") == 0)
+        {
+            *ex = (OSVERSIONINFOEXA){ sizeof(OSVERSIONINFOEXA), 4, 0, 950, 1, "", 1, 0, 256, 1, 30 };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "98") == 0) 
+        {
+            *ex = (OSVERSIONINFOEXA){ sizeof(OSVERSIONINFOEXA), 4, 10, 67766446, 1, "", 1, 0, 256, 1, 30 };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "nt4") == 0) 
+        {
+            *ex = (OSVERSIONINFOEXA){ sizeof(OSVERSIONINFOEXA), 4, 0, 1381, 2, "Service Pack 5", 5, 0, 256, 1, 30 };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "2000") == 0) 
+        {
+            *ex = (OSVERSIONINFOEXA){ sizeof(OSVERSIONINFOEXA), 5, 0, 2195, 2, "", 0, 0, 256, 1, 30 };
+            return TRUE;
+        }
+
+        if (_strcmpi(g_config.win_version, "xp") == 0) 
+        {
+            *ex = (OSVERSIONINFOEXA){ sizeof(OSVERSIONINFOEXA), 5, 1, 2600, 2, "Service Pack 3", 3, 0, 256, 1, 30 };
+            return TRUE;
+        }
+    }
+
+    return real_GetVersionExA(info);
+}
+
 BOOL WINAPI fake_DestroyWindow(HWND hWnd)
 {
     TRACE("DestroyWindow(hwnd=%p) - g_ddraw.hwnd=%p [%p]\n", hWnd, g_ddraw.hwnd, _ReturnAddress());

@@ -57,6 +57,7 @@ typedef struct CNCDDRAWCONFIG
     int fixchilds;
     BOOL hook_peekmessage;
     BOOL hook_getmessage;
+    char win_version[32];
 
     /* Undocumented settings */
 

@@ -69,6 +69,7 @@ void cfg_load()
     GET_INT(g_config.fixchilds, "fixchilds", FIX_CHILDS_DETECT_PAINT);
     GET_BOOL(g_config.hook_peekmessage, "hook_peekmessage", FALSE);
     GET_BOOL(g_config.hook_getmessage, "hook_getmessage", FALSE);
+    GET_STRING("win_version", "", g_config.win_version, sizeof(g_config.win_version));
 
     /* Undocumented settings */
 
@@ -323,6 +324,7 @@ static void cfg_create_ini()
             "lock_mouse_top_left=false\n"
             "no_compat_warning=false\n"
             "remove_menu=false\n"
+            ";win_version=95\n"
             "\n"
             "\n"
             "\n"

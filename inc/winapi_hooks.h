@@ -72,6 +72,9 @@ BOOL WINAPI fake_GetDiskFreeSpaceA(
     LPDWORD lpNumberOfFreeClusters,
     LPDWORD lpTotalNumberOfClusters);
 
+DWORD WINAPI fake_GetVersion(void);
+BOOL WINAPI fake_GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
+
 HWND WINAPI fake_CreateWindowExA(
     DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y,
     int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam);

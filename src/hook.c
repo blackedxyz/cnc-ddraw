@@ -63,6 +63,8 @@ LOADLIBRARYEXAPROC real_LoadLibraryExA = LoadLibraryExA;
 LOADLIBRARYEXWPROC real_LoadLibraryExW = LoadLibraryExW;
 GETPROCADDRESSPROC real_GetProcAddress = GetProcAddress;
 GETDISKFREESPACEAPROC real_GetDiskFreeSpaceA = GetDiskFreeSpaceA;
+GETVERSIONPROC real_GetVersion = GetVersion;
+GETVERSIONEXAPROC real_GetVersionExA = GetVersionExA;
 COCREATEINSTANCEPROC real_CoCreateInstance = CoCreateInstance;
 MCISENDCOMMANDAPROC real_mciSendCommandA = mciSendCommandA;
 SETUNHANDLEDEXCEPTIONFILTERPROC real_SetUnhandledExceptionFilter = SetUnhandledExceptionFilter;
@@ -168,6 +170,8 @@ HOOKLIST g_hook_hooklist[] =
             { "LoadLibraryExW", (PROC)fake_LoadLibraryExW, (PROC*)&real_LoadLibraryExW, HOOK_SKIP_2 },
             { "GetProcAddress", (PROC)fake_GetProcAddress, (PROC*)&real_GetProcAddress, HOOK_SKIP_2 },
             { "GetDiskFreeSpaceA", (PROC)fake_GetDiskFreeSpaceA, (PROC*)&real_GetDiskFreeSpaceA, HOOK_SKIP_2 },
+            { "GetVersion", (PROC)fake_GetVersion, (PROC*)&real_GetVersion, HOOK_SKIP_2 },
+            { "GetVersionExA", (PROC)fake_GetVersionExA, (PROC*)&real_GetVersionExA, HOOK_SKIP_2 },
 #if defined(_DEBUG) && defined(__GNUC__)
             { "SetUnhandledExceptionFilter", (PROC)fake_SetUnhandledExceptionFilter, (PROC*)&real_SetUnhandledExceptionFilter, 0 },
 #endif
