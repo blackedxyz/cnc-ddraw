@@ -57,7 +57,6 @@ typedef struct CNCDDRAWCONFIG
     int fixchilds;
     BOOL hook_peekmessage;
     BOOL hook_getmessage;
-    char win_version[32];
 
     /* Undocumented settings */
 
@@ -82,6 +81,8 @@ typedef struct CNCDDRAWCONFIG
     BOOL wine_allow_resize;
     BOOL lock_mouse_top_left;
     BOOL no_compat_warning;
+    BOOL remove_menu;
+    char win_version[32];
 
     /* Hotkeys */
 
@@ -96,8 +97,6 @@ typedef struct CNCDDRAWCONFIG
 
     /* Game specific settings */
 
-    BOOL remove_menu;
-    
     BOOL armadahack;
     BOOL tshack;
     BOOL infantryhack;
