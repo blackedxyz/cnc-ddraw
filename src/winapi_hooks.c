@@ -1570,7 +1570,7 @@ DWORD WINAPI fake_GetVersion()
 
 BOOL WINAPI fake_GetVersionExA(LPOSVERSIONINFOA info)
 {
-    if (info && info->dwOSVersionInfoSize == sizeof(OSVERSIONINFOA))
+    if (g_config.win_version[0] && info && info->dwOSVersionInfoSize == sizeof(OSVERSIONINFOA))
     {
         if (_strcmpi(g_config.win_version, "95") == 0)
         {
@@ -1603,7 +1603,7 @@ BOOL WINAPI fake_GetVersionExA(LPOSVERSIONINFOA info)
         }
     }
 
-    if (info && info->dwOSVersionInfoSize == sizeof(OSVERSIONINFOEXA))
+    if (g_config.win_version[0] && info && info->dwOSVersionInfoSize == sizeof(OSVERSIONINFOEXA))
     {
         LPOSVERSIONINFOEXA ex = (LPOSVERSIONINFOEXA)info;
         if (_strcmpi(g_config.win_version, "95") == 0)
