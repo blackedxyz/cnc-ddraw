@@ -124,19 +124,20 @@ void dbg_init()
         char exe_path[MAX_PATH] = { 0 };
         if (GetModuleFileNameA(NULL, exe_path, sizeof(exe_path) - 1) > 0)
         {
+            char filename[MAX_PATH] = { 0 };
             char drive[MAX_PATH] = { 0 };
             char dir[MAX_PATH] = { 0 };
-            _splitpath(exe_path, drive, dir, NULL, NULL);
+            _splitpath(exe_path, drive, dir, filename, NULL);
 
             char game_path[MAX_PATH] = { 0 };
             _makepath(game_path, drive, dir, NULL, NULL);
 
-            _snprintf(g_dbg_dmp_path1, sizeof(g_dbg_dmp_path1) - 1, "%s%s", game_path, "cnc-ddraw-1.dmp");
-            _snprintf(g_dbg_dmp_path2, sizeof(g_dbg_dmp_path2) - 1, "%s%s", game_path, "cnc-ddraw-2.dmp");
+            _snprintf(g_dbg_dmp_path1, sizeof(g_dbg_dmp_path1) - 1, "%scnc-ddraw-%s-1.dmp", game_path, filename);
+            _snprintf(g_dbg_dmp_path2, sizeof(g_dbg_dmp_path2) - 1, "%scnc-ddraw-%s-2.dmp", game_path, filename);
 
-            _snprintf(g_dbg_log_path1, sizeof(g_dbg_log_path1) - 1, "%s%s", game_path, "cnc-ddraw-1.log");
-            _snprintf(g_dbg_log_path2, sizeof(g_dbg_log_path2) - 1, "%s%s", game_path, "cnc-ddraw-2.log");
-            _snprintf(g_dbg_log_path3, sizeof(g_dbg_log_path3) - 1, "%s%s", game_path, "cnc-ddraw-3.log");
+            _snprintf(g_dbg_log_path1, sizeof(g_dbg_log_path1) - 1, "%scnc-ddraw-%s-1.log", game_path, filename);
+            _snprintf(g_dbg_log_path2, sizeof(g_dbg_log_path2) - 1, "%scnc-ddraw-%s-2.log", game_path, filename);
+            _snprintf(g_dbg_log_path3, sizeof(g_dbg_log_path3) - 1, "%scnc-ddraw-%s-3.log", game_path, filename);
         }
 
         remove(g_dbg_dmp_path1);
