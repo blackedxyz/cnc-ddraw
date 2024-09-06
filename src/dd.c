@@ -1670,9 +1670,6 @@ ULONG dd_Release()
 
         if (g_ddraw.hwnd && IsWindow(g_ddraw.hwnd))
         {
-            /* restore old wndproc, subsequent ddraw creation will otherwise fail */
-            real_SetWindowLongA(g_ddraw.hwnd, GWL_WNDPROC, (LONG)g_ddraw.wndproc);
-
             /* restore old window size, required for games that can switch between windowed and fullscreen during runtime */
             if (g_ddraw.width)
             {
@@ -1692,6 +1689,9 @@ ULONG dd_Release()
                     (rc.bottom - rc.top),
                     SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER);
             }
+
+            /* restore old wndproc, subsequent ddraw creation will otherwise fail */
+            real_SetWindowLongA(g_ddraw.hwnd, GWL_WNDPROC, (LONG)g_ddraw.wndproc);
         }
         
         memset(&g_ddraw, 0, sizeof(g_ddraw));
