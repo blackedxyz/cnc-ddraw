@@ -47,7 +47,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
 
     if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down)
     {
-        if (key_up)
+        if (key_down)
             util_toggle_fullscreen();
 
         return 1;
@@ -59,7 +59,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         !g_config.fullscreen &&
         alt_down)
     {
-        if (key_up)
+        if (key_down)
             util_toggle_maximize();
 
         return 1;
@@ -67,7 +67,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
 
     if (g_config.homm_hack && wParam == VK_F4) /* Heroes of Might and Magic 3 and 4 */
     {
-        if (key_up)
+        if (key_down)
             util_toggle_fullscreen();
 
         return 1;
