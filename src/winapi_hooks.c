@@ -9,6 +9,7 @@
 #include "config.h"
 #include "utils.h"
 #include "mouse.h"
+#include "keyboard.h"
 #include "wndproc.h"
 #include "render_gdi.h"
 #include "render_d3d9.h"
@@ -601,7 +602,14 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
         return g_mouse_hook = real_SetWindowsHookExA(idHook, mouse_hook_proc, hmod, dwThreadId);
     }
 
-    return real_SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId);
+    HHOOK result = real_SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId);
+
+    if (idHook == WH_KEYBOARD)
+    {
+        keyboard_hook_init();
+    }
+
+    return result;
 }
 
 BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax)

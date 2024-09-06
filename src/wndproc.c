@@ -758,29 +758,6 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_SYSKEYDOWN:
     {
-        BOOL context_code = (lParam & (1 << 29)) != 0;
-        BOOL key_state = (lParam & (1 << 30)) != 0;
-
-        if (g_config.hotkeys.toggle_fullscreen &&
-            wParam == g_config.hotkeys.toggle_fullscreen &&
-            (!g_config.fullscreen || g_config.toggle_upscaled || (g_config.windowed && g_config.toggle_borderless)) &&
-            context_code && 
-            !key_state)
-        {
-            util_toggle_fullscreen();
-            return 0;
-        }
-
-        if (g_config.hotkeys.toggle_maximize &&
-            wParam == g_config.hotkeys.toggle_maximize &&
-            g_config.resizable && 
-            g_config.windowed && 
-            !g_config.fullscreen)
-        {
-            util_toggle_maximize();
-            return 0;
-        }
-
         if (wParam == VK_MENU)
         {
             g_ddraw.alt_key_down = TRUE;
@@ -795,7 +772,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             g_ddraw.alt_key_down = FALSE;
         }
 
-        if (wParam == VK_TAB || (g_config.hotkeys.toggle_fullscreen && wParam == g_config.hotkeys.toggle_fullscreen))
+        if (wParam == VK_TAB || (wParam && wParam == g_config.hotkeys.toggle_fullscreen))
         {
             return DefWindowProc(hWnd, uMsg, wParam, lParam);
         }
@@ -804,42 +781,10 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_KEYDOWN:
     {
-        if (g_config.homm_hack && wParam == VK_F4) /* Heroes of Might and Magic 3 and 4 */
-        {
-            util_toggle_fullscreen();
-            return 0;
-        }
-
-        if (g_config.hotkeys.unlock_cursor1 && 
-            (wParam == VK_CONTROL || wParam == g_config.hotkeys.unlock_cursor1))
-        {
-            if (real_GetAsyncKeyState(VK_CONTROL) & 0x8000 && real_GetAsyncKeyState(g_config.hotkeys.unlock_cursor1) & 0x8000)
-            {
-                mouse_unlock();
-                return 0;
-            }
-        }
-
-        if (g_config.hotkeys.unlock_cursor2 && 
-            (wParam == g_config.hotkeys.unlock_cursor2 || wParam == VK_MENU || wParam == VK_CONTROL))
-        {
-            if ((real_GetAsyncKeyState(VK_RMENU) & 0x8000) && real_GetAsyncKeyState(g_config.hotkeys.unlock_cursor2) & 0x8000)
-            {
-                mouse_unlock();
-                return 0;
-            }
-        }
-
         break;
     }
     case WM_KEYUP:
     {
-        if (g_config.homm_hack && wParam == VK_F4) /* Heroes of Might and Magic 3 and 4 */
-            return 0;
-
-        if (g_config.hotkeys.screenshot && wParam == g_config.hotkeys.screenshot)
-            ss_take_screenshot(g_ddraw.primary);
-
         break;
     }
     /* button up messages reactivate cursor lock */

@@ -51,6 +51,7 @@
     <ClCompile Include="src\IDirectDraw\IDirectDrawGammaControl.c" />
     <ClCompile Include="src\indeo.c" />
     <ClCompile Include="src\ini.c" />
+    <ClCompile Include="src\keyboard.c" />
     <ClCompile Include="src\utils.c" />
     <ClCompile Include="src\hook.c" />
     <ClCompile Include="src\IDirectDraw\IDirectDraw.c" />
@@ -87,6 +88,7 @@
     <ClInclude Include="inc\IDirectDrawGammaControl.h" />
     <ClInclude Include="inc\indeo.h" />
     <ClInclude Include="inc\ini.h" />
+    <ClInclude Include="inc\keyboard.h" />
     <ClInclude Include="inc\patch.h" />
     <ClInclude Include="inc\utils.h" />
     <ClInclude Include="inc\hook.h" />
