@@ -6,6 +6,7 @@
 #include "config.h"
 #include "keyboard.h"
 #include "mouse.h"
+#include "screenshot.h"
 
 
 HHOOK g_keyboard_hook;

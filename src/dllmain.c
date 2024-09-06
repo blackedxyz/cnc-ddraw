@@ -12,6 +12,7 @@
 #include "indeo.h"
 #include "utils.h"
 #include "versionhelpers.h"
+#include "keyboard.h"
 
 
 /* export for cncnet cnc games */
