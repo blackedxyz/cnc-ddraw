@@ -1024,7 +1024,8 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         if (g_config.remove_menu && GetMenu(g_ddraw.hwnd))
             SetMenu(g_ddraw.hwnd, NULL);
 
-        if (g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
+        if (g_ddraw.last_msg_pull_tick &&
+            g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
             GetCurrentThreadId() == g_ddraw.gui_thread_id && 
             !IsWine())
         {
