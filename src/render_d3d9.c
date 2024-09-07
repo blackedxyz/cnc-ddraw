@@ -15,8 +15,13 @@
 #include "config.h"
 
 
+#ifdef _DEBUG
 #define FAILEDX(stmt) d3d9_check_failed(stmt, #stmt)
 #define SUCCEEDEDX(stmt) d3d9_check_succeeded(stmt, #stmt)
+#else
+#define FAILEDX(stmt) FAILED(stmt)
+#define SUCCEEDEDX(stmt) SUCCEEDED(stmt)
+#endif
 
 static BOOL d3d9_check_failed(HRESULT hr, const char* stmt);
 static BOOL d3d9_check_succeeded(HRESULT hr, const char* stmt);
