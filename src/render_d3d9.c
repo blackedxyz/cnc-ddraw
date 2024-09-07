@@ -15,6 +15,11 @@
 #include "config.h"
 
 
+#define FAILEDX(stmt) d3d9_check_failed(stmt, #stmt)
+#define SUCCEEDEDX(stmt) d3d9_check_succeeded(stmt, #stmt)
+
+static BOOL d3d9_check_failed(HRESULT hr, const char* stmt);
+static BOOL d3d9_check_succeeded(HRESULT hr, const char* stmt);
 static BOOL d3d9_create_resources();
 static BOOL d3d9_set_states();
 static BOOL d3d9_update_vertices(BOOL upscale_hack, BOOL stretch);
@@ -86,10 +91,10 @@ BOOL d3d9_create()
 #if _DEBUG 
             D3DADAPTER_IDENTIFIER9 ai = {0};
             D3DCAPS9 caps = { 0 };
-            HRESULT hr = IDirect3D9_GetAdapterIdentifier(g_d3d9.instance, D3DADAPTER_DEFAULT, 0, &ai);
-            HRESULT hr2 = IDirect3D9_GetDeviceCaps(g_d3d9.instance, D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &caps);
+            HRESULT adapter_hr = IDirect3D9_GetAdapterIdentifier(g_d3d9.instance, D3DADAPTER_DEFAULT, 0, &ai);
+            HRESULT devcaps_hr = IDirect3D9_GetDeviceCaps(g_d3d9.instance, D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &caps);
 
-            if (SUCCEEDED(hr)) 
+            if (SUCCEEDEDX(adapter_hr))
             {
                 TRACE("+--Direct3D9-------------------------------------\n");
                 TRACE("| D3D9On12:            %s (%p)\n", d3d9on12 != NULL ? "True" : "False", GetModuleHandleA("d3d9on12.dll"));
@@ -106,7 +111,7 @@ BOOL d3d9_create()
                 TRACE("| Driver:              %s\n", ai.Driver);
                 TRACE("| Description:         %s\n", ai.Description);
 
-                if (SUCCEEDED(hr2))
+                if (SUCCEEDEDX(devcaps_hr))
                 {
                     TRACE("| MaxTextureWidth:     %d\n", caps.MaxTextureWidth);
                     TRACE("| MaxTextureHeight:    %d\n", caps.MaxTextureHeight);
@@ -146,7 +151,7 @@ BOOL d3d9_create()
 
             for (int i = 0; i < sizeof(behavior_flags) / sizeof(behavior_flags[0]); i++)
             {
-                if (SUCCEEDED(
+                if (SUCCEEDEDX(
                     IDirect3D9_CreateDevice(
                         g_d3d9.instance,
                         D3DADAPTER_DEFAULT,
@@ -161,6 +166,29 @@ BOOL d3d9_create()
     }
 
     return FALSE;
+}
+
+static BOOL d3d9_check_failed(HRESULT hr, const char* stmt)
+{
+    if (FAILED(hr))
+    {
+        TRACE("Direct3D9 error %s [%08x] (%s)\n", dbg_d3d9_hr_to_str(hr), hr, stmt);
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+static BOOL d3d9_check_succeeded(HRESULT hr, const char* stmt)
+{
+    if (!SUCCEEDED(hr))
+    {
+        TRACE("Direct3D9 error %s [%08x] (%s)\n", dbg_d3d9_hr_to_str(hr), hr, stmt);
+
+        return FALSE;
+    }
+
+    return TRUE;
 }
 
 BOOL d3d9_on_device_lost()
@@ -181,7 +209,7 @@ BOOL d3d9_reset(BOOL windowed)
     g_d3d9.params.FullScreen_RefreshRateInHz = g_d3d9.params.Windowed ? 0 : g_config.refresh_rate;
     g_d3d9.params.BackBufferFormat = g_ddraw.mode.dmBitsPerPel == 16 ? D3DFMT_R5G6B5 : D3DFMT_X8R8G8B8;
 
-    if (g_d3d9.device && SUCCEEDED(IDirect3DDevice9_Reset(g_d3d9.device, &g_d3d9.params)))
+    if (g_d3d9.device && SUCCEEDEDX(IDirect3DDevice9_Reset(g_d3d9.device, &g_d3d9.params)))
     {
         BOOL result = d3d9_set_states();
 
@@ -278,7 +306,7 @@ static BOOL d3d9_create_resources()
     g_d3d9.scale_w = (float)width / g_d3d9.tex_width;;
     g_d3d9.scale_h = (float)height / g_d3d9.tex_height;
 
-    err = err || FAILED(
+    err = err || FAILEDX(
         IDirect3DDevice9_CreateVertexBuffer(
             g_d3d9.device,
             sizeof(CUSTOMVERTEX) * 4, 0,
@@ -293,7 +321,7 @@ static BOOL d3d9_create_resources()
     {
         if (g_ddraw.bpp == 16 && g_config.rgb555)
         {
-            BOOL error = FAILED(
+            BOOL error = FAILEDX(
                 IDirect3DDevice9_CreateTexture(
                     g_d3d9.device,
                     g_d3d9.tex_width,
@@ -307,7 +335,7 @@ static BOOL d3d9_create_resources()
             
             if (error)
             {
-                err = err || FAILED(
+                err = err || FAILEDX(
                     IDirect3DDevice9_CreateTexture(
                         g_d3d9.device,
                         g_d3d9.tex_width,
@@ -322,7 +350,7 @@ static BOOL d3d9_create_resources()
         }
         else if (g_ddraw.bpp == 32)
         {
-            BOOL error = FAILED(
+            BOOL error = FAILEDX(
                 IDirect3DDevice9_CreateTexture(
                     g_d3d9.device,
                     g_d3d9.tex_width,
@@ -336,7 +364,7 @@ static BOOL d3d9_create_resources()
 
             if (error)
             {
-                err = err || FAILED(
+                err = err || FAILEDX(
                     IDirect3DDevice9_CreateTexture(
                         g_d3d9.device,
                         g_d3d9.tex_width,
@@ -351,7 +379,7 @@ static BOOL d3d9_create_resources()
         }
         else
         {
-            err = err || FAILED(
+            err = err || FAILEDX(
                 IDirect3DDevice9_CreateTexture(
                     g_d3d9.device,
                     g_d3d9.tex_width,
@@ -368,7 +396,7 @@ static BOOL d3d9_create_resources()
 
         if (g_ddraw.bpp == 8)
         {
-            BOOL error = FAILED(
+            BOOL error = FAILEDX(
                 IDirect3DDevice9_CreateTexture(
                     g_d3d9.device,
                     256,
@@ -382,7 +410,7 @@ static BOOL d3d9_create_resources()
 
             if (error)
             {
-                err = err || FAILED(
+                err = err || FAILEDX(
                     IDirect3DDevice9_CreateTexture(
                         g_d3d9.device,
                         256,
@@ -401,7 +429,7 @@ static BOOL d3d9_create_resources()
 
     if (g_ddraw.bpp == 8)
     {
-        err = err || FAILED(
+        err = err || FAILEDX(
             IDirect3DDevice9_CreatePixelShader(g_d3d9.device, (DWORD*)D3D9_PALETTE_SHADER, &g_d3d9.pixel_shader));
 
         IDirect3DDevice9_CreatePixelShader(
@@ -413,7 +441,7 @@ static BOOL d3d9_create_resources()
     {
         if (g_config.d3d9_filter == FILTER_LANCZOS)
         {
-            BOOL error = FAILED(
+            BOOL error = FAILEDX(
                 IDirect3DDevice9_CreatePixelShader(
                     g_d3d9.device,
                     (DWORD*)D3D9_LANCZOS2_SHADER,
@@ -441,20 +469,20 @@ static BOOL d3d9_set_states()
 {
     BOOL err = FALSE;
 
-    err = err || FAILED(IDirect3DDevice9_SetFVF(g_d3d9.device, D3DFVF_XYZRHW | D3DFVF_TEX1));
-    err = err || FAILED(IDirect3DDevice9_SetStreamSource(g_d3d9.device, 0, g_d3d9.vertex_buf, 0, sizeof(CUSTOMVERTEX)));
-    err = err || FAILED(IDirect3DDevice9_SetTexture(g_d3d9.device, 0, (IDirect3DBaseTexture9*)g_d3d9.surface_tex[0]));
+    err = err || FAILEDX(IDirect3DDevice9_SetFVF(g_d3d9.device, D3DFVF_XYZRHW | D3DFVF_TEX1));
+    err = err || FAILEDX(IDirect3DDevice9_SetStreamSource(g_d3d9.device, 0, g_d3d9.vertex_buf, 0, sizeof(CUSTOMVERTEX)));
+    err = err || FAILEDX(IDirect3DDevice9_SetTexture(g_d3d9.device, 0, (IDirect3DBaseTexture9*)g_d3d9.surface_tex[0]));
 
     if (g_ddraw.bpp == 8)
     {
-        err = err || FAILED(IDirect3DDevice9_SetTexture(g_d3d9.device, 1, (IDirect3DBaseTexture9*)g_d3d9.palette_tex[0]));
+        err = err || FAILEDX(IDirect3DDevice9_SetTexture(g_d3d9.device, 1, (IDirect3DBaseTexture9*)g_d3d9.palette_tex[0]));
         
         BOOL bilinear =
             g_config.d3d9_filter &&
             g_d3d9.pixel_shader_upscale &&
             (g_ddraw.render.viewport.width != g_ddraw.width || g_ddraw.render.viewport.height != g_ddraw.height || g_config.vhack);
 
-        err = err || FAILED(
+        err = err || FAILEDX(
             IDirect3DDevice9_SetPixelShader(
                 g_d3d9.device, 
                 bilinear ? g_d3d9.pixel_shader_upscale : g_d3d9.pixel_shader));
@@ -462,7 +490,7 @@ static BOOL d3d9_set_states()
         if (bilinear)
         {
             float texture_size[4] = { (float)g_d3d9.tex_width, (float)g_d3d9.tex_height, 0, 0 };
-            err = err || FAILED(IDirect3DDevice9_SetPixelShaderConstantF(g_d3d9.device, 0, texture_size, 1));
+            err = err || FAILEDX(IDirect3DDevice9_SetPixelShaderConstantF(g_d3d9.device, 0, texture_size, 1));
         }
     }
     else
@@ -473,22 +501,22 @@ static BOOL d3d9_set_states()
                 g_d3d9.pixel_shader_upscale &&
                 (g_ddraw.render.viewport.width != g_ddraw.width || 
                     g_ddraw.render.viewport.height != g_ddraw.height) &&
-                SUCCEEDED(IDirect3DDevice9_SetPixelShader(g_d3d9.device, g_d3d9.pixel_shader_upscale)))
+                SUCCEEDEDX(IDirect3DDevice9_SetPixelShader(g_d3d9.device, g_d3d9.pixel_shader_upscale)))
             {
                 float texture_size[4] = { (float)g_d3d9.tex_width, (float)g_d3d9.tex_height, 0, 0 };
-                err = err || FAILED(IDirect3DDevice9_SetPixelShaderConstantF(g_d3d9.device, 0, texture_size, 1));
+                err = err || FAILEDX(IDirect3DDevice9_SetPixelShaderConstantF(g_d3d9.device, 0, texture_size, 1));
             }
             else if (
-                SUCCEEDED(IDirect3DDevice9_SetSamplerState(g_d3d9.device, 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR)) &&
-                SUCCEEDED(IDirect3DDevice9_SetSamplerState(g_d3d9.device, 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR)) &&
+                SUCCEEDEDX(IDirect3DDevice9_SetSamplerState(g_d3d9.device, 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR)) &&
+                SUCCEEDEDX(IDirect3DDevice9_SetSamplerState(g_d3d9.device, 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR)) &&
                 g_config.d3d9_filter == FILTER_CUBIC &&
                 g_d3d9.pixel_shader_upscale &&
                 (g_ddraw.render.viewport.width != g_ddraw.width || 
                     g_ddraw.render.viewport.height != g_ddraw.height) &&
-                SUCCEEDED(IDirect3DDevice9_SetPixelShader(g_d3d9.device, g_d3d9.pixel_shader_upscale)))
+                SUCCEEDEDX(IDirect3DDevice9_SetPixelShader(g_d3d9.device, g_d3d9.pixel_shader_upscale)))
             {
                 float texture_size[4] = { (float)g_d3d9.tex_width, (float)g_d3d9.tex_height, 0, 0 };
-                err = err || FAILED(IDirect3DDevice9_SetPixelShaderConstantF(g_d3d9.device, 0, texture_size, 1));
+                err = err || FAILEDX(IDirect3DDevice9_SetPixelShaderConstantF(g_d3d9.device, 0, texture_size, 1));
             }
         }
     }
@@ -502,7 +530,7 @@ static BOOL d3d9_set_states()
         0.0f,
         1.0f };
 
-    err = err || FAILED(IDirect3DDevice9_SetViewport(g_d3d9.device, &view_data));
+    err = err || FAILEDX(IDirect3DDevice9_SetViewport(g_d3d9.device, &view_data));
     */
     return !err;
 }
@@ -527,7 +555,7 @@ static BOOL d3d9_update_vertices(BOOL upscale_hack, BOOL stretch)
     };
 
     void* data;
-    if (g_d3d9.vertex_buf && SUCCEEDED(IDirect3DVertexBuffer9_Lock(g_d3d9.vertex_buf, 0, 0, (void**)&data, 0)))
+    if (g_d3d9.vertex_buf && SUCCEEDEDX(IDirect3DVertexBuffer9_Lock(g_d3d9.vertex_buf, 0, 0, (void**)&data, 0)))
     {
         memcpy(data, vertices, sizeof(vertices));
 
@@ -594,8 +622,8 @@ DWORD WINAPI d3d9_render_main(void)
 
                 RECT rc = { 0, 0, g_ddraw.width, g_ddraw.height };
 
-                if (SUCCEEDED(IDirect3DDevice9_SetTexture(g_d3d9.device, 0, (IDirect3DBaseTexture9*)g_d3d9.surface_tex[tex_index])) &&
-                    SUCCEEDED(IDirect3DTexture9_LockRect(g_d3d9.surface_tex[tex_index], 0, &lock_rc, &rc, 0)))
+                if (SUCCEEDEDX(IDirect3DDevice9_SetTexture(g_d3d9.device, 0, (IDirect3DBaseTexture9*)g_d3d9.surface_tex[tex_index])) &&
+                    SUCCEEDEDX(IDirect3DTexture9_LockRect(g_d3d9.surface_tex[tex_index], 0, &lock_rc, &rc, 0)))
                 {
                     blt_clean(
                         lock_rc.pBits,
@@ -622,8 +650,8 @@ DWORD WINAPI d3d9_render_main(void)
 
                 RECT rc = { 0,0,256,1 };
 
-                if (SUCCEEDED(IDirect3DDevice9_SetTexture(g_d3d9.device, 1, (IDirect3DBaseTexture9*)g_d3d9.palette_tex[pal_index])) &&
-                    SUCCEEDED(IDirect3DTexture9_LockRect(g_d3d9.palette_tex[pal_index], 0, &lock_rc, &rc, 0)))
+                if (SUCCEEDEDX(IDirect3DDevice9_SetTexture(g_d3d9.device, 1, (IDirect3DBaseTexture9*)g_d3d9.palette_tex[pal_index])) &&
+                    SUCCEEDEDX(IDirect3DTexture9_LockRect(g_d3d9.palette_tex[pal_index], 0, &lock_rc, &rc, 0)))
                 {
                     memcpy(lock_rc.pBits, g_ddraw.primary->palette->data_rgb, 256 * sizeof(int));
 
