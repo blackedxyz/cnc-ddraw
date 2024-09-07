@@ -83,7 +83,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
             ss_take_screenshot(g_ddraw.primary);
     }
 
-    if (wParam == VK_CONTROL || wParam == g_config.hotkeys.unlock_cursor1)
+    if (wParam == g_config.hotkeys.unlock_cursor1 || wParam == VK_CONTROL)
     {
         if ((real_GetAsyncKeyState(VK_CONTROL) & 0x8000) && 
             (real_GetAsyncKeyState(g_config.hotkeys.unlock_cursor1) & 0x8000))
