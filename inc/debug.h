@@ -29,7 +29,7 @@ void dbg_dump_dds_lock_flags(DWORD flags);
 char* dbg_d3d9_hr_to_str(HRESULT hr);
 char* dbg_mes_to_str(int id);
 
-__declspec(noreturn) void __cdecl dbg_invoke_watson(
+void __cdecl dbg_invoke_watson(
     _In_opt_z_ wchar_t const*,
     _In_opt_z_ wchar_t const*,
     _In_opt_z_ wchar_t const*,

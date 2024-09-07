@@ -18,13 +18,13 @@
 #ifdef _DEBUG
 #define FAILEDX(stmt) d3d9_check_failed(stmt, #stmt)
 #define SUCCEEDEDX(stmt) d3d9_check_succeeded(stmt, #stmt)
+static BOOL d3d9_check_failed(HRESULT hr, const char* stmt);
+static BOOL d3d9_check_succeeded(HRESULT hr, const char* stmt);
 #else
 #define FAILEDX(stmt) FAILED(stmt)
 #define SUCCEEDEDX(stmt) SUCCEEDED(stmt)
 #endif
 
-static BOOL d3d9_check_failed(HRESULT hr, const char* stmt);
-static BOOL d3d9_check_succeeded(HRESULT hr, const char* stmt);
 static BOOL d3d9_create_resources();
 static BOOL d3d9_set_states();
 static BOOL d3d9_update_vertices(BOOL upscale_hack, BOOL stretch);
@@ -173,6 +173,7 @@ BOOL d3d9_create()
     return FALSE;
 }
 
+#ifdef _DEBUG
 static BOOL d3d9_check_failed(HRESULT hr, const char* stmt)
 {
     if (FAILED(hr))
@@ -195,6 +196,7 @@ static BOOL d3d9_check_succeeded(HRESULT hr, const char* stmt)
 
     return TRUE;
 }
+#endif
 
 BOOL d3d9_on_device_lost()
 {
