@@ -53,20 +53,20 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         g_ddraw.alt_key_down = alt_down;
     }
 
-    if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down)
+    if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down && key_down)
     {
-        if (key_down)
-            util_toggle_fullscreen();
+        util_toggle_fullscreen();
 
-        return 1;
+        if (!key_up)
+            return 1;
     }
 
-    if (wParam == g_config.hotkeys.toggle_maximize && alt_down)
+    if (wParam == g_config.hotkeys.toggle_maximize && alt_down && key_down)
     {
-        if (key_down)
-            util_toggle_maximize();
+        util_toggle_maximize();
 
-        return 1;
+        if (!key_up)
+            return 1;
     }
 
     if (wParam == VK_F4 && g_config.homm_hack) /* Heroes of Might and Magic 3 and 4 */
@@ -89,7 +89,9 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
             (real_GetAsyncKeyState(g_config.hotkeys.unlock_cursor1) & 0x8000))
         {
             mouse_unlock();
-            return 1;
+
+            if (!key_up)
+                return 1;
         }
     }
 
@@ -99,7 +101,9 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
             (real_GetAsyncKeyState(g_config.hotkeys.unlock_cursor2) & 0x8000))
         {
             mouse_unlock();
-            return 1;
+
+            if (!key_up)
+                return 1;
         }
     }
 
