@@ -53,17 +53,19 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         g_ddraw.alt_key_down = alt_down;
     }
 
-    if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down && key_down)
+    if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down)
     {
-        util_toggle_fullscreen();
+        if (key_down)
+            util_toggle_fullscreen();
 
         if (!key_up)
             return 1;
     }
 
-    if (wParam == g_config.hotkeys.toggle_maximize && alt_down && key_down)
+    if (wParam == g_config.hotkeys.toggle_maximize && alt_down)
     {
-        util_toggle_maximize();
+        if (key_down)
+            util_toggle_maximize();
 
         if (!key_up)
             return 1;
