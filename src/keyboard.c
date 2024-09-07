@@ -46,7 +46,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
     BOOL key_down = !(lParam & (1 << 30));
     BOOL key_up = !!(lParam & (1 << 31));
 
-    //TRACE("VK_MENU - wParam=%u, key_down=%u, key_up=%u, alt_down=%u\n", wParam, key_down, key_up, alt_down);
+    //TRACE("kbhook wParam=%u, key_down=%u, key_up=%u, alt_down=%u\n", wParam, key_down, key_up, alt_down);
 
     if (wParam == VK_MENU && (key_up || key_down)) /* Fix for alt key being stuck on alt+tab in some games */
     {
@@ -61,11 +61,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         return 1;
     }
 
-    if (wParam == g_config.hotkeys.toggle_maximize &&
-        g_config.resizable &&
-        g_config.windowed &&
-        !g_config.fullscreen &&
-        alt_down)
+    if (wParam == g_config.hotkeys.toggle_maximize && alt_down)
     {
         if (key_down)
             util_toggle_maximize();
@@ -73,12 +69,18 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         return 1;
     }
 
-    if (g_config.homm_hack && wParam == VK_F4) /* Heroes of Might and Magic 3 and 4 */
+    if (wParam == VK_F4 && g_config.homm_hack) /* Heroes of Might and Magic 3 and 4 */
     {
         if (key_down)
             util_toggle_fullscreen();
 
         return 1;
+    }
+
+    if (wParam == g_config.hotkeys.screenshot)
+    {
+        if (key_up)
+            ss_take_screenshot(g_ddraw.primary);
     }
 
     if (wParam == VK_CONTROL || wParam == g_config.hotkeys.unlock_cursor1)
@@ -99,11 +101,6 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
             mouse_unlock();
             return 1;
         }
-    }
-
-    if (key_up && wParam == g_config.hotkeys.screenshot)
-    {
-        ss_take_screenshot(g_ddraw.primary);
     }
 
     return CallNextHookEx(g_keyboard_hook, code, wParam, lParam);

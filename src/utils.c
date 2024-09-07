@@ -573,6 +573,9 @@ BOOL util_get_lowest_resolution(
 
 void util_toggle_maximize()
 {
+    if (!g_config.resizable || !g_config.windowed || g_config.fullscreen)
+        return;
+
     RECT client_rc;
     RECT dst_rc;
 
