@@ -707,7 +707,10 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             }
             
             if (wParam && g_ddraw.alt_key_down && !g_config.releasealt)
+            {
                 PostMessageA(g_ddraw.hwnd, WM_SYSKEYUP, VK_MENU, 0);
+                g_ddraw.alt_key_down = FALSE;
+            }
 
             return 0;
         }
@@ -758,20 +761,10 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_SYSKEYDOWN:
     {
-        if (wParam == VK_MENU)
-        {
-            g_ddraw.alt_key_down = TRUE;
-        }
-
         break;
     }
     case WM_SYSKEYUP:
     {
-        if (wParam == VK_MENU)
-        {
-            g_ddraw.alt_key_down = FALSE;
-        }
-
         if (wParam == VK_TAB || (wParam && wParam == g_config.hotkeys.toggle_fullscreen))
         {
             return DefWindowProc(hWnd, uMsg, wParam, lParam);

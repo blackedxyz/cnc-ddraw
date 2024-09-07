@@ -39,12 +39,19 @@ void keyboard_hook_exit()
 
 LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
 {
-    if (code < 0 || !wParam) // code != HC_ACTION || 
+    if (code < 0 || !wParam)
         return CallNextHookEx(g_keyboard_hook, code, wParam, lParam);
 
-    BOOL alt_down = (lParam & (1 << 29));
+    BOOL alt_down = !!(lParam & (1 << 29));
     BOOL key_down = !(lParam & (1 << 30));
     BOOL key_up = !!(lParam & (1 << 31));
+
+    //TRACE("VK_MENU - wParam=%u, key_down=%u, key_up=%u, alt_down=%u\n", wParam, key_down, key_up, alt_down);
+
+    if (wParam == VK_MENU && (key_up || key_down)) /* Fix for alt key being stuck on alt+tab in some games */
+    {
+        g_ddraw.alt_key_down = alt_down;
+    }
 
     if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down)
     {
