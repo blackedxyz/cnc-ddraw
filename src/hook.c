@@ -547,6 +547,7 @@ void hook_create(HOOKLIST* hooks, BOOL initial_hook)
                         _strcmpi(mod_filename, "libglapi") == 0 ||
                         _strcmpi(mod_filename, "d3d9") == 0 ||
                         _strcmpi(mod_filename, "mdraw") == 0 ||
+                        _strcmpi(mod_filename, "SH33W32") == 0 ||
                         _strcmpi(mod_filename, "Shw32") == 0)
                         continue;
 
