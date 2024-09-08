@@ -573,7 +573,7 @@ BOOL util_get_lowest_resolution(
 
 void util_toggle_maximize()
 {
-    if (!g_config.resizable || !g_config.windowed || g_config.fullscreen)
+    if (!g_config.resizable || !g_config.windowed || g_config.fullscreen || !g_ddraw.width)
         return;
 
     RECT client_rc;
@@ -677,7 +677,7 @@ void util_toggle_maximize()
 void util_toggle_fullscreen()
 {
     /* Disable ALT+ENTER on battle.net and Infantry Online Zone List Window */
-    if (g_ddraw.bnet_active || (g_config.infantryhack && GetMenu(g_ddraw.hwnd)))
+    if (g_ddraw.bnet_active || !g_ddraw.width || (g_config.infantryhack && GetMenu(g_ddraw.hwnd)))
         return;
 
     if (g_config.toggle_borderless && g_config.windowed)
