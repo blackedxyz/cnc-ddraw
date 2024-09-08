@@ -43,46 +43,44 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         return CallNextHookEx(g_keyboard_hook, code, wParam, lParam);
 
     BOOL alt_down = !!(lParam & (1 << 29));
-    BOOL key_down = !(lParam & (1 << 30));
-    BOOL key_up = !!(lParam & (1 << 31));
+    BOOL key_down = !(lParam & (1 << 31));
+    BOOL key_released = !!(lParam & (1 << 31));
+    BOOL key_triggered = !(lParam & (1 << 30));
 
-    //TRACE("kbhook wParam=%u, key_down=%u, key_up=%u, alt_down=%u\n", wParam, key_down, key_up, alt_down);
+    TRACE("kbhook wParam=%u, triggered=%u, released=%u, alt_down=%u\n", wParam, key_triggered, key_released, alt_down);
 
-    if (wParam == VK_MENU && (key_up || key_down)) /* Fix for alt key being stuck on alt+tab in some games */
+    if (wParam == VK_MENU && (key_released || key_triggered)) /* Fix for alt key being stuck on alt+tab in some games */
     {
         g_ddraw.alt_key_down = alt_down;
     }
 
-    if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down)
+    if (wParam == g_config.hotkeys.toggle_fullscreen && alt_down && key_down)
     {
-        if (key_down)
-            util_toggle_fullscreen();
-
-        if (!key_up)
-            return 1;
-    }
-
-    if (wParam == g_config.hotkeys.toggle_maximize && alt_down)
-    {
-        if (key_down)
-            util_toggle_maximize();
-
-        if (!key_up)
-            return 1;
-    }
-
-    if (wParam == VK_F4 && g_config.homm_hack) /* Heroes of Might and Magic 3 and 4 */
-    {
-        if (key_down)
+        if (key_triggered)
             util_toggle_fullscreen();
 
         return 1;
     }
 
-    if (wParam == g_config.hotkeys.screenshot)
+    if (wParam == g_config.hotkeys.toggle_maximize && alt_down && key_down)
     {
-        if (key_up)
-            ss_take_screenshot(g_ddraw.primary);
+        if (key_triggered)
+            util_toggle_maximize();
+
+        return 1;
+    }
+
+    if (wParam == VK_F4 && g_config.homm_hack) /* Heroes of Might and Magic 3 and 4 */
+    {
+        if (key_triggered)
+            util_toggle_fullscreen();
+
+        return 1;
+    }
+
+    if (wParam == g_config.hotkeys.screenshot && key_released)
+    {
+        ss_take_screenshot(g_ddraw.primary);
     }
 
     if (wParam == g_config.hotkeys.unlock_cursor1 || wParam == VK_CONTROL)
@@ -92,7 +90,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         {
             mouse_unlock();
 
-            if (!key_up)
+            if (key_down)
                 return 1;
         }
     }
@@ -104,7 +102,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         {
             mouse_unlock();
 
-            if (!key_up)
+            if (key_down)
                 return 1;
         }
     }
