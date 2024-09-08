@@ -13,6 +13,7 @@
 #include "utils.h"
 #include "versionhelpers.h"
 #include "keyboard.h"
+#include "mouse.h"
 
 
 /* export for cncnet cnc games */
@@ -140,6 +141,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         indeo_disable();
         timeEndPeriod(1);
         keyboard_hook_exit();
+        mouse_hook_exit();
         dinput_hook_exit();
         hook_exit();
         break;

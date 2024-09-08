@@ -612,146 +612,12 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
     return result;
 }
 
-BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax)
-{
-    if (g_ddraw.ref && g_ddraw.width)
-    {
-        switch (lpMsg->message)
-        {
-        case WM_LBUTTONUP:
-        case WM_RBUTTONUP:
-        case WM_MBUTTONUP:
-        {
-            if (!g_config.devmode && !g_mouse_locked)
-            {
-                int x = GET_X_LPARAM(lpMsg->lParam);
-                int y = GET_Y_LPARAM(lpMsg->lParam);
-
-                if (x > g_ddraw.render.viewport.x + g_ddraw.render.viewport.width ||
-                    x < g_ddraw.render.viewport.x ||
-                    y > g_ddraw.render.viewport.y + g_ddraw.render.viewport.height ||
-                    y < g_ddraw.render.viewport.y)
-                {
-                    x = g_ddraw.width / 2;
-                    y = g_ddraw.height / 2;
-                }
-                else
-                {
-                    x = (DWORD)((x - g_ddraw.render.viewport.x) * g_ddraw.mouse.unscale_x);
-                    y = (DWORD)((y - g_ddraw.render.viewport.y) * g_ddraw.mouse.unscale_y);
-                }
-
-                InterlockedExchange((LONG*)&g_ddraw.cursor.x, x);
-                InterlockedExchange((LONG*)&g_ddraw.cursor.y, y);
-
-                mouse_lock();
-                //return FALSE;
-            }
-            /* fall through for lParam */
-        }
-        /* down messages are ignored if we have no cursor lock */
-        case WM_XBUTTONDBLCLK:
-        case WM_XBUTTONDOWN:
-        case WM_XBUTTONUP:
-        case WM_MOUSEWHEEL:
-        case WM_MOUSEHOVER:
-        case WM_LBUTTONDBLCLK:
-        case WM_MBUTTONDBLCLK:
-        case WM_RBUTTONDBLCLK:
-        case WM_LBUTTONDOWN:
-        case WM_RBUTTONDOWN:
-        case WM_MBUTTONDOWN:
-        case WM_MOUSEMOVE:
-        {
-            if (!g_config.devmode && !g_mouse_locked)
-            {
-                // Does not work with 'New Robinson'
-                //return FALSE;
-            }
-
-            if (lpMsg->message == WM_MOUSEWHEEL)
-            {
-                POINT pt = { GET_X_LPARAM(lpMsg->lParam), GET_Y_LPARAM(lpMsg->lParam) };
-                real_ScreenToClient(g_ddraw.hwnd, &pt);
-                lpMsg->lParam = MAKELPARAM(pt.x, pt.y);
-            }
-
-            int x = max(GET_X_LPARAM(lpMsg->lParam) - g_ddraw.mouse.x_adjust, 0);
-            int y = max(GET_Y_LPARAM(lpMsg->lParam) - g_ddraw.mouse.y_adjust, 0);
-
-            if (g_config.adjmouse)
-            {
-                if (g_config.vhack && !g_config.devmode)
-                {
-                    POINT pt = { 0, 0 };
-                    fake_GetCursorPos(&pt);
-
-                    x = pt.x;
-                    y = pt.y;
-                }
-                else
-                {
-                    x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
-                    y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
-                }
-            }
-
-            x = min(x, g_ddraw.width - 1);
-            y = min(y, g_ddraw.height - 1);
-
-            InterlockedExchange((LONG*)&g_ddraw.cursor.x, x);
-            InterlockedExchange((LONG*)&g_ddraw.cursor.y, y);
-
-            lpMsg->lParam = MAKELPARAM(x, y);
-
-            lpMsg->pt.x = x;
-            lpMsg->pt.y = y;
-
-            break;
-        }
-
-        }
-    }
-
-    return TRUE;
-}
-
 BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax)
 {
     if (g_ddraw.ref && (!hWnd || hWnd == g_ddraw.hwnd))
         g_ddraw.last_msg_pull_tick = timeGetTime();
 
-    BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-
-    if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)
-    {
-        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
-        {
-            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
-            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
-
-            if (g_config.adjmouse)
-            {
-                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
-                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
-            }
-
-            lpMsg->pt.x = min(x, g_ddraw.width - 1);
-            lpMsg->pt.y = min(y, g_ddraw.height - 1);
-        }
-        else
-        {
-            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
-            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
-        }
-
-        if (g_config.hook_getmessage)
-        {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-        }
-    }
-
-    return result;
+    return real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
 }
 
 BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
@@ -759,37 +625,7 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
     if (g_ddraw.ref && (!hWnd || hWnd == g_ddraw.hwnd))
         g_ddraw.last_msg_pull_tick = timeGetTime();
 
-    BOOL result = real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
-
-    if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)
-    {
-        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
-        {
-            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
-            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
-
-            if (g_config.adjmouse)
-            {
-                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
-                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
-            }
-
-            lpMsg->pt.x = min(x, g_ddraw.width - 1);
-            lpMsg->pt.y = min(y, g_ddraw.height - 1);
-        }
-        else
-        {
-            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
-            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
-        }
-
-        if (g_config.hook_peekmessage)
-        {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-        }
-    }
-
-    return result;
+    return real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 }
 
 BOOL WINAPI fake_GetWindowPlacement(HWND hWnd, WINDOWPLACEMENT* lpwndpl)
