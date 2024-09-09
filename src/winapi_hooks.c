@@ -598,7 +598,7 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
     return result;
 }
 
-void HandleMessage(LPMSG lpMsg, HWND hWnd)
+void HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
 {
     if (lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
@@ -638,7 +638,13 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd)
 
                 mouse_lock();
 
-                //lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
+                if (!wMsgFilterMin && 
+                    !wMsgFilterMax && 
+                    !(wRemoveMsg & (PM_QS_INPUT | PM_QS_PAINT | PM_QS_POSTMESSAGE | PM_QS_SENDMESSAGE)))
+                {
+                    lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
+                }
+
                 break;
             }
             
@@ -661,7 +667,13 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd)
             if (!g_config.devmode && !g_mouse_locked)
             {
                 // Does not work with 'New Robinson'
-                //lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
+                if (!wMsgFilterMin && 
+                    !wMsgFilterMax && 
+                    !(wRemoveMsg & (PM_QS_INPUT | PM_QS_PAINT | PM_QS_POSTMESSAGE | PM_QS_SENDMESSAGE)))
+                {
+                    lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
+                }
+
                 break;
             }
 
@@ -681,7 +693,7 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
     BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
     if (result)
     {
-        HandleMessage(lpMsg, hWnd);
+        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, 0);
     }
 
     return result;
@@ -695,7 +707,7 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
     BOOL result = real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
     if (result)
     {
-        HandleMessage(lpMsg, hWnd);
+        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
     }
 
     return result;
