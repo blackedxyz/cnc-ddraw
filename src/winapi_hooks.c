@@ -631,7 +631,7 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
         case WM_RBUTTONUP:
         case WM_MBUTTONUP:
         {
-            if (!g_config.devmode && !g_mouse_locked)
+            if (!g_config.devmode && !g_mouse_locked && (wRemoveMsg & PM_REMOVE))
             {
                 InterlockedExchange((LONG*)&g_ddraw.cursor.x, GET_X_LPARAM(lpMsg->lParam));
                 InterlockedExchange((LONG*)&g_ddraw.cursor.y, GET_Y_LPARAM(lpMsg->lParam));
@@ -693,7 +693,7 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
     BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
     if (result)
     {
-        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, 0);
+        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, PM_REMOVE);
     }
 
     return result;
