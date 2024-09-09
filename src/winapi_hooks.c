@@ -612,12 +612,96 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
     return result;
 }
 
+BOOL HandleMessage(LPMSG lpMsg, HWND hWnd)
+{
+    if (lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
+    {
+        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
+        {
+            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
+            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
+
+            if (g_config.adjmouse)
+            {
+                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
+                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
+            }
+
+            lpMsg->pt.x = min(x, g_ddraw.width - 1);
+            lpMsg->pt.y = min(y, g_ddraw.height - 1);
+        }
+        else
+        {
+            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
+            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
+        }
+
+        if (lpMsg->hwnd != g_ddraw.hwnd)
+            return TRUE;
+
+        switch (LOWORD(lpMsg->message))
+        {
+        case WM_LBUTTONUP:
+        case WM_RBUTTONUP:
+        case WM_MBUTTONUP:
+        {
+            if (!g_config.devmode && !g_mouse_locked)
+            {
+                TRACE("HandleMessage %s hWnd=%p, lpMsg->hWnd=%p\n", dbg_mes_to_str(lpMsg->message), hWnd, lpMsg->hwnd);
+
+                InterlockedExchange((LONG*)&g_ddraw.cursor.x, GET_X_LPARAM(lpMsg->lParam));
+                InterlockedExchange((LONG*)&g_ddraw.cursor.y, GET_Y_LPARAM(lpMsg->lParam));
+
+                mouse_lock();
+
+                lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
+                return FALSE;
+            }
+            
+            break;
+        }
+        /* down messages are ignored if we have no cursor lock */
+        case WM_XBUTTONDBLCLK:
+        case WM_XBUTTONDOWN:
+        case WM_XBUTTONUP:
+        case WM_MOUSEWHEEL:
+        case WM_MOUSEHOVER:
+        case WM_LBUTTONDBLCLK:
+        case WM_MBUTTONDBLCLK:
+        case WM_RBUTTONDBLCLK:
+        case WM_LBUTTONDOWN:
+        case WM_RBUTTONDOWN:
+        case WM_MBUTTONDOWN:
+        case WM_MOUSEMOVE:
+        {
+            if (!g_config.devmode && !g_mouse_locked)
+            {
+                // Does not work with 'New Robinson'
+                lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
+                return FALSE;
+            }
+
+            break;
+        }
+
+        }
+    }
+
+    return TRUE;
+}
+
 BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax)
 {
     if (g_ddraw.ref && (!hWnd || hWnd == g_ddraw.hwnd))
         g_ddraw.last_msg_pull_tick = timeGetTime();
 
-    return real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+    BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+    if (result)
+    {
+        HandleMessage(lpMsg, hWnd);
+    }
+
+    return result;
 }
 
 BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
@@ -625,7 +709,13 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
     if (g_ddraw.ref && (!hWnd || hWnd == g_ddraw.hwnd))
         g_ddraw.last_msg_pull_tick = timeGetTime();
 
-    return real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
+    BOOL result = real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
+    if (result)
+    {
+        return HandleMessage(lpMsg, hWnd);
+    }
+
+    return result;
 }
 
 BOOL WINAPI fake_GetWindowPlacement(HWND hWnd, WINDOWPLACEMENT* lpwndpl)
