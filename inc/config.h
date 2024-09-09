@@ -40,6 +40,8 @@ typedef struct CNCDDRAWCONFIG
     int save_settings;
     BOOL resizable;
     int d3d9_filter;
+    int anti_aliased_fonts_min_size;
+    int min_font_size;
     BOOL vhack;
     char screenshot_dir[MAX_PATH];
     BOOL toggle_borderless;
@@ -69,9 +71,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL rgb555;
     BOOL no_dinput_hook;
     int refresh_rate;
-    int anti_aliased_fonts_min_size;
     char inject_resolution[128];
-    int min_font_size;
     BOOL direct3d_passthrough;
     BOOL center_cursor_fix;
     char fake_mode[128];
