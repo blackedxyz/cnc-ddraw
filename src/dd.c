@@ -988,8 +988,6 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         g_ddraw.mouse.unscale_y = ((float)(g_ddraw.height - 1) / (g_ddraw.render.viewport.height - 1));
     }
 
-    TRACE("sdm unscale_x %.6f, y=%.6f\n", g_ddraw.mouse.unscale_x, g_ddraw.mouse.unscale_y);
-
     g_ddraw.mouse.x_adjust = g_ddraw.render.viewport.x;
     g_ddraw.mouse.y_adjust = g_ddraw.render.viewport.y;
 
