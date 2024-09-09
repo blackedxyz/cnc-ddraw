@@ -153,6 +153,9 @@ BOOL ss_take_screenshot(IDirectDrawSurfaceImpl* src)
     strftime(str_time, sizeof(str_time), "%Y-%m-%d_%H-%M-%S", localtime(&t));
     _snprintf(filename, sizeof(filename) - 1, "%s%s_%s.png", g_config.screenshot_dir, title, str_time);
 
+    if (FILE_EXISTS(filename))
+        return FALSE;
+
     if (src->bpp == 8 && src->palette)
     {
         if (!ss_screenshot_8bit(filename, src))
