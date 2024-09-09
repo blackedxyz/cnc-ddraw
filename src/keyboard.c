@@ -47,7 +47,7 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
     BOOL key_released = !!(lParam & (1 << 31));
     BOOL key_triggered = !(lParam & (1 << 30));
 
-    //TRACE("kbhook wParam=%u, triggered=%u, released=%u, alt_down=%u\n", wParam, key_triggered, key_released, alt_down);
+    //TRACE("kbhook code=%u, wParam=%u, triggered=%u, released=%u, alt_down=%u\n", code, wParam, key_triggered, key_released, alt_down);
 
     if (wParam == VK_MENU && (key_released || key_triggered)) /* Fix for alt key being stuck on alt+tab in some games */
     {
