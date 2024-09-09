@@ -67,8 +67,6 @@ void cfg_load()
     GET_BOOL(g_config.singlecpu, "singlecpu", TRUE);
     GET_INT(g_config.resolutions, "resolutions", RESLIST_NORMAL);
     GET_INT(g_config.fixchilds, "fixchilds", FIX_CHILDS_DETECT_PAINT);
-    GET_BOOL(g_config.hook_peekmessage, "hook_peekmessage", FALSE);
-    GET_BOOL(g_config.hook_getmessage, "hook_getmessage", FALSE);
     GET_STRING("win_version", "", g_config.win_version, sizeof(g_config.win_version));
 
     /* Undocumented settings */
@@ -295,10 +293,6 @@ static void cfg_create_ini()
             "; Note: Disables upscaling if a child window was detected (to ensure the game is fully playable, may look weird though)\n"
             "fixchilds=2\n"
             "\n"
-            "; Enable one of the following settings if your cursor doesn't work properly when upscaling is enabled\n"
-            "hook_peekmessage=false\n"
-            "hook_getmessage=false\n"
-            "\n"
             "\n"
             "; Undocumented settings - You may or may not change these (You should rather focus on the settings above)\n"
             "releasealt=false\n"
@@ -481,7 +475,6 @@ static void cfg_create_ini()
             "\n"
             "; Axis & Allies\n"
             "[AxisAllies]\n"
-            "hook_peekmessage=true\n"
             "maxgameticks=60\n"
             "\n"
             "; Barney - Secret of the Rainbow\n"
@@ -825,7 +818,6 @@ static void cfg_create_ini()
             "; Escape Velocity Nova\n"
             "[EV Nova]\n"
             "nonexclusive=true\n"
-            "hook_peekmessage=true\n"
             "rgb555=true\n"
             "keytogglefullscreen=0x46\n"
             "adjmouse=true\n"
@@ -840,17 +832,9 @@ static void cfg_create_ini()
             "nonexclusive=true\n"
             "adjmouse=true\n"
             "\n"
-            "; Enemy Infestation\n"
-            "[EI]\n"
-            "hook_getmessage=true\n"
-            "\n"
             "; Fairy Tale About Father Frost, Ivan and Nastya\n"
             "[mrazik]\n"
             "guard_lines=0\n"
-            "\n"
-            "; Final Liberation: Warhammer Epic 40000\n"
-            "[Epic40k]\n"
-            "hook_peekmessage=true\n"
             "\n"
             "; Future Cop - L.A.P.D.\n"
             "[FCopLAPD]\n"
@@ -1119,10 +1103,6 @@ static void cfg_create_ini()
             "maintas=false\n"
             "boxing=false\n"
             "\n"
-            "; Lionheart\n"
-            "[Lionheart]\n"
-            "hook_peekmessage=true\n"
-            "\n"
             "; Madeline 1st Grade Math\n"
             "[madmath1]\n"
             "nonexclusive=true\n"
@@ -1179,7 +1159,6 @@ static void cfg_create_ini()
             "; New Robinson\n"
             "[ROBY]\n"
             "adjmouse=true\n"
-            "hook_peekmessage=true\n"
             "\n"
             "; Nancy Drew (All games)\n"
             "[Game/3]\n"
@@ -1399,10 +1378,6 @@ static void cfg_create_ini()
             "; Starcraft\n"
             "[StarCraft]\n"
             "game_handles_close=true\n"
-            "\n"
-            "; Space Rangers\n"
-            "[Rangers]\n"
-            "hook_peekmessage=true\n"
             "\n"
             "; SPYFox: Hold the Mustard\n"
             "[mustard]\n"
