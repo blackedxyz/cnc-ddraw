@@ -168,9 +168,6 @@ LRESULT CALLBACK mouse_gm_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         x = min(x, g_ddraw.width - 1);
         y = min(y, g_ddraw.height - 1);
 
-        InterlockedExchange((LONG*)&g_ddraw.cursor.x, x);
-        InterlockedExchange((LONG*)&g_ddraw.cursor.y, y);
-
         msg->lParam = MAKELPARAM(x, y);
 
         break;

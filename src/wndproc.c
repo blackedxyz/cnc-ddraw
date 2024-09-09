@@ -816,6 +816,9 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             return 0;
         }
 
+        InterlockedExchange((LONG*)&g_ddraw.cursor.x, GET_X_LPARAM(lParam));
+        InterlockedExchange((LONG*)&g_ddraw.cursor.y, GET_Y_LPARAM(lParam));
+
         break;
     }
     case WM_PARENTNOTIFY:
