@@ -59,7 +59,7 @@ HRESULT dds_Blt(
         /* workaround for "Not Responding" window problem */
         g_ddraw.last_msg_pull_tick = timeGetTime();
         MSG msg;
-        real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE);
+        real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE | PM_QS_INPUT);
     }
 
     if (g_ddraw.ref && 
@@ -1003,7 +1003,7 @@ HRESULT dds_Lock(
         /* workaround for "Not Responding" window problem */
         g_ddraw.last_msg_pull_tick = timeGetTime();
         MSG msg;
-        real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE);
+        real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_NOREMOVE | PM_QS_INPUT);
     }
 
     HRESULT ret = dds_GetSurfaceDesc(This, lpDDSurfaceDesc);
