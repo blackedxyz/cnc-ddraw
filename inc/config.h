@@ -70,8 +70,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL no_dinput_hook;
     int refresh_rate;
     int anti_aliased_fonts_min_size;
-    int custom_width;
-    int custom_height;
+    char inject_resolution[128];
     int min_font_size;
     BOOL direct3d_passthrough;
     BOOL center_cursor_fix;

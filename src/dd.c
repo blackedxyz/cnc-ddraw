@@ -113,6 +113,11 @@ HRESULT dd_EnumDisplayModes(
         while (--max_w % 8);
     }
 
+    char* ires = &g_config.inject_resolution[0];
+
+    unsigned long custom_width = strtoul(ires, &ires, 0);
+    unsigned long custom_height = strtoul(ires + 1, &ires, 0);
+
     BOOL rlf = g_config.resolutions == RESLIST_FULL;
     BOOL rlm = g_config.resolutions == RESLIST_MINI;
 
@@ -149,7 +154,7 @@ HRESULT dd_EnumDisplayModes(
         { rlf ? 1720 : 0, rlf ? 720 : 0 },
         { rlf ? 2560 : 0, rlf ? 1080 : 0 },
         /* Inject custom resolution */
-        { g_config.custom_width, g_config.custom_height },
+        { custom_width, custom_height },
         { max_w, max_h },
     };
     
@@ -228,10 +233,10 @@ HRESULT dd_EnumDisplayModes(
                     while (--m.dmPelsWidth % 8);
                 }
 
-                if (!custom_res_injected && g_config.custom_width && g_config.custom_height)
+                if (!custom_res_injected && custom_width && custom_height)
                 {
-                    m.dmPelsWidth = g_config.custom_width;
-                    m.dmPelsHeight = g_config.custom_height;
+                    m.dmPelsWidth = custom_width;
+                    m.dmPelsHeight = custom_height;
                     custom_res_injected = TRUE;
                 }
 
@@ -347,7 +352,7 @@ HRESULT dd_EnumDisplayModes(
             if (!resolutions[i].cx || !resolutions[i].cy)
                 continue;
 
-            if (!(resolutions[i].cx == g_config.custom_width && resolutions[i].cy == g_config.custom_height) &&
+            if (!(resolutions[i].cx == custom_width && resolutions[i].cy == custom_height) &&
                 ((max_w && resolutions[i].cx > max_w) || (max_h && resolutions[i].cy > max_h)))
             {
                 DEVMODE m;

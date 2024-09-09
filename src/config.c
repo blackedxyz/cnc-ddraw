@@ -84,8 +84,7 @@ void cfg_load()
     GET_BOOL(g_config.no_dinput_hook, "no_dinput_hook", FALSE);
     GET_INT(g_config.refresh_rate, "refresh_rate", 0);
     GET_INT(g_config.anti_aliased_fonts_min_size, "anti_aliased_fonts_min_size", 13);
-    GET_INT(g_config.custom_width, "custom_width", 0);
-    GET_INT(g_config.custom_height, "custom_height", 0);
+    GET_STRING("inject_resolution", "", g_config.inject_resolution, sizeof(g_config.inject_resolution));
     GET_INT(g_config.min_font_size, "min_font_size", 0);
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
@@ -313,8 +312,7 @@ static void cfg_create_ini()
             "rgb555=false\n"
             "no_dinput_hook=false\n"
             "refresh_rate=0\n"
-            "custom_width=0\n"
-            "custom_height=0\n"
+            ";inject_resolution=960x540\n"
             "direct3d_passthrough=false\n"
             "center_cursor_fix=false\n"
             ";fake_mode=640x480x32\n"
@@ -920,14 +918,12 @@ static void cfg_create_ini()
             "; Jazz Jackrabbit 2 plus\n"
             "[Jazz2]\n"
             "keytogglefullscreen=0x08\n"
-            "custom_width=800\n"
-            "custom_height=450\n"
+            "inject_resolution=800x450\n"
             "\n"
             "; Jazz Jackrabbit 2\n"
             "[Jazz2_NonPlus]\n"
             "keytogglefullscreen=0x08\n"
-            "custom_width=800\n"
-            "custom_height=450\n"
+            "inject_resolution=800x450\n"
             "\n"
             "; Jungle Storm\n"
             "[Jstorm]\n"
@@ -974,8 +970,7 @@ static void cfg_create_ini()
             "; Note: 1070x602 is the lowest possible 16:9 resolution for the Widescreen patch (600/601 height will crash)\n"
             "[iwd2]\n"
             "resolutions=2\n"
-            "custom_width=1070\n"
-            "custom_height=602\n"
+            "inject_resolution=1070x602\n"
             "\n"
             "; Invictus\n"
             "[Invictus]\n"
