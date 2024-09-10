@@ -614,7 +614,7 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
 
 BOOL HandleMessage(LPMSG lpMsg, HWND hWnd)
 {
-    if (lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)
+    if (lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
         if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
         {
