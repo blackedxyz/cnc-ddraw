@@ -414,6 +414,20 @@ LRESULT WINAPI fake_SendMessageA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
     if (!g_ddraw.ref || !g_ddraw.hwnd)
         return real_SendMessageA(hWnd, Msg, wParam, lParam);
 
+    if (g_ddraw.hwnd == hWnd && Msg == WM_MOUSEMOVE)
+    {
+        int x = GET_X_LPARAM(lParam);
+        int y = GET_Y_LPARAM(lParam);
+
+        if (g_config.adjmouse)
+        {
+            x = (int)(roundf(x * g_ddraw.mouse.scale_x));
+            y = (int)(roundf(y * g_ddraw.mouse.scale_y));
+        }
+
+        lParam = MAKELPARAM(x + g_ddraw.mouse.x_adjust, y + g_ddraw.mouse.y_adjust);
+    }
+
     if (g_ddraw.hwnd == hWnd && Msg == WM_SIZE && g_config.hook != 2)
     {
         Msg = WM_SIZE_DDRAW;
