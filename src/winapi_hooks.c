@@ -614,7 +614,7 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
 
 void HandleMessage(LPMSG lpMsg, HWND hWnd)
 {
-    if (lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
+    if (lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)
     {
         if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
         {
@@ -652,8 +652,7 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd)
 
                 mouse_lock();
 
-                //lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
-                break;
+                lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
             }
             
             break;
@@ -675,12 +674,13 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd)
             if (!g_config.devmode && !g_mouse_locked)
             {
                 // Does not work with 'New Robinson'
-                //lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
+                lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
                 break;
             }
 
             InterlockedExchange((LONG*)&g_ddraw.cursor.x, GET_X_LPARAM(lpMsg->lParam));
             InterlockedExchange((LONG*)&g_ddraw.cursor.y, GET_Y_LPARAM(lpMsg->lParam));
+
             break;
         }
         }
