@@ -647,6 +647,8 @@ BOOL HandleMessage(LPMSG lpMsg, HWND hWnd)
         {
             if (!g_config.devmode && !g_mouse_locked)
             {
+                TRACE("HandleMessage %s hWnd=%p, lpMsg->hWnd=%p\n", dbg_mes_to_str(lpMsg->message), hWnd, lpMsg->hwnd);
+
                 InterlockedExchange((LONG*)&g_ddraw.cursor.x, GET_X_LPARAM(lpMsg->lParam));
                 InterlockedExchange((LONG*)&g_ddraw.cursor.y, GET_Y_LPARAM(lpMsg->lParam));
 
@@ -681,6 +683,7 @@ BOOL HandleMessage(LPMSG lpMsg, HWND hWnd)
 
             break;
         }
+
         }
     }
 
