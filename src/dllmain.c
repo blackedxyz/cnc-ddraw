@@ -66,13 +66,14 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
                 if (_strcmpi(s, "WIN95") == 0 || _strcmpi(s, "WIN98") == 0 || _strcmpi(s, "NT4SP5") == 0)
                 {
-                    char mes[128] = { 0 };
+                    char mes[280] = { 0 };
 
                     _snprintf(
                         mes,
                         sizeof(mes) - 1,
-                        "Please disable the '%s' compatibility mode for all game executables and "
-                        "then try to start the game again.",
+                        "Warning: Compatibility modes detected. \n\nIf there are issues with the game then try to "
+                        "disable the '%s' compatibility mode for all game executables and then start the game again.\n\n"
+                        "Note: You can disable this warning via ddraw.ini -> 'no_compat_warning=true'",
                         s);
 
                     if (!g_config.no_compat_warning)
