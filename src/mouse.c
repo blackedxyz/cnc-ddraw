@@ -1,45 +1,15 @@
 #include <windows.h>
-#include <windowsx.h>
-#include <math.h>
 #include "debug.h"
 #include "winapi_hooks.h"
 #include "dd.h"
 #include "hook.h"
 #include "utils.h"
 #include "config.h"
-#include "mouse.h"
 
 
 BOOL g_mouse_locked;
 HHOOK g_mouse_hook;
 HOOKPROC g_mouse_proc;
-static HHOOK g_mouse_gm_hook;
-
-void mouse_hook_init()
-{
-    if (g_mouse_gm_hook && UnhookWindowsHookEx(g_mouse_gm_hook))
-    {
-        g_mouse_gm_hook = NULL;
-    }
-
-    if (!g_ddraw.gui_thread_id)
-        return;
-
-    g_mouse_gm_hook =
-        real_SetWindowsHookExA(
-            WH_GETMESSAGE,
-            mouse_gm_hook_proc,
-            NULL,
-            g_ddraw.gui_thread_id);
-}
-
-void mouse_hook_exit()
-{
-    if (g_mouse_gm_hook)
-    {
-        UnhookWindowsHookEx(g_mouse_gm_hook);
-    }
-}
 
 void mouse_lock()
 {
@@ -113,146 +83,15 @@ void mouse_unlock()
     }
 }
 
-LRESULT CALLBACK mouse_gm_hook_proc(int code, WPARAM wParam, LPARAM lParam)
-{
-    if (code < 0 || !lParam || !g_ddraw.width)
-        return CallNextHookEx(g_mouse_gm_hook, code, wParam, lParam);
-
-    MSG* msg = (MSG*)lParam;
-
-    if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &msg->pt))
-    {
-        int x = max(msg->pt.x - g_ddraw.mouse.x_adjust, 0);
-        int y = max(msg->pt.y - g_ddraw.mouse.y_adjust, 0);
-
-        if (g_config.adjmouse)
-        {
-            x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
-            y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
-        }
-
-        msg->pt.x = min(x, g_ddraw.width - 1);
-        msg->pt.y = min(y, g_ddraw.height - 1);
-    }
-    else
-    {
-        msg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
-        msg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
-    }
-
-    if (msg->hwnd != g_ddraw.hwnd)
-        return CallNextHookEx(g_mouse_gm_hook, code, wParam, lParam);
-
-    switch (LOWORD(msg->message))
-    {
-    /* button up messages reactivate cursor lock */
-    case WM_LBUTTONUP:
-    case WM_RBUTTONUP:
-    case WM_MBUTTONUP:
-    {
-        if (!g_config.devmode && !g_mouse_locked)
-        {
-            int x = GET_X_LPARAM(msg->lParam);
-            int y = GET_Y_LPARAM(msg->lParam);
-
-            if (x > g_ddraw.render.viewport.x + g_ddraw.render.viewport.width ||
-                x < g_ddraw.render.viewport.x ||
-                y > g_ddraw.render.viewport.y + g_ddraw.render.viewport.height ||
-                y < g_ddraw.render.viewport.y)
-            {
-                x = g_ddraw.width / 2;
-                y = g_ddraw.height / 2;
-            }
-            else
-            {
-                x = (DWORD)((x - g_ddraw.render.viewport.x) * g_ddraw.mouse.unscale_x);
-                y = (DWORD)((y - g_ddraw.render.viewport.y) * g_ddraw.mouse.unscale_y);
-            }
-
-            x = min(x, g_ddraw.width - 1);
-            y = min(y, g_ddraw.height - 1);
-
-            InterlockedExchange((LONG*)&g_ddraw.cursor.x, x);
-            InterlockedExchange((LONG*)&g_ddraw.cursor.y, y);
-
-            mouse_lock();
-
-            msg->message = MAKELONG(WM_NULL, HIWORD(msg->message));
-            return 0;
-        }
-        /* fall through for lParam */
-    }
-    /* down messages are ignored if we have no cursor lock */
-    case WM_XBUTTONDBLCLK:
-    case WM_XBUTTONDOWN:
-    case WM_XBUTTONUP:
-    case WM_MOUSEWHEEL:
-    case WM_MOUSEHOVER:
-    case WM_LBUTTONDBLCLK:
-    case WM_MBUTTONDBLCLK:
-    case WM_RBUTTONDBLCLK:
-    case WM_LBUTTONDOWN:
-    case WM_RBUTTONDOWN:
-    case WM_MBUTTONDOWN:
-    case WM_MOUSEMOVE:
-    {
-        if (!g_config.devmode && !g_mouse_locked)
-        {
-            msg->message = MAKELONG(WM_NULL, HIWORD(msg->message));
-            return 0;
-        }
-
-        if (LOWORD(msg->message) == WM_MOUSEWHEEL)
-        {
-            POINT pt = { GET_X_LPARAM(msg->lParam), GET_Y_LPARAM(msg->lParam) };
-            real_ScreenToClient(g_ddraw.hwnd, &pt);
-            msg->lParam = MAKELPARAM(pt.x, pt.y);
-        }
-
-        int x = max(GET_X_LPARAM(msg->lParam) - g_ddraw.mouse.x_adjust, 0);
-        int y = max(GET_Y_LPARAM(msg->lParam) - g_ddraw.mouse.y_adjust, 0);
-
-        if (g_config.adjmouse)
-        {
-            if (g_config.vhack && !g_config.devmode)
-            {
-                POINT pt = { 0, 0 };
-                fake_GetCursorPos(&pt);
-
-                x = pt.x;
-                y = pt.y;
-            }
-            else
-            {
-                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
-                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
-            }
-        }
-
-        x = min(x, g_ddraw.width - 1);
-        y = min(y, g_ddraw.height - 1);
-
-        InterlockedExchange((LONG*)&g_ddraw.cursor.x, x);
-        InterlockedExchange((LONG*)&g_ddraw.cursor.y, y);
-
-        msg->lParam = MAKELPARAM(x, y);
-
-        break;
-    }
-    }
-
-    return CallNextHookEx(g_mouse_gm_hook, code, wParam, lParam);
-}
-
-LRESULT CALLBACK mouse_hook_proc(int code, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK mouse_hook_proc(int Code, WPARAM wParam, LPARAM lParam)
 {
     if (!g_ddraw.ref)
-        return g_mouse_proc(code, wParam, lParam);
+        return g_mouse_proc(Code, wParam, lParam);
 
-    if (code < 0 || (!g_config.devmode && !g_mouse_locked))
-        return CallNextHookEx(g_mouse_hook, code, wParam, lParam);
+    if (Code < 0 || (!g_config.devmode && !g_mouse_locked))
+        return CallNextHookEx(g_mouse_hook, Code, wParam, lParam);
 
     fake_GetCursorPos(&((MOUSEHOOKSTRUCT*)lParam)->pt);
 
-    return g_mouse_proc(code, wParam, lParam);
+    return g_mouse_proc(Code, wParam, lParam);
 }
