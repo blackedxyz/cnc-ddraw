@@ -156,8 +156,8 @@ HOOKLIST g_hook_hooklist[] =
     {
         "WING32.DLL",
         {
-            { "WinGBitBlt", (PROC)fake_WinGBitBlt, NULL, HOOK_SKIP_2 },
-            { "WinGStretchBlt", (PROC)fake_WinGStretchBlt, NULL, HOOK_SKIP_2 },
+            { "WinGBitBlt", (PROC)fake_WinGBitBlt, NULL, 0 },
+            { "WinGStretchBlt", (PROC)fake_WinGStretchBlt, NULL, 0 },
             { "", NULL, NULL, 0 }
         }
     },
@@ -169,9 +169,9 @@ HOOKLIST g_hook_hooklist[] =
             { "LoadLibraryExA", (PROC)fake_LoadLibraryExA, (PROC*)&real_LoadLibraryExA, HOOK_SKIP_2 },
             { "LoadLibraryExW", (PROC)fake_LoadLibraryExW, (PROC*)&real_LoadLibraryExW, HOOK_SKIP_2 },
             { "GetProcAddress", (PROC)fake_GetProcAddress, (PROC*)&real_GetProcAddress, HOOK_SKIP_2 },
-            { "GetDiskFreeSpaceA", (PROC)fake_GetDiskFreeSpaceA, (PROC*)&real_GetDiskFreeSpaceA, HOOK_SKIP_2 },
-            { "GetVersion", (PROC)fake_GetVersion, (PROC*)&real_GetVersion, HOOK_SKIP_2 },
-            { "GetVersionExA", (PROC)fake_GetVersionExA, (PROC*)&real_GetVersionExA, HOOK_SKIP_2 },
+            { "GetDiskFreeSpaceA", (PROC)fake_GetDiskFreeSpaceA, (PROC*)&real_GetDiskFreeSpaceA, 0 },
+            { "GetVersion", (PROC)fake_GetVersion, (PROC*)&real_GetVersion, 0 },
+            { "GetVersionExA", (PROC)fake_GetVersionExA, (PROC*)&real_GetVersionExA, 0 },
 #if defined(_DEBUG) && defined(__GNUC__)
             { "SetUnhandledExceptionFilter", (PROC)fake_SetUnhandledExceptionFilter, (PROC*)&real_SetUnhandledExceptionFilter, 0 },
 #endif
