@@ -781,43 +781,6 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     {
         break;
     }
-    /* button up messages reactivate cursor lock */
-    case WM_LBUTTONUP:
-    case WM_RBUTTONUP:
-    case WM_MBUTTONUP:
-    {
-        if (!g_config.devmode && !g_mouse_locked)
-        {
-            InterlockedExchange((LONG*)&g_ddraw.cursor.x, GET_X_LPARAM(lParam));
-            InterlockedExchange((LONG*)&g_ddraw.cursor.y, GET_Y_LPARAM(lParam));
-
-            mouse_lock();
-            return 0;
-        }
-
-        break;
-    }
-    /* down messages are ignored if we have no cursor lock */
-    case WM_XBUTTONDBLCLK:
-    case WM_XBUTTONDOWN:
-    case WM_XBUTTONUP:
-    case WM_MOUSEWHEEL:
-    case WM_MOUSEHOVER:
-    case WM_LBUTTONDBLCLK:
-    case WM_MBUTTONDBLCLK:
-    case WM_RBUTTONDBLCLK:
-    case WM_LBUTTONDOWN:
-    case WM_RBUTTONDOWN:
-    case WM_MBUTTONDOWN:
-    case WM_MOUSEMOVE:
-    {
-        if (!g_config.devmode && !g_mouse_locked)
-        {
-            return 0;
-        }
-
-        break;
-    }
     case WM_PARENTNOTIFY:
     {
         switch (LOWORD(wParam))
