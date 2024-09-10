@@ -675,11 +675,7 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd)
             {
                 // Does not work with 'New Robinson'
                 lpMsg->message = (UINT)MAKELONG(WM_NULL, HIWORD(lpMsg->message));
-                break;
             }
-
-            InterlockedExchange((LONG*)&g_ddraw.cursor.x, GET_X_LPARAM(lpMsg->lParam));
-            InterlockedExchange((LONG*)&g_ddraw.cursor.y, GET_Y_LPARAM(lpMsg->lParam));
 
             break;
         }
