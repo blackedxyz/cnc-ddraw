@@ -10,6 +10,7 @@
 #include "render_d3d9.h"
 #include "utils.h"
 #include "config.h"
+#include "versionhelpers.h"
 
 
 /*
@@ -67,6 +68,26 @@ HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast)
         }
     }
     return NULL;
+}
+
+void util_pull_messages()
+{
+    if (g_config.fixnotresponding &&
+        g_ddraw.hwnd &&
+        g_ddraw.last_msg_pull_tick &&
+        g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
+        GetCurrentThreadId() == g_ddraw.gui_thread_id &&
+        !IsWine())
+    {
+        /* workaround for "Not Responding" window problem */
+        //g_ddraw.last_msg_pull_tick = timeGetTime();
+        MSG msg;
+        if (real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_REMOVE))
+        {
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+    }
 }
 
 FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)

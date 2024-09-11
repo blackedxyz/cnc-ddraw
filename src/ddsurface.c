@@ -12,6 +12,7 @@
 #include "blt.h"
 #include "config.h"
 #include "ddclipper.h"
+#include "utils.h"
 #include "versionhelpers.h"
 
 
@@ -50,21 +51,7 @@ HRESULT dds_Blt(
     dbg_dump_dds_blt_flags(dwFlags);
     dbg_dump_dds_blt_fx_flags((dwFlags & DDBLT_DDFX) && lpDDBltFx ? lpDDBltFx->dwDDFX : 0);
 
-    if (g_config.fixnotresponding && 
-        g_ddraw.hwnd && 
-        g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
-        GetCurrentThreadId() == g_ddraw.gui_thread_id && 
-        !IsWine())
-    {
-        /* workaround for "Not Responding" window problem */
-        //g_ddraw.last_msg_pull_tick = timeGetTime();
-        MSG msg;
-        if (real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_REMOVE))
-        {
-            TranslateMessage(&msg);
-            DispatchMessageA(&msg);
-        }
-    }
+    util_pull_messages();
 
     if (g_ddraw.ref && 
         g_ddraw.iskkndx &&
@@ -998,21 +985,7 @@ HRESULT dds_Lock(
 
     dbg_dump_dds_lock_flags(dwFlags);
 
-    if (g_config.fixnotresponding &&
-        g_ddraw.hwnd &&
-        g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
-        GetCurrentThreadId() == g_ddraw.gui_thread_id &&
-        !IsWine())
-    {
-        /* workaround for "Not Responding" window problem */
-        //g_ddraw.last_msg_pull_tick = timeGetTime();
-        MSG msg;
-        if (real_PeekMessageA(&msg, g_ddraw.hwnd, 0, 0, PM_REMOVE))
-        {
-            TranslateMessage(&msg);
-            DispatchMessageA(&msg);
-        }
-    }
+    util_pull_messages();
 
     HRESULT ret = dds_GetSurfaceDesc(This, lpDDSurfaceDesc);
 
