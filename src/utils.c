@@ -74,7 +74,6 @@ void util_pull_messages()
 {
     if (g_config.fixnotresponding &&
         g_ddraw.hwnd &&
-        g_ddraw.last_msg_pull_tick &&
         g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
         GetCurrentThreadId() == g_ddraw.gui_thread_id &&
         !IsWine())
