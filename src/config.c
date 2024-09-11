@@ -68,7 +68,6 @@ void cfg_load()
     GET_INT(g_config.resolutions, "resolutions", RESLIST_NORMAL);
     GET_INT(g_config.fixchilds, "fixchilds", FIX_CHILDS_DETECT_PAINT);
     GET_BOOL(g_config.hook_peekmessage, "hook_peekmessage", FALSE);
-    GET_BOOL(g_config.hook_getmessage, "hook_getmessage", FALSE);
     GET_STRING("win_version", "", g_config.win_version, sizeof(g_config.win_version));
 
     /* Undocumented settings */
@@ -300,9 +299,8 @@ static void cfg_create_ini()
             "; Note: Disables upscaling if a child window was detected (to ensure the game is fully playable, may look weird though)\n"
             "fixchilds=2\n"
             "\n"
-            "; Enable one of the following settings if your cursor doesn't work properly when upscaling is enabled\n"
+            "; Enable the following setting if your cursor doesn't work properly when upscaling is enabled\n"
             "hook_peekmessage=false\n"
-            "hook_getmessage=false\n"
             "\n"
             "\n"
             "; Undocumented settings - You may or may not change these (You should rather focus on the settings above)\n"
@@ -844,7 +842,7 @@ static void cfg_create_ini()
             "\n"
             "; Enemy Infestation\n"
             "[EI]\n"
-            "hook_getmessage=true\n"
+            "hook_peekmessage=true\n"
             "\n"
             "; Fairy Tale About Father Frost, Ivan and Nastya\n"
             "[mrazik]\n"

@@ -58,7 +58,6 @@ typedef struct CNCDDRAWCONFIG
     int resolutions;
     int fixchilds;
     BOOL hook_peekmessage;
-    BOOL hook_getmessage;
 
     /* Undocumented settings */
 

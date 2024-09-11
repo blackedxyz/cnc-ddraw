@@ -614,15 +614,38 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
 
 void HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
 {
-    if (g_ddraw.ref && g_ddraw.width)
+    if (lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width)
     {
-        switch (lpMsg->message)
+        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
+        {
+            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
+            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
+
+            if (g_config.adjmouse)
+            {
+                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
+                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
+            }
+
+            lpMsg->pt.x = min(x, g_ddraw.width - 1);
+            lpMsg->pt.y = min(y, g_ddraw.height - 1);
+        }
+        else
+        {
+            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
+            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
+        }
+
+        if (lpMsg->hwnd != g_ddraw.hwnd || !g_config.hook_peekmessage)
+            return;
+
+        switch (LOWORD(lpMsg->message))
         {
         case WM_LBUTTONUP:
         case WM_RBUTTONUP:
         case WM_MBUTTONUP:
         {
-            if (!g_config.devmode && !g_mouse_locked)
+            if (!g_config.devmode && !g_mouse_locked && (wRemoveMsg & PM_REMOVE))
             {
                 int x = GET_X_LPARAM(lpMsg->lParam);
                 int y = GET_Y_LPARAM(lpMsg->lParam);
@@ -672,7 +695,6 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
         {
             if (!g_config.devmode && !g_mouse_locked)
             {
-                // Does not work with 'New Robinson'
                 if (!wMsgFilterMin &&
                     !wMsgFilterMax &&
                     !(wRemoveMsg & (PM_QS_INPUT | PM_QS_PAINT | PM_QS_POSTMESSAGE | PM_QS_SENDMESSAGE)))
@@ -682,7 +704,7 @@ void HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
                 }
             }
 
-            if (lpMsg->message == WM_MOUSEWHEEL)
+            if (LOWORD(lpMsg->message) == WM_MOUSEWHEEL)
             {
                 POINT pt = { GET_X_LPARAM(lpMsg->lParam), GET_Y_LPARAM(lpMsg->lParam) };
                 real_ScreenToClient(g_ddraw.hwnd, &pt);
@@ -732,33 +754,9 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
         g_ddraw.last_msg_pull_tick = timeGetTime();
 
     BOOL result = real_GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-
-    if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)
+    if (result)
     {
-        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
-        {
-            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
-            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
-
-            if (g_config.adjmouse)
-            {
-                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
-                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
-            }
-
-            lpMsg->pt.x = min(x, g_ddraw.width - 1);
-            lpMsg->pt.y = min(y, g_ddraw.height - 1);
-        }
-        else
-        {
-            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
-            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
-        }
-
-        if (g_config.hook_getmessage)
-        {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, PM_REMOVE);
-        }
+        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, PM_REMOVE);
     }
 
     return result;
@@ -770,33 +768,9 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
         g_ddraw.last_msg_pull_tick = timeGetTime();
 
     BOOL result = real_PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
-
-    if (result && lpMsg && g_ddraw.ref && g_ddraw.hwnd && g_ddraw.width && !g_config.fixmousehook)
+    if (result)
     {
-        if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &lpMsg->pt))
-        {
-            int x = max(lpMsg->pt.x - g_ddraw.mouse.x_adjust, 0);
-            int y = max(lpMsg->pt.y - g_ddraw.mouse.y_adjust, 0);
-
-            if (g_config.adjmouse)
-            {
-                x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
-                y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
-            }
-
-            lpMsg->pt.x = min(x, g_ddraw.width - 1);
-            lpMsg->pt.y = min(y, g_ddraw.height - 1);
-        }
-        else
-        {
-            lpMsg->pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
-            lpMsg->pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
-        }
-
-        if (g_config.hook_peekmessage)
-        {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
-        }
+        HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
     }
 
     return result;
