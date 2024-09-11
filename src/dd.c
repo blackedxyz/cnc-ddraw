@@ -612,6 +612,8 @@ HRESULT dd_GetVerticalBlankStatus(LPBOOL lpbIsInVB)
         *lpbIsInVB = TRUE;
     }
 
+    TRACE("     lpbIsInVB = %s\n", *lpbIsInVB ? "TRUE" : "FALSE");
+
     return DD_OK;
 }
 
