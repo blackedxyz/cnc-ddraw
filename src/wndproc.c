@@ -22,7 +22,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     if (uMsg != WM_MOUSEMOVE && uMsg != WM_NCMOUSEMOVE && uMsg != WM_NCHITTEST && uMsg != WM_SETCURSOR &&
         uMsg != WM_KEYUP && uMsg != WM_KEYDOWN && uMsg != WM_CHAR && uMsg != WM_DEADCHAR && uMsg != WM_INPUT &&
         uMsg != WM_UNICHAR && uMsg != WM_IME_CHAR && uMsg != WM_IME_KEYDOWN && uMsg != WM_IME_KEYUP && uMsg != WM_TIMER &&
-        uMsg != WM_D3D9DEVICELOST)
+        uMsg != WM_D3D9DEVICELOST && uMsg != WM_NULL)
     {
         TRACE(
             "     uMsg = %s (%d), wParam = %08X (%d), lParam = %08X (%d, LO=%d HI=%d)\n",
@@ -42,6 +42,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
     switch (uMsg)
     {
+    case WM_NULL:
     case WM_MOVING:
     case WM_NCLBUTTONDOWN:
     case WM_NCLBUTTONUP:

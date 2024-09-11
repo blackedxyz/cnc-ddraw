@@ -612,7 +612,7 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
     return result;
 }
 
-BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax)
+void HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
 {
     if (g_ddraw.ref && g_ddraw.width)
     {
@@ -645,7 +645,14 @@ BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
                 InterlockedExchange((LONG*)&g_ddraw.cursor.y, y);
 
                 mouse_lock();
-                //return FALSE;
+
+                if (!wMsgFilterMin &&
+                    !wMsgFilterMax &&
+                    !(wRemoveMsg & (PM_QS_INPUT | PM_QS_PAINT | PM_QS_POSTMESSAGE | PM_QS_SENDMESSAGE)))
+                {
+                    lpMsg->message = WM_NULL;
+                    break;
+                }
             }
             /* fall through for lParam */
         }
@@ -666,7 +673,13 @@ BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
             if (!g_config.devmode && !g_mouse_locked)
             {
                 // Does not work with 'New Robinson'
-                //return FALSE;
+                if (!wMsgFilterMin &&
+                    !wMsgFilterMax &&
+                    !(wRemoveMsg & (PM_QS_INPUT | PM_QS_PAINT | PM_QS_POSTMESSAGE | PM_QS_SENDMESSAGE)))
+                {
+                    lpMsg->message = WM_NULL;
+                    break;
+                }
             }
 
             if (lpMsg->message == WM_MOUSEWHEEL)
@@ -709,11 +722,8 @@ BOOL HandleMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMa
 
             break;
         }
-
         }
     }
-
-    return TRUE;
 }
 
 BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax)
@@ -747,7 +757,7 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 
         if (g_config.hook_getmessage)
         {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, PM_REMOVE);
         }
     }
 
@@ -785,7 +795,7 @@ BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT w
 
         if (g_config.hook_peekmessage)
         {
-            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+            HandleMessage(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
         }
     }
 
