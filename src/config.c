@@ -52,6 +52,8 @@ void cfg_load()
     GET_INT(g_config.save_settings, "savesettings", 1);
     GET_BOOL(g_config.resizable, "resizable", TRUE);
     GET_INT(g_config.d3d9_filter, "d3d9_filter", FILTER_CUBIC);
+    GET_INT(g_config.anti_aliased_fonts_min_size, "anti_aliased_fonts_min_size", 13);
+    GET_INT(g_config.min_font_size, "min_font_size", 0);
     GET_BOOL(g_config.vhack, "vhack", FALSE);
     GET_STRING("screenshotdir", ".\\Screenshots\\", g_config.screenshot_dir, sizeof(g_config.screenshot_dir));
     GET_BOOL(g_config.toggle_borderless, "toggle_borderless", FALSE);
@@ -84,9 +86,7 @@ void cfg_load()
     GET_BOOL(g_config.rgb555, "rgb555", FALSE);
     GET_BOOL(g_config.no_dinput_hook, "no_dinput_hook", FALSE);
     GET_INT(g_config.refresh_rate, "refresh_rate", 0);
-    GET_INT(g_config.anti_aliased_fonts_min_size, "anti_aliased_fonts_min_size", 13);
     GET_STRING("inject_resolution", "", g_config.inject_resolution, sizeof(g_config.inject_resolution));
-    GET_INT(g_config.min_font_size, "min_font_size", 0);
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
     GET_STRING("fake_mode", "", g_config.fake_mode, sizeof(g_config.fake_mode));
