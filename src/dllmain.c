@@ -72,7 +72,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
                         mes,
                         sizeof(mes) - 1,
                         "Warning: Compatibility modes detected. \n\nIf there are issues with the game then try to "
-                        "disable the '%s' compatibility mode for all game executables and then start the game again.\n\n"
+                        "disable the '%s' compatibility mode for all game executables.\n\n"
                         "Note: You can disable this warning via ddraw.ini -> 'no_compat_warning=true'",
                         s);
 
