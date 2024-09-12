@@ -941,6 +941,7 @@ static void cfg_create_ini()
             "; Jungle Storm\n"
             "[Jstorm]\n"
             "no_compat_warning=true\n"
+            "win_version=98\n"
             "\n"
             "; Hades Challenge\n"
             "[HADESCH]\n"
