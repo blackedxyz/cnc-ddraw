@@ -675,7 +675,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             }
         }
 
-        if (wParam && g_config.releasealt)
+        if (wParam && g_config.fix_alt_key_stuck)
         {
             INPUT ip;
             memset(&ip, 0, sizeof(ip));
@@ -707,7 +707,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                     break;
             }
             
-            if (wParam && g_ddraw.alt_key_down && !g_config.releasealt)
+            if (wParam && g_ddraw.alt_key_down && !g_config.fix_alt_key_stuck)
             {
                 PostMessageA(g_ddraw.hwnd, WM_SYSKEYUP, VK_MENU, 0);
                 g_ddraw.alt_key_down = FALSE;

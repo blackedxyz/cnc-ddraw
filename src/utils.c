@@ -72,7 +72,7 @@ HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast)
 
 void util_pull_messages()
 {
-    if (g_config.fixnotresponding &&
+    if (g_config.fix_not_responding &&
         g_ddraw.hwnd &&
         g_ddraw.last_msg_pull_tick + 1000 < timeGetTime() &&
         GetCurrentThreadId() == g_ddraw.gui_thread_id &&

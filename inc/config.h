@@ -61,26 +61,25 @@ typedef struct CNCDDRAWCONFIG
 
     /* Undocumented settings */
 
-    BOOL releasealt;
-    BOOL fixnotresponding;
-    int hook;
+    BOOL fix_alt_key_stuck;
+    BOOL fix_not_responding;
+    BOOL no_compat_warning;
+    BOOL wine_allow_resize;
     int guard_lines;
     int max_resolutions;
     BOOL lock_surfaces;
     BOOL flipclear;
-    BOOL fixmousehook;
     BOOL rgb555;
     BOOL no_dinput_hook;
-    int refresh_rate;
     char inject_resolution[128];
     BOOL direct3d_passthrough;
     BOOL center_cursor_fix;
     char fake_mode[128];
-    BOOL wine_allow_resize;
     BOOL lock_mouse_top_left;
-    BOOL no_compat_warning;
-    BOOL remove_menu;
     char win_version[32];
+    int hook;
+    BOOL remove_menu;
+    int refresh_rate;
 
     /* Hotkeys */
 
@@ -103,6 +102,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL tlc_hack;
     BOOL homm_hack;
     BOOL carma95_hack;
+    BOOL sirtech_hack;
 
 } CNCDDRAWCONFIG;
 

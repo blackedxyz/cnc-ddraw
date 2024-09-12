@@ -70,30 +70,29 @@ void cfg_load()
     GET_INT(g_config.resolutions, "resolutions", RESLIST_NORMAL);
     GET_INT(g_config.fixchilds, "fixchilds", FIX_CHILDS_DETECT_PAINT);
     GET_BOOL(g_config.hook_peekmessage, "hook_peekmessage", FALSE);
-    GET_STRING("win_version", "", g_config.win_version, sizeof(g_config.win_version));
 
     /* Undocumented settings */
 
-    GET_BOOL(g_config.releasealt, "releasealt", FALSE);
+    GET_BOOL(g_config.fix_alt_key_stuck, "fix_alt_key_stuck", FALSE);
     GET_BOOL(GameHandlesClose, "game_handles_close", FALSE);
-    GET_BOOL(g_config.fixnotresponding, "fixnotresponding", FALSE);
-    GET_INT(g_config.hook, "hook", 4);
+    GET_BOOL(g_config.fix_not_responding, "fix_not_responding", FALSE);
+    GET_BOOL(g_config.no_compat_warning, "no_compat_warning", FALSE);
+    GET_BOOL(g_config.wine_allow_resize, "wine_allow_resize", FALSE);
     GET_INT(g_config.guard_lines, "guard_lines", 200);
     GET_INT(g_config.max_resolutions, "max_resolutions", 0);
     GET_BOOL(g_config.lock_surfaces, "lock_surfaces", FALSE);
     GET_BOOL(g_config.flipclear, "flipclear", FALSE);
-    GET_BOOL(g_config.fixmousehook, "fixmousehook", FALSE);
     GET_BOOL(g_config.rgb555, "rgb555", FALSE);
     GET_BOOL(g_config.no_dinput_hook, "no_dinput_hook", FALSE);
-    GET_INT(g_config.refresh_rate, "refresh_rate", 0);
     GET_STRING("inject_resolution", "", g_config.inject_resolution, sizeof(g_config.inject_resolution));
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
     GET_STRING("fake_mode", "", g_config.fake_mode, sizeof(g_config.fake_mode));
-    GET_BOOL(g_config.wine_allow_resize, "wine_allow_resize", FALSE);
     GET_BOOL(g_config.lock_mouse_top_left, "lock_mouse_top_left", FALSE);
-    GET_BOOL(g_config.no_compat_warning, "no_compat_warning", FALSE);
+    GET_STRING("win_version", "", g_config.win_version, sizeof(g_config.win_version));
+    GET_INT(g_config.hook, "hook", 4);
     GET_BOOL(g_config.remove_menu, "remove_menu", FALSE);
+    GET_INT(g_config.refresh_rate, "refresh_rate", 0);
 
     /* Hotkeys */
 
@@ -113,6 +112,7 @@ void cfg_load()
     GET_BOOL(g_config.tlc_hack, "tlc_hack", FALSE);
     GET_BOOL(g_config.homm_hack, "homm_hack", FALSE);
     GET_BOOL(g_config.carma95_hack, "carma95_hack", FALSE);
+    GET_BOOL(g_config.sirtech_hack, "sirtech_hack", FALSE);
 
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -303,28 +303,27 @@ static void cfg_create_ini()
             "hook_peekmessage=false\n"
             "\n"
             "\n"
-            "; Undocumented settings - You may or may not change these (You should rather focus on the settings above)\n"
-            "releasealt=false\n"
+            "; Undocumented compatibility settings - These will probably not solve your problem, you should rather focus on the settings above\n"
+            "fix_alt_key_stuck=false\n"
             "game_handles_close=false\n"
-            "fixnotresponding=false\n"
-            "hook=4\n"
+            "fix_not_responding=false\n"
+            "no_compat_warning=false\n"
+            "wine_allow_resize=false\n"
             "guard_lines=200\n"
             "max_resolutions=0\n"
             "lock_surfaces=false\n"
             "flipclear=false\n"
-            "fixmousehook=false\n"
             "rgb555=false\n"
             "no_dinput_hook=false\n"
-            "refresh_rate=0\n"
             ";inject_resolution=960x540\n"
             "direct3d_passthrough=false\n"
             "center_cursor_fix=false\n"
             ";fake_mode=640x480x32\n"
-            "wine_allow_resize=false\n"
             "lock_mouse_top_left=false\n"
-            "no_compat_warning=false\n"
-            "remove_menu=false\n"
             ";win_version=95\n"
+            "hook=4\n"
+            "remove_menu=false\n"
+            "refresh_rate=0\n"
             "\n"
             "\n"
             "\n"
@@ -833,7 +832,7 @@ static void cfg_create_ini()
             "; Economic War\n"
             "[EcoW]\n"
             "maxgameticks=60\n"
-            "fixnotresponding=true\n"
+            "fix_not_responding=true\n"
             "\n"
             "; Emperor: Rise of the Middle Kingdom\n"
             "[Emperor]\n"
@@ -896,7 +895,7 @@ static void cfg_create_ini()
             "\n"
             "; Glover\n"
             "[glover]\n"
-            "fixnotresponding=true\n"
+            "fix_not_responding=true\n"
             "\n"
             "; G-Police\n"
             "[GPOLICE]\n"
@@ -1010,32 +1009,32 @@ static void cfg_create_ini()
             "; Jagged Alliance 2\n"
             "[ja2]\n"
             "singlecpu=false\n"
-            "fixmousehook=true\n"
-            "releasealt=true\n"
+            "sirtech_hack=true\n"
+            "fix_alt_key_stuck=true\n"
             "\n"
             "; Jagged Alliance 2: Unfinished Business\n"
             "[JA2UB]\n"
             "singlecpu=false\n"
-            "fixmousehook=true\n"
-            "releasealt=true\n"
+            "sirtech_hack=true\n"
+            "fix_alt_key_stuck=true\n"
             "\n"
             "; Jagged Alliance 2: Wildfire\n"
             "[WF6]\n"
             "singlecpu=false\n"
-            "fixmousehook=true\n"
-            "releasealt=true\n"
+            "sirtech_hack=true\n"
+            "fix_alt_key_stuck=true\n"
             "\n"
             "; Jagged Alliance 2 - UC mod\n"
             "[JA2_UC]\n"
             "singlecpu=false\n"
-            "fixmousehook=true\n"
-            "releasealt=true\n"
+            "sirtech_hack=true\n"
+            "fix_alt_key_stuck=true\n"
             "\n"
             "; Jagged Alliance 2 - Vengeance Reloaded mod\n"
             "[JA2_Vengeance]\n"
             "singlecpu=false\n"
-            "fixmousehook=true\n"
-            "releasealt=true\n"
+            "sirtech_hack=true\n"
+            "fix_alt_key_stuck=true\n"
             "\n"
             "; Jedi Knight Dark Forces 2\n"
             "[JK]\n"
@@ -1180,7 +1179,7 @@ static void cfg_create_ini()
             "\n"
             "; Moorhuhn 2\n"
             "[Moorhuhn2]\n"
-            "releasealt=true\n"
+            "fix_alt_key_stuck=true\n"
             "\n"
             "; New Robinson\n"
             "[ROBY]\n"
@@ -1361,17 +1360,17 @@ static void cfg_create_ini()
             "[Game/4]\n"
             "checkfile=.\\Robin Hood.exe\n"
             "singlecpu=false\n"
-            "fixnotresponding=true\n"
+            "fix_not_responding=true\n"
             "\n"
             "; Robin Hood - The Legend of Sherwood (Steam)\n"
             "[_rh]\n"
             "singlecpu=false\n"
-            "fixnotresponding=true\n"
+            "fix_not_responding=true\n"
             "\n"
             "; Robin Hood - The Legend of Sherwood\n"
             "[Robin Hood]\n"
             "singlecpu=false\n"
-            "fixnotresponding=true\n"
+            "fix_not_responding=true\n"
             "\n"
             "; Scooby-Doo(TM), Case File #1 The Glowing Bug Man - NOT WORKING YET\n"
             "[Case File #1]\n"
@@ -1512,7 +1511,7 @@ static void cfg_create_ini()
             "\n"
             "; The Jungle Book Groove Party\n"
             "[Jungle_vr]\n"
-            "fixnotresponding=true\n"
+            "fix_not_responding=true\n"
             "\n"
             "; Three Kingdoms: Fate of the Dragon\n"
             "[sanguo]\n"
@@ -1574,8 +1573,8 @@ static void cfg_create_ini()
             "\n"
             "; Wizardry 8\n"
             "[Wiz8]\n"
-            "fixmousehook=true\n"
-            "releasealt=true\n"
+            "sirtech_hack=true\n"
+            "fix_alt_key_stuck=true\n"
             "\n"
             "; Worms 2\n"
             "[worms2]\n"

@@ -596,7 +596,7 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
         return NULL;
     }
 
-    if (idHook == WH_MOUSE && lpfn && !hmod && !g_mouse_hook && g_config.fixmousehook)
+    if (idHook == WH_MOUSE && lpfn && !hmod && !g_mouse_hook && g_config.sirtech_hack)
     {
         g_mouse_proc = lpfn;
         return g_mouse_hook = real_SetWindowsHookExA(idHook, mouse_hook_proc, hmod, dwThreadId);
