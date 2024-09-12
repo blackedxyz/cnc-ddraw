@@ -299,7 +299,7 @@ static void cfg_create_ini()
             "; Note: Disables upscaling if a child window was detected (to ensure the game is fully playable, may look weird though)\n"
             "fixchilds=2\n"
             "\n"
-            "; Enable the following setting if your cursor doesn't work properly when upscaling is enabled\n"
+            "; Enable the following setting if your cursor doesn't lock to the window or it doesn't work properly when upscaling is enabled\n"
             "hook_peekmessage=false\n"
             "\n"
             "\n"
