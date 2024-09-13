@@ -11,15 +11,9 @@ BRANCH   := $(shell git rev-parse --abbrev-ref HEAD || echo UNKNOWN)
 CMDTEST  := $(shell echo \"\")
 ifeq ($(CMDTEST),\"\")
 	# Windows
-	CMDTEST  := $(shell echo "\#")
-	ifeq ($(CMDTEST),"\#")
-		# gmake
-		ECOMMIT  := $(shell echo \#define GIT_COMMIT "$(COMMIT)" > inc/git.h)
-		EBRANCH  := $(shell echo \#define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
-	else
-		ECOMMIT  := $(shell echo #define GIT_COMMIT "$(COMMIT)" > inc/git.h)
-		EBRANCH  := $(shell echo #define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
-	endif
+	HASH     := \#
+	ECOMMIT  := $(shell echo $(HASH)define GIT_COMMIT "$(COMMIT)" > inc/git.h)
+	EBRANCH  := $(shell echo $(HASH)define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
 else
 	# Either *nix or Windows with BusyBox (e.g. w64devkit)
 	ECOMMIT  := $(shell echo "#define GIT_COMMIT" \"$(COMMIT)\" > inc/git.h)
