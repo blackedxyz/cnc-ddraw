@@ -22,8 +22,8 @@ ifeq ($(CMDTEST),\"\")
 	endif
 else
 	# Either *nix or Windows with BusyBox (e.g. w64devkit)
-	ECOMMIT  := $(shell echo \#define GIT_COMMIT \"$(COMMIT)\" > inc/git.h)
-	EBRANCH  := $(shell echo \#define GIT_BRANCH \"$(BRANCH)\" >> inc/git.h)
+	ECOMMIT  := $(shell echo "#define GIT_COMMIT" \"$(COMMIT)\" > inc/git.h)
+	EBRANCH  := $(shell echo "#define GIT_BRANCH" \"$(BRANCH)\" >> inc/git.h)
 endif
 
 CC        = i686-w64-mingw32-gcc
