@@ -14,6 +14,7 @@ ifeq ($(CMDTEST),\"\")
 ECOMMIT  := $(shell echo #define GIT_COMMIT "$(COMMIT)" > inc/git.h)
 EBRANCH  := $(shell echo #define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
 else
+# Either *nix or Windows with sh.exe (e.g. w64devkit)
 ECOMMIT  := $(shell echo \#define GIT_COMMIT \"$(COMMIT)\" > inc/git.h)
 EBRANCH  := $(shell echo \#define GIT_BRANCH \"$(BRANCH)\" >> inc/git.h)
 endif
