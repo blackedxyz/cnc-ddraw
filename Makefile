@@ -13,7 +13,7 @@ ifeq ($(CMDTEST),\"\")
 	# Windows
 	CMDTEST  := $(shell echo "\#")
 	ifeq ($(CMDTEST),"\#")
-    	# gmake
+		# gmake
 		ECOMMIT  := $(shell echo \#define GIT_COMMIT "$(COMMIT)" > inc/git.h)
 		EBRANCH  := $(shell echo \#define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
 	else
