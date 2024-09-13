@@ -16,7 +16,7 @@ ifeq ($(CMDTEST),\"\")
     	# gmake
 		ECOMMIT  := $(shell echo \#define GIT_COMMIT "$(COMMIT)" > inc/git.h)
 		EBRANCH  := $(shell echo \#define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
-    else
+	else
 		ECOMMIT  := $(shell echo #define GIT_COMMIT "$(COMMIT)" > inc/git.h)
 		EBRANCH  := $(shell echo #define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
 	endif
