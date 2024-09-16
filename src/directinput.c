@@ -133,9 +133,14 @@ static HRESULT WINAPI fake_di_CreateDevice(
 
     if (SUCCEEDED(result))
     {
-        if (rguid && IsEqualGUID(&GUID_SysMouse, rguid))
+        if (rguid)
         {
-            g_mouse_device = *lplpDIDevice;
+            TRACE("     GUID = %08X\n", ((GUID*)rguid)->Data1);
+
+            if (IsEqualGUID(&GUID_SysMouse, rguid))
+            {
+                g_mouse_device = *lplpDIDevice;
+            }
         }
 
         if (!real_did_SetCooperativeLevel)
@@ -173,9 +178,14 @@ static HRESULT WINAPI fake_di_CreateDeviceEx(
 
     if (SUCCEEDED(result))
     {
-        if (rguid && IsEqualGUID(&GUID_SysMouse, rguid))
+        if (rguid)
         {
-            g_mouse_device = *lplpDIDevice;
+            TRACE("     GUID = %08X\n", ((GUID*)rguid)->Data1);
+
+            if (IsEqualGUID(&GUID_SysMouse, rguid))
+            {
+                g_mouse_device = *lplpDIDevice;
+            }
         }
 
         if (!real_did_SetCooperativeLevel)
