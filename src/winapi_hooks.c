@@ -1826,6 +1826,13 @@ HWND WINAPI fake_CreateWindowExA(
         hWndParent = g_ddraw.hwnd;
     }
 
+    /* A Bug's Life Action Game */
+    //HIWORD(lpClassName) && _strcmpi(lpClassName, "Bugs") == 0 &&
+    if (dwExStyle == 0x01000008)
+    {
+        dwExStyle = WS_EX_TOPMOST;
+    }
+
     /* Fix for SMACKW32.DLL creating another window that steals the focus */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "MouseTypeWind") == 0 && g_ddraw.ref && g_ddraw.hwnd)
     {
