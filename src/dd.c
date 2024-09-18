@@ -1025,7 +1025,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         g_ddraw.render.opengl_y_align = 0;
     }
 
-    //dbg_dump_wnd_styles(real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE), real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE));
+    dbg_dump_wnd_styles(real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE), real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE));
     if (g_config.windowed)
     {
         if (g_config.remove_menu && GetMenu(g_ddraw.hwnd))
@@ -1057,6 +1057,12 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 g_ddraw.hwnd,
                 GWL_STYLE,
                 (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_OVERLAPPEDWINDOW) & ~(WS_MAXIMIZE));
+
+            DWORD class_sytle = GetClassLongA(g_ddraw.hwnd, GCL_STYLE);
+            if (class_sytle & CS_NOCLOSE)
+            {
+                SetClassLongA(g_ddraw.hwnd, GCL_STYLE, class_sytle & ~CS_NOCLOSE);
+            }
         }
 
         LONG exstyle = real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE);
