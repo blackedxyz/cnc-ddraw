@@ -46,7 +46,7 @@ ULONG __stdcall IDirect3D7__Release(IDirect3D7Impl* This)
 HRESULT __stdcall IDirect3D7__EnumDevices(IDirect3D7Impl* This, int a, int b)
 {
     TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
-    HRESULT ret = E_FAIL;
+    HRESULT ret = S_OK;
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }
