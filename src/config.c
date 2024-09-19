@@ -940,6 +940,7 @@ static void cfg_create_ini()
             "; Girl Talk\n"
             "[GirlTalk]\n"
             "resolutions=2\n"
+            "game_handles_close=true\n"
             "\n"
             "; Jazz Jackrabbit 2 plus\n"
             "[Jazz2]\n"
