@@ -177,7 +177,7 @@ HRESULT WINAPI DirectDrawCreate(GUID FAR* lpGUID, LPDIRECTDRAW FAR* lplpDD, IUnk
 
     HRESULT ret;
 
-    if (util_caller_is_ddraw_wrapper(_ReturnAddress()))
+    if (util_caller_is_ddraw_wrapper(_ReturnAddress()) || g_config.flightsim98_hack)
     {
         if (lplpDD)
             *lplpDD = NULL;
@@ -222,7 +222,7 @@ HRESULT WINAPI DirectDrawCreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnk
 
     HRESULT ret;
 
-    if (util_caller_is_ddraw_wrapper(_ReturnAddress()))
+    if (util_caller_is_ddraw_wrapper(_ReturnAddress()) || g_config.flightsim98_hack)
     {
         if (lplpDD)
             *lplpDD = NULL;

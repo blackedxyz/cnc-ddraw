@@ -103,6 +103,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL homm_hack;
     BOOL carma95_hack;
     BOOL sirtech_hack;
+    BOOL flightsim98_hack;
 
 } CNCDDRAWCONFIG;
 

@@ -113,7 +113,8 @@ void cfg_load()
     GET_BOOL(g_config.homm_hack, "homm_hack", FALSE);
     GET_BOOL(g_config.carma95_hack, "carma95_hack", FALSE);
     GET_BOOL(g_config.sirtech_hack, "sirtech_hack", FALSE);
-
+    GET_BOOL(g_config.flightsim98_hack, "flightsim98_hack", FALSE);
+    
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
     if (g_config.lock_mouse_top_left)
@@ -847,6 +848,14 @@ static void cfg_create_ini()
             "[EI]\n"
             "hook_peekmessage=true\n"
             "\n"
+            "; Flight Simulator 98\n"
+            "[FLTSIM95]\n"
+            "flightsim98_hack=true\n"
+            "\n"
+            "; Flight Simulator 98\n"
+            "[FLTSIM98]\n"
+            "flightsim98_hack=true\n"
+            "\n" 
             "; Fairy Tale About Father Frost, Ivan and Nastya\n"
             "[mrazik]\n"
             "guard_lines=0\n"
