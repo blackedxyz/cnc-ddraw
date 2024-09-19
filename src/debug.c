@@ -175,7 +175,11 @@ void dbg_init()
 
             char build[256] = { 0 };
             DWORD build_size = sizeof(build);
-            RegQueryValueExA(hkey, "BuildLab", NULL, NULL, (PVOID)&build, &build_size);
+            if (RegQueryValueExA(hkey, "BuildLabEx", NULL, NULL, (PVOID)&build, &build_size) != ERROR_SUCCESS)
+            {
+                build_size = sizeof(build);
+                RegQueryValueExA(hkey, "BuildLab", NULL, NULL, (PVOID)&build, &build_size);
+            }
 
             TRACE("%s %s (%s)\n", name, dversion, build);
 
