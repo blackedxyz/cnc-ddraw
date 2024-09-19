@@ -2,6 +2,7 @@
 #include <dbghelp.h>
 #include <stdio.h>
 #include <d3d9.h>
+#include <time.h>
 #include "ddraw.h"
 #include "dd.h"
 #include "ddsurface.h"
@@ -11,6 +12,8 @@
 #include "version.h"
 #include "git.h"
 #include "versionhelpers.h"
+#include "utils.h"
+#include "dllmain.h"
 
 
 double g_dbg_frame_time = 0;
@@ -159,6 +162,8 @@ void dbg_init()
             GIT_COMMIT,
             GIT_BRANCH);
 
+        TRACE("cnc-ddraw = %p\n", g_ddraw_module);
+
         HKEY hkey;
         LONG status =
             RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0L, KEY_READ, &hkey);
@@ -195,6 +200,12 @@ void dbg_init()
             verhelp_wine_get_host_version(&sysname, &release);
 
             TRACE("Wine sysname = %s, release = %s\n", sysname, release);
+        }
+
+        DWORD timestamp = util_get_timestamp(GetModuleHandleA(NULL));
+        if (timestamp)
+        {
+            TRACE("timestamp = %s", _ctime32((const long*)&timestamp));
         }
     }
 }

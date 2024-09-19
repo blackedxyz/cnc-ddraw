@@ -89,6 +89,22 @@ void util_pull_messages()
     }
 }
 
+DWORD util_get_timestamp(HMODULE mod)
+{
+    if (!mod || mod == INVALID_HANDLE_VALUE)
+        return 0;
+
+    PIMAGE_DOS_HEADER dos_header = (PIMAGE_DOS_HEADER)mod;
+    if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
+        return 0;
+
+    PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)dos_header + (DWORD)dos_header->e_lfanew);
+    if (nt_headers->Signature != IMAGE_NT_SIGNATURE)
+        return 0;
+
+    return nt_headers->FileHeader.TimeDateStamp;
+}
+
 FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
 {
     if (!mod || mod == INVALID_HANDLE_VALUE)
