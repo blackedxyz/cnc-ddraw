@@ -205,7 +205,8 @@ void dbg_init()
         DWORD timestamp = util_get_timestamp(GetModuleHandleA(NULL));
         if (timestamp)
         {
-            TRACE("timestamp = %s", _ctime32((const long*)&timestamp));
+            struct tm* timeinfo = _gmtime32((const long*)&timestamp);
+            TRACE("timestamp = %s", asctime(timeinfo));
         }
     }
 }
