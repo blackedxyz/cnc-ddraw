@@ -11,7 +11,7 @@
 #   uses: phobos2077/sfall@develop
 #   with:
 #    release-xp: true
-#
+# 
 # - name: Copy sfall to mod directory
 #   run:  copy "${{ steps.sfall.outputs.release-xp }}" "my/mod/directory/ddraw.dll"
 #
