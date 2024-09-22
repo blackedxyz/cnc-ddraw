@@ -1685,26 +1685,6 @@ ULONG dd_Release()
 
         if (g_ddraw.hwnd && IsWindow(g_ddraw.hwnd))
         {
-            /* restore old window size, required for games that can switch between windowed and fullscreen during runtime */
-            if (g_ddraw.width)
-            {
-                RECT rc = { 0, 0, g_ddraw.width, g_ddraw.height };
-
-                LONG style = real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE);
-                LONG exstyle = real_GetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE);
-
-                AdjustWindowRectEx(&rc, style, GetMenu(g_ddraw.hwnd) != NULL, exstyle);
-
-                real_SetWindowPos(
-                    g_ddraw.hwnd,
-                    0,
-                    0,
-                    0,
-                    (rc.right - rc.left),
-                    (rc.bottom - rc.top),
-                    SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER);
-            }
-
             /* restore old wndproc, subsequent ddraw creation will otherwise fail */
             real_SetWindowLongA(g_ddraw.hwnd, GWL_WNDPROC, (LONG)g_ddraw.wndproc);
         }
