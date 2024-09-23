@@ -34,7 +34,7 @@ OBJS     := $(addsuffix .o, $(basename $(SRCS)))
 all: $(TARGET)
 
 %.o: %.rc
-	$(WINDRES) -J rc $< $@
+	$(WINDRES) -J rc $< $@ || windres -J rc $< $@
 
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^ exports.def $(LIBS)
