@@ -118,16 +118,13 @@ unsigned long util_get_crc32(char* filename)
     if (fp)
     {
         char buf[1024];
-        for (size_t s = 0; (s = fread(buf, 1, sizeof(buf), fp));)
+        for (size_t s = 0; (s = fread(buf, 1, sizeof(buf), fp)) && !ferror(fp);)
         {
-            if (ferror(fp))
-            {
-                crc32 = 0;
-                break;
-            }
-
             crc32 = Crc32_ComputeBuf(crc32, buf, s);
         }
+
+        if (ferror(fp))
+            crc32 = 0;
 
         fclose(fp);
     }
