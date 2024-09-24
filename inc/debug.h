@@ -6,6 +6,7 @@
 #include <intrin.h>
 
 LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception);
+LONG WINAPI dbg_vectored_exception_handler(EXCEPTION_POINTERS* exception);
 void dbg_counter_start();
 double dbg_counter_stop();
 void dbg_debug_string(const char* format, ...);
@@ -33,6 +34,7 @@ void __cdecl dbg_invoke_watson(wchar_t const*, wchar_t const*, wchar_t const*, u
 extern double g_dbg_frame_time;
 extern DWORD g_dbg_frame_count;
 extern LPTOP_LEVEL_EXCEPTION_FILTER g_dbg_exception_filter;
+extern PVOID g_dbg_exception_handle;
 
 #if defined(__GNUC__) /* wrap msvc intrinsics onto gcc builtins */
 #undef  _ReturnAddress

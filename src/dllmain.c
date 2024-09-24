@@ -43,14 +43,15 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 #ifdef _DEBUG 
         dbg_init();
         g_dbg_exception_filter = real_SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)dbg_exception_handler);
+#endif
+
         cfg_load();
-#else
-        cfg_load();
+
         if (g_config.ignore_exceptions)
         {
-            g_dbg_exception_filter = real_SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)dbg_exception_handler);
+            g_dbg_exception_handle = 
+                AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)dbg_vectored_exception_handler);
         }
-#endif
 
         char buf[1024];
 
@@ -147,6 +148,10 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         keyboard_hook_exit();
         dinput_hook_exit();
         hook_exit();
+
+        if (g_dbg_exception_handle)
+            RemoveVectoredExceptionHandler(g_dbg_exception_handle);
+
         break;
     }
     }

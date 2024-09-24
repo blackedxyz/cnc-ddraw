@@ -15,12 +15,12 @@
 #include "utils.h"
 #include "dllmain.h"
 #include "config.h"
-#include "patch.h"
 
 
 double g_dbg_frame_time = 0;
 DWORD g_dbg_frame_count = 0;
 LPTOP_LEVEL_EXCEPTION_FILTER g_dbg_exception_filter;
+PVOID g_dbg_exception_handle;
 
 static LONGLONG g_dbg_counter_start_time = 0;
 static double g_dbg_counter_freq = 0.0;
@@ -37,98 +37,59 @@ static int g_dbg_crash_count = 0;
 
 LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
 {
-    if (!exception || !exception->ExceptionRecord)
-    {
-        if (g_dbg_exception_filter)
-            return g_dbg_exception_filter(exception);
+    g_dbg_crash_count++;
 
-        return EXCEPTION_EXECUTE_HANDLER;
+    HANDLE dmp =
+        CreateFile(
+            g_dbg_crash_count == 1 ? g_dbg_dmp_path1 : g_dbg_dmp_path2,
+            GENERIC_READ | GENERIC_WRITE,
+            FILE_SHARE_WRITE | FILE_SHARE_READ,
+            0,
+            CREATE_ALWAYS,
+            0,
+            0);
+
+    if (dmp != INVALID_HANDLE_VALUE)
+    {
+        MINIDUMP_EXCEPTION_INFORMATION info;
+        info.ThreadId = GetCurrentThreadId();
+        info.ExceptionPointers = exception;
+        info.ClientPointers = TRUE;
+
+        MiniDumpWriteDump(
+            GetCurrentProcess(),
+            GetCurrentProcessId(),
+            dmp,
+            0,
+            &info,
+            NULL,
+            NULL);
+
+        CloseHandle(dmp);
     }
 
-    if (exception->ExceptionRecord->ExceptionCode != STATUS_PRIVILEGED_INSTRUCTION || !g_config.ignore_exceptions)
+    if (exception && exception->ExceptionRecord)
     {
-        g_dbg_crash_count++;
-
-        HANDLE dmp =
-            CreateFile(
-                g_dbg_crash_count == 1 ? g_dbg_dmp_path1 : g_dbg_dmp_path2,
-                GENERIC_READ | GENERIC_WRITE,
-                FILE_SHARE_WRITE | FILE_SHARE_READ,
-                0,
-                CREATE_ALWAYS,
-                0,
-                0);
-
-        if (dmp != INVALID_HANDLE_VALUE)
-        {
-            MINIDUMP_EXCEPTION_INFORMATION info;
-            info.ThreadId = GetCurrentThreadId();
-            info.ExceptionPointers = exception;
-            info.ClientPointers = TRUE;
-
-            MiniDumpWriteDump(
-                GetCurrentProcess(),
-                GetCurrentProcessId(),
-                dmp,
-                0,
-                &info,
-                NULL,
-                NULL);
-
-            CloseHandle(dmp);
-        }
-    }
-
-    HMODULE mod = NULL;
-    char filename[MAX_PATH] = { 0 };
+        HMODULE mod = NULL;
+        char filename[MAX_PATH] = { 0 };
 
 #if defined(_MSC_VER) /* comment this out just to keep the mingw build win2000 compatible */
-    if (GetModuleHandleExA(
-        GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-        exception->ExceptionRecord->ExceptionAddress,
-        &mod))
-    {
-        GetModuleFileNameA(mod, filename, sizeof(filename) - 1);
-    }
+        if (GetModuleHandleExA(
+            GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+            exception->ExceptionRecord->ExceptionAddress,
+            &mod))
+        {
+            GetModuleFileNameA(mod, filename, sizeof(filename) - 1);
+        }
 #endif
 
-    TRACE(
-        "Exception at %p (%p+%p), Code=%08X - %s\n",
-        exception->ExceptionRecord->ExceptionAddress,
-        mod,
-        (int)exception->ExceptionRecord->ExceptionAddress - (int)mod,
-        exception->ExceptionRecord->ExceptionCode,
-        filename);
-
-    if (g_config.ignore_exceptions &&
-        exception->ContextRecord &&
-        exception->ExceptionRecord->ExceptionAddress &&
-        exception->ExceptionRecord->ExceptionCode == STATUS_PRIVILEGED_INSTRUCTION)
-    {
-        size_t size = 0;
-        BYTE* addr = exception->ExceptionRecord->ExceptionAddress;
-        switch (*addr)
-        {
-        case 0xE4: // IN ib
-        case 0xE5: // IN id
-        case 0xE6: // OUT ib
-        case 0xE7: // OUT ib
-            size = 2;
-            break;
-        case 0xEC: // IN ib
-        case 0xED: // IN id
-        case 0xEE: // OUT
-        case 0xEF: // OUT
-            size = 1;
-            break;
-        }
-
-        if (size)
-        {
-            exception->ContextRecord->Eip += size;
-            patch_clear((void*)addr, 0x90, (char*)addr + size);
-            return EXCEPTION_CONTINUE_EXECUTION;
-        }
+        TRACE(
+            "Exception at %p (%p+%p), Code=%08X - %s\n",
+            exception->ExceptionRecord->ExceptionAddress,
+            mod,
+            (int)exception->ExceptionRecord->ExceptionAddress - (int)mod,
+            exception->ExceptionRecord->ExceptionCode,
+            filename);
     }
 
     if (g_dbg_exception_filter)
@@ -152,8 +113,9 @@ void __cdecl dbg_invoke_watson(
 
     TerminateProcess(GetCurrentProcess(), STATUS_INVALID_CRUNTIME_PARAMETER);
 }
-#else
-LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
+#endif
+
+LONG WINAPI dbg_vectored_exception_handler(EXCEPTION_POINTERS* exception)
 {
     if (exception &&
         exception->ContextRecord &&
@@ -182,17 +144,12 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
         if (size)
         {
             exception->ContextRecord->Eip += size;
-            patch_clear((void*)addr, 0x90, (char*)addr + size);
             return EXCEPTION_CONTINUE_EXECUTION;
         }
     }
 
-    if (g_dbg_exception_filter)
-        return g_dbg_exception_filter(exception);
-
-    return EXCEPTION_EXECUTE_HANDLER;
+    return EXCEPTION_CONTINUE_SEARCH;
 }
-#endif
 
 void dbg_init()
 {
