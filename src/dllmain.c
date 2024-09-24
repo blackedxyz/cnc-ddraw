@@ -43,9 +43,14 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 #ifdef _DEBUG 
         dbg_init();
         g_dbg_exception_filter = real_SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)dbg_exception_handler);
-#endif
-
         cfg_load();
+#else
+        cfg_load();
+        if (g_config.ignore_exceptions)
+        {
+            g_dbg_exception_filter = real_SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)dbg_exception_handler);
+        }
+#endif
 
         char buf[1024];
 
