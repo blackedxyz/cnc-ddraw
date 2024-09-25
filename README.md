@@ -85,6 +85,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Atlantis: The Lost Tales
 - Atomic Bomberman
 - Atrox
+- Balls of Steel v1.2
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
