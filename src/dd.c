@@ -710,9 +710,14 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
     g_ddraw.render.height = g_config.window_rect.bottom;
 
     /* temporary fix: center window for games that keep changing their resolution */
-    if ((g_ddraw.width || g_config.infantryhack) &&
+    if (g_config.center_window &&
+        (g_ddraw.width || g_config.infantryhack || g_config.center_window == CENTER_WINDOW_ALWAYS) &&
         (g_ddraw.width != dwWidth || g_ddraw.height != dwHeight) &&
-        (dwWidth > g_config.window_rect.right || dwHeight > g_config.window_rect.bottom))
+        (
+            dwWidth > g_config.window_rect.right ||
+            dwHeight > g_config.window_rect.bottom ||
+            g_config.center_window == CENTER_WINDOW_ALWAYS)
+        )
     {
         g_config.window_rect.left = -32000;
         g_config.window_rect.top = -32000;

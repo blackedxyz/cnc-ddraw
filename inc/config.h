@@ -42,6 +42,7 @@ typedef struct CNCDDRAWCONFIG
     int d3d9_filter;
     int anti_aliased_fonts_min_size;
     int min_font_size;
+    int center_window;
     BOOL vhack;
     char screenshot_dir[MAX_PATH];
     BOOL toggle_borderless;

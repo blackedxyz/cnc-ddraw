@@ -54,6 +54,7 @@ void cfg_load()
     GET_INT(g_config.d3d9_filter, "d3d9_filter", FILTER_CUBIC);
     GET_INT(g_config.anti_aliased_fonts_min_size, "anti_aliased_fonts_min_size", 13);
     GET_INT(g_config.min_font_size, "min_font_size", 0);
+    GET_INT(g_config.center_window, "center_window", CENTER_WINDOW_AUTO);
     GET_BOOL(g_config.vhack, "vhack", FALSE);
     GET_STRING("screenshotdir", ".\\Screenshots\\", g_config.screenshot_dir, sizeof(g_config.screenshot_dir));
     GET_BOOL(g_config.toggle_borderless, "toggle_borderless", FALSE);
@@ -249,6 +250,10 @@ static void cfg_create_ini()
             "\n"
             "; Raise the size of small fonts to X\n"
             "min_font_size=0\n"
+            "\n"
+            "; Center window to screen when game changes the display resolution\n"
+            "; Possible values: 0 = never center, 1 = automatic, 2 = always center\n"
+            "center_window=1\n"
             "\n"
             "; Enable upscale hack for high resolution patches (Supports C&C1, Red Alert 1, Worms 2 and KKND Xtreme)\n"
             "vhack=false\n"
