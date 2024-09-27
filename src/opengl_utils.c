@@ -231,20 +231,28 @@ void oglu_init()
 
 BOOL oglu_ext_exists(char* ext, HDC hdc)
 {
+    BOOL got_num_extensions = FALSE;
+
     if (glGetIntegerv && glGetStringi)
     {
         GLint n = 0;
         glGetIntegerv(GL_NUM_EXTENSIONS, &n);
 
-        for (GLint i = 0; i < n; i++)
+        if (glGetError() == GL_NO_ERROR)
         {
-            char* glext = (char*)glGetStringi(GL_EXTENSIONS, i);
+            got_num_extensions = TRUE;
 
-            if (glext && strcmp(glext, ext) == 0)
-                return TRUE;
+            for (GLint i = 0; i < n; i++)
+            {
+                char* glext = (char*)glGetStringi(GL_EXTENSIONS, i);
+
+                if (glext && strcmp(glext, ext) == 0)
+                    return TRUE;
+            }
         }
     }
-    else
+
+    if (!got_num_extensions)
     {
         char* glext = (char*)glGetString(GL_EXTENSIONS);
 

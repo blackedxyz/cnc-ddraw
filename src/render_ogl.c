@@ -111,6 +111,8 @@ DWORD WINAPI ogl_render_main(void)
     {
         GL_CHECK(oglu_init());
 
+        g_ogl.got_error = g_ogl.got_error || (err = glGetError()) != GL_NO_ERROR;
+
         BOOL got_swap_ctrl;
         GL_CHECK(got_swap_ctrl = oglu_ext_exists("WGL_EXT_swap_control", g_ogl.hdc));
 
