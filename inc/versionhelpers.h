@@ -29,13 +29,12 @@
 #endif
 
 #if (_WIN32_WINNT < _WIN32_WINNT_WIN2K)
-#define RtlVerifyVersionInfo(a,b,c) 1
 #define VerifyVersionInfoW(a,b,c) 0 
-#define VerSetConditionMask(a,b,c) 0
 #endif
 
 void verhelp_init();
 BOOL verhelp_verify_version(PRTL_OSVERSIONINFOEXW versionInfo, ULONG typeMask, ULONGLONG conditionMask);
+ULONGLONG verhelp_set_mask(ULONGLONG ConditionMask, DWORD TypeMask, BYTE Condition);
 const char* verhelp_wine_get_version();
 void verhelp_wine_get_host_version(const char** sysname, const char** release);
 
@@ -43,7 +42,7 @@ VERSIONHELPERAPI IsWindowsVersionOrGreater(DWORD major, DWORD minor, DWORD build
 {
     RTL_OSVERSIONINFOEXW vi = { sizeof(vi),major,minor,build,0,{0},servpack };
     return verhelp_verify_version(&vi, VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER | VER_SERVICEPACKMAJOR,
-        VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(0,
+        verhelp_set_mask(verhelp_set_mask(verhelp_set_mask(verhelp_set_mask(0,
             VER_MAJORVERSION, VER_GREATER_EQUAL),
             VER_MINORVERSION, VER_GREATER_EQUAL),
             VER_BUILDNUMBER, VER_GREATER_EQUAL),
@@ -54,7 +53,7 @@ VERSIONHELPERAPI IsWindowsVersion(DWORD major, DWORD minor, DWORD build, WORD se
 {
     RTL_OSVERSIONINFOEXW vi = { sizeof(vi),major,minor,build,0,{0},servpack };
     return verhelp_verify_version(&vi, VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER | VER_SERVICEPACKMAJOR,
-        VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(0,
+        verhelp_set_mask(verhelp_set_mask(verhelp_set_mask(verhelp_set_mask(0,
             VER_MAJORVERSION, VER_EQUAL),
             VER_MINORVERSION, VER_EQUAL),
             VER_BUILDNUMBER, VER_GREATER_EQUAL),
@@ -65,7 +64,7 @@ VERSIONHELPERAPI IsWindowsVersionAnySP(DWORD major, DWORD minor, DWORD build)
 {
     RTL_OSVERSIONINFOEXW vi = { sizeof(vi),major,minor,build,0,{0},0 };
     return verhelp_verify_version(&vi, VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER | VER_SERVICEPACKMAJOR,
-        VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(VerSetConditionMask(0,
+        verhelp_set_mask(verhelp_set_mask(verhelp_set_mask(verhelp_set_mask(0,
             VER_MAJORVERSION, VER_EQUAL),
             VER_MINORVERSION, VER_EQUAL),
             VER_BUILDNUMBER, VER_GREATER_EQUAL),
@@ -134,7 +133,7 @@ VERSIONHELPERAPI IsWindows11OrGreater(void) {
 
 VERSIONHELPERAPI IsWindowsServer(void) {
     OSVERSIONINFOEXW vi = {sizeof(vi),0,0,0,0,{0},0,0,0,VER_NT_WORKSTATION};
-    return !verhelp_verify_version(&vi, VER_PRODUCT_TYPE, VerSetConditionMask(0, VER_PRODUCT_TYPE, VER_EQUAL));
+    return !verhelp_verify_version(&vi, VER_PRODUCT_TYPE, verhelp_set_mask(0, VER_PRODUCT_TYPE, VER_EQUAL));
 }
 
 VERSIONHELPERAPI IsWindowsXP(void) {
