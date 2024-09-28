@@ -16,6 +16,10 @@
 #define CNC_DDRAW_SET_FULLSCREEN 1
 #define CNC_DDRAW_SET_WINDOWED 2
 
+#ifndef WM_UNICHAR
+#define WM_UNICHAR 0x0109
+#endif
+
 LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 #endif
