@@ -39,6 +39,7 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
 {
     g_dbg_crash_count++;
 
+#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
     HANDLE dmp =
         CreateFile(
             g_dbg_crash_count == 1 ? g_dbg_dmp_path1 : g_dbg_dmp_path2,
@@ -67,6 +68,7 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
 
         CloseHandle(dmp);
     }
+#endif
 
     if (exception && exception->ExceptionRecord)
     {
