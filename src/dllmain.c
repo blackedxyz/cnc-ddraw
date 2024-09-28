@@ -47,7 +47,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
         cfg_load();
 
-#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
+#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
         g_dbg_exception_handle = 
             AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)dbg_vectored_exception_handler);
 #endif
