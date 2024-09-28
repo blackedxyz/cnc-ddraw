@@ -47,8 +47,10 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
         cfg_load();
 
+#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
         g_dbg_exception_handle = 
             AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)dbg_vectored_exception_handler);
+#endif
 
         char buf[1024];
 
@@ -146,8 +148,10 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         dinput_hook_exit();
         hook_exit();
 
+#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
         if (g_dbg_exception_handle)
             RemoveVectoredExceptionHandler(g_dbg_exception_handle);
+#endif
 
         break;
     }
