@@ -47,10 +47,14 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
         cfg_load();
 
-#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
-        g_dbg_exception_handle = 
-            AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)dbg_vectored_exception_handler);
-#endif
+        PVOID(WINAPI * add_handler)(ULONG, PVECTORED_EXCEPTION_HANDLER) =
+            (void*)real_GetProcAddress(GetModuleHandleA("Kernel32.dll"), "AddVectoredExceptionHandler");
+
+        if (add_handler)
+        {
+            g_dbg_exception_handle =
+                add_handler(1, (PVECTORED_EXCEPTION_HANDLER)dbg_vectored_exception_handler);
+        }
 
         char buf[1024];
 
@@ -148,10 +152,11 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         dinput_hook_exit();
         hook_exit();
 
-#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
-        if (g_dbg_exception_handle)
-            RemoveVectoredExceptionHandler(g_dbg_exception_handle);
-#endif
+        ULONG(WINAPI* remove_handler)(PVOID) =
+            (void*)real_GetProcAddress(GetModuleHandleA("Kernel32.dll"), "RemoveVectoredExceptionHandler");
+
+        if (g_dbg_exception_handle && remove_handler)
+            remove_handler(g_dbg_exception_handle);
 
         break;
     }
