@@ -34,7 +34,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
         verhelp_init();
 
-        if (GetEnvironmentVariableW(L"cnc_ddraw_config_init", NULL, 0))
+        if (GetEnvironmentVariable("cnc_ddraw_config_init", NULL, 0))
         {
             cfg_load();
             return TRUE;
@@ -133,7 +133,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
     }
     case DLL_PROCESS_DETACH:
     {
-        if (GetEnvironmentVariableW(L"cnc_ddraw_config_init", NULL, 0))
+        if (GetEnvironmentVariable("cnc_ddraw_config_init", NULL, 0))
             return TRUE;
 
         TRACE("cnc-ddraw DLL_PROCESS_DETACH\n");
