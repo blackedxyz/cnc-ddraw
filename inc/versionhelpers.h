@@ -28,6 +28,11 @@
 #define _WIN32_WINNT_WIN11                  0x0A00
 #endif
 
+#if (_WIN32_WINNT < _WIN32_WINNT_WIN2K)
+#define RtlVerifyVersionInfo(a,b,c) 1
+#define VerifyVersionInfoW(a,b,c) 0 
+#define VerSetConditionMask(a,b,c) 0
+#endif
 
 void verhelp_init();
 BOOL verhelp_verify_version(PRTL_OSVERSIONINFOEXW versionInfo, ULONG typeMask, ULONGLONG conditionMask);

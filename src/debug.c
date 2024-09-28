@@ -73,7 +73,7 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
         HMODULE mod = NULL;
         char filename[MAX_PATH] = { 0 };
 
-#if defined(_MSC_VER) /* comment this out just to keep the mingw build win2000 compatible */
+#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
         if (GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
             exception->ExceptionRecord->ExceptionAddress,

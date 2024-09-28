@@ -10,6 +10,6 @@ set GIT6=C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\
 set PATH=C:\w64devkit\bin;%GIT1%;%GIT2%;%GIT3%;%GIT4%;%GIT5%;%GIT6%;%PATH%
 
 make clean
-make DEBUG=1
+make DEBUG=1 _WIN32_WINNT=0x0500
 
 pause
