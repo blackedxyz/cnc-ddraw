@@ -52,8 +52,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
         if (add_handler)
         {
-            g_dbg_exception_handle =
-                add_handler(1, (PVECTORED_EXCEPTION_HANDLER)dbg_vectored_exception_handler);
+            g_dbg_exception_handle = add_handler(1, (PVECTORED_EXCEPTION_HANDLER)dbg_vectored_exception_handler);
         }
 
         char buf[1024];
