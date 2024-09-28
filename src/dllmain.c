@@ -148,7 +148,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         dinput_hook_exit();
         hook_exit();
 
-#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
+#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
         if (g_dbg_exception_handle)
             RemoveVectoredExceptionHandler(g_dbg_exception_handle);
 #endif
