@@ -71,6 +71,10 @@ VERSIONHELPERAPI IsWindowsVersionAnySP(DWORD major, DWORD minor, DWORD build)
             VER_SERVICEPACKMAJOR, VER_GREATER_EQUAL));
 }
 
+VERSIONHELPERAPI IsWindows2000OrGreater(void) {
+    return IsWindowsVersionOrGreater(HIBYTE(_WIN32_WINNT_WIN2K), LOBYTE(_WIN32_WINNT_WIN2K), 0, 0);
+}
+
 VERSIONHELPERAPI IsWindowsXPOrGreater(void) {
     return IsWindowsVersionOrGreater(HIBYTE(_WIN32_WINNT_WINXP), LOBYTE(_WIN32_WINNT_WINXP), 0, 0);
 }
@@ -134,6 +138,10 @@ VERSIONHELPERAPI IsWindows11OrGreater(void) {
 VERSIONHELPERAPI IsWindowsServer(void) {
     OSVERSIONINFOEXW vi = {sizeof(vi),0,0,0,0,{0},0,0,0,VER_NT_WORKSTATION};
     return !verhelp_verify_version(&vi, VER_PRODUCT_TYPE, verhelp_set_mask(0, VER_PRODUCT_TYPE, VER_EQUAL));
+}
+
+VERSIONHELPERAPI IsWindows2000(void) {
+    return IsWindowsVersionAnySP(HIBYTE(_WIN32_WINNT_WIN2K), LOBYTE(_WIN32_WINNT_WIN2K), 0);
 }
 
 VERSIONHELPERAPI IsWindowsXP(void) {
