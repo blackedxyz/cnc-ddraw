@@ -4,7 +4,7 @@ TARGET   ?= ddraw.dll
 
 LDFLAGS  ?= -Wl,--enable-stdcall-fixup -s -static -shared
 CFLAGS   ?= -Iinc -O2 -Wall -std=c99
-LIBS      = -lgdi32 -lwinmm -ldbghelp -lole32 -lMsimg32
+LIBS      = -lgdi32 -lwinmm -lole32 -lMsimg32
 
 COMMIT   := $(shell git describe --match=NeVeRmAtCh --always --dirty || echo UNKNOWN)
 BRANCH   := $(shell git rev-parse --abbrev-ref HEAD || echo UNKNOWN)

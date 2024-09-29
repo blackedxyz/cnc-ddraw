@@ -39,51 +39,64 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
 {
     g_dbg_crash_count++;
 
-#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
-    HANDLE dmp =
-        CreateFile(
-            g_dbg_crash_count == 1 ? g_dbg_dmp_path1 : g_dbg_dmp_path2,
-            GENERIC_READ | GENERIC_WRITE,
-            FILE_SHARE_WRITE | FILE_SHARE_READ,
-            0,
-            CREATE_ALWAYS,
-            0,
-            0);
+    BOOL(WINAPI * MiniDumpWriteDumpProc)(
+        HANDLE,
+        DWORD,
+        HANDLE,
+        MINIDUMP_TYPE,
+        PMINIDUMP_EXCEPTION_INFORMATION,
+        PMINIDUMP_USER_STREAM_INFORMATION,
+        PMINIDUMP_CALLBACK_INFORMATION
+        );
 
-    if (dmp != INVALID_HANDLE_VALUE)
+    MiniDumpWriteDumpProc = (void*)real_GetProcAddress(real_LoadLibraryA("Dbghelp.dll"), "MiniDumpWriteDump");
+    if (MiniDumpWriteDumpProc)
     {
-        MINIDUMP_EXCEPTION_INFORMATION info;
-        info.ThreadId = GetCurrentThreadId();
-        info.ExceptionPointers = exception;
-        info.ClientPointers = TRUE;
+        HANDLE dmp =
+            CreateFile(
+                g_dbg_crash_count == 1 ? g_dbg_dmp_path1 : g_dbg_dmp_path2,
+                GENERIC_READ | GENERIC_WRITE,
+                FILE_SHARE_WRITE | FILE_SHARE_READ,
+                0,
+                CREATE_ALWAYS,
+                0,
+                0);
 
-        MiniDumpWriteDump(
-            GetCurrentProcess(),
-            GetCurrentProcessId(),
-            dmp,
-            0,
-            &info,
-            NULL,
-            NULL);
+        if (dmp != INVALID_HANDLE_VALUE)
+        {
+            MINIDUMP_EXCEPTION_INFORMATION info;
+            info.ThreadId = GetCurrentThreadId();
+            info.ExceptionPointers = exception;
+            info.ClientPointers = TRUE;
 
-        CloseHandle(dmp);
+            MiniDumpWriteDump(
+                GetCurrentProcess(),
+                GetCurrentProcessId(),
+                dmp,
+                0,
+                &info,
+                NULL,
+                NULL);
+
+            CloseHandle(dmp);
+        }
     }
-#endif
 
     if (exception && exception->ExceptionRecord)
     {
         HMODULE mod = NULL;
         char filename[MAX_PATH] = { 0 };
 
-#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
-        if (GetModuleHandleExA(
+        BOOL(WINAPI * getModuleHandleExA)(DWORD, LPCSTR, HMODULE*) =
+            (void*)real_GetProcAddress(real_LoadLibraryA("Kernel32.dll"), "GetModuleHandleExA");
+
+        if (getModuleHandleExA && getModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
             exception->ExceptionRecord->ExceptionAddress,
             &mod))
         {
             GetModuleFileNameA(mod, filename, sizeof(filename) - 1);
         }
-#endif
 
         TRACE(
             "Exception at %p (%p+%p), Code=%08X - %s\n",
