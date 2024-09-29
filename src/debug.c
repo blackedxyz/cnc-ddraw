@@ -207,11 +207,11 @@ void dbg_init()
         }
 
         TRACE(
-            "cnc-ddraw version = %d.%d.%d.%d (git~%s, %s)\n", 
-            VERSION_MAJOR, 
-            VERSION_MINOR, 
-            VERSION_BUILD, 
-            VERSION_REVISION, 
+            "cnc-ddraw version = %d.%d.%d.%d (git~%s, %s)\n",
+            VERSION_MAJOR,
+            VERSION_MINOR,
+            VERSION_BUILD,
+            VERSION_REVISION,
             GIT_COMMIT,
             GIT_BRANCH);
 
@@ -225,33 +225,34 @@ void dbg_init()
         LONG status9x =
             RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion", 0L, KEY_READ, &hkey9x);
 
-        if (status == ERROR_SUCCESS)
+        char name[256] = { 0 };
+        DWORD name_size = sizeof(name);
+        if (status || RegQueryValueExA(hkey, "ProductName", NULL, NULL, (PVOID)&name, &name_size) != ERROR_SUCCESS)
         {
-            char name[256] = { 0 };
-            DWORD name_size = sizeof(name);
-            if (RegQueryValueExA(hkey, "ProductName", NULL, NULL, (PVOID)&name, &name_size) != ERROR_SUCCESS && hkey9x)
-            {
+            if (status9x == ERROR_SUCCESS)
                 RegQueryValueExA(hkey9x, "ProductName", NULL, NULL, (PVOID)&name, &name_size);
-            }
-
-            char vers[256] = { 0 };
-            DWORD vers_size = sizeof(vers);
-            if (RegQueryValueExA(hkey, "DisplayVersion", NULL, NULL, (PVOID)&vers, &vers_size) != ERROR_SUCCESS && hkey9x)
-            {
-                RegQueryValueExA(hkey9x, "VersionNumber", NULL, NULL, (PVOID)&vers, &vers_size);
-            }
-
-            char build[256] = { 0 };
-            DWORD build_size = sizeof(build);
-            if (RegQueryValueExA(hkey, "BuildLabEx", NULL, NULL, (PVOID)&build, &build_size) != ERROR_SUCCESS)
-            {
-                RegQueryValueExA(hkey, "BuildLab", NULL, NULL, (PVOID)&build, &build_size);
-            }
-
-            TRACE("%s %s (%s)\n", name, vers, build);
-
-            RegCloseKey(hkey);
         }
+
+        char vers[256] = { 0 };
+        DWORD vers_size = sizeof(vers);
+        if (status || RegQueryValueExA(hkey, "DisplayVersion", NULL, NULL, (PVOID)&vers, &vers_size) != ERROR_SUCCESS)
+        {
+            if (status9x == ERROR_SUCCESS)
+                RegQueryValueExA(hkey9x, "VersionNumber", NULL, NULL, (PVOID)&vers, &vers_size);
+        }
+
+        char build[256] = { 0 };
+        DWORD build_size = sizeof(build);
+        if (status || RegQueryValueExA(hkey, "BuildLabEx", NULL, NULL, (PVOID)&build, &build_size) != ERROR_SUCCESS)
+        {
+            if (status == ERROR_SUCCESS)
+                RegQueryValueExA(hkey, "BuildLab", NULL, NULL, (PVOID)&build, &build_size);
+        }
+
+        TRACE("%s %s (%s)\n", name, vers, build);
+
+        if (status == ERROR_SUCCESS)
+            RegCloseKey(hkey);
 
         if (status9x == ERROR_SUCCESS)
             RegCloseKey(hkey9x);
