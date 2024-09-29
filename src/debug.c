@@ -69,7 +69,7 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
             info.ExceptionPointers = exception;
             info.ClientPointers = TRUE;
 
-            MiniDumpWriteDump(
+            MiniDumpWriteDumpProc(
                 GetCurrentProcess(),
                 GetCurrentProcessId(),
                 dmp,
