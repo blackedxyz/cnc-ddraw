@@ -30,10 +30,10 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 
 **Important**
 
-- **Game must be set to fullscreen** for cnc-ddraw to work. To enable windowed mode, use `cnc-ddraw config.exe` instead
+- **The game must be set to fullscreen**. To enable windowed mode, use `cnc-ddraw config.exe` instead
 - If the game does not work properly, check **Compatibility settings** in `cnc-ddraw config.exe`
-- **cnc-ddraw does not support Direct3D/Glide**, it will only work with games that use a **DirectDraw (Software)** renderer
-- Some games may require additional steps before they can be used with cnc-ddraw, please check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) for more details.
+- **cnc-ddraw does not support Direct3D games**, the game must have a **DirectDraw (Software)** renderer
+- Some games require additional steps before they can be used with cnc-ddraw, check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) for details
 - **If the game doesn't start at all or it's crashing**, [then please generate a debug log file and upload it.](https://github.com/FunkyFr3sh/cnc-ddraw/issues/44)  
 
 &nbsp;
