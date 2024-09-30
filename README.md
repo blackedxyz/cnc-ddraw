@@ -1,11 +1,11 @@
 # cnc-ddraw
-cnc-ddraw can fix compatibility issues in older 2D games, such as black screen, bad performance, crashes or defective Alt+Tab.
+cnc-ddraw can fix compatibility issues in older 2D games, such as black screen, bad performance, crashes or defective Alt+Tab. It does also add new features such as borderless mode, windowed mode and upscaling via shaders.
 
 &nbsp;
 
 ### Features
 
- - Supports Windows 2000, XP, Vista, 7, 8, 10, 11, Wine (Linux/macOS/Android) and Virtual Machines
+ - Supports Windows ME, 2000, XP, Vista, 7, 8, 10, 11, Wine (Linux/macOS/Android) and Virtual Machines
  - GDI / OpenGL / Direct3D 9 renderer (With automatic renderer selection)
  - Upscaling via glsl shaders - https://imgur.com/a/kxsM1oY | https://imgur.com/a/wjrhpFV
  - Windowed Mode / Fullscreen Exclusive Mode / Borderless Mode
@@ -24,27 +24,17 @@ cnc-ddraw can fix compatibility issues in older 2D games, such as black screen, 
 1. Download [cnc-ddraw.zip](https://github.com/FunkyFr3sh/cnc-ddraw/releases/latest/download/cnc-ddraw.zip) and extract it into your game folder
 2. Start the game
 
-Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.winehq.org/Winecfg#Libraries) manually or run cnc-ddraw config.exe once.
+Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.winehq.org/Winecfg#Libraries) manually or run `cnc-ddraw config.exe` once.
 
 &nbsp;
 
-If you use cnc-ddraw with a game that got its own windowed mode built in then **make sure you disable the games own windowed mode** first. You can enable windowed mode via cnc-ddraw config.exe instead.
+**Important**
 
-&nbsp;
-
-**If the game starts but it doesn't work perfectly** then open the config program and check the **Compatibility settings**.
-
-&nbsp;
-
-**cnc-ddraw does not support Direct3D/Glide**, it will only work with games that use a **DirectDraw (Software)** renderer. Usually you can tell by the look of the game if it's a 3D game or not, but you can also let cnc-ddraw generate a debug log and search for "IDirect3D" - Link: https://github.com/FunkyFr3sh/cnc-ddraw/issues/44
-
-&nbsp;
-
-Some games may require additional steps before they can be used with cnc-ddraw, please check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) for more details.
-
-&nbsp;
-
-**If the game doesn't start at all or it's crashing**, [then please generate a debug log file and upload it.](https://github.com/FunkyFr3sh/cnc-ddraw/issues/44)  
+- **Game must be set to fullscreen** for cnc-ddraw to work. To enable windowed mode, use `cnc-ddraw config.exe` instead
+- If the game does not work properly, check **Compatibility settings** in `cnc-ddraw config.exe`
+- **cnc-ddraw does not support Direct3D/Glide**, it will only work with games that use a **DirectDraw (Software)** renderer
+- Some games may require additional steps before they can be used with cnc-ddraw, please check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) for more details.
+- **If the game doesn't start at all or it's crashing**, [then please generate a debug log file and upload it.](https://github.com/FunkyFr3sh/cnc-ddraw/issues/44)  
 
 &nbsp;
 
