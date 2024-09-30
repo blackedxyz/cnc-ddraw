@@ -77,6 +77,31 @@ unsigned long Crc32_ComputeBuf( unsigned long inCrc32, const void *buf,
     return( crc32 ^ 0xFFFFFFFF );
 }
 
+unsigned long Crc32_FromFile(char* filename)
+{
+    if (!filename)
+        return 0;
+
+    unsigned long crc32 = 0;
+
+    FILE* fp = fopen(filename, "rb");
+    if (fp)
+    {
+        char buf[1024];
+        for (size_t s = 0; (s = fread(buf, 1, sizeof(buf), fp)) && !ferror(fp);)
+        {
+            crc32 = Crc32_ComputeBuf(crc32, buf, s);
+        }
+
+        if (ferror(fp))
+            crc32 = 0;
+
+        fclose(fp);
+    }
+
+    return crc32;
+}
+
 /*----------------------------------------------------------------------------*\
  *  END OF MODULE: crc32.c
 \*----------------------------------------------------------------------------*/

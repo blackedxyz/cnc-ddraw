@@ -12,7 +12,6 @@
 #include "utils.h"
 #include "config.h"
 #include "versionhelpers.h"
-#include "crc32.h"
 
 
 /*
@@ -105,31 +104,6 @@ DWORD util_get_timestamp(HMODULE mod)
         return 0;
 
     return nt_headers->FileHeader.TimeDateStamp;
-}
-
-unsigned long util_get_crc32(char* filename)
-{
-    if (!filename)
-        return 0;
-
-    unsigned long crc32 = 0;
-
-    FILE* fp = fopen(filename, "rb");
-    if (fp)
-    {
-        char buf[1024];
-        for (size_t s = 0; (s = fread(buf, 1, sizeof(buf), fp)) && !ferror(fp);)
-        {
-            crc32 = Crc32_ComputeBuf(crc32, buf, s);
-        }
-
-        if (ferror(fp))
-            crc32 = 0;
-
-        fclose(fp);
-    }
-
-    return crc32;
 }
 
 FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
