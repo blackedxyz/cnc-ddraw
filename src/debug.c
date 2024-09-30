@@ -269,7 +269,7 @@ void dbg_init()
             TRACE("Wine sysname = %s, release = %s\n", sysname, release);
         }
 
-        TRACE("crc32 = %08X\n", Crc32_FromFile(exe_path));
+        TRACE("crc32 = %08X\n", Crc32_FromFile(0, exe_path));
 
         DWORD timestamp = util_get_timestamp(GetModuleHandleA(NULL));
         if (timestamp)
