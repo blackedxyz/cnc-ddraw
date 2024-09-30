@@ -1187,7 +1187,7 @@ void __fastcall TConfigForm::FormCreate(TObject *Sender)
 	MinfpsChk->State = Minfps != 0 ? tssOn : tssOff;
 
 	SinglecpuChk->State = GetBool(ini, "singlecpu", true) ? tssOff : tssOn;
-	NonexclusiveChk->State = GetBool(ini, "nonexclusive", false) ? tssOn : tssOff;
+	NonexclusiveChk->State = GetBool(ini, "nonexclusive", true) ? tssOn : tssOff;
 
 	CompatibilityBtn->Visible = !GetBool(ini, "hide_compat_tab", false);
 
