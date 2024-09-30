@@ -67,4 +67,15 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 	}
 	return 0;
 }
+
+// dummy functions to avoid Wtsapi32.dll imports
+EXTERN_C BOOL WINAPI WTSRegisterSessionNotification(HWND hWnd, DWORD dwFlags)
+{
+	return TRUE;
+}
+
+EXTERN_C BOOL WINAPI WTSUnRegisterSessionNotification(HWND hWnd)
+{
+	return TRUE;
+}
 //---------------------------------------------------------------------------
