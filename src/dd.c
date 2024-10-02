@@ -701,6 +701,14 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 g_config.fullscreen = FALSE;
             }
         }
+        else if (g_config.maxgameticks == 0)
+        {
+            // no need to emulate 60hz vblank if we got a 60hz monitor
+            if (g_ddraw.mode.dmDisplayFrequency == 60 || g_ddraw.mode.dmDisplayFrequency == 59)
+            {
+                g_ddraw.wait_for_real_vblank = TRUE;
+            }
+        }
     }
 
     BOOL zooming = g_ddraw.zoom.enabled;
@@ -1544,7 +1552,7 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
 
 HRESULT dd_WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent)
 {
-    if (g_config.maxgameticks == -2)
+    if (g_config.maxgameticks == -2 || g_ddraw.wait_for_real_vblank)
     {
         /* Workaround for DwmFlush() freeze (e.g. slow alt+tab) issue on windows 7 SP1 */
         if (g_ddraw.renderer == ogl_render_main && !IsWine() && !IsWindows8OrGreater())
