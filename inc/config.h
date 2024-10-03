@@ -65,7 +65,6 @@ typedef struct CNCDDRAWCONFIG
     BOOL fix_alt_key_stuck;
     BOOL fix_not_responding;
     BOOL no_compat_warning;
-    BOOL wine_allow_resize;
     int guard_lines;
     int max_resolutions;
     BOOL lock_surfaces;

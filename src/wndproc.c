@@ -443,12 +443,23 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         {
             if (wParam == SIZE_RESTORED)
             {
+                if (in_size_move && g_ddraw.render.thread && IsMacOS())
+                {
+                    EnterCriticalSection(&g_ddraw.cs);
+                    g_ddraw.render.run = FALSE;
+                    ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
+                    LeaveCriticalSection(&g_ddraw.cs);
+
+                    WaitForSingleObject(g_ddraw.render.thread, INFINITE);
+                    g_ddraw.render.thread = NULL;
+                }
+
                 if (in_size_move && !g_ddraw.render.thread)
                 {
                     g_config.window_rect.right = LOWORD(lParam);
                     g_config.window_rect.bottom = HIWORD(lParam);
                 }
-                else if (!in_size_move && g_ddraw.render.thread && !g_config.fullscreen && g_config.wine_allow_resize && IsLinux())
+                else if (!in_size_move && g_ddraw.render.thread && !g_config.fullscreen && IsLinux())
                 {
                     g_config.window_rect.right = LOWORD(lParam);
                     g_config.window_rect.bottom = HIWORD(lParam);

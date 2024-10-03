@@ -78,7 +78,6 @@ void cfg_load()
     GET_BOOL(GameHandlesClose, "game_handles_close", FALSE);
     GET_BOOL(g_config.fix_not_responding, "fix_not_responding", FALSE);
     GET_BOOL(g_config.no_compat_warning, "no_compat_warning", FALSE);
-    GET_BOOL(g_config.wine_allow_resize, "wine_allow_resize", FALSE);
     GET_INT(g_config.guard_lines, "guard_lines", 200);
     GET_INT(g_config.max_resolutions, "max_resolutions", 0);
     GET_BOOL(g_config.lock_surfaces, "lock_surfaces", FALSE);
@@ -314,7 +313,6 @@ static void cfg_create_ini()
             "game_handles_close=false\n"
             "fix_not_responding=false\n"
             "no_compat_warning=false\n"
-            "wine_allow_resize=false\n"
             "guard_lines=200\n"
             "max_resolutions=0\n"
             "lock_surfaces=false\n"
