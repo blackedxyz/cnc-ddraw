@@ -443,6 +443,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         {
             if (wParam == SIZE_RESTORED)
             {
+                /* macOS maximize hack */
                 if (in_size_move && g_ddraw.render.thread && IsMacOS())
                 {
                     EnterCriticalSection(&g_ddraw.cs);
@@ -452,6 +453,8 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
                     WaitForSingleObject(g_ddraw.render.thread, INFINITE);
                     g_ddraw.render.thread = NULL;
+
+                    g_config.save_settings = 0;
                 }
 
                 if (in_size_move && !g_ddraw.render.thread)
