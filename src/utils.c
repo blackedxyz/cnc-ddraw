@@ -613,6 +613,10 @@ void util_toggle_maximize()
     if (!g_config.resizable || !g_config.windowed || g_config.fullscreen || !g_ddraw.width)
         return;
 
+    /* Do not allow maximize while window is maxmized */
+    if (IsMacOS() && !g_config.window_rect.left && !g_config.window_rect.top)
+        return;
+
     RECT client_rc;
     RECT dst_rc;
 
@@ -715,6 +719,10 @@ void util_toggle_fullscreen()
 {
     /* Disable ALT+ENTER on battle.net and Infantry Online Zone List Window */
     if (g_ddraw.bnet_active || !g_ddraw.width || (g_config.infantryhack && GetMenu(g_ddraw.hwnd)))
+        return;
+
+    /* Do not allow ALT+ENTER while window is maxmized */
+    if (IsMacOS() && !g_config.window_rect.left && !g_config.window_rect.top)
         return;
 
     if (g_config.toggle_borderless && g_config.windowed)
