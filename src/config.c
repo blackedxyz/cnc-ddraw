@@ -131,7 +131,7 @@ void cfg_save()
     if (!g_config.save_settings)
         return;
 
-    /* Do not save settings while window is maximized */
+    /* Do not save settings while macOS maxmize is active */
     if (IsMacOS() && !g_config.window_rect.left && !g_config.window_rect.top)
         return;
 
