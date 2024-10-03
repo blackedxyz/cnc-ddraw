@@ -441,6 +441,9 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     {
         if (g_config.windowed)
         {
+            WORD width = LOWORD(lParam);
+            WORD height = HIWORD(lParam);
+
             if (wParam == SIZE_RESTORED)
             {
                 /* macOS maximize hack */
@@ -457,16 +460,31 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
                 if (in_size_move && !g_ddraw.render.thread)
                 {
-                    g_config.window_rect.right = LOWORD(lParam);
-                    g_config.window_rect.bottom = HIWORD(lParam);
+                    g_config.window_rect.right = width;
+                    g_config.window_rect.bottom = height;
                 }
                 else if (!in_size_move && g_ddraw.render.thread && !g_config.fullscreen && IsLinux())
                 {
-                    g_config.window_rect.right = LOWORD(lParam);
-                    g_config.window_rect.bottom = HIWORD(lParam);
+                    if (width != g_ddraw.render.width || height != g_ddraw.render.height)
+                    {
+                        g_config.window_rect.right = width;
+                        g_config.window_rect.bottom = height;
 
-                    if (g_config.window_rect.right != g_ddraw.render.width || g_config.window_rect.bottom != g_ddraw.render.height)
                         dd_SetDisplayMode(0, 0, 0, 0);
+                    }
+                }
+            }
+            else if (wParam == SIZE_MAXIMIZED)
+            {
+                if (!in_size_move && g_ddraw.render.thread && !g_config.fullscreen && IsLinux())
+                {
+                    if (width != g_ddraw.render.width || height != g_ddraw.render.height)
+                    {
+                        g_config.window_rect.right = width;
+                        g_config.window_rect.bottom = height;
+
+                        dd_SetDisplayMode(0, 0, 0, 0);
+                    }
                 }
             }
         }
@@ -532,7 +550,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             }
         }
 
-        if (wParam == SC_MAXIMIZE)
+        if (wParam == SC_MAXIMIZE && !IsWine())
         {
             if (g_config.resizable)
             {

@@ -1093,14 +1093,6 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_CLIENTEDGE));
         }
 
-        if (IsLinux())
-        {
-            real_SetWindowLongA(
-                g_ddraw.hwnd,
-                GWL_STYLE,
-                (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_MINIMIZEBOX) & ~(WS_MAXIMIZEBOX));
-        }
-
         /* center the window with correct dimensions */
         int cy = g_ddraw.mode.dmPelsWidth ? g_ddraw.mode.dmPelsWidth : g_ddraw.render.width;
         int cx = g_ddraw.mode.dmPelsHeight ? g_ddraw.mode.dmPelsHeight : g_ddraw.render.height;
