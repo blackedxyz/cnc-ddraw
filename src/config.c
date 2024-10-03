@@ -55,6 +55,7 @@ void cfg_load()
     GET_INT(g_config.anti_aliased_fonts_min_size, "anti_aliased_fonts_min_size", 13);
     GET_INT(g_config.min_font_size, "min_font_size", 0);
     GET_INT(g_config.center_window, "center_window", CENTER_WINDOW_AUTO);
+    GET_STRING("inject_resolution", "", g_config.inject_resolution, sizeof(g_config.inject_resolution));
     GET_BOOL(g_config.vhack, "vhack", FALSE);
     GET_STRING("screenshotdir", ".\\Screenshots\\", g_config.screenshot_dir, sizeof(g_config.screenshot_dir));
     GET_BOOL(g_config.toggle_borderless, "toggle_borderless", FALSE);
@@ -84,7 +85,6 @@ void cfg_load()
     GET_BOOL(g_config.flipclear, "flipclear", FALSE);
     GET_BOOL(g_config.rgb555, "rgb555", FALSE);
     GET_BOOL(g_config.no_dinput_hook, "no_dinput_hook", FALSE);
-    GET_STRING("inject_resolution", "", g_config.inject_resolution, sizeof(g_config.inject_resolution));
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
     GET_STRING("fake_mode", "", g_config.fake_mode, sizeof(g_config.fake_mode));
@@ -258,6 +258,10 @@ static void cfg_create_ini()
             "; Possible values: 0 = never center, 1 = automatic, 2 = always center\n"
             "center_window=1\n"
             "\n"
+            "; Inject a custom display resolution into the in-game resolution list - Example values: 960x540, 3840x2160\n"
+            "; Note: This setting can used for downscaling as well, you can insert resolutions higher than your monitor supports\n"
+            "inject_resolution=\n"
+            "\n"
             "; Enable upscale hack for high resolution patches (Supports C&C1, Red Alert 1, Worms 2 and KKND Xtreme)\n"
             "vhack=false\n"
             "\n"
@@ -299,7 +303,7 @@ static void cfg_create_ini()
             "; Note: Disable this if the game is not running smooth or there are sound issues\n"
             "singlecpu=true\n"
             "\n"
-            "; Available resolutions, possible values: 0 = Small list, 1 = Very small list, 2 = Full list\n"
+            "; Available display resolutions, possible values: 0 = Small list, 1 = Very small list, 2 = Full list\n"
             "; Note: Set this to 2 if your chosen resolution is not working or does not show up in the list\n"
             "; Note: Set this to 1 if the game is crashing on startup\n"
             "resolutions=0\n"
@@ -323,7 +327,6 @@ static void cfg_create_ini()
             "flipclear=false\n"
             "rgb555=false\n"
             "no_dinput_hook=false\n"
-            ";inject_resolution=960x540\n"
             "direct3d_passthrough=false\n"
             "center_cursor_fix=false\n"
             ";fake_mode=640x480x32\n"
