@@ -613,7 +613,7 @@ void util_toggle_maximize()
     if (!g_config.resizable || !g_config.windowed || g_config.fullscreen || !g_ddraw.width)
         return;
 
-    /* Do not allow cnc-ddraw maximize while macOS maxmize is active */
+    /* Do not allow cnc-ddraw maximize while macOS maximize is active */
     if (IsMacOS() && !g_config.window_rect.left && !g_config.window_rect.top)
         return;
 
@@ -721,7 +721,7 @@ void util_toggle_fullscreen()
     if (g_ddraw.bnet_active || !g_ddraw.width || (g_config.infantryhack && GetMenu(g_ddraw.hwnd)))
         return;
 
-    /* Do not allow ALT+ENTER while macOS maxmize is active */
+    /* Do not allow ALT+ENTER while macOS maximize is active */
     if (IsMacOS() && !g_config.window_rect.left && !g_config.window_rect.top)
         return;
 
