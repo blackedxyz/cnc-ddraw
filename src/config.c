@@ -131,6 +131,10 @@ void cfg_save()
     if (!g_config.save_settings)
         return;
 
+    /* Do not save settings while window is maxmized */
+    if (IsMacOS() && !g_config.window_rect.left && !g_config.window_rect.top)
+        return;
+
     char buf[16];
     char* section = g_config.save_settings == 1 ? "ddraw" : g_config.process_file_name;
 
