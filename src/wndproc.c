@@ -500,6 +500,14 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                         g_config.window_rect.bottom = height;
 
                         dd_SetDisplayMode(0, 0, 0, 0);
+
+                        if (width < g_ddraw.width || height < g_ddraw.height)
+                        {
+                            /* Can't enforce minimum window size in linux because there is no WM_SIZING and
+                               WM_GETMINMAXINFO is ignored for whatever reasons */
+
+                            SetTimer(g_ddraw.hwnd, IDT_TIMER_LINUX_FIX_WINDOW_SIZE, 1000, (TIMERPROC)NULL);
+                        }
                     }
                 }
             }
