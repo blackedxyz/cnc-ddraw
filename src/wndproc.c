@@ -216,6 +216,12 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
             return 0;
         }
+        case IDT_TIMER_LINUX_FIX_WINDOW_SIZE:
+        {
+            KillTimer(g_ddraw.hwnd, IDT_TIMER_LINUX_FIX_WINDOW_SIZE);
+            util_set_window_rect(0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+            return 0;
+        }
         }
         break;
     }
@@ -471,6 +477,11 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                         g_config.window_rect.bottom = height;
 
                         dd_SetDisplayMode(0, 0, 0, 0);
+
+                        if (width < g_ddraw.width || height < g_ddraw.height)
+                        {
+                            SetTimer(g_ddraw.hwnd, IDT_TIMER_LINUX_FIX_WINDOW_SIZE, 1000, (TIMERPROC)NULL);
+                        }
                     }
                 }
             }
