@@ -491,6 +491,8 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                 {
                     if (width != g_ddraw.render.width || height != g_ddraw.render.height)
                     {
+                        KillTimer(g_ddraw.hwnd, IDT_TIMER_LINUX_FIX_WINDOW_SIZE);
+
                         g_config.window_rect.right = width;
                         g_config.window_rect.bottom = height;
 
