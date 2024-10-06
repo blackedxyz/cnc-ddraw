@@ -1093,12 +1093,14 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
             real_SetWindowLongA(g_ddraw.hwnd, GWL_EXSTYLE, exstyle & ~(WS_EX_CLIENTEDGE));
         }
 
-        if (!g_config.resizable && IsWine())
+        if (IsWine())
         {
+            LONG remove_flags = !g_config.resizable ? (WS_MAXIMIZEBOX | WS_THICKFRAME) : 0;
+
             real_SetWindowLongA(
                 g_ddraw.hwnd,
                 GWL_STYLE,
-                (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_MINIMIZEBOX) & ~(WS_MAXIMIZEBOX | WS_THICKFRAME));
+                (real_GetWindowLongA(g_ddraw.hwnd, GWL_STYLE) | WS_MINIMIZEBOX) & ~(remove_flags));
         }
 
         /* center the window with correct dimensions */
