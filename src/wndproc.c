@@ -576,8 +576,11 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             }
         }
 
-        if (wParam == SC_MAXIMIZE && !IsWine())
+        if (wParam == SC_MAXIMIZE)
         {
+            if (IsWine())
+                return DefWindowProc(hWnd, uMsg, wParam, lParam);
+
             if (g_config.resizable)
             {
                 util_toggle_maximize();
