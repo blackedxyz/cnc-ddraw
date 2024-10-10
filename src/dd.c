@@ -1359,6 +1359,21 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
         real_SendMessageA(g_ddraw.hwnd, WM_DISPLAYCHANGE_DDRAW, g_ddraw.bpp, MAKELPARAM(g_ddraw.width, g_ddraw.height));
     }
 
+    TRACE(
+        "     render res=%ux%u (viewport res=%ux%u, x=%d, y=%d)\n", 
+        g_ddraw.render.width, 
+        g_ddraw.render.height,
+        g_ddraw.render.viewport.width,
+        g_ddraw.render.viewport.height,
+        g_ddraw.render.viewport.x,
+        g_ddraw.render.viewport.y);
+
+    TRACE(
+        "     windowed=%s, fullscreen=%s, adjmouse=%s\n", 
+        g_config.windowed ? "true" : "false",
+        g_config.fullscreen ? "true" : "false",
+        g_config.adjmouse ? "true" : "false");
+
     return DD_OK;
 }
 
