@@ -86,7 +86,9 @@ typedef struct CNCDDRAWCONFIG
     struct
     {
         int toggle_fullscreen;
+        int toggle_fullscreen2;
         int toggle_maximize;
+        int toggle_maximize2;
         int unlock_cursor1;
         int unlock_cursor2;
         int screenshot;
@@ -100,7 +102,6 @@ typedef struct CNCDDRAWCONFIG
     BOOL stronghold_hack;
     BOOL mgs_hack;
     BOOL tlc_hack;
-    BOOL homm_hack;
     BOOL carma95_hack;
     BOOL sirtech_hack;
     BOOL flightsim98_hack;

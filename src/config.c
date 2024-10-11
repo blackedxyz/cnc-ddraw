@@ -97,7 +97,9 @@ void cfg_load()
     /* Hotkeys */
 
     GET_INT(g_config.hotkeys.toggle_fullscreen, "keytogglefullscreen", VK_RETURN);
+    GET_INT(g_config.hotkeys.toggle_fullscreen2, "keytogglefullscreen2", 0);
     GET_INT(g_config.hotkeys.toggle_maximize, "keytogglemaximize", VK_NEXT);
+    GET_INT(g_config.hotkeys.toggle_maximize2, "keytogglemaximize2", 0);
     GET_INT(g_config.hotkeys.unlock_cursor1, "keyunlockcursor1", VK_TAB);
     GET_INT(g_config.hotkeys.unlock_cursor2, "keyunlockcursor2", VK_RCONTROL);
     GET_INT(g_config.hotkeys.screenshot, "keyscreenshot", VK_SNAPSHOT);
@@ -110,7 +112,6 @@ void cfg_load()
     GET_BOOL(g_config.stronghold_hack, "stronghold_hack", FALSE);
     GET_BOOL(g_config.mgs_hack, "mgs_hack", FALSE);
     GET_BOOL(g_config.tlc_hack, "tlc_hack", FALSE);
-    GET_BOOL(g_config.homm_hack, "homm_hack", FALSE);
     GET_BOOL(g_config.carma95_hack, "carma95_hack", FALSE);
     GET_BOOL(g_config.sirtech_hack, "sirtech_hack", FALSE);
     GET_BOOL(g_config.flightsim98_hack, "flightsim98_hack", FALSE);
@@ -346,8 +347,14 @@ static void cfg_create_ini()
             "; Switch between windowed and fullscreen mode = [Alt] + ???\n"
             "keytogglefullscreen=0x0D\n"
             "\n"
+            "; Switch between windowed and fullscreen mode (single key) = ???\n"
+            "keytogglefullscreen2=0x00\n"
+            "\n"
             "; Maximize window = [Alt] + ???\n"
             "keytogglemaximize=0x22\n"
+            "\n"
+            "; Maximize window (single key) = ???\n"
+            "keytogglemaximize2=0x00\n"
             "\n"
             "; Unlock cursor 1 = [Ctrl] + ???\n"
             "keyunlockcursor1=0x09\n"
@@ -983,23 +990,23 @@ static void cfg_create_ini()
             "[Heroes3]\n"
             "renderer=opengl\n"
             "game_handles_close=true\n"
-            "homm_hack=true\n"
+            "keytogglefullscreen2=0x73\n"
             "\n"
             "; Heroes of Might and Magic III HD Mod\n"
             "[Heroes3 HD]\n"
             "renderer=opengl\n"
             "game_handles_close=true\n"
-            "homm_hack=true\n"
+            "keytogglefullscreen2=0x73\n"
             "\n"
             "; Heroes of Might and Magic III - Master of Puppets mod\n"
             "[MoP]\n"
             "game_handles_close=true\n"
-            "homm_hack=true\n"
+            "keytogglefullscreen2=0x73\n"
             "\n"
             "; Heroes of Might and Magic IV\n"
             "[heroes4]\n"
             "remove_menu=true\n"
-            "homm_hack=true\n"
+            "keytogglefullscreen2=0x73\n"
             "\n"
             "; Hard Truck: Road to Victory\n"
             "[htruck]\n"

@@ -62,6 +62,14 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         return 1;
     }
 
+    if (wParam == g_config.hotkeys.toggle_fullscreen2)
+    {
+        if (key_triggered)
+            util_toggle_fullscreen();
+
+        return 1;
+    }
+
     if (wParam == g_config.hotkeys.toggle_maximize && alt_down && key_down)
     {
         if (key_triggered)
@@ -70,10 +78,10 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         return 1;
     }
 
-    if (wParam == VK_F4 && g_config.homm_hack) /* Heroes of Might and Magic 3 and 4 */
+    if (wParam == g_config.hotkeys.toggle_maximize2)
     {
         if (key_triggered)
-            util_toggle_fullscreen();
+            util_toggle_maximize();
 
         return 1;
     }
