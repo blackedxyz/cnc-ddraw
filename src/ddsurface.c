@@ -917,7 +917,8 @@ HRESULT dds_GetDC(IDirectDrawSurfaceImpl* This, HDC FAR* lpHDC)
     if (lpHDC)
         *lpHDC = dc;
 
-    InterlockedExchange((LONG*)&This->dc_state, SaveDC(dc));
+    if (!(This->caps & DDSCAPS_OWNDC))
+        InterlockedExchange((LONG*)&This->dc_state, SaveDC(dc));
 
     return DD_OK;
 }
@@ -1025,7 +1026,8 @@ HRESULT dds_ReleaseDC(IDirectDrawSurfaceImpl* This, HDC hDC)
         }
     }
 
-    RestoreDC(hDC, InterlockedExchangeAdd((LONG*)&This->dc_state, 0));
+    if (!(This->caps & DDSCAPS_OWNDC))
+        RestoreDC(hDC, InterlockedExchangeAdd((LONG*)&This->dc_state, 0));
 
     return DD_OK;
 }
