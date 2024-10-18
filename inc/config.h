@@ -78,6 +78,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL lock_mouse_top_left;
     char win_version[32];
     int hook;
+    BOOL limit_gdi_handles;
     BOOL remove_menu;
     int refresh_rate;
 

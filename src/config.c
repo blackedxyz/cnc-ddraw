@@ -91,6 +91,7 @@ void cfg_load()
     GET_BOOL(g_config.lock_mouse_top_left, "lock_mouse_top_left", FALSE);
     GET_STRING("win_version", "", g_config.win_version, sizeof(g_config.win_version));
     GET_INT(g_config.hook, "hook", 4);
+    GET_BOOL(g_config.limit_gdi_handles, "limit_gdi_handles", FALSE);
     GET_BOOL(g_config.remove_menu, "remove_menu", FALSE);
     GET_INT(g_config.refresh_rate, "refresh_rate", 0);
 
@@ -334,6 +335,7 @@ static void cfg_create_ini()
             "lock_mouse_top_left=false\n"
             ";win_version=95\n"
             "hook=4\n"
+            "limit_gdi_handles=false\n"
             "remove_menu=false\n"
             "refresh_rate=0\n"
             "\n"
@@ -1027,6 +1029,10 @@ static void cfg_create_ini()
             "maxgameticks=25\n"
             "renderer=opengl\n"
             "noactivateapp=true\n"
+            "\n"
+            "; Hooligans: Storm over Europe\n"
+            "[hooligans]\n"
+            "limit_gdi_handles=true\n"
             "\n"
             "; Icewind Dale 2\n"
             "; Note: 'Full Screen' must be enabled in Config.exe\n"

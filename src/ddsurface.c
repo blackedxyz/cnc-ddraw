@@ -1500,7 +1500,7 @@ HRESULT dd_CreateSurface(
         }
 
         /* Claw hack: 128x128 surfaces need a DC for custom levels to work properly */
-        if (InterlockedExchangeAdd(&g_dds_gdi_handles, 0) < 4000 || 
+        if ((!g_config.limit_gdi_handles && InterlockedExchangeAdd(&g_dds_gdi_handles, 0) < 9000) ||
             (dst_surface->width == g_ddraw.width && dst_surface->height == g_ddraw.height) ||
             (dst_surface->width == 128 && dst_surface->height == 128))
         {
