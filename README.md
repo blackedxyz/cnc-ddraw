@@ -154,6 +154,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Fairy Tale About Father Frost, Ivan and Nastya
 - Fallout
 - Fallout 2
+- Final Liberation: Warhammer Epic 40000 (GOG)
 - Final fantasy VII
 - Final fantasy VIII
 - Freddi Fish
