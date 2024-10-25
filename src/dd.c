@@ -934,15 +934,12 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
     if (g_config.boxing)
     {
-        g_ddraw.render.viewport.width = g_ddraw.width;
-        g_ddraw.render.viewport.height = g_ddraw.height;
-
         for (int i = 20; i-- > 1;)
         {
             if (g_ddraw.width * i <= g_ddraw.render.width && g_ddraw.height * i <= g_ddraw.render.height)
             {
-                g_ddraw.render.viewport.width *= i;
-                g_ddraw.render.viewport.height *= i;
+                g_ddraw.render.viewport.width = i * g_ddraw.width;
+                g_ddraw.render.viewport.height = i * g_ddraw.height;
                 break;
             }
         }
