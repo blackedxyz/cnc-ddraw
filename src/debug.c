@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <d3d9.h>
 #include <time.h>
+#include "directinput.h"
 #include "ddraw.h"
 #include "dd.h"
 #include "ddsurface.h"
@@ -1082,6 +1083,27 @@ void dbg_dump_dds_lock_flags(DWORD flags)
     }
     if (flags & DDLOCK_NODIRTYUPDATE) {
         TRACE("     DDLOCK_NODIRTYUPDATE\n");
+    }
+#endif
+}
+
+void dbg_dump_di_scm_flags(DWORD flags)
+{
+#ifdef _DEBUG
+    if (flags & DISCL_EXCLUSIVE) {
+        TRACE("     DISCL_EXCLUSIVE\n");
+    }
+    if (flags & DISCL_NONEXCLUSIVE) {
+        TRACE("     DISCL_NONEXCLUSIVE\n");
+    }
+    if (flags & DISCL_FOREGROUND) {
+        TRACE("     DISCL_FOREGROUND\n");
+    }
+    if (flags & DISCL_BACKGROUND) {
+        TRACE("     DISCL_BACKGROUND\n");
+    }
+    if (flags & DISCL_NOWINKEY) {
+        TRACE("     DISCL_NOWINKEY\n");
     }
 #endif
 }
