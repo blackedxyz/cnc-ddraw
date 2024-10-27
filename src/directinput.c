@@ -6,6 +6,7 @@
 #include "dd.h"
 #include "mouse.h"
 #include "config.h"
+#include "utils.h"
 
 #ifdef _MSC_VER
 #include "detours.h"
@@ -86,13 +87,16 @@ static HRESULT WINAPI fake_did_GetDeviceData(
         pdwInOut,
         dwFlags,
         _ReturnAddress());
-        */
+    */
+        
+    BOOL block_mouse = This == g_mouse_device && !g_mouse_locked && !g_config.devmode;
+    BOOL in_background = FALSE;//g_ddraw.ref && g_ddraw.hwnd && !util_in_foreground(g_ddraw.hwnd);
 
     HRESULT result = real_did_GetDeviceData(This, cbObjectData, rgdod, pdwInOut, dwFlags);
 
-    if (SUCCEEDED(result) && This == g_mouse_device && !g_mouse_locked && !g_config.devmode)
+    if (SUCCEEDED(result))
     {
-        if (pdwInOut)
+        if ((block_mouse || in_background) && pdwInOut)
         {
             if (rgdod && *pdwInOut > 0 && cbObjectData > 0)
             {
@@ -110,11 +114,14 @@ static HRESULT WINAPI fake_did_GetDeviceState(IDirectInputDeviceA* This, DWORD c
 {
     //TRACE("DirectInput GetDeviceState(This=%p, cbData=%lu, lpvData=%p) [%p]\n", This, cbData, lpvData, _ReturnAddress());
 
+    BOOL block_mouse = This == g_mouse_device && !g_mouse_locked && !g_config.devmode;
+    BOOL in_background = g_ddraw.ref && g_ddraw.hwnd && !util_in_foreground(g_ddraw.hwnd);
+
     HRESULT result = real_did_GetDeviceState(This, cbData, lpvData);
 
-    if (SUCCEEDED(result) && This == g_mouse_device && !g_mouse_locked && !g_config.devmode)
+    if (SUCCEEDED(result))
     {
-        if (cbData > 0 && lpvData)
+        if ((block_mouse || in_background) && cbData > 0 && lpvData)
         {
             memset(lpvData, 0, cbData);
         }
