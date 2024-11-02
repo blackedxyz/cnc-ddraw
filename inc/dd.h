@@ -176,7 +176,6 @@ typedef struct CNCDDRAW
     DWORD gui_thread_id;
     BOOL show_driver_warning;
     BOOL windowed_hack;
-    BOOL wait_for_real_vblank;
 
     struct
     {
