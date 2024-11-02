@@ -49,6 +49,23 @@ void fpsl_init()
         g_fpsl.gdi32_dll = real_LoadLibraryA("gdi32.dll");
     }
 
+    if (!g_fpsl.dwmapi_dll)
+    {
+        g_fpsl.dwmapi_dll = real_LoadLibraryA("dwmapi.dll");
+    }
+
+    if (!g_fpsl.DwmFlush)
+    {
+        g_fpsl.DwmFlush =
+            (DWMFLUSHPROC)real_GetProcAddress(g_fpsl.dwmapi_dll, "DwmFlush");
+    }
+
+    if (!g_fpsl.DwmIsCompositionEnabled)
+    {
+        g_fpsl.DwmIsCompositionEnabled =
+            (DWMISCOMPOSITIONENABLEDPROC)real_GetProcAddress(g_fpsl.dwmapi_dll, "DwmIsCompositionEnabled");
+    }
+
     if (!g_fpsl.D3DKMTWaitForVerticalBlankEvent)
     {
         g_fpsl.D3DKMTWaitForVerticalBlankEvent =
@@ -101,6 +118,33 @@ BOOL fpsl_wait_for_vblank()
     return FALSE;
 }
 
+BOOL fpsl_dwm_flush()
+{
+    if (g_fpsl.initialized && fpsl_dwm_is_enabled() && g_fpsl.DwmFlush)
+    {
+        HRESULT x = g_fpsl.DwmFlush();
+
+        if (!SUCCEEDED(x))
+        {
+            //TRACE(" ERROR %s(result=%08X)\n", __FUNCTION__, x);
+        }
+
+        return SUCCEEDED(x);
+    }
+
+    return FALSE;
+}
+
+BOOL fpsl_dwm_is_enabled()
+{
+    BOOL dwm_enabled = FALSE;
+
+    if (g_fpsl.DwmIsCompositionEnabled)
+        g_fpsl.DwmIsCompositionEnabled(&dwm_enabled);
+
+    return dwm_enabled;
+}
+
 void fpsl_frame_start()
 {
     if (g_fpsl.tick_length > 0)
@@ -112,8 +156,17 @@ void fpsl_frame_end()
     if (g_config.maxfps < 0 || 
         (g_config.vsync && (!g_config.maxfps || g_config.maxfps >= g_ddraw.mode.dmDisplayFrequency)))
     {
-        if (fpsl_wait_for_vblank())
-            return;
+        /* Workaround for DwmFlush() freeze (e.g. slow alt+tab) issue on windows 7 SP1 */
+        if (g_ddraw.renderer == ogl_render_main && !IsWine() && !IsWindows8OrGreater())
+        {
+            if (fpsl_wait_for_vblank())
+                return;
+        }
+        else
+        {
+            if (fpsl_dwm_flush() || fpsl_wait_for_vblank())
+                return;
+        }
     }
 
     if (g_fpsl.tick_length > 0)
