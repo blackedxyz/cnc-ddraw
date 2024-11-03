@@ -1540,12 +1540,14 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
         }
         else if (!g_ddraw.width)
         {
-            g_ddraw.windowed_hack = TRUE;
-
             RECT rc = { 0 };
             real_GetClientRect(hwnd, &rc);
 
-            dd_SetDisplayMode(rc.right, rc.bottom, 16, 0);
+            if (rc.right < real_GetSystemMetrics(SM_CXSCREEN) && rc.bottom < real_GetSystemMetrics(SM_CYSCREEN))
+            {
+                g_ddraw.windowed_hack = TRUE;
+                dd_SetDisplayMode(rc.right, rc.bottom, 16, 0);
+            }
         }
     }
     else
