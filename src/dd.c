@@ -1543,7 +1543,9 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
             RECT rc = { 0 };
             real_GetClientRect(hwnd, &rc);
 
-            if (rc.right < real_GetSystemMetrics(SM_CXSCREEN) && rc.bottom < real_GetSystemMetrics(SM_CYSCREEN))
+            BOOL popup = real_GetWindowLongA(hwnd, GWL_STYLE) & WS_POPUP;
+
+            if ((rc.right < real_GetSystemMetrics(SM_CXSCREEN) && rc.bottom < real_GetSystemMetrics(SM_CYSCREEN)) || !popup)
             {
                 g_ddraw.windowed_hack = TRUE;
                 dd_SetDisplayMode(rc.right, rc.bottom, 16, 0);
