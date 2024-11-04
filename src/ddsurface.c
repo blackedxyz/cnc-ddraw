@@ -74,10 +74,16 @@ HRESULT dds_Blt(
     RECT dst_rect = { 0, 0, This->width, This->height };
 
     if (lpSrcRect && src_surface)
-        memcpy(&src_rect, lpSrcRect, sizeof(src_rect));
+    {
+        //dbg_print_rect("lpSrcRect", lpSrcRect);
+        src_rect = *lpSrcRect;
+    }
 
     if (lpDestRect)
-        memcpy(&dst_rect, lpDestRect, sizeof(dst_rect));
+    {
+        //dbg_print_rect("lpDestRect", lpDestRect);
+        dst_rect = *lpDestRect;
+    }
 
     int src_w = src_rect.right - src_rect.left;
     int src_h = src_rect.bottom - src_rect.top;
@@ -456,7 +462,10 @@ HRESULT dds_BltFast(
     RECT src_rect = { 0, 0, src_surface ? src_surface->width : 0, src_surface ? src_surface->height : 0 };
 
     if (lpSrcRect && src_surface)
-        memcpy(&src_rect, lpSrcRect, sizeof(src_rect));
+    {
+        //dbg_print_rect("lpSrcRect", lpSrcRect);
+        src_rect = *lpSrcRect;
+    }
 
     int dst_x = dwX;
     int dst_y = dwY;
