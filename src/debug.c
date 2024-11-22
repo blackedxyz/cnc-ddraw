@@ -150,6 +150,12 @@ LONG WINAPI dbg_vectored_exception_handler(EXCEPTION_POINTERS* exception)
         case 0xE7: // OUT ib
             size = 2;
             break;
+        case 0xF8: // CLC
+        case 0xF9: // STC
+        case 0xFA: // CLI
+        case 0xFB: // STI
+        case 0xFC: // CLD
+        case 0xFD: // STD
         case 0xEC: // IN ib
         case 0xED: // IN id
         case 0xEE: // OUT
