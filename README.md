@@ -64,6 +64,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - American Girls Dress Designer
 - Amerzone
 - Anno 1602: Creation of a New World
+- Another War
 - Anstoss 3
 - Arcanum: Of Steamworks and Magick Obscura
 - Arthur's Pet Chase
@@ -74,12 +75,12 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Atlantis: The Lost Tales
 - Atomic Bomberman
 - Atrox
-- Balls of Steel v1.2
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
-- Barbie(tm) Beach Vacation(tm)
+- Balls of Steel v1.2
 - Barbie(R) Photo Designer
+- Barbie(tm) Beach Vacation(tm)
 - Batman: Justice Unbalanced
 - Batman: Toxic Chill
 - Blade & Sword
@@ -87,14 +88,15 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Blue's 123 Time Activities
 - Blue's Treasure Hunt
 - Caesar III (Sierra - 1998)
-- Callus 95 - CPS-1 (Capcom Play System 1) emulator
 - Call To Power 2
+- Callus 95 - CPS-1 (Capcom Play System 1) emulator
 - Capitalism II
 - Capitalism Lab
 - Captain Claw
 - Carmageddon
 - Carmageddon 2
 - Casino Empire (AKA Hoyle Casino)
+- Championship Manager 99-00
 - Chaos Gate
 - Close Combat 2: A Bridge Too Far
 - Close Combat 3: The Russian Front
@@ -153,9 +155,9 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Fairy Tale About Father Frost, Ivan and Nastya
 - Fallout
 - Fallout 2
-- Final Liberation: Warhammer Epic 40000 (GOG)
 - Final fantasy VII
 - Final fantasy VIII
+- Final Liberation: Warhammer Epic 40000 (GOG)
 - Freddi Fish
 - Freddi Fish 4
 - Freddi Fish's One-Stop Fun Shop
@@ -166,11 +168,11 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Freddi Water Worries
 - Future Cop L.A.P.D
 - G-Police
+- Gorasul: The Legacy of the Dragon
 - Grand Theft Auto
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
 - Gruntz
-- Gorasul: The Legacy of the Dragon
 - Hamtaro: Wake Up Snoozer!
 - Hard Truck: Road to Victory
 - Hearts of Iron 2
@@ -206,11 +208,11 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Little Bear Toddler Discovery Adventures
 - Locomotion
 - Lode Runner 2
+- M.A.X. 2 Mechanized Assault & Exploration
 - Madeline 1st Grade Math
 - Madeline 2nd Grade Math
 - Majesty Gold
 - Majesty Gold HD
-- ​M.A.X. 2 Mechanized Assault & Exploration
 - Mech Warrior 3
 - Megaman X4
 - Metal Gear Solid
@@ -239,11 +241,11 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Pacific General
 - Pajama Sam
 - Pajama Sam 3
+- Pajama Sam 3: You Are What You Eat From Your Head To Your Feet
 - Pajama Sam's Games to Play on Any Day
 - Pajama Sam's One-Stop Fun Shop
 - Pajama Sam(r): Life is Rough When You Lose Your Stuff(tm)
 - Pajama Sam: No Need to Hide When It's Dark Outside
-- Pajama Sam 3: You Are What You Eat From Your Head To Your Feet
 - Patrician 3
 - Pax Imperia
 - Pharaoh (Sierra - 1999)
@@ -277,12 +279,12 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Real War
 - Red Baron 3D
-- Reksio and the Pirate Treasure (Reksio i Skarb Piratów)
-- Reksio and the UFO (Reksio i Ufo)
-- Reksio and the Wizards (Reksio i Czarodzieje)
-- Reksio and the Time Machine (Reksio i Wehikuł Czasu)
 - Reksio and Captain Nemo (Reksio i Kapitan Nemo)
 - Reksio and Kretes in Action (Reksio i Kretes w Akcji!)
+- Reksio and the Pirate Treasure (Reksio i Skarb Piratów)
+- Reksio and the Time Machine (Reksio i Wehikuł Czasu)
+- Reksio and the UFO (Reksio i Ufo)
+- Reksio and the Wizards (Reksio i Czarodzieje)
 - Road Rash
 - Robin Hood - The Legend of Sherwood
 - RollerCoaster Tycoon
@@ -344,8 +346,8 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Virtua Fighter PC
 - War Wind
 - War Wind II - Human Onslaught
-- WarCraft 2000: Nuclear Epidemic
 - Warcraft 2
+- WarCraft 2000: Nuclear Epidemic
 - Warlords 3: Darklords Rising
 - Warlords Battlecry
 - Warlords Battlecry 2
@@ -359,7 +361,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Zoombinis Logical Journey
 - Zoombinis Mountain Rescue
 - Zuma Deluxe
- - ...
+- ...
 
 There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) and the instructions above.
 
