@@ -139,6 +139,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Disciples
 - Disciples 2 - Rise of the Elves
 - Divine Divinity
+- Discoworld Noir
 - Dragon Throne: Battle of Red Cliffs
 - DuelSavior
 - DuelSavior: Justice
