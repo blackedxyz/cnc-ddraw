@@ -208,6 +208,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Little Bear Toddler Discovery Adventures
 - Locomotion
 - Lode Runner 2
+- Lost Vikings 2
 - M.A.X. 2 Mechanized Assault & Exploration
 - Madeline 1st Grade Math
 - Madeline 2nd Grade Math
