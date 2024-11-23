@@ -14,6 +14,11 @@ HRESULT __stdcall IDirect3D__QueryInterface(IDirect3DImpl* This, REFIID riid, vo
 
     HRESULT ret = E_FAIL;
 
+    if (riid)
+    {
+        TRACE("NOT_IMPLEMENTED     GUID = %08X\n", ((GUID*)riid)->Data1);
+    }
+
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }
