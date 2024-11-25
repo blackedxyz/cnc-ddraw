@@ -241,6 +241,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Outlaws
 - Outlive
 - Pacific General
+- Pandora's Box Puzzle Game
 - Pajama Sam
 - Pajama Sam 3
 - Pajama Sam 3: You Are What You Eat From Your Head To Your Feet
