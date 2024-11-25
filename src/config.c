@@ -1289,7 +1289,7 @@ static void cfg_create_ini()
             "renderer=gdi\n"
             "\n"
             "; Pandora's Box Puzzle Game\n"
-            "[Pandora's Box]\n"
+            "[Pandora]\n"
             "fixchilds=0\n"
             "\n"
             "; Paddle Bash Hotshot\n"
