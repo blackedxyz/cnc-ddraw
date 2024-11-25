@@ -1114,6 +1114,57 @@ void dbg_dump_di_scm_flags(DWORD flags)
 #endif
 }
 
+void dbg_dump_hook_type(int idHook)
+{
+#ifdef _DEBUG
+    if (idHook == 0) {
+        TRACE("     WH_JOURNALRECORD\n");
+    }
+    if (idHook == 1) {
+        TRACE("     WH_JOURNALPLAYBACK\n");
+    }
+    if (idHook == 2) {
+        TRACE("     WH_KEYBOARD\n");
+    }
+    if (idHook == 3) {
+        TRACE("     WH_GETMESSAGE\n");
+    }
+    if (idHook == 4) {
+        TRACE("     WH_CALLWNDPROC\n");
+    }
+    if (idHook == 5) {
+        TRACE("     WH_CBT\n");
+    }
+    if (idHook == 6) {
+        TRACE("     WH_SYSMSGFILTER\n");
+    }
+    if (idHook == 7) {
+        TRACE("     WH_MOUSE\n");
+    }
+    if (idHook == 9) {
+        TRACE("     WH_DEBUG\n");
+    }
+    if (idHook == 10) {
+        TRACE("     WH_SHELL\n");
+    }
+    if (idHook == 11) {
+        TRACE("     WH_FOREGROUNDIDLE\n");
+    }
+    if (idHook == 12) {
+        TRACE("     WH_CALLWNDPROCRET\n");
+    }
+    if (idHook == 13) {
+        TRACE("     WH_KEYBOARD_LL\n");
+    }
+    if (idHook == 14) {
+        TRACE("     WH_MOUSE_LL\n");
+    }
+    if (idHook == -1) {
+        TRACE("     WH_MSGFILTER\n");
+    }
+#endif
+}
+
 char* dbg_d3d9_hr_to_str(HRESULT hr)
 {
 #define HR_TO_STR(x) if (x == hr) return #x

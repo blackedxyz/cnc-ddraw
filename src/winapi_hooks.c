@@ -591,6 +591,8 @@ HHOOK WINAPI fake_SetWindowsHookExA(int idHook, HOOKPROC lpfn, HINSTANCE hmod, D
         dwThreadId, 
         _ReturnAddress());
 
+    dbg_dump_hook_type(idHook);
+
     if (idHook == WH_KEYBOARD_LL && hmod && GetModuleHandle("AcGenral") == hmod)
     {
         return NULL;
