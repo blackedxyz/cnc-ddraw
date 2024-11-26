@@ -650,7 +650,7 @@ void hook_init()
             /* Switch to 3 if we can be sure that ddraw.dll will not be unloaded from the process */
             g_config.hook = 3;
 
-            TRACE("g_config.hook = 3\n");
+            TRACE("Switched to hook 3\n");
         }
     }
 
