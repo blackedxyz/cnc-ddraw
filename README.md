@@ -313,6 +313,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - SPY Fox in Dry Cereal
 - SPY Fox: Hold the Mustard
 - SPY Fox: Operation Ozone
+- Star Wars Rebellion
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
