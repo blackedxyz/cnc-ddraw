@@ -67,6 +67,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Another War
 - Anstoss 3
 - Arcanum: Of Steamworks and Magick Obscura
+- Army Men Air Tactics
 - Arthur's Pet Chase
 - Arthur's Sand Castle Contest
 - Arthur's Wilderness Rescue
@@ -83,6 +84,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Barbie(tm) Beach Vacation(tm)
 - Batman: Justice Unbalanced
 - Batman: Toxic Chill
+- Birthright: The Gorgons Alliance
 - Blade & Sword
 - Blood II - The Chosen
 - Blue's 123 Time Activities
@@ -128,6 +130,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Cultures 2
 - Cyberchase Carnival Chaos
 - Cyberchase Castleblanca Quest
+- Dark Earth
 - Dark Reign: The Future of War
 - Daytona USA (Sega - 1996)
 - Deadlock 2
@@ -138,8 +141,8 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Diablo: Hellfire
 - Disciples
 - Disciples 2 - Rise of the Elves
-- Divine Divinity
 - Discoworld Noir
+- Divine Divinity
 - Dragon Throne: Battle of Red Cliffs
 - DuelSavior
 - DuelSavior: Justice
@@ -221,6 +224,8 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Mob Rule (AKA Constructor: Street Wars / Street Wars: Constructor Underworld)
 - Moorhuhn
 - Moorhuhn 2
+- Moorhuhn Adventure: Fluch des Goldes
+- Moorhuhn Adventure: Schatz des Pharao and Fluch des Goldes)
 - Moorhuhn Winter Editon
 - Moto Racer
 - Moto Racer 2
@@ -241,7 +246,6 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Outlaws
 - Outlive
 - Pacific General
-- Pandora's Box Puzzle Game
 - Pajama Sam
 - Pajama Sam 3
 - Pajama Sam 3: You Are What You Eat From Your Head To Your Feet
@@ -249,6 +253,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Pajama Sam's One-Stop Fun Shop
 - Pajama Sam(r): Life is Rough When You Lose Your Stuff(tm)
 - Pajama Sam: No Need to Hide When It's Dark Outside
+- Pandora's Box Puzzle Game
 - Patrician 3
 - Pax Imperia
 - Pharaoh (Sierra - 1999)
@@ -313,8 +318,9 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - SPY Fox in Dry Cereal
 - SPY Fox: Hold the Mustard
 - SPY Fox: Operation Ozone
-- Star Wars Rebellion
+- Star Trek Generations
 - Star Wars Jedi Knight: Dark Forces II
+- Star Wars Rebellion
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
 - StarCraft
