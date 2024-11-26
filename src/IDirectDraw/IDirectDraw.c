@@ -328,8 +328,18 @@ HRESULT __stdcall IDirectDraw__EnumSurfaces(
     LPVOID lpContext,
     LPDDENUMSURFACESCALLBACK7 lpEnumSurfacesCallback)
 {
-    TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
+    TRACE(
+        "NOT_IMPLEMENTED -> %s(This=%p, dwFlags=%08X, lpDDSurfaceDesc=%p, lpContext=%p, lpEnumSurfacesCallback=%p) [%p]\n", 
+        __FUNCTION__, 
+        This, 
+        dwFlags,
+        lpDDSurfaceDesc,
+        lpContext,
+        lpEnumSurfacesCallback,
+        _ReturnAddress());
+    
     HRESULT ret = DD_OK;
+
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }
