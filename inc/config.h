@@ -22,7 +22,7 @@ typedef struct CNCDDRAWCONFIG
     INIFILE ini;
     BOOL d3d9on12;
     BOOL opengl_core;
-    
+
     /* Optional settings */
 
     BOOL fullscreen;
