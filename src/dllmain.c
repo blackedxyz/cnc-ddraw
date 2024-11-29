@@ -23,7 +23,6 @@ PVOID FakePrimarySurface;
 
 
 HMODULE g_ddraw_module;
-static BOOL g_screensaver_disabled;
 
 BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 {
@@ -132,15 +131,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
                 set_aware();
         }
 
-        BOOL screensaver_enabled = FALSE;
-        SystemParametersInfoA(SPI_GETSCREENSAVEACTIVE, 0, &screensaver_enabled, 0);
-
-        if (screensaver_enabled)
-        {
-            SystemParametersInfoA(SPI_SETSCREENSAVEACTIVE, FALSE, NULL, 0);
-            g_screensaver_disabled = TRUE;
-        }
-
+        SetThreadExecutionState(ES_CONTINUOUS | ES_DISPLAY_REQUIRED);
         indeo_enable();
         timeBeginPeriod(1);
         hook_init();
@@ -160,11 +151,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         keyboard_hook_exit();
         dinput_hook_exit();
         hook_exit();
-
-        if (g_screensaver_disabled)
-        {
-            SystemParametersInfoA(SPI_SETSCREENSAVEACTIVE, TRUE, NULL, 0);
-        }
+        SetThreadExecutionState(ES_CONTINUOUS);
 
         ULONG(WINAPI* remove_handler)(PVOID) =
             (void*)real_GetProcAddress(GetModuleHandleA("Kernel32.dll"), "RemoveVectoredExceptionHandler");
