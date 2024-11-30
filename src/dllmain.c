@@ -132,6 +132,10 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
                 set_aware();
         }
 
+        /* Make sure screensaver will stay off and monitors will stay on */
+        SetThreadExecutionState(ES_CONTINUOUS | ES_DISPLAY_REQUIRED);
+
+        /* WINE does not support SetThreadExecutionState so we'll have to use SPI_SETSCREENSAVEACTIVE instead */
         BOOL screensaver_enabled = FALSE;
         SystemParametersInfoA(SPI_GETSCREENSAVEACTIVE, 0, &screensaver_enabled, 0);
 
@@ -160,6 +164,8 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         keyboard_hook_exit();
         dinput_hook_exit();
         hook_exit();
+
+        SetThreadExecutionState(ES_CONTINUOUS);
 
         if (g_screensaver_disabled)
         {
