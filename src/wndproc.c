@@ -591,7 +591,8 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
         if (wParam == SC_CLOSE && !GameHandlesClose)
         {
-            _exit(0);
+            ExitProcess(0);
+            //_exit(0);
         }
 
         if (wParam == SC_KEYMENU && GetMenu(g_ddraw.hwnd) == NULL)
