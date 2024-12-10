@@ -37,10 +37,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 
 &nbsp;
 
-Need help and don't have a github account? Ask your questions on [Discord](https://discord.gg/afWXJNDDF5) (No registration required)
-
-&nbsp;
-
 ### Hotkeys
 * [Alt] + [Enter]                  = Switch between windowed and fullscreen mode
 * [Ctrl] + [Tab]                    = Unlock cursor
@@ -51,6 +47,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 
 ### Supported Games
 - Addiction Pinball
+- Agharta the Hollow Earth
 - Age of Empires
 - Age of Empires II
 - Age of Empires II: The Conquerors
@@ -134,6 +131,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Dark Reign: The Future of War
 - Daytona USA (Sega - 1996)
 - Deadlock 2
+- Deadly Tide
 - Desperados: Wanted Dead or Alive
 - Diablo
 - Diablo 2
@@ -177,6 +175,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
 - Gruntz
+- Hexen 95
 - Hamtaro: Wake Up Snoozer!
 - Hard Truck: Road to Victory
 - Hearts of Iron 2
@@ -204,6 +203,7 @@ Need help and don't have a github account? Ask your questions on [Discord](https
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
+- Lands of Lore 2 Guardian of Destiny (Software mode only)
 - Lapis (lapis.mgame.com)
 - Lionheart - Legacy of the Crusader
 - Little Bear Kindergarten Thinking Adventures
