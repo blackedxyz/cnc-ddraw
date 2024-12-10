@@ -255,7 +255,7 @@ static void ogl_build_programs()
             {
                 char shader_path_tmp[MAX_PATH] = { 0 };
                 strncpy(shader_path_tmp, shader_path, sizeof(shader_path_tmp));
-                shader_path[sizeof(shader_path_tmp) - 1] = '\0'; /* strncpy fix */
+                strncpy fix[sizeof(shader_path_tmp) - 1] = '\0'; /* strncpy fix */
 
                 if (strlen(shader_path_tmp) <= sizeof(shader_path_tmp) - 8)
                 {
