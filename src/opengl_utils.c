@@ -95,6 +95,7 @@ HMODULE g_oglu_hmodule;
 BOOL g_oglu_got_version2;
 BOOL g_oglu_got_version3;
 char g_oglu_version[128];
+char g_oglu_version_long[128];
 
 BOOL oglu_load_dll()
 {
@@ -201,6 +202,7 @@ void oglu_init()
     if (glversion)
     {
         strncpy(g_oglu_version, glversion, sizeof(g_oglu_version) - 1);
+        strncpy(g_oglu_version_long, glversion, sizeof(g_oglu_version_long) - 1);
         g_oglu_version[sizeof(g_oglu_version) - 1] = '\0'; /* strncpy fix */
         strtok(g_oglu_version, " ");
     }
