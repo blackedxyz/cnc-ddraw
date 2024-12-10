@@ -4,21 +4,21 @@ TARGET   ?= ddraw.dll
 
 LDFLAGS  ?= -Wl,--enable-stdcall-fixup -s -static -shared
 CFLAGS   ?= -Iinc -O2 -Wall -std=c99
-LIBS      = -lgdi32 -lwinmm -lole32 -lMsimg32
+LIBS      = -lgdi32 -lwinmm -lole32 -lmsimg32
 
 COMMIT   := $(shell git describe --match=NeVeRmAtCh --always --dirty || echo UNKNOWN)
 BRANCH   := $(shell git rev-parse --abbrev-ref HEAD || echo UNKNOWN)
 
+HASH     := \#
 ECHOTEST := $(shell echo \"\")
 ifeq ($(ECHOTEST),\"\")
 	# Windows
-	HASH     := \#
 	ECOMMIT  := $(shell echo $(HASH)define GIT_COMMIT "$(COMMIT)" > inc/git.h)
 	EBRANCH  := $(shell echo $(HASH)define GIT_BRANCH "$(BRANCH)" >> inc/git.h)
 else
 	# Either *nix or Windows with BusyBox (e.g. w64devkit)
-	ECOMMIT  := $(shell echo "#define GIT_COMMIT" \"$(COMMIT)\" > inc/git.h)
-	EBRANCH  := $(shell echo "#define GIT_BRANCH" \"$(BRANCH)\" >> inc/git.h)
+	ECOMMIT  := $(shell echo "$(HASH)define GIT_COMMIT" \"$(COMMIT)\" > inc/git.h)
+	EBRANCH  := $(shell echo "$(HASH)define GIT_BRANCH" \"$(BRANCH)\" >> inc/git.h)
 endif
 
 ifdef DEBUG
