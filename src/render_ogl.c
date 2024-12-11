@@ -250,7 +250,8 @@ static void ogl_build_programs()
 
             /* Hack for Intel HD 4000 driver bug - disable multipass shader */
 
-            if (_stricmp(g_oglu_version_long, "4.0.0 - Build 10.18.10.4252") == 0)
+            if (_stricmp(g_oglu_version_long, "4.0.0 - Build 10.18.10.4252") == 0 ||
+                _stricmp(g_oglu_version_long, "4.0.0 - Build 10.18.10.5161") == 0)
             {
                 char shader_path_tmp[MAX_PATH] = { 0 };
 
