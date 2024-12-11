@@ -3,7 +3,6 @@
 
 #define str(s) #s
 #define ver_str(a,b,c,d) str(a) "." str(b) "." str(c) "." str(d)
-#define git_str(a) str(a)
 
 #define VERSION_MAJOR    7
 #define VERSION_MINOR    0
