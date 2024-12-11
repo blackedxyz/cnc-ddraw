@@ -249,10 +249,11 @@ static void ogl_build_programs()
             }
 
             /* Hack for Intel HD 4000 driver bug - disable multipass shader */
-
+            TRACE("     OGL Version=%s\n", g_oglu_version_long);
             if (_stricmp(g_oglu_version_long, "4.0.0 - Build 10.18.10.4252") == 0 ||
                 _stricmp(g_oglu_version_long, "4.0.0 - Build 10.18.10.5161") == 0)
             {
+                TRACE("     OGL 1\n");
                 char shader_path_tmp[MAX_PATH] = { 0 };
 
                 strncpy(shader_path_tmp, shader_path, sizeof(shader_path_tmp));
@@ -260,10 +261,12 @@ static void ogl_build_programs()
 
                 if (strlen(shader_path_tmp) <= sizeof(shader_path_tmp) - 8)
                 {
+                    TRACE("     OGL 2\n");
                     strcat(shader_path_tmp, ".pass1");
 
                     if (FILE_EXISTS(shader_path_tmp))
                     {
+                        TRACE("     OGL 3\n");
                         shader_path[0] = 0;
                         g_config.shader[0] = 0;
                     }
