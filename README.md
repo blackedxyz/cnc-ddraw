@@ -191,6 +191,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
 - Gruntz
+- Gilbert Goodmate And The Mushroom Of Phungoria
 - Hamtaro: Wake Up Snoozer!
 - Hard Truck: Road to Victory
 - Heart of Darkness
@@ -238,6 +239,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Locomotion
 - Lode Runner 2
 - Lost Vikings 2
+- Links Extreme
 - M.A.X. 2 Mechanized Assault & Exploration
 - Madeline 1st Grade Math
 - Madeline 2nd Grade Math
@@ -317,6 +319,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Real War
 - Red Baron 3D
+- Rent-A-Hero
 - Reksio and Captain Nemo (Reksio i Kapitan Nemo)
 - Reksio and Kretes in Action (Reksio i Kretes w Akcji!)
 - Reksio and the Pirate Treasure (Reksio i Skarb Piratów)
@@ -384,6 +387,11 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - The Powerpuff Girls - Princess Snorebucks
 - The Powerpuff Girls(TM) Mojo Jojo's Clone Zone
 - The X-Files DVD
+- The Last Express
+- The Neverhood
+- The Rocky Interactive Horror Show
+- The Next Worlds 
+- The Sex Files
 - Theme Hospital
 - Three Kingdoms: Fate of the Dragon
 - Throne of Darkness
@@ -419,6 +427,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Zoombinis Logical Journey
 - Zoombinis Mountain Rescue
 - Zuma Deluxe
+- Zork Nemesis
 - ...
 
 There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) and the instructions above.
