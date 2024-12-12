@@ -934,6 +934,11 @@ static void ogl_render()
     {
         glEnable(GL_TEXTURE_2D);
     }
+    else // 8 bpp only works with a shader (opengl 2.0 or above)
+    {
+        g_ogl.use_opengl = FALSE;
+        return;
+    }
 
     DWORD timeout = g_config.minfps > 0 ? g_ddraw.minfps_tick_len : INFINITE;
 
@@ -1155,7 +1160,9 @@ static void ogl_render()
             }
         }
 
-        glActiveTexture(GL_TEXTURE0);
+        if (glActiveTexture)
+            glActiveTexture(GL_TEXTURE0);
+
         glBindTexture(GL_TEXTURE_2D, g_ogl.surface_tex_ids[tex_index]);
 
         if (g_ddraw.bpp == 8)
