@@ -46,8 +46,8 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 &nbsp;
 
 ### Supported Games
+- Abomination - The Nemesis Project
 - Addiction Pinball
-- Agharta the Hollow Earth
 - Age of Empires
 - Age of Empires II
 - Age of Empires II: The Conquerors
@@ -55,11 +55,14 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Age of Wonders
 - Age of Wonders 2
 - Age of Wonders: Shadow Magic
+- Agharta the Hollow Earth
 - Airline Tycoon Deluxe
 - Alien Nations
 - American Conquest (Steam+GOG)
 - American Girls Dress Designer
 - Amerzone
+- Ancient Conquest
+- Ancient Evil
 - Anno 1602: Creation of a New World
 - Another War
 - Anstoss 3
@@ -83,6 +86,9 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Batman: Toxic Chill
 - Birthright: The Gorgons Alliance
 - Blade & Sword
+- Blitzkrieg anthology
+- Blitzkrieg anthology: Burning Horizon
+- Blitzkrieg anthology: Rolling Thunder
 - Blood II - The Chosen
 - Blue's 123 Time Activities
 - Blue's Treasure Hunt
@@ -97,6 +103,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Casino Empire (AKA Hoyle Casino)
 - Championship Manager 99-00
 - Chaos Gate
+- Clans
 - Close Combat 2: A Bridge Too Far
 - Close Combat 3: The Russian Front
 - Close Combat 4: The Battle of the Bulge
@@ -129,9 +136,12 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Cyberchase Castleblanca Quest
 - Dark Earth
 - Dark Reign: The Future of War
+- Day Of The Tentacle
+- Daytona
 - Daytona USA (Sega - 1996)
 - Deadlock 2
 - Deadly Tide
+- Delta Force
 - Desperados: Wanted Dead or Alive
 - Diablo
 - Diablo 2
@@ -141,6 +151,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Disciples 2 - Rise of the Elves
 - Discoworld Noir
 - Divine Divinity
+- Doom 95
 - Dragon Throne: Battle of Red Cliffs
 - DuelSavior
 - DuelSavior: Justice
@@ -152,9 +163,12 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Emperor: Rise of the Middle Kingdom
 - Enemy Infestation
 - Escape Velocity Nova
+- Excalibur 2555AD
 - F-16 Multirole Fighter
 - F-22 Raptor
+- Fable
 - Fairy Tale About Father Frost, Ivan and Nastya
+- Falcon 4.0 (Microprose version)
 - Fallout
 - Fallout 2
 - Final fantasy VII
@@ -168,25 +182,36 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Freddi Fish: The Case of the Haunted Schoolhouse
 - Freddi Fish: The Case of the Hogfish Rustlers of Briny Gulch
 - Freddi Water Worries
+- Full Throttle
 - Future Cop L.A.P.D
 - G-Police
+- Geneforge
 - Gorasul: The Legacy of the Dragon
 - Grand Theft Auto
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
 - Gruntz
-- Hexen 95
 - Hamtaro: Wake Up Snoozer!
 - Hard Truck: Road to Victory
+- Heart of Darkness
 - Hearts of Iron 2
+- Heroes Chronicles: Clash of the Dragons
+- Heroes Chronicles: Conquest of the Underworld 
+- Heroes Chronicles: Masters of the Elements 
+- Heroes Chronicles: Warlords of the Wasteland
+- Heroes of Might and Magic 
 - Heroes of Might and Magic II
 - Heroes of Might and Magic III
 - Heroes of Might and Magic IV
+- Hexen 95
 - Hooligans: Storm over Europe
 - Hugo Gold
 - Hugo Wild River
 - Icewind Dale
 - Icewind Dale 2
+- Ignition
+- Indiana Jones and the Fate of Atlantis
+- Indiana Jones and the Last Crusade
 - Infantry Online
 - Interstate 76
 - Invictus: In the Shadow of Olympus
@@ -216,6 +241,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - M.A.X. 2 Mechanized Assault & Exploration
 - Madeline 1st Grade Math
 - Madeline 2nd Grade Math
+- Mageslayer
 - Majesty Gold
 - Majesty Gold HD
 - Mech Warrior 3
@@ -236,15 +262,18 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Nancy Drew: Stay Tuned For Danger
 - Nancy Drew: The Secret of Shadow Ranch
 - Nancy Drew: Treasure in the Royal Tower
+- NBA Action '98
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
 - New Robinson
 - NexusTk
+- Nightmare Creatures
 - Nox (Westwood - 2000)
 - Oddworld: Abe's Exoddus
 - Oddworld: Abe's Oddysee
 - Outlaws
 - Outlive
+- Outwars (software mode)
 - Pacific General
 - Pajama Sam
 - Pajama Sam 3
@@ -254,6 +283,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Pajama Sam(r): Life is Rough When You Lose Your Stuff(tm)
 - Pajama Sam: No Need to Hide When It's Dark Outside
 - Pandora's Box Puzzle Game
+- Panzer Dragoon
 - Patrician 3
 - Pax Imperia
 - Pharaoh (Sierra - 1999)
@@ -293,8 +323,11 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Reksio and the Time Machine (Reksio i Wehikuł Czasu)
 - Reksio and the UFO (Reksio i Ufo)
 - Reksio and the Wizards (Reksio i Czarodzieje)
+- Resurrection - The Return of the Black Dragon (software mode)
+- Rising Lands (patched)
 - Road Rash
 - Robin Hood - The Legend of Sherwood
+- Roland Garros 98 (software mode)
 - RollerCoaster Tycoon
 - Sanitarium
 - Scooby-Doo(TM), Case File #2 The Scary Stone Dragon
@@ -307,20 +340,29 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Shadow Flare
 - Shadow Watch
 - Shogo - Mobile Armor Division
+- Sid Meier's Simgolf
 - Sim City 3000
 - Sim Copter
 - Sim Theme Park (aka Theme Park World)
 - SimCoaster / Theme Park Inc
+- Simon the Sorcerer 1/2 (windows 95 version)
 - Sonic 3D Blast
 - Space Rangers
+- Spec Ops - Ranger Assault (software mode)
 - SpongeBob SquarePants: Typing
 - SPY Fox : Some Assembly Required
 - SPY Fox in Dry Cereal
 - SPY Fox: Hold the Mustard
 - SPY Fox: Operation Ozone
+- Star Trek Away Team
 - Star Trek Generations
+- Star Wars - Pit Droids
+- Star Wars Anakin's Speedway
+- Star Wars Early Learning Activity Center
+- Star Wars Episode I: The Gungan Frontier
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars Rebellion
+- Star Wars Yoda's Challenge
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
 - StarCraft
@@ -336,6 +378,8 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Stronghold HD
 - Sudden Strike 2
 - Superbike 2000
+- The Curse Of Monkey Island
+- The Dig
 - The Missing on Lost Island
 - The Powerpuff Girls - Princess Snorebucks
 - The Powerpuff Girls(TM) Mojo Jojo's Clone Zone
@@ -344,9 +388,11 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Three Kingdoms: Fate of the Dragon
 - Throne of Darkness
 - TianLong BaBu
+- Tone Rebellion
 - Total Annihilation
 - Total Annihilation (Unofficial Beta Patch v3.9.02)
 - Total Annihilation: Kingdoms
+- Toy Story
 - Twisted Metal
 - Twisted Metal 2
 - Tzar: The Burden of the Crown
@@ -362,6 +408,8 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Warlords Battlecry
 - Warlords Battlecry 2
 - Warlords Battlecry 3
+- Weird War
+- Wing Commander - The Kilrathi Saga
 - Wizardry 8
 - Wizards and Warriors
 - Worms 2
