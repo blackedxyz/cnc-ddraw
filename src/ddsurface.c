@@ -436,7 +436,7 @@ HRESULT dds_Blt(
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
             SwitchToThread();
 
-            if (g_ddraw.ticks_limiter.tick_length > 0)
+            if (g_ddraw.ticks_limiter.tick_length > 0 && !(dwFlags & DDBLT_COLORFILL))
             {
                 g_ddraw.ticks_limiter.dds_unlock_limiter_disabled = TRUE;
                 util_limit_game_ticks();
