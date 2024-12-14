@@ -1357,7 +1357,6 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
         {
             TRACE("ddp_GetEntries test\n");
             ddp_GetEntries(g_ddraw.primary->palette, 0, iStart, cEntries, pPalEntries);
-            return cEntries - iStart;
         }
         else
         {
@@ -1369,6 +1368,8 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
                 pPalEntries[x].peFlags = g_ddp_me_palette[i].peFlags;
             }
         }
+
+        return cEntries - iStart;
     }
 
     return real_GetSystemPaletteEntries(hdc, iStart, cEntries, pPalEntries);
