@@ -324,6 +324,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Real War
 - Red Baron 3D
 - Rent-A-Hero
+- Return to Krondor
 - Reksio and Captain Nemo (Reksio i Kapitan Nemo)
 - Reksio and Kretes in Action (Reksio i Kretes w Akcji!)
 - Reksio and the Pirate Treasure (Reksio i Skarb Piratów)
@@ -353,6 +354,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Sim Theme Park (aka Theme Park World)
 - SimCoaster / Theme Park Inc
 - Simon the Sorcerer 1/2 (windows 95 version)
+- Silver (needs "SilverUK GeForce2 And Radeon Patch")
 - Sonic 3D Blast
 - Space Rangers
 - Spec Ops - Ranger Assault (software mode)
