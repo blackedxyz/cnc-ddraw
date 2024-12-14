@@ -1351,12 +1351,23 @@ HFONT WINAPI fake_CreateFontA(
 
 UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LPPALETTEENTRY pPalEntries)
 {
-    if (g_ddraw.ref && g_ddraw.bpp == 8 && WindowFromDC(hdc) == g_ddraw.hwnd)
+    if (g_ddraw.ref && g_ddraw.bpp == 8 && pPalEntries && WindowFromDC(hdc) == g_ddraw.hwnd)
     {
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
+            TRACE("ddp_GetEntries test\n");
             ddp_GetEntries(g_ddraw.primary->palette, 0, iStart, cEntries, pPalEntries);
             return cEntries - iStart;
+        }
+        else
+        {
+            for (int i = iStart, x = 0; i < iStart + cEntries && i < 256; i++, x++)
+            {
+                pPalEntries[x].peRed = g_ddp_me_palette[i].peRed;
+                pPalEntries[x].peGreen = g_ddp_me_palette[i].peGreen;
+                pPalEntries[x].peBlue = g_ddp_me_palette[i].peBlue;
+                pPalEntries[x].peFlags = g_ddp_me_palette[i].peFlags;
+            }
         }
     }
 
