@@ -20,6 +20,7 @@
 #include "dllmain.h"
 #include "hook.h"
 #include "directinput.h"
+#include "ddpalette.h"
 
 
 BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint)
@@ -1346,6 +1347,20 @@ HFONT WINAPI fake_CreateFontA(
             fdwQuality, 
             fdwPitchAndFamily,
             lpszFace);
+}
+
+UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LPPALETTEENTRY pPalEntries)
+{
+    if (g_ddraw.ref && g_ddraw.bpp == 8 && WindowFromDC(hdc) == g_ddraw.hwnd)
+    {
+        if (g_ddraw.primary && g_ddraw.primary->palette)
+        {
+            ddp_GetEntries(g_ddraw.primary->palette, 0, iStart, cEntries, pPalEntries);
+            return cEntries - iStart;
+        }
+    }
+
+    return real_GetSystemPaletteEntries(hdc, iStart, cEntries, pPalEntries);
 }
 
 HMODULE WINAPI fake_LoadLibraryA(LPCSTR lpLibFileName)

@@ -14,11 +14,15 @@ HRESULT ddp_GetEntries(
     DWORD dwNumEntries,
     LPPALETTEENTRY lpEntries)
 {
-    for (int i = dwBase, x = 0; i < dwBase + dwNumEntries; i++, x++)
+    if (!lpEntries)
+        return DDERR_INVALIDPARAMS;
+
+    for (int i = dwBase, x = 0; i < dwBase + dwNumEntries && i < 256; i++, x++)
     {
         lpEntries[x].peRed = This->data_rgb[i].rgbRed;
         lpEntries[x].peGreen = This->data_rgb[i].rgbGreen;
         lpEntries[x].peBlue = This->data_rgb[i].rgbBlue;
+        lpEntries[x].peFlags = 0;
     }
 
     return DD_OK;
@@ -31,7 +35,10 @@ HRESULT ddp_SetEntries(
     DWORD dwCount,
     LPPALETTEENTRY lpEntries)
 {
-    for (int i = dwStartingEntry, x = 0; i < dwStartingEntry + dwCount; i++, x++)
+    if (!lpEntries)
+        return DDERR_INVALIDPARAMS;
+
+    for (int i = dwStartingEntry, x = 0; i < dwStartingEntry + dwCount && i < 256; i++, x++)
     {
         This->data_bgr[i] = (lpEntries[x].peBlue << 16) | (lpEntries[x].peGreen << 8) | lpEntries[x].peRed;
 
