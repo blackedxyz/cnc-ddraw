@@ -145,6 +145,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Deadly Tide
 - Delta Force
 - Desperados: Wanted Dead or Alive
+- Dreams to Realty
 - Diablo
 - Diablo 2
 - Diablo 2: Lord of Destruction
