@@ -1355,7 +1355,6 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
     {
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
-            TRACE("ddp_GetEntries test\n");
             ddp_GetEntries(g_ddraw.primary->palette, 0, iStart, cEntries, pPalEntries);
         }
         else
