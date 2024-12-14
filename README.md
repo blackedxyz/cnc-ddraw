@@ -166,6 +166,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Enemy Infestation
 - Escape Velocity Nova
 - Excalibur 2555AD
+- F-16 Agressor
 - F-16 Multirole Fighter
 - F-22 Raptor
 - Fable
