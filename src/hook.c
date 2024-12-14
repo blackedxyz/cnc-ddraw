@@ -210,17 +210,15 @@ void hook_patch_obfuscated_iat_list(HMODULE hmod, BOOL unhook, HOOKLIST* hooks, 
         if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
             return;
 
-        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)dos_header + (DWORD)dos_header->e_lfanew);
+        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)hmod + (DWORD)dos_header->e_lfanew);
         if (nt_headers->Signature != IMAGE_NT_SIGNATURE)
             return;
 
         DWORD import_desc_rva = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
-        DWORD import_desc_size = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size;
-
-        if (import_desc_rva == 0 || import_desc_size == 0)
+        if (!import_desc_rva)
             return;
 
-        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)dos_header + import_desc_rva);
+        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)hmod + import_desc_rva);
 
         while (import_desc->FirstThunk)
         {
@@ -232,13 +230,13 @@ void hook_patch_obfuscated_iat_list(HMODULE hmod, BOOL unhook, HOOKLIST* hooks, 
 
             for (int i = 0; hooks[i].module_name[0]; i++)
             {
-                char* imp_module_name = (char*)((DWORD)dos_header + import_desc->Name);
+                char* imp_module_name = (char*)((DWORD)hmod + import_desc->Name);
 
                 if (_stricmp(imp_module_name, hooks[i].module_name) == 0)
                 {
                     HMODULE cur_mod = GetModuleHandleA(hooks[i].module_name);
 
-                    PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)dos_header + import_desc->FirstThunk);
+                    PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)hmod + import_desc->FirstThunk);
 
                     while (first_thunk->u1.Function)
                     {
@@ -332,17 +330,15 @@ void hook_patch_iat_list(HMODULE hmod, BOOL unhook, HOOKLIST* hooks, BOOL is_loc
         if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
             return;
 
-        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)dos_header + (DWORD)dos_header->e_lfanew);
+        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)hmod + (DWORD)dos_header->e_lfanew);
         if (nt_headers->Signature != IMAGE_NT_SIGNATURE)
             return;
 
         DWORD import_desc_rva = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
-        DWORD import_desc_size = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size;
-
-        if (import_desc_rva == 0 || import_desc_size == 0)
+        if (!import_desc_rva)
             return;
 
-        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)dos_header + import_desc_rva);
+        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)hmod + import_desc_rva);
 
         while (import_desc->FirstThunk)
         {
@@ -354,12 +350,12 @@ void hook_patch_iat_list(HMODULE hmod, BOOL unhook, HOOKLIST* hooks, BOOL is_loc
 
             for (int i = 0; hooks[i].module_name[0]; i++)
             {
-                char* imp_module_name = (char*)((DWORD)dos_header + import_desc->Name);
+                char* imp_module_name = (char*)((DWORD)hmod + import_desc->Name);
 
                 if (_stricmp(imp_module_name, hooks[i].module_name) == 0)
                 {
-                    PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)dos_header + import_desc->FirstThunk);
-                    PIMAGE_THUNK_DATA o_first_thunk = (void*)((DWORD)dos_header + import_desc->OriginalFirstThunk);
+                    PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)hmod + import_desc->FirstThunk);
+                    PIMAGE_THUNK_DATA o_first_thunk = (void*)((DWORD)hmod + import_desc->OriginalFirstThunk);
 
                     while (first_thunk->u1.Function)
                     {
@@ -450,27 +446,25 @@ BOOL hook_got_ddraw_import(HMODULE mod, BOOL check_imported_dlls)
         if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
             return FALSE;
 
-        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)dos_header + (DWORD)dos_header->e_lfanew);
+        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)mod + (DWORD)dos_header->e_lfanew);
         if (nt_headers->Signature != IMAGE_NT_SIGNATURE)
             return FALSE;
 
         DWORD import_desc_rva = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
-        DWORD import_desc_size = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size;
-
-        if (import_desc_rva == 0 || import_desc_size == 0)
+        if (!import_desc_rva)
             return FALSE;
 
-        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)dos_header + import_desc_rva);
+        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)mod + import_desc_rva);
 
         while (import_desc->FirstThunk)
         {
             if (import_desc->Name)
             {
-                char* imp_module_name = (char*)((DWORD)dos_header + import_desc->Name);
+                char* imp_module_name = (char*)((DWORD)mod + import_desc->Name);
 
                 if (_stricmp(imp_module_name, "ddraw.dll") == 0)
                 {
-                    PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)dos_header + import_desc->FirstThunk);
+                    PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)mod + import_desc->FirstThunk);
 
                     if (first_thunk->u1.Function)
                         return TRUE;

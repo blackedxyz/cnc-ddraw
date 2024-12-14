@@ -117,17 +117,15 @@ FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
         if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
             return NULL;
 
-        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)dos_header + (DWORD)dos_header->e_lfanew);
+        PIMAGE_NT_HEADERS nt_headers = (PIMAGE_NT_HEADERS)((DWORD)mod + (DWORD)dos_header->e_lfanew);
         if (nt_headers->Signature != IMAGE_NT_SIGNATURE)
             return NULL;
 
         DWORD import_desc_rva = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
-        DWORD import_desc_size = nt_headers->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size;
-
-        if (import_desc_rva == 0 || import_desc_size == 0)
+        if (!import_desc_rva)
             return NULL;
 
-        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)dos_header + import_desc_rva);
+        PIMAGE_IMPORT_DESCRIPTOR import_desc = (PIMAGE_IMPORT_DESCRIPTOR)((DWORD)mod + import_desc_rva);
 
         while (import_desc->FirstThunk)
         {
@@ -137,12 +135,12 @@ FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
                 continue;
             }
 
-            char* imp_module_name = (char*)((DWORD)dos_header + import_desc->Name);
+            char* imp_module_name = (char*)((DWORD)mod + import_desc->Name);
 
             if (_stricmp(imp_module_name, module_name) == 0)
             {
-                PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)dos_header + import_desc->FirstThunk);
-                PIMAGE_THUNK_DATA o_first_thunk = (void*)((DWORD)dos_header + import_desc->OriginalFirstThunk);
+                PIMAGE_THUNK_DATA first_thunk = (void*)((DWORD)mod + import_desc->FirstThunk);
+                PIMAGE_THUNK_DATA o_first_thunk = (void*)((DWORD)mod + import_desc->OriginalFirstThunk);
 
                 while (first_thunk->u1.Function)
                 {
@@ -153,7 +151,7 @@ FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
                         continue;
                     }
 
-                    PIMAGE_IMPORT_BY_NAME import = (void*)((DWORD)dos_header + o_first_thunk->u1.AddressOfData);
+                    PIMAGE_IMPORT_BY_NAME import = (void*)((DWORD)mod + o_first_thunk->u1.AddressOfData);
 
                     if ((o_first_thunk->u1.Ordinal & IMAGE_ORDINAL_FLAG) == 0)
                     {
