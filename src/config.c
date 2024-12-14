@@ -116,6 +116,7 @@ void cfg_load()
     GET_BOOL(g_config.carma95_hack, "carma95_hack", FALSE);
     GET_BOOL(g_config.sirtech_hack, "sirtech_hack", FALSE);
     GET_BOOL(g_config.flightsim98_hack, "flightsim98_hack", FALSE);
+    GET_BOOL(g_config.seventhlegion_hack, "seventhlegion_hack", TRUE);
     
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -390,6 +391,11 @@ static void cfg_create_ini()
             "; ### Game specific settings ###\n"
             "; The following settings override all settings shown above, section name = executable name\n"
             "\n"
+            "\n"
+            "; 7th Legion\n"
+            "[legion]\n"
+            "maxgameticks=25\n"
+            "seventhlegion_hack=true\n"
             "\n"
             "; Atrox\n"
             "[Atrox]\n"

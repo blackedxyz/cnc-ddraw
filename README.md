@@ -134,6 +134,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Cultures 2
 - Cyberchase Carnival Chaos
 - Cyberchase Castleblanca Quest
+- Cyber Gladiators (needs CyberGladiators_Patch_Win_EN_WinXP.zip)
 - Dark Earth
 - Dark Reign: The Future of War
 - Day Of The Tentacle

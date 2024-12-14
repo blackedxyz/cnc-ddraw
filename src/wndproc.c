@@ -101,6 +101,9 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_NCHITTEST:
     {
+        if (g_config.seventhlegion_hack)
+            break;
+
         LRESULT result = DefWindowProc(hWnd, uMsg, wParam, lParam);
 
         if (!g_config.resizable)
