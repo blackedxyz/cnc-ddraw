@@ -84,7 +84,7 @@ HRESULT dd_CreatePalette(
 
     p->lpVtbl = &g_ddp_vtbl;
     p->flags = dwFlags;
-    ddp_SetEntries(p, dwFlags, 0, 256, lpDDColorArray);
+        ddp_SetEntries(p, dwFlags, 0, 256, lpDDColorArray);
     IDirectDrawPalette_AddRef(p);
 
     *lpDDPalette = p;

@@ -14,6 +14,7 @@
 #include "ddclipper.h"
 #include "utils.h"
 #include "versionhelpers.h"
+#include "ddpalette.h"
 
 
 LONG g_dds_gdi_handles;
@@ -1093,8 +1094,7 @@ HRESULT dds_SetPalette(IDirectDrawSurfaceImpl* This, IDirectDrawPaletteImpl* lpD
     if (lpDDPalette)
         IDirectDrawPalette_AddRef(lpDDPalette);
 
-    if (This->palette)
-        IDirectDrawPalette_Release(This->palette);
+    IDirectDrawPaletteImpl* old_palette = This->palette;
 
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref)
     {
@@ -1112,6 +1112,9 @@ HRESULT dds_SetPalette(IDirectDrawSurfaceImpl* This, IDirectDrawPaletteImpl* lpD
     {
         This->palette = lpDDPalette;
     }
+
+    if (old_palette)
+        IDirectDrawPalette_Release(old_palette);
 
     return DD_OK;
 }
@@ -1574,6 +1577,16 @@ HRESULT dd_CreateSurface(
         {
             g_ddraw.primary = dst_surface;
             FakePrimarySurface = dst_surface->surface;
+
+            if (dst_surface->bpp == 8)
+            {
+                IDirectDrawPaletteImpl* lpDDPalette;
+                dd_CreatePalette(DDPCAPS_ALLOW256, g_ddp_me_palette, &lpDDPalette, NULL);
+                dds_SetPalette(dst_surface, lpDDPalette);
+
+                // Make sure temp palette will be released once replaced
+                IDirectDrawPalette_Release(lpDDPalette);
+            }
         }
     }
 
