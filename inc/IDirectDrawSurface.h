@@ -28,6 +28,8 @@ typedef struct IDirectDrawSurfaceImpl
     CRITICAL_SECTION cs;
 
     IDirectDrawPaletteImpl* palette;
+    PALETTEENTRY selected_pal[256];
+    UINT selected_pal_count;
 
     void* surface;
     HANDLE mapping;

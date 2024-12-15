@@ -905,10 +905,10 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
                 return 20;
             }
             else
-        {
-            return 256;
+            {
+                return 256;
+            }
         }
-    }
     }
 
     return real_GetDeviceCaps(hdc, index);
@@ -1410,16 +1410,37 @@ HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
         {
             TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
 
-            PALETTEENTRY pal[256];
-            UINT count = GetPaletteEntries(hPal, 0, 256, pal);
-            
-            ddp_SetEntries(g_ddraw.primary->palette, 0, 0, count, pal);
+            g_ddraw.primary->selected_pal_count = GetPaletteEntries(hPal, 0, 256, g_ddraw.primary->selected_pal);
 
-            return real_SelectPalette(g_ddraw.primary->hdc, hPal, bForceBkgd);
+            return real_SelectPalette(g_ddraw.primary->hdc, hPal, bForceBkgd);;
         }
     }
 
     return real_SelectPalette(hdc, hPal, bForceBkgd);
+}
+
+UINT WINAPI fake_RealizePalette(HDC hdc)
+{
+    if (g_ddraw.ref &&
+        g_ddraw.bpp == 8 &&
+        ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
+    {
+        if (g_ddraw.primary && g_ddraw.primary->palette)
+        {
+            TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
+
+            ddp_SetEntries(
+                g_ddraw.primary->palette, 
+                0, 
+                0, 
+                g_ddraw.primary->selected_pal_count,
+                g_ddraw.primary->selected_pal);
+
+            return g_ddraw.primary->selected_pal_count;
+        }
+    }
+
+    return real_RealizePalette(hdc);
 }
 
 HMODULE WINAPI fake_LoadLibraryA(LPCSTR lpLibFileName)

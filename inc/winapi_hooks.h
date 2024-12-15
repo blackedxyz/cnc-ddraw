@@ -60,6 +60,7 @@ HFONT WINAPI fake_CreateFontIndirectA(CONST LOGFONTA*);
 HFONT WINAPI fake_CreateFontA(int, int, int, int, int, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, LPCTSTR);
 UINT WINAPI fake_GetSystemPaletteEntries(HDC, UINT, UINT, LPPALETTEENTRY);
 HPALETTE WINAPI fake_SelectPalette(HDC, HPALETTE, BOOL);
+UINT WINAPI fake_RealizePalette(HDC);
 
 HMODULE WINAPI fake_LoadLibraryA(LPCSTR lpLibFileName);
 HMODULE WINAPI fake_LoadLibraryW(LPCWSTR lpLibFileName);

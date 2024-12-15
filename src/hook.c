@@ -59,6 +59,7 @@ CREATEFONTINDIRECTAPROC real_CreateFontIndirectA = CreateFontIndirectA;
 CREATEFONTAPROC real_CreateFontA = CreateFontA;
 GETSYSTEMPALETTEENTRIESPROC real_GetSystemPaletteEntries = GetSystemPaletteEntries;
 SELECTPALETTEPROC real_SelectPalette = SelectPalette;
+REALIZEPALETTEPROC real_RealizePalette = RealizePalette;
 LOADLIBRARYAPROC real_LoadLibraryA = LoadLibraryA;
 LOADLIBRARYWPROC real_LoadLibraryW = LoadLibraryW;
 LOADLIBRARYEXAPROC real_LoadLibraryExA = LoadLibraryExA;
@@ -153,6 +154,7 @@ HOOKLIST g_hook_hooklist[] =
             { "CreateFontA", (PROC)fake_CreateFontA, (PROC*)&real_CreateFontA, 0 },
             { "GetSystemPaletteEntries", (PROC)fake_GetSystemPaletteEntries, (PROC*)&real_GetSystemPaletteEntries, 0 },
             { "SelectPalette", (PROC)fake_SelectPalette, (PROC*)&real_SelectPalette, 0 },
+            { "RealizePalette", (PROC)fake_RealizePalette, (PROC*)&real_RealizePalette, 0 },
             { "CreateFontIndirectA", (PROC)fake_CreateFontIndirectA, (PROC*)&real_CreateFontIndirectA, 0 },
             { "", NULL, NULL, 0 }
         }
