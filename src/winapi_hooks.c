@@ -982,7 +982,10 @@ BOOL WINAPI fake_StretchBlt(
                 return result;
             }
         }
-        else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
+        else if (
+            g_ddraw.width > 0 && 
+            g_ddraw.render.hdc && 
+            (hwnd == g_ddraw.hwnd || (real_GetWindowLongA(hwnd, GWL_EXSTYLE) & WS_EX_TRANSPARENT)))
         {
             return real_StretchBlt(
                 hwnd == g_ddraw.hwnd ? hdcDest : g_ddraw.render.hdc,
@@ -1078,7 +1081,10 @@ BOOL WINAPI fake_BitBlt(
                 return result;
             }
         }
-        else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
+        else if (
+            g_ddraw.width > 0 &&
+            g_ddraw.render.hdc &&
+            (hwnd == g_ddraw.hwnd || (real_GetWindowLongA(hwnd, GWL_EXSTYLE) & WS_EX_TRANSPARENT)))
         {
             return real_StretchBlt(
                 hwnd == g_ddraw.hwnd ? hdc : g_ddraw.render.hdc,
@@ -1174,7 +1180,10 @@ int WINAPI fake_SetDIBitsToDevice(
                 return result;
             }
         }
-        else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
+        else if (
+            g_ddraw.width > 0 &&
+            g_ddraw.render.hdc &&
+            (hwnd == g_ddraw.hwnd || (real_GetWindowLongA(hwnd, GWL_EXSTYLE) & WS_EX_TRANSPARENT)))
         {
             return
                 real_StretchDIBits(
@@ -1262,7 +1271,10 @@ int WINAPI fake_StretchDIBits(
                 return result;
             }
         }
-        else if (g_ddraw.width > 0 && g_ddraw.render.hdc)
+        else if (
+            g_ddraw.width > 0 &&
+            g_ddraw.render.hdc &&
+            (hwnd == g_ddraw.hwnd || (real_GetWindowLongA(hwnd, GWL_EXSTYLE) & WS_EX_TRANSPARENT)))
         {
             return
                 real_StretchDIBits(
