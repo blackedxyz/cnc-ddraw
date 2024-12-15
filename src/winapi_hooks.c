@@ -893,10 +893,22 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
             return RC_PALETTE | real_GetDeviceCaps(hdc, index);
         }
 
-        if (index == SIZEPALETTE || index == NUMCOLORS)
+        if (index == SIZEPALETTE)
         {
             return 256;
         }
+
+        if (index == NUMCOLORS)
+        {
+            if (WindowFromDC(hdc) == GetDesktopWindow())
+            {
+                return 20;
+            }
+            else
+        {
+            return 256;
+        }
+    }
     }
 
     return real_GetDeviceCaps(hdc, index);
