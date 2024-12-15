@@ -1360,7 +1360,7 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
         pPalEntries,
         _ReturnAddress());
 
-    if (g_ddraw.ref && g_ddraw.bpp == 8 && pPalEntries && WindowFromDC(hdc) == g_ddraw.hwnd)
+    if (g_ddraw.ref && g_ddraw.bpp == 8 && pPalEntries && g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd)
     {
         TRACE("     WindowFromDC(hdc) == g_ddraw.hwnd\n");
 
@@ -1387,7 +1387,7 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
 
 HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
 {
-    if (g_ddraw.ref && g_ddraw.bpp == 8 && WindowFromDC(hdc) == g_ddraw.hwnd)
+    if (g_ddraw.ref && g_ddraw.bpp == 8 && g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd)
     {
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
