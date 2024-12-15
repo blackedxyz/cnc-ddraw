@@ -217,6 +217,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Ignition
 - Indiana Jones and the Fate of Atlantis
 - Indiana Jones and the Last Crusade
+- Imperialism 2: The Age of Exploration
 - Infantry Online
 - Interstate 76
 - Invictus: In the Shadow of Olympus
