@@ -806,6 +806,17 @@ BOOL WINAPI fake_GetWindowPlacement(HWND hWnd, WINDOWPLACEMENT* lpwndpl)
     return result;
 }
 
+BOOL WINAPI fake_SetWindowPlacement(HWND hWnd, const WINDOWPLACEMENT* lpwndpl)
+{
+    if (lpwndpl && g_ddraw.ref && g_ddraw.hwnd && hWnd == g_ddraw.hwnd)
+    {
+        if (lpwndpl->showCmd == SW_SHOWMAXIMIZED || lpwndpl->showCmd == SW_MAXIMIZE)
+            return TRUE;
+    }
+
+    return real_SetWindowPlacement(hWnd, lpwndpl);
+}
+
 BOOL WINAPI fake_EnumDisplaySettingsA(LPCSTR lpszDeviceName, DWORD iModeNum, DEVMODEA* lpDevMode)
 {
     BOOL result = real_EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode);
