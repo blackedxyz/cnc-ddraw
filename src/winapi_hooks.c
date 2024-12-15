@@ -1385,6 +1385,24 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
     return real_GetSystemPaletteEntries(hdc, iStart, cEntries, pPalEntries);
 }
 
+HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
+{
+    if (g_ddraw.ref && g_ddraw.bpp == 8 && WindowFromDC(hdc) == g_ddraw.hwnd)
+    {
+        if (g_ddraw.primary && g_ddraw.primary->palette)
+        {
+            TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
+
+            PALETTEENTRY pal[256];
+            GetPaletteEntries(hPal, 0, 256, pal);
+            
+            ddp_SetEntries(g_ddraw.primary->palette, 0, 0, 256, pal);
+        }
+    }
+
+    return real_SelectPalette(hdc, hPal, bForceBkgd);
+}
+
 HMODULE WINAPI fake_LoadLibraryA(LPCSTR lpLibFileName)
 {
     HMODULE hmod_old = GetModuleHandleA(lpLibFileName);
