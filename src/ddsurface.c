@@ -1581,7 +1581,7 @@ HRESULT dd_CreateSurface(
             if (dst_surface->bpp == 8)
             {
                 IDirectDrawPaletteImpl* lpDDPalette;
-                dd_CreatePalette(DDPCAPS_ALLOW256, g_ddp_me_palette, &lpDDPalette, NULL);
+                dd_CreatePalette(DDPCAPS_ALLOW256, g_ddp_default_palette, &lpDDPalette, NULL);
                 dds_SetPalette(dst_surface, lpDDPalette);
 
                 // Make sure temp palette will be released once replaced

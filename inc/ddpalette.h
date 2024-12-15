@@ -12,7 +12,7 @@ HRESULT ddp_SetEntries(IDirectDrawPaletteImpl* This, DWORD dwFlags, DWORD dwStar
 HRESULT dd_CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpDDColorArray, IDirectDrawPaletteImpl** lpDDPalette, IUnknown FAR* unkOuter);
 
 // Original palette copied from Windows ME
-static PALETTEENTRY g_ddp_me_palette[] =
+static PALETTEENTRY g_ddp_default_palette[] =
 {
     { 0, 0, 0, 0 },
     { 128, 0, 0, 0 },
