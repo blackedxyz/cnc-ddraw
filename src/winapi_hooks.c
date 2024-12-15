@@ -1394,9 +1394,9 @@ HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
             TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
 
             PALETTEENTRY pal[256];
-            GetPaletteEntries(hPal, 0, 256, pal);
+            UINT count = GetPaletteEntries(hPal, 0, 256, pal);
             
-            ddp_SetEntries(g_ddraw.primary->palette, 0, 0, 256, pal);
+            ddp_SetEntries(g_ddraw.primary->palette, 0, 0, count, pal);
         }
     }
 
