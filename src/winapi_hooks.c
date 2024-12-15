@@ -1360,7 +1360,10 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
         pPalEntries,
         _ReturnAddress());
 
-    if (g_ddraw.ref && g_ddraw.bpp == 8 && pPalEntries && g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd)
+    if (g_ddraw.ref && 
+        g_ddraw.bpp == 8 && 
+        pPalEntries && 
+        ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
     {
         TRACE("     WindowFromDC(hdc) == g_ddraw.hwnd\n");
 
@@ -1387,7 +1390,9 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
 
 HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
 {
-    if (g_ddraw.ref && g_ddraw.bpp == 8 && g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd)
+    if (g_ddraw.ref && 
+        g_ddraw.bpp == 8 && 
+        ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
     {
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
@@ -1397,6 +1402,8 @@ HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
             UINT count = GetPaletteEntries(hPal, 0, 256, pal);
             
             ddp_SetEntries(g_ddraw.primary->palette, 0, 0, count, pal);
+
+            return real_SelectPalette(g_ddraw.primary->hdc, hPal, bForceBkgd);
         }
     }
 
