@@ -1351,7 +1351,14 @@ HFONT WINAPI fake_CreateFontA(
 
 UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LPPALETTEENTRY pPalEntries)
 {
-    TRACE("%s [%p]\n", __FUNCTION__, _ReturnAddress());
+    TRACE(
+        "%s(hdc=%p, iStart=%u, cEntries=%u, pPalEntries=%p) [%p]\n", 
+        __FUNCTION__,
+        hdc,
+        iStart,
+        cEntries,
+        pPalEntries,
+        _ReturnAddress());
 
     if (g_ddraw.ref && g_ddraw.bpp == 8 && pPalEntries && WindowFromDC(hdc) == g_ddraw.hwnd)
     {
