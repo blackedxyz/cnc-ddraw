@@ -1460,7 +1460,7 @@ UINT WINAPI fake_RealizePalette(HDC hdc)
 
             ddp_SetEntries(
                 g_ddraw.primary->palette, 
-                0, 
+                DDPCAPS_REFRESH_CHANGED_ONLY,
                 0, 
                 g_ddraw.primary->selected_pal_count,
                 g_ddraw.primary->selected_pal);
