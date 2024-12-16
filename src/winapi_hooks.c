@@ -1458,6 +1458,11 @@ UINT WINAPI fake_RealizePalette(HDC hdc)
         {
             TRACE_EXT("%s(hdc=%p) [%p]\n", __FUNCTION__, hdc, _ReturnAddress());
 
+            if (g_ddraw.primary->selected_pal_count != 256)
+            {
+                TRACE_EXT("     selected_pal_count = %u\n", g_ddraw.primary->selected_pal_count);
+            }
+
             ddp_SetEntries(
                 g_ddraw.primary->palette, 
                 DDPCAPS_REFRESH_CHANGED_ONLY,
