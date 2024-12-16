@@ -1091,6 +1091,9 @@ HRESULT dds_SetColorKey(IDirectDrawSurfaceImpl* This, DWORD dwFlags, LPDDCOLORKE
 
 HRESULT dds_SetPalette(IDirectDrawSurfaceImpl* This, IDirectDrawPaletteImpl* lpDDPalette)
 {
+    if (This->bpp != 8)
+        return DDERR_INVALIDPIXELFORMAT;
+
     if (lpDDPalette)
         IDirectDrawPalette_AddRef(lpDDPalette);
 
