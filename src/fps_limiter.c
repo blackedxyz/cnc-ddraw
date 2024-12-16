@@ -120,16 +120,9 @@ BOOL fpsl_wait_for_vblank()
 
 BOOL fpsl_dwm_flush()
 {
-    if (g_fpsl.initialized && fpsl_dwm_is_enabled() && g_fpsl.DwmFlush)
+    if (g_fpsl.initialized && fpsl_dwm_is_enabled() && g_fpsl.DwmFlush && !IsWine())
     {
-        HRESULT x = g_fpsl.DwmFlush();
-
-        if (!SUCCEEDED(x))
-        {
-            //TRACE(" ERROR %s(result=%08X)\n", __FUNCTION__, x);
-        }
-
-        return SUCCEEDED(x);
+        return SUCCEEDED(g_fpsl.DwmFlush());
     }
 
     return FALSE;
