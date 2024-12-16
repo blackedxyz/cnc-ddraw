@@ -87,6 +87,7 @@ void cfg_load()
     GET_BOOL(g_config.no_dinput_hook, "no_dinput_hook", FALSE);
     GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
+    GET_BOOL(g_config.allow_wm_nchittest, "allow_wm_nchittest", FALSE);
     GET_STRING("fake_mode", "", g_config.fake_mode, sizeof(g_config.fake_mode));
     GET_BOOL(g_config.lock_mouse_top_left, "lock_mouse_top_left", FALSE);
     GET_STRING("win_version", "", g_config.win_version, sizeof(g_config.win_version));
@@ -116,7 +117,6 @@ void cfg_load()
     GET_BOOL(g_config.carma95_hack, "carma95_hack", FALSE);
     GET_BOOL(g_config.sirtech_hack, "sirtech_hack", FALSE);
     GET_BOOL(g_config.flightsim98_hack, "flightsim98_hack", FALSE);
-    GET_BOOL(g_config.seventhlegion_hack, "seventhlegion_hack", FALSE);
     
     GameHandlesClose = GameHandlesClose || g_config.infantryhack;
 
@@ -395,7 +395,7 @@ static void cfg_create_ini()
             "; 7th Legion\n"
             "[legion]\n"
             "maxgameticks=25\n"
-            "seventhlegion_hack=true\n"
+            "allow_wm_nchittest=true\n"
             "singlecpu=false\n"
             "\n"
             "; Atrox\n"
@@ -1330,6 +1330,10 @@ static void cfg_create_ini()
             "[Game/2]\n"
             "checkfile=.\\nox.cfg\n"
             "maxgameticks=125\n"
+            "\n"
+            "; Nightlong - Union City Conspiracy\n"
+            "[NL]\n"
+            "allow_wm_nchittest=true\n"
             "\n"
             "; Outlaws\n"
             "[olwin]\n"

@@ -74,6 +74,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL no_dinput_hook;
     BOOL direct3d_passthrough;
     BOOL center_cursor_fix;
+    BOOL allow_wm_nchittest;
     char fake_mode[128];
     BOOL lock_mouse_top_left;
     char win_version[32];
@@ -106,7 +107,6 @@ typedef struct CNCDDRAWCONFIG
     BOOL carma95_hack;
     BOOL sirtech_hack;
     BOOL flightsim98_hack;
-    BOOL seventhlegion_hack;
 
 } CNCDDRAWCONFIG;
 
