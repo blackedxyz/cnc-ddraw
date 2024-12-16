@@ -797,7 +797,7 @@ BOOL WINAPI fake_GetWindowPlacement(HWND hWnd, WINDOWPLACEMENT* lpwndpl)
             lpwndpl->rcNormalPosition.right = g_ddraw.width;
             lpwndpl->rcNormalPosition.top = 0;
         }
-        else
+        else if (!(real_GetWindowLongA(hWnd, GWL_STYLE) & WS_CHILD))
         {
             real_MapWindowPoints(HWND_DESKTOP, g_ddraw.hwnd, (LPPOINT)&lpwndpl->rcNormalPosition, 2);
         }
