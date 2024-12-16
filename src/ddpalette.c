@@ -71,10 +71,15 @@ HRESULT ddp_SetEntries(
         This->data_rgb[255].rgbReserved = 0;
     }
 
-    if ((dwFlags & DDPCAPS_REFRESH_CHANGED_ONLY) && memcmp(data_rgb, This->data_rgb, sizeof(This->data_rgb)) == 0)
+    if ((dwFlags & DDPCAPS_REFRESH_CHANGED_ONLY))
     {
-        // do not set palette_updated BOOL if nothing changed
-        return DD_OK;
+        if (memcmp(data_rgb, This->data_rgb, sizeof(This->data_rgb)) == 0)
+        {
+            // do not set palette_updated BOOL if nothing changed
+            return DD_OK;
+        }
+
+        TRACE_EXT("     Palette changed\n");
     }
 
     if (g_ddraw.ref && g_ddraw.primary && g_ddraw.primary->palette == This && g_ddraw.render.run)
