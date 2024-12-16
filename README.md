@@ -46,6 +46,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 &nbsp;
 
 ### Supported Games
+- 101: The Airborne Invasion of Normandy
 - 7th Legion
 - Abomination - The Nemesis Project
 - Addiction Pinball
