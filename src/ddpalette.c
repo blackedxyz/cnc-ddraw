@@ -5,7 +5,6 @@
 #include "ddsurface.h"
 #include "IDirectDrawPalette.h"
 #include "debug.h"
-#include "crc32.h"
 
 
 HRESULT ddp_GetEntries(
@@ -39,11 +38,11 @@ HRESULT ddp_SetEntries(
     if (!lpEntries)
         return DDERR_INVALIDPARAMS;
 
-    unsigned long crc32 = 0;
+    RGBQUAD data_rgb[256];
 
     if ((dwFlags & DDPCAPS_REFRESH_CHANGED_ONLY))
     {
-        crc32 = Crc32_ComputeBuf(0, This->data_rgb, sizeof(This->data_rgb));
+        memcpy(data_rgb, This->data_rgb, sizeof(This->data_rgb));
     }
 
     for (int i = dwStartingEntry, x = 0; i < dwStartingEntry + dwCount && i < 256; i++, x++)
@@ -72,7 +71,7 @@ HRESULT ddp_SetEntries(
         This->data_rgb[255].rgbReserved = 0;
     }
 
-    if (crc32 && crc32 == Crc32_ComputeBuf(0, This->data_rgb, sizeof(This->data_rgb)))
+    if ((dwFlags & DDPCAPS_REFRESH_CHANGED_ONLY) && memcmp(data_rgb, This->data_rgb, sizeof(This->data_rgb)) == 0)
     {
         // do not set palette_updated BOOL if nothing changed
         return DD_OK;
