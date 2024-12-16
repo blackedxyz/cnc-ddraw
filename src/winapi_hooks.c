@@ -1417,7 +1417,7 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
             }
         }
 
-        return cEntries - iStart;
+        return cEntries;
     }
 
     return real_GetSystemPaletteEntries(hdc, iStart, cEntries, pPalEntries);
