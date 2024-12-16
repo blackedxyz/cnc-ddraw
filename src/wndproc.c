@@ -101,8 +101,32 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_NCHITTEST:
     {
-        if (g_config.allow_wm_nchittest)
-            break;
+        if (g_config.allow_wm_nchittest && (g_mouse_locked || g_config.devmode))
+        {
+            POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+
+            if (!g_config.windowed || real_ScreenToClient(g_ddraw.hwnd, &pt))
+            {
+                int x = max(pt.x - g_ddraw.mouse.x_adjust, 0);
+                int y = max(pt.y - g_ddraw.mouse.y_adjust, 0);
+
+                if (g_config.adjmouse)
+                {
+                    x = (DWORD)(roundf(x * g_ddraw.mouse.unscale_x));
+                    y = (DWORD)(roundf(y * g_ddraw.mouse.unscale_y));
+                }
+
+                pt.x = min(x, g_ddraw.width - 1);
+                pt.y = min(y, g_ddraw.height - 1);
+            }
+            else
+            {
+                pt.x = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.x, 0);
+                pt.y = InterlockedExchangeAdd((LONG*)&g_ddraw.cursor.y, 0);
+            }
+
+            CallWindowProcA(g_ddraw.wndproc, hWnd, uMsg, wParam, MAKELPARAM(pt.x, pt.y));
+        }
 
         LRESULT result = DefWindowProc(hWnd, uMsg, wParam, lParam);
 
