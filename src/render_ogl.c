@@ -944,6 +944,14 @@ static void ogl_init_shader2_program()
         glUniform1i(loc, 0);
 
 
+    loc = glGetUniformLocation(g_ogl.shader2_program, "PassPrev2Texture");
+    if (loc != -1)
+        glUniform1i(loc, 1);
+
+    loc = glGetUniformLocation(g_ogl.shader2_program, "PassPrev2TextureSize");
+    if (loc != -1)
+        glUniform2fv(loc, 1, texture_size);
+
     loc = glGetUniformLocation(g_ogl.shader2_program, "FrameDirection");
     if (loc != -1)
         glUniform1i(loc, 1);
