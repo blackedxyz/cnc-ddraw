@@ -605,8 +605,10 @@ static void ogl_init_shader1_program()
     glUseProgram(g_ogl.shader1_program);
 
     GLint vertex_coord_attr_loc = glGetAttribLocation(g_ogl.shader1_program, "VertexCoord");
+    if (vertex_coord_attr_loc == -1) // dosbox staging
+        vertex_coord_attr_loc = glGetAttribLocation(g_ogl.shader1_program, "a_position");
+
     g_ogl.shader1_tex_coord_attr_loc = glGetAttribLocation(g_ogl.shader1_program, "TexCoord");
-    g_ogl.shader1_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader1_program, "FrameCount");
 
     glGenBuffers(3, g_ogl.shader1_vbos);
 
@@ -663,10 +665,13 @@ static void ogl_init_shader1_program()
     glEnableVertexAttribArray(vertex_coord_attr_loc);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, g_ogl.shader1_vbos[1]);
-    glVertexAttribPointer(g_ogl.shader1_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-    glEnableVertexAttribArray(g_ogl.shader1_tex_coord_attr_loc);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    if (g_ogl.shader1_tex_coord_attr_loc != -1)
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, g_ogl.shader1_vbos[1]);
+        glVertexAttribPointer(g_ogl.shader1_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+        glEnableVertexAttribArray(g_ogl.shader1_tex_coord_attr_loc);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_ogl.shader1_vbos[2]);
     static const GLushort indices[] =
@@ -688,24 +693,44 @@ static void ogl_init_shader1_program()
     output_size[1] = (float)g_ddraw.render.viewport.height;
 
     GLint loc = glGetUniformLocation(g_ogl.shader1_program, "OutputSize");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader1_program, "rubyOutputSize");
+
     if (loc != -1) 
         glUniform2fv(loc, 1, output_size);
 
+
     loc = glGetUniformLocation(g_ogl.shader1_program, "TextureSize");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader1_program, "rubyTextureSize");
+
     if (loc != -1) 
         glUniform2fv(loc, 1, texture_size);
 
+
     loc = glGetUniformLocation(g_ogl.shader1_program, "InputSize");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader1_program, "rubyInputSize");
+
     if (loc != -1) 
         glUniform2fv(loc, 1, input_size);
+
+
+    loc = glGetUniformLocation(g_ogl.shader1_program, "Texture");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader1_program, "rubyTexture");
+
+    if (loc != -1)
+        glUniform1i(loc, 0);
+
 
     loc = glGetUniformLocation(g_ogl.shader1_program, "FrameDirection");
     if (loc != -1) 
         glUniform1i(loc, 1);
 
-    loc = glGetUniformLocation(g_ogl.shader1_program, "Texture");
-    if (loc != -1) 
-        glUniform1i(loc, 0);
+    g_ogl.shader1_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader1_program, "FrameCount");
+    if (g_ogl.shader1_frame_count_uni_loc == -1)
+        g_ogl.shader1_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader1_program, "rubyFrameCount");
 
     const float mvp_matrix[16] = {
         1,0,0,0,
@@ -713,7 +738,10 @@ static void ogl_init_shader1_program()
         0,0,1,0,
         0,0,0,1,
     };
-    glUniformMatrix4fv(glGetUniformLocation(g_ogl.shader1_program, "MVPMatrix"), 1, GL_FALSE, mvp_matrix);
+
+    loc = glGetUniformLocation(g_ogl.shader1_program, "MVPMatrix");
+    if (loc != -1)
+        glUniformMatrix4fv(loc, 1, GL_FALSE, mvp_matrix);
 
     glGenFramebuffers(FBO_COUNT, g_ogl.frame_buffer_id);
     glGenTextures(FBO_COUNT, g_ogl.frame_buffer_tex_id);
@@ -819,8 +847,10 @@ static void ogl_init_shader2_program()
     glUseProgram(g_ogl.shader2_program);
 
     GLint vertex_coord_attr_loc = glGetAttribLocation(g_ogl.shader2_program, "VertexCoord");
+    if (vertex_coord_attr_loc == -1)
+        vertex_coord_attr_loc = glGetAttribLocation(g_ogl.shader2_program, "a_position");
+
     g_ogl.shader2_tex_coord_attr_loc = glGetAttribLocation(g_ogl.shader2_program, "TexCoord");
-    g_ogl.shader2_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader2_program, "FrameCount");
 
     glGenBuffers(3, g_ogl.shader2_vbos);
 
@@ -855,10 +885,13 @@ static void ogl_init_shader2_program()
     glEnableVertexAttribArray(vertex_coord_attr_loc);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, g_ogl.shader2_vbos[1]);
-    glVertexAttribPointer(g_ogl.shader2_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-    glEnableVertexAttribArray(g_ogl.shader2_tex_coord_attr_loc);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    if (g_ogl.shader2_tex_coord_attr_loc != -1)
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, g_ogl.shader2_vbos[1]);
+        glVertexAttribPointer(g_ogl.shader2_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+        glEnableVertexAttribArray(g_ogl.shader2_tex_coord_attr_loc);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_ogl.shader2_vbos[2]);
     static const GLushort indices[] =
@@ -880,32 +913,44 @@ static void ogl_init_shader2_program()
     output_size[1] = (float)g_ddraw.render.viewport.height;
 
     GLint loc = glGetUniformLocation(g_ogl.shader2_program, "OutputSize");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader2_program, "rubyOutputSize");
+
     if (loc != -1)
         glUniform2fv(loc, 1, output_size);
 
+
     loc = glGetUniformLocation(g_ogl.shader2_program, "TextureSize");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader2_program, "rubyTextureSize");
+
     if (loc != -1)
         glUniform2fv(loc, 1, texture_size);
 
+
     loc = glGetUniformLocation(g_ogl.shader2_program, "InputSize");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader2_program, "rubyInputSize");
+
     if (loc != -1)
         glUniform2fv(loc, 1, input_size);
+
+
+    loc = glGetUniformLocation(g_ogl.shader2_program, "Texture");
+    if (loc == -1)
+        loc = glGetUniformLocation(g_ogl.shader2_program, "rubyTexture");
+
+    if (loc != -1)
+        glUniform1i(loc, 0);
+
 
     loc = glGetUniformLocation(g_ogl.shader2_program, "FrameDirection");
     if (loc != -1)
         glUniform1i(loc, 1);
 
-    loc = glGetUniformLocation(g_ogl.shader2_program, "Texture");
-    if (loc != -1)
-        glUniform1i(loc, 0);
-
-    loc = glGetUniformLocation(g_ogl.shader2_program, "PassPrev2Texture");
-    if (loc != -1)
-        glUniform1i(loc, 1);
-
-    loc = glGetUniformLocation(g_ogl.shader2_program, "PassPrev2TextureSize");
-    if (loc != -1)
-        glUniform2fv(loc, 1, texture_size);
+    g_ogl.shader2_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader2_program, "FrameCount");
+    if (g_ogl.shader2_frame_count_uni_loc == -1)
+        g_ogl.shader2_frame_count_uni_loc = glGetUniformLocation(g_ogl.shader2_program, "rubyFrameCount");
 
     const float mvp_matrix[16] = {
         1,0,0,0,
@@ -913,7 +958,10 @@ static void ogl_init_shader2_program()
         0,0,1,0,
         0,0,0,1,
     };
-    glUniformMatrix4fv(glGetUniformLocation(g_ogl.shader2_program, "MVPMatrix"), 1, GL_FALSE, mvp_matrix);
+
+    loc = glGetUniformLocation(g_ogl.shader2_program, "MVPMatrix");
+    if (loc != -1)
+        glUniformMatrix4fv(loc, 1, GL_FALSE, mvp_matrix);
 }
 
 static void ogl_render()
@@ -1105,8 +1153,11 @@ static void ogl_render()
                     0.0f,           g_ogl.scale_h,
                 };
                 glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coord), tex_coord, GL_STATIC_DRAW);
-                glVertexAttribPointer(g_ogl.shader2_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-                glEnableVertexAttribArray(g_ogl.shader2_tex_coord_attr_loc);
+                if (g_ogl.shader2_tex_coord_attr_loc != -1)
+                {
+                    glVertexAttribPointer(g_ogl.shader2_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+                    glEnableVertexAttribArray(g_ogl.shader2_tex_coord_attr_loc);
+                }
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
                 glBindVertexArray(0);
             }
@@ -1121,8 +1172,11 @@ static void ogl_render()
                     g_ogl.scale_w, 0.0f,
                 };
                 glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coord), tex_coord, GL_STATIC_DRAW);
-                glVertexAttribPointer(g_ogl.shader1_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-                glEnableVertexAttribArray(g_ogl.shader1_tex_coord_attr_loc);
+                if (g_ogl.shader1_tex_coord_attr_loc != -1)
+                {
+                    glVertexAttribPointer(g_ogl.shader1_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+                    glEnableVertexAttribArray(g_ogl.shader1_tex_coord_attr_loc);
+                }
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
                 glBindVertexArray(0);
             }
@@ -1137,8 +1191,11 @@ static void ogl_render()
                     0.0f,           g_ogl.scale_h,
                 };
                 glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coord), tex_coord, GL_STATIC_DRAW);
-                glVertexAttribPointer(g_ogl.shader1_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-                glEnableVertexAttribArray(g_ogl.shader1_tex_coord_attr_loc);
+                if (g_ogl.shader1_tex_coord_attr_loc != -1)
+                {
+                    glVertexAttribPointer(g_ogl.shader1_tex_coord_attr_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+                    glEnableVertexAttribArray(g_ogl.shader1_tex_coord_attr_loc);
+                }
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
                 glBindVertexArray(0);
             }
