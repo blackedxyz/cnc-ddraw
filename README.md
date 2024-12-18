@@ -416,6 +416,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Uprising: Join or Die
 - Vermeer
 - Virtua Fighter PC
+- Virtual Springfield
 - War Wind
 - War Wind II - Human Onslaught
 - Warcraft 2
