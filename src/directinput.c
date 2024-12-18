@@ -58,9 +58,9 @@ static HRESULT WINAPI fake_did_SetCooperativeLevel(IDirectInputDeviceA* This, HW
     TRACE("     mouse_device = %s\n", This == g_mouse_device ? "TRUE" : "FALSE");
     dbg_dump_di_scm_flags(dwFlags);
 
-    if (This == g_mouse_device && g_ddraw.ref && (dwFlags & DISCL_EXCLUSIVE))
+    if (This == g_mouse_device && (dwFlags & DISCL_EXCLUSIVE))
     {
-        if (g_mouse_locked || g_config.devmode)
+        if (g_mouse_locked || g_config.devmode || !g_ddraw.ref)
         {
             while (real_ShowCursor(FALSE) >= 0);
         }

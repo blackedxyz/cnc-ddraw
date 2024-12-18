@@ -1549,8 +1549,8 @@ HRESULT dd_SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
             {
                 TRACE("     client rect=%dx%d\n", rc.right, rc.bottom);
 
-                g_ddraw.windowed_hack = TRUE;
-                dd_SetDisplayMode(rc.right, rc.bottom, 16, 0);
+                //g_ddraw.windowed_hack = TRUE;
+                //dd_SetDisplayMode(rc.right, rc.bottom, 16, 0);
             }
         }
     }
