@@ -1481,6 +1481,7 @@ static void cfg_create_ini()
             "lock_mouse_top_left=true\n"
             "singlecpu=false\n"
             "limiter_type=2\n"
+            "game_handles_close=true\n"
             "\n"
             "; Rent-A-Hero\n"
             "[Rent-A-Hero]\n"
