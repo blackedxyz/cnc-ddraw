@@ -73,6 +73,10 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Arthur's Pet Chase
 - Arthur's Sand Castle Contest
 - Arthur's Wilderness Rescue
+- Army Men: World War / Army Men: Operation Meltdown
+- Army Men: Air Tactics
+- Army Men: Toys in Space
+- Army Men 2
 - Atlantis 2: Beyond Atlantis
 - Atlantis 3: The New World
 - Atlantis: The Lost Tales
@@ -199,6 +203,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Grand Theft Auto: London 1969
 - Gruntz
 - Gilbert Goodmate And The Mushroom Of Phungoria
+- Handkerchief
 - Hamtaro: Wake Up Snoozer!
 - Hard Truck: Road to Victory
 - Heart of Darkness
