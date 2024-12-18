@@ -855,6 +855,17 @@ BOOL WINAPI fake_EnumDisplaySettingsA(LPCSTR lpszDeviceName, DWORD iModeNum, DEV
     return result;
 }
 
+LRESULT WINAPI fake_DefWindowProcA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+    if (g_ddraw.ref && g_ddraw.hwnd && g_ddraw.hwnd == hWnd)
+    {
+        if (Msg == WM_NCHITTEST)
+            return HTCLIENT;
+    }
+
+    return real_DefWindowProcA(hWnd, Msg, wParam, lParam);
+}
+
 SHORT WINAPI fake_GetKeyState(int nVirtKey)
 {
     if (g_config.windowed && g_ddraw.ref && g_ddraw.hwnd && !util_in_foreground())

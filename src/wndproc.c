@@ -50,7 +50,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     case WM_CANCELMODE:
     case WM_DISPLAYCHANGE:
     {
-        return DefWindowProc(hWnd, uMsg, wParam, lParam);
+        return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
     }
     case WM_GETMINMAXINFO:
     {
@@ -88,20 +88,20 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             return 0;
         }
 
-        return DefWindowProc(hWnd, uMsg, wParam, lParam);
+        return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
     }
     case WM_NCACTIVATE:
     {
         if (g_config.noactivateapp)
         {
-            return DefWindowProc(hWnd, uMsg, wParam, lParam);
+            return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
         }
 
         break;
     }
     case WM_NCHITTEST:
     {
-        if (g_config.allow_wm_nchittest && (g_mouse_locked || g_config.devmode))
+        if (g_mouse_locked || g_config.devmode)
         {
             POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
 
@@ -128,7 +128,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             CallWindowProcA(g_ddraw.wndproc, hWnd, uMsg, wParam, MAKELPARAM(pt.x, pt.y));
         }
 
-        LRESULT result = DefWindowProc(hWnd, uMsg, wParam, lParam);
+        LRESULT result = real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
 
         if (!g_config.resizable)
         {
@@ -173,7 +173,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
                 case HTTOP:
                 case HTTOPLEFT:
                 case HTTOPRIGHT:
-                    return DefWindowProc(hWnd, uMsg, wParam, lParam);
+                    return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
                 case HTCLIENT:
                     if (!g_mouse_locked && !g_config.devmode)
                     {
@@ -548,7 +548,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE | RDW_ALLCHILDREN);
         }
 
-        return DefWindowProc(hWnd, uMsg, wParam, lParam); /* Carmageddon fix */
+        return real_DefWindowProcA(hWnd, uMsg, wParam, lParam); /* Carmageddon fix */
     }
     case WM_MOVE:
     {
@@ -575,7 +575,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         if (g_ddraw.got_child_windows)
             RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE | RDW_ALLCHILDREN);
 
-        return DefWindowProc(hWnd, uMsg, wParam, lParam); /* Carmageddon fix */
+        return real_DefWindowProcA(hWnd, uMsg, wParam, lParam); /* Carmageddon fix */
     }
     case WM_RESTORE_STYLE:
     {
@@ -606,7 +606,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         if (wParam == SC_MAXIMIZE)
         {
             if (IsWine())
-                return DefWindowProc(hWnd, uMsg, wParam, lParam);
+                return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
 
             if (g_config.resizable)
             {
@@ -626,7 +626,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             return 0;
 
         if (!GameHandlesClose)
-            return DefWindowProc(hWnd, uMsg, wParam, lParam);
+            return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
 
         break;
     }
@@ -855,7 +855,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     {
         if (wParam == VK_TAB || (wParam && wParam == g_config.hotkeys.toggle_fullscreen))
         {
-            return DefWindowProc(hWnd, uMsg, wParam, lParam);
+            return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
         }
 
         break;

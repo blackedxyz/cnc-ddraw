@@ -35,6 +35,7 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 BOOL WINAPI fake_GetWindowPlacement(HWND hWnd, WINDOWPLACEMENT* lpwndpl);
 BOOL WINAPI fake_SetWindowPlacement(HWND hWnd, const WINDOWPLACEMENT* lpwndpl);
 BOOL WINAPI fake_EnumDisplaySettingsA(LPCSTR lpszDeviceName, DWORD iModeNum, DEVMODEA* lpDevMode);
+LRESULT WINAPI fake_DefWindowProcA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 SHORT WINAPI fake_GetKeyState(int nVirtKey);
 SHORT WINAPI fake_GetAsyncKeyState(int vKey);
 int WINAPI fake_GetDeviceCaps(HDC hdc, int index);
