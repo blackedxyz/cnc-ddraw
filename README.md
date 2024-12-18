@@ -78,6 +78,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Atlantis: The Lost Tales
 - Atomic Bomberman
 - Atrox
+- Airline 69: Return to Casablanca 
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
@@ -147,6 +148,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Delta Force
 - Desperados: Wanted Dead or Alive
 - Dreams to Realty
+- Die by the Sword
 - Diablo
 - Diablo 2
 - Diablo 2: Lord of Destruction
