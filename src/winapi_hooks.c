@@ -21,6 +21,7 @@
 #include "hook.h"
 #include "directinput.h"
 #include "ddpalette.h"
+#include "palette.h"
 
 
 BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint)

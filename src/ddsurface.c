@@ -15,6 +15,7 @@
 #include "utils.h"
 #include "versionhelpers.h"
 #include "ddpalette.h"
+#include "palette.h"
 
 
 LONG g_dds_gdi_handles;

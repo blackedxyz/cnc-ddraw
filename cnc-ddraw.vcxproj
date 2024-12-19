@@ -89,6 +89,7 @@
     <ClInclude Include="inc\indeo.h" />
     <ClInclude Include="inc\ini.h" />
     <ClInclude Include="inc\keyboard.h" />
+    <ClInclude Include="inc\palette.h" />
     <ClInclude Include="inc\patch.h" />
     <ClInclude Include="inc\utils.h" />
     <ClInclude Include="inc\hook.h" />
