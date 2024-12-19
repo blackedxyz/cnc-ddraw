@@ -34,7 +34,6 @@ SETWINDOWPOSPROC real_SetWindowPos = SetWindowPos;
 MOVEWINDOWPROC real_MoveWindow = MoveWindow;
 SENDMESSAGEAPROC real_SendMessageA = SendMessageA;
 SETWINDOWLONGAPROC real_SetWindowLongA = SetWindowLongA;
-SETWINDOWLONGWPROC real_SetWindowLongW = SetWindowLongW;
 GETWINDOWLONGAPROC real_GetWindowLongA = GetWindowLongA;
 ENABLEWINDOWPROC real_EnableWindow = EnableWindow;
 CREATEWINDOWEXAPROC real_CreateWindowExA = CreateWindowExA;
@@ -75,6 +74,12 @@ COCREATEINSTANCEPROC real_CoCreateInstance = CoCreateInstance;
 MCISENDCOMMANDAPROC real_mciSendCommandA = mciSendCommandA;
 SETUNHANDLEDEXCEPTIONFILTERPROC real_SetUnhandledExceptionFilter = SetUnhandledExceptionFilter;
 
+#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
+SETWINDOWLONGWPROC real_SetWindowLongW = SetWindowLongW;
+#else
+SETWINDOWLONGWPROC real_SetWindowLongW;
+#endif
+
 HOOKLIST g_hook_hooklist[] =
 {
     {
@@ -97,7 +102,6 @@ HOOKLIST g_hook_hooklist[] =
             { "MoveWindow", (PROC)fake_MoveWindow, (PROC*)&real_MoveWindow, 0 },
             { "SendMessageA", (PROC)fake_SendMessageA, (PROC*)&real_SendMessageA, 0 },
             { "SetWindowLongA", (PROC)fake_SetWindowLongA, (PROC*)&real_SetWindowLongA, 0 },
-            { "SetWindowLongW", (PROC)fake_SetWindowLongW, (PROC*)&real_SetWindowLongW, 0 },
             { "GetWindowLongA", (PROC)fake_GetWindowLongA, (PROC*)&real_GetWindowLongA, 0 },
             { "EnableWindow", (PROC)fake_EnableWindow, (PROC*)&real_EnableWindow, 0 },
             { "CreateWindowExA", (PROC)fake_CreateWindowExA, (PROC*)&real_CreateWindowExA, 0 },
@@ -116,6 +120,11 @@ HOOKLIST g_hook_hooklist[] =
             { "GetAsyncKeyState", (PROC)fake_GetAsyncKeyState, (PROC*)&real_GetAsyncKeyState, 0 },
             { "SetForegroundWindow", (PROC)fake_SetForegroundWindow, (PROC*)&real_SetForegroundWindow, 0 },
             { "SetWindowsHookExA", (PROC)fake_SetWindowsHookExA, (PROC*)&real_SetWindowsHookExA, 0 },
+
+#if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
+            { "SetWindowLongW", (PROC)fake_SetWindowLongW, (PROC*)&real_SetWindowLongW, 0 },
+#endif
+
             { "", NULL, NULL, 0 }
         }
     },
