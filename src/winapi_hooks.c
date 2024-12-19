@@ -448,7 +448,7 @@ LRESULT WINAPI fake_SendMessageA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
 LONG WINAPI fake_SetWindowLongA(HWND hWnd, int nIndex, LONG dwNewLong)
 {
-    if (g_ddraw.ref && g_ddraw.hwnd == hWnd)
+    if (g_ddraw.ref && g_ddraw.hwnd && g_ddraw.hwnd == hWnd)
     {
         if (nIndex == GWL_STYLE)
             return 0;
@@ -463,6 +463,17 @@ LONG WINAPI fake_SetWindowLongA(HWND hWnd, int nIndex, LONG dwNewLong)
     }
 
     return real_SetWindowLongA(hWnd, nIndex, dwNewLong);
+}
+
+LONG WINAPI fake_SetWindowLongW(HWND hWnd, int nIndex, LONG dwNewLong)
+{
+    if (g_ddraw.ref && g_ddraw.hwnd && g_ddraw.hwnd == hWnd)
+    {
+        if (nIndex == GWL_STYLE)
+            return 0;
+    }
+
+    return real_SetWindowLongW(hWnd, nIndex, dwNewLong);
 }
 
 LONG WINAPI fake_GetWindowLongA(HWND hWnd, int nIndex)

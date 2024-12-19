@@ -354,6 +354,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Sega Touring Car
 - Septerra Core
 - Settlers 3
+- Seven Kingdoms II
 - Shadow Flare
 - Shadow Watch
 - Shogo - Mobile Armor Division

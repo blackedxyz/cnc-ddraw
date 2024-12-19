@@ -34,6 +34,7 @@ SETWINDOWPOSPROC real_SetWindowPos = SetWindowPos;
 MOVEWINDOWPROC real_MoveWindow = MoveWindow;
 SENDMESSAGEAPROC real_SendMessageA = SendMessageA;
 SETWINDOWLONGAPROC real_SetWindowLongA = SetWindowLongA;
+SETWINDOWLONGWPROC real_SetWindowLongW = SetWindowLongW;
 GETWINDOWLONGAPROC real_GetWindowLongA = GetWindowLongA;
 ENABLEWINDOWPROC real_EnableWindow = EnableWindow;
 CREATEWINDOWEXAPROC real_CreateWindowExA = CreateWindowExA;
@@ -96,6 +97,7 @@ HOOKLIST g_hook_hooklist[] =
             { "MoveWindow", (PROC)fake_MoveWindow, (PROC*)&real_MoveWindow, 0 },
             { "SendMessageA", (PROC)fake_SendMessageA, (PROC*)&real_SendMessageA, 0 },
             { "SetWindowLongA", (PROC)fake_SetWindowLongA, (PROC*)&real_SetWindowLongA, 0 },
+            { "SetWindowLongW", (PROC)fake_SetWindowLongW, (PROC*)&real_SetWindowLongW, 0 },
             { "GetWindowLongA", (PROC)fake_GetWindowLongA, (PROC*)&real_GetWindowLongA, 0 },
             { "EnableWindow", (PROC)fake_EnableWindow, (PROC*)&real_EnableWindow, 0 },
             { "CreateWindowExA", (PROC)fake_CreateWindowExA, (PROC*)&real_CreateWindowExA, 0 },
