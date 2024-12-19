@@ -1922,6 +1922,13 @@ HWND WINAPI fake_CreateWindowExA(
         dwExStyle |= WS_EX_APPWINDOW;
     }
 
+    /* Fallout Tactics */
+    if (HIWORD(lpClassName) && _strcmpi(lpClassName, "bosWin32Class") == 0 &&
+        lpWindowName && _strcmpi(lpWindowName, "Fallout: Tactics (TM)") == 0)
+    {
+        dwStyle |= WS_VISIBLE;
+    }
+
     /* Center Claw DVD movies */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "Afx:400000:3") == 0 &&
         g_ddraw.ref && g_ddraw.hwnd && hWndParent == g_ddraw.hwnd &&
