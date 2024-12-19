@@ -182,6 +182,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Falcon 4.0 (Microprose version)
 - Fallout
 - Fallout 2
+- Fallout Tactics: Brotherhood of Steel
 - Final fantasy VII
 - Final fantasy VIII
 - Final Liberation: Warhammer Epic 40000 (GOG)
