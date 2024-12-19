@@ -1553,6 +1553,7 @@ static void cfg_create_ini()
             "; Seven Kingdoms II\n"
             "[7k2]\n"
             "fake_mode=352x240x32\n"
+            "fix_not_responding=true\n"
             "\n"
             "; Sid Meier's Simgolf\n"
             "[golf]\n"
