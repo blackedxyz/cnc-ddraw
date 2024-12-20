@@ -398,6 +398,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Stronghold HD
 - Sudden Strike 2
 - Superbike 2000
+- Swarog
 - The Curse Of Monkey Island
 - The Dig
 - The Missing on Lost Island
@@ -418,6 +419,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Total Annihilation (Unofficial Beta Patch v3.9.02)
 - Total Annihilation: Kingdoms
 - Toy Story
+- Tone Rebellion
 - Twisted Metal
 - Twisted Metal 2
 - Tzar: The Burden of the Crown
