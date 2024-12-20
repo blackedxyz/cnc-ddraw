@@ -442,6 +442,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Wizards and Warriors
 - Worms 2
 - Worms Armageddon
+- Wheel Of Fortune
 - Zeus: Master of Olympus
 - Zoombinis Island Odyssey
 - Zoombinis Logical Journey
