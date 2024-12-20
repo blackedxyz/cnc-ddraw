@@ -2178,7 +2178,7 @@ LPTOP_LEVEL_EXCEPTION_FILTER WINAPI fake_SetUnhandledExceptionFilter(
 
 PGETFRAME WINAPI fake_AVIStreamGetFrameOpen(PAVISTREAM pavi, LPBITMAPINFOHEADER lpbiWanted)
 {
-    if (g_ddraw.ref && g_ddraw.primary && (!lpbiWanted || (DWORD)lpbiWanted == 1))
+    if (g_ddraw.ref && g_ddraw.primary && (DWORD)lpbiWanted == AVIGETFRAMEF_BESTDISPLAYFMT)
     {
         DDBITMAPINFO bmi;
         memcpy(&bmi, g_ddraw.primary->bmi, sizeof(DDBITMAPINFO));
