@@ -9,6 +9,11 @@
 #include "IDirectDraw.h"
 
 
+typedef struct DDBITMAPINFO{
+    BITMAPINFOHEADER bmiHeader;
+    RGBQUAD bmiColors[256];
+} DDBITMAPINFO;
+
 struct IDirectDrawSurfaceImpl;
 struct IDirectDrawSurfaceImplVtbl;
 

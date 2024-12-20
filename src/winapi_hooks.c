@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <math.h>
+#include <vfw.h>
 #include "debug.h"
 #include "config.h"
 #include "dd.h"
@@ -2173,4 +2174,28 @@ LPTOP_LEVEL_EXCEPTION_FILTER WINAPI fake_SetUnhandledExceptionFilter(
 
     return old;
     //return real_SetUnhandledExceptionFilter(lpTopLevelExceptionFilter);
+}
+
+PGETFRAME WINAPI fake_AVIStreamGetFrameOpen(PAVISTREAM pavi, LPBITMAPINFOHEADER lpbiWanted)
+{
+    if (g_ddraw.ref && g_ddraw.primary && (!lpbiWanted || (DWORD)lpbiWanted == 1))
+    {
+        DDBITMAPINFO bmi;
+        memcpy(&bmi, g_ddraw.primary->bmi, sizeof(DDBITMAPINFO));
+
+        bmi.bmiHeader.biHeight = 0;
+        bmi.bmiHeader.biWidth = 0;
+
+        if (g_ddraw.bpp == 8 && g_ddraw.primary->palette)
+        {
+            memcpy(&bmi.bmiColors[0], g_ddraw.primary->palette->data_rgb, sizeof(bmi.bmiColors));
+        }
+
+        PGETFRAME result = real_AVIStreamGetFrameOpen(pavi, (LPBITMAPINFOHEADER)&bmi);
+
+        if (result)
+            return result;
+    }
+
+    return real_AVIStreamGetFrameOpen(pavi, lpbiWanted);
 }

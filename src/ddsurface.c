@@ -1467,10 +1467,9 @@ HRESULT dd_CreateSurface(
 
         DWORD aligned_width = dst_surface->pitch / dst_surface->bytes_pp;
 
-        DWORD bmi_size = sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * 256;
         DWORD bmp_size = dst_surface->pitch * (dst_surface->height + g_config.guard_lines);
 
-        dst_surface->bmi = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, bmi_size);
+        dst_surface->bmi = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(DDBITMAPINFO));
         dst_surface->bmi->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
         dst_surface->bmi->bmiHeader.biWidth = aligned_width;
         dst_surface->bmi->bmiHeader.biHeight = -((int)dst_surface->height + g_config.guard_lines);

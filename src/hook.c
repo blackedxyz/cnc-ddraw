@@ -73,6 +73,7 @@ GETVERSIONEXAPROC real_GetVersionExA = GetVersionExA;
 COCREATEINSTANCEPROC real_CoCreateInstance = CoCreateInstance;
 MCISENDCOMMANDAPROC real_mciSendCommandA = mciSendCommandA;
 SETUNHANDLEDEXCEPTIONFILTERPROC real_SetUnhandledExceptionFilter = SetUnhandledExceptionFilter;
+AVISTREAMGETFRAMEOPENPROC real_AVIStreamGetFrameOpen = AVIStreamGetFrameOpen;
 
 #if (_WIN32_WINNT >= _WIN32_WINNT_WIN2K)
 SETWINDOWLONGWPROC real_SetWindowLongW = SetWindowLongW;
@@ -139,6 +140,13 @@ HOOKLIST g_hook_hooklist[] =
         "winmm.dll",
         {
             { "mciSendCommandA", (PROC)fake_mciSendCommandA, (PROC*)&real_mciSendCommandA, HOOK_SKIP_2 },
+            { "", NULL, NULL, 0 }
+        }
+    },
+    {
+        "Avifil32.dll",
+        {
+            { "AVIStreamGetFrameOpen", (PROC)fake_AVIStreamGetFrameOpen, (PROC*)&real_AVIStreamGetFrameOpen, 0 },
             { "", NULL, NULL, 0 }
         }
     },

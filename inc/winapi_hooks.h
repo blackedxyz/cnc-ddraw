@@ -2,6 +2,7 @@
 #define WINAPI_HOOKS_H
 
 #include <windows.h>
+#include <vfw.h>
 
 
 BOOL WINAPI fake_GetCursorPos(LPPOINT lpPoint);
@@ -92,5 +93,7 @@ MCIERROR WINAPI fake_mciSendCommandA(MCIDEVICEID IDDevice, UINT uMsg, DWORD_PTR 
 
 LPTOP_LEVEL_EXCEPTION_FILTER WINAPI fake_SetUnhandledExceptionFilter(
     LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter);
+
+PGETFRAME WINAPI fake_AVIStreamGetFrameOpen(PAVISTREAM pavi, LPBITMAPINFOHEADER lpbiWanted);
 
 #endif
