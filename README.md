@@ -276,6 +276,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Nancy Drew: The Secret of Shadow Ranch
 - Nancy Drew: Treasure in the Royal Tower
 - NBA Action '98
+- NBA Full Court Press
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
 - New Robinson
