@@ -93,9 +93,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Batman: Toxic Chill
 - Birthright: The Gorgons Alliance
 - Blade & Sword
-- Blitzkrieg anthology
-- Blitzkrieg anthology: Burning Horizon
-- Blitzkrieg anthology: Rolling Thunder
 - Blood II - The Chosen
 - Blue's 123 Time Activities
 - Blue's Treasure Hunt
