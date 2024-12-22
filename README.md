@@ -242,6 +242,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
+- Last Bronx
 - Lands of Lore 2 Guardian of Destiny (Software mode only)
 - Lapis (lapis.mgame.com)
 - Lionheart - Legacy of the Crusader
@@ -429,6 +430,9 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Uprising: Join or Die
 - Vermeer
 - Virtua Fighter PC
+- Virtua Cop
+- Virtua Cop 2
+- Virtua Fighter 2
 - Virtual Springfield
 - War Wind
 - War Wind II - Human Onslaught
