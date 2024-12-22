@@ -139,6 +139,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Cyberchase Carnival Chaos
 - Cyberchase Castleblanca Quest
 - Cyber Gladiators (needs CyberGladiators_Patch_Win_EN_WinXP.zip)
+- Cydonia Mars - The First Manned Mission
 - Dark Earth
 - Dark Reign: The Future of War
 - Day Of The Tentacle
@@ -231,6 +232,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Jagged Alliance 2: Unfinished Business
 - Jagged Alliance 2: Wildfire
 - Jazz Jackrabbit 2
+- Karma Immortal Wrath
 - Killing Time
 - Kings Quest 8: Mask of Eternity
 - KKND Xtreme
