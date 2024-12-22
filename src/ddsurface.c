@@ -430,6 +430,7 @@ HRESULT dds_Blt(
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
         InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
 
         if (!(This->flags & DDSD_BACKBUFFERCOUNT) || This->last_flip_tick + FLIP_REDRAW_TIMEOUT < timeGetTime())
         {
@@ -438,7 +439,7 @@ HRESULT dds_Blt(
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
             SwitchToThread();
 
-            if (g_ddraw.ticks_limiter.tick_length > 0)
+            if (g_ddraw.ticks_limiter.tick_length > 0 && g_config.limiter_type != LIMIT_PEEKMESSAGE)
             {
                 g_ddraw.ticks_limiter.dds_unlock_limiter_disabled = TRUE;
                 util_limit_game_ticks();
@@ -666,6 +667,7 @@ HRESULT dds_BltFast(
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
         InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
 
         DWORD time = timeGetTime();
 
@@ -824,6 +826,7 @@ HRESULT dds_Flip(IDirectDrawSurfaceImpl* This, IDirectDrawSurfaceImpl* lpDDSurfa
         This->last_flip_tick = timeGetTime();
 
         InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
         ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
         SwitchToThread();
 
@@ -832,7 +835,7 @@ HRESULT dds_Flip(IDirectDrawSurfaceImpl* This, IDirectDrawSurfaceImpl* lpDDSurfa
             dd_WaitForVerticalBlank(DDWAITVB_BLOCKEND, NULL);
         }
 
-        if (g_ddraw.ticks_limiter.tick_length > 0)
+        if (g_ddraw.ticks_limiter.tick_length > 0 && g_config.limiter_type != LIMIT_PEEKMESSAGE)
         {
             g_ddraw.ticks_limiter.dds_unlock_limiter_disabled = TRUE;
             util_limit_game_ticks();
@@ -1027,6 +1030,7 @@ HRESULT dds_ReleaseDC(IDirectDrawSurfaceImpl* This, HDC hDC)
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
         InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
 
         DWORD time = timeGetTime();
 
@@ -1212,6 +1216,7 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
     if ((This->caps & DDSCAPS_PRIMARYSURFACE) && g_ddraw.ref && g_ddraw.render.run)
     {
         InterlockedExchange(&g_ddraw.render.surface_updated, TRUE);
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
 
         DWORD time = timeGetTime();
 
@@ -1221,6 +1226,7 @@ HRESULT dds_Unlock(IDirectDrawSurfaceImpl* This, LPRECT lpRect)
             ReleaseSemaphore(g_ddraw.render.sem, 1, NULL);
 
             if (g_ddraw.ticks_limiter.tick_length > 0 &&
+                g_config.limiter_type != LIMIT_PEEKMESSAGE &&
                 (!g_ddraw.ticks_limiter.dds_unlock_limiter_disabled || g_config.limiter_type == LIMIT_UNLOCK))
             {
                 util_limit_game_ticks();

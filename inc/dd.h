@@ -51,6 +51,7 @@ HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOute
 #define LIMIT_TESTCOOP 1
 #define LIMIT_BLTFAST 2
 #define LIMIT_UNLOCK 3
+#define LIMIT_PEEKMESSAGE 4
 
 #define CENTER_WINDOW_NEVER 0
 #define CENTER_WINDOW_AUTO 1
@@ -126,6 +127,7 @@ typedef struct CNCDDRAW
         LONG palette_updated;
         LONG surface_updated;
         LONG clear_screen;
+        LONG screen_updated;
 
         float scale_w;
         float scale_h;

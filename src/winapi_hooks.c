@@ -780,6 +780,13 @@ BOOL WINAPI fake_GetMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wM
 
 BOOL WINAPI fake_PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
 {
+    if (g_config.limiter_type == LIMIT_PEEKMESSAGE && 
+        g_ddraw.ticks_limiter.tick_length > 0 &&
+        InterlockedExchange(&g_ddraw.render.screen_updated, FALSE))
+    {
+        util_limit_game_ticks();
+    }
+
     if (g_ddraw.ref && (!hWnd || hWnd == g_ddraw.hwnd))
         g_ddraw.last_msg_pull_tick = timeGetTime();
 
