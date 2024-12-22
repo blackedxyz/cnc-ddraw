@@ -314,6 +314,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Putt-Putt: Pep's Birthday Surprise
 - Putt-Putt: Travels Through Time
 - Quest for Glory 5
+- Rage of Mages
 - Rage of Mages 2
 - Railroad Tycoon II
 - Reader Rabbit 1st Grade
