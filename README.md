@@ -455,6 +455,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Zoombinis Mountain Rescue
 - Zuma Deluxe
 - Zork Nemesis
+- Z & Z Expansion Kit
 - ...
 
 There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) and the instructions above.
