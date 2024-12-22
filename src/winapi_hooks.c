@@ -1462,7 +1462,7 @@ HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
         g_ddraw.bpp == 8 && 
         ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
     {
-        TRACE("     Display DC\n");
+        TRACE_EXT("     Display DC\n");
 
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
@@ -1483,7 +1483,7 @@ UINT WINAPI fake_RealizePalette(HDC hdc)
         g_ddraw.bpp == 8 &&
         ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
     {
-        TRACE("     Display DC\n");
+        TRACE_EXT("     Display DC\n");
 
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
