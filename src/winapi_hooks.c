@@ -1450,20 +1450,22 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
 
 HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
 {
+    TRACE_EXT(
+        "%s(hdc=%p, hPal=%p, bForceBkgd=%d) [%p]\n",
+        __FUNCTION__,
+        hdc,
+        hPal,
+        bForceBkgd,
+        _ReturnAddress());
+
     if (g_ddraw.ref && 
         g_ddraw.bpp == 8 && 
         ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
     {
+        TRACE("     Display DC\n");
+
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
-            TRACE_EXT(
-                "%s(hdc=%p, hPal=%p, bForceBkgd=%d) [%p]\n", 
-                __FUNCTION__, 
-                hdc,
-                hPal,
-                bForceBkgd,
-                _ReturnAddress());
-
             g_ddraw.primary->selected_pal_count = GetPaletteEntries(hPal, 0, 256, g_ddraw.primary->selected_pal);
 
             return real_SelectPalette(g_ddraw.primary->hdc, hPal, bForceBkgd);;
@@ -1475,14 +1477,16 @@ HPALETTE WINAPI fake_SelectPalette(HDC hdc, HPALETTE hPal, BOOL bForceBkgd)
 
 UINT WINAPI fake_RealizePalette(HDC hdc)
 {
+    TRACE_EXT("%s(hdc=%p) [%p]\n", __FUNCTION__, hdc, _ReturnAddress());
+
     if (g_ddraw.ref &&
         g_ddraw.bpp == 8 &&
         ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
     {
+        TRACE("     Display DC\n");
+
         if (g_ddraw.primary && g_ddraw.primary->palette)
         {
-            TRACE_EXT("%s(hdc=%p) [%p]\n", __FUNCTION__, hdc, _ReturnAddress());
-
             if (g_ddraw.primary->selected_pal_count != 256)
             {
                 TRACE_EXT("     selected_pal_count = %u\n", g_ddraw.primary->selected_pal_count);
