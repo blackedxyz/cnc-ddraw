@@ -369,6 +369,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Space Rangers
 - Spec Ops - Ranger Assault (software mode)
 - SpongeBob SquarePants: Typing
+- Squad Leader
 - SPY Fox : Some Assembly Required
 - SPY Fox in Dry Cereal
 - SPY Fox: Hold the Mustard
