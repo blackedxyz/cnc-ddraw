@@ -1426,10 +1426,7 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
         pPalEntries,
         _ReturnAddress());
 
-    if (g_ddraw.ref && 
-        g_ddraw.bpp == 8 && 
-        pPalEntries && 
-        ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
+    if (g_ddraw.ref && g_ddraw.bpp == 8 && pPalEntries && GetObjectType(hdc) == OBJ_DC)
     {
         TRACE("     Display DC\n");
 
@@ -1441,10 +1438,7 @@ UINT WINAPI fake_GetSystemPaletteEntries(HDC hdc, UINT iStart, UINT cEntries, LP
         {
             for (int i = iStart, x = 0; i < iStart + cEntries && i < 256; i++, x++)
             {
-                pPalEntries[x].peRed = g_ddp_default_palette[i].peRed;
-                pPalEntries[x].peGreen = g_ddp_default_palette[i].peGreen;
-                pPalEntries[x].peBlue = g_ddp_default_palette[i].peBlue;
-                pPalEntries[x].peFlags = g_ddp_default_palette[i].peFlags;
+                pPalEntries[x] = g_ddp_default_palette[i];
             }
         }
 
