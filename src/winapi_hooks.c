@@ -956,6 +956,21 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
     return real_GetDeviceCaps(hdc, index);
 }
 
+int WINAPI fake_GetDeviceCaps_system(HDC hdc, int index)
+{
+    if (g_ddraw.ref &&
+        g_ddraw.bpp == 8 &&
+        ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
+    {
+        if (index == RASTERCAPS)
+        {
+            return RC_PALETTE | real_GetDeviceCaps(hdc, index);
+        }
+    }
+
+    return real_GetDeviceCaps(hdc, index);
+}
+
 BOOL WINAPI fake_StretchBlt(
     HDC hdcDest,
     int xDest,

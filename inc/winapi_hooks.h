@@ -41,6 +41,7 @@ LRESULT WINAPI fake_DefWindowProcA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
 SHORT WINAPI fake_GetKeyState(int nVirtKey);
 SHORT WINAPI fake_GetAsyncKeyState(int vKey);
 int WINAPI fake_GetDeviceCaps(HDC hdc, int index);
+int WINAPI fake_GetDeviceCaps_system(HDC hdc, int index);
 
 BOOL WINAPI fake_StretchBlt(
     HDC hdcDest, int xDest, int yDest, int wDest, int hDest, HDC hdcSrc, int xSrc, int ySrc, int wSrc, int hSrc, DWORD rop);

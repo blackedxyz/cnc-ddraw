@@ -174,6 +174,7 @@ HOOKLIST g_hook_hooklist[] =
             { "SetDIBitsToDevice", (PROC)fake_SetDIBitsToDevice, (PROC*)&real_SetDIBitsToDevice, HOOK_SKIP_2 },
             { "StretchDIBits", (PROC)fake_StretchDIBits, (PROC*)&real_StretchDIBits, HOOK_SKIP_2 },
             { "GetDeviceCaps", (PROC)fake_GetDeviceCaps, (PROC*)&real_GetDeviceCaps, HOOK_LOCAL_ONLY },
+            { "GetDeviceCaps", (PROC)fake_GetDeviceCaps_system, NULL, HOOK_SYSTEM_ONLY },
             { "CreateFontA", (PROC)fake_CreateFontA, (PROC*)&real_CreateFontA, 0 },
             { "GetSystemPaletteEntries", (PROC)fake_GetSystemPaletteEntries, (PROC*)&real_GetSystemPaletteEntries, 0 },
             { "SelectPalette", (PROC)fake_SelectPalette, (PROC*)&real_SelectPalette, 0 },
@@ -287,6 +288,9 @@ void hook_patch_obfuscated_iat_list(HMODULE hmod, BOOL unhook, HOOKLIST* hooks, 
                                 continue;
 
                             if (!is_local && (hooks[i].data[x].flags & HOOK_LOCAL_ONLY))
+                                continue;
+
+                            if (is_local && (hooks[i].data[x].flags & HOOK_SYSTEM_ONLY))
                                 continue;
 
                             if (unhook)
@@ -405,6 +409,9 @@ void hook_patch_iat_list(HMODULE hmod, BOOL unhook, HOOKLIST* hooks, BOOL is_loc
                                     continue;
 
                                 if (!is_local && (hooks[i].data[x].flags & HOOK_LOCAL_ONLY))
+                                    continue;
+
+                                if (is_local && (hooks[i].data[x].flags & HOOK_SYSTEM_ONLY))
                                     continue;
 
 #if defined(__GNUC__)

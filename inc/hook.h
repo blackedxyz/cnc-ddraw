@@ -7,6 +7,7 @@
 
 #define HOOK_SKIP_2 0x00000001l
 #define HOOK_LOCAL_ONLY 0x00000002l
+#define HOOK_SYSTEM_ONLY 0x00000004l
 
 typedef struct HOOKLISTDATA { 
     char function_name[32]; 
