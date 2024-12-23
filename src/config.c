@@ -1041,6 +1041,8 @@ static void cfg_create_ini()
             "[gangsters]\n"
             "adjmouse=true\n"
             "nonexclusive=true\n"
+            "fixchilds=0\n"
+            "fake_mode=640x480x8\n"
             "\n"
             "; Grand Theft Auto\n"
             "[Grand Theft Auto]\n"
