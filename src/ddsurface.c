@@ -229,7 +229,7 @@ HRESULT dds_Blt(
     {
         if (This->bpp == 24)
         {
-            TRACE_EXT("     NOT_IMPLEMENTED This->bpp=%u, dwFillColor=%u\n", This->bpp, lpDDBltFx->dwFillColor);
+            TRACE_EXT("     NOT_IMPLEMENTED This->bpp=%u, dwFillColor=%08X\n", This->bpp, lpDDBltFx->dwFillColor);
         }
 
         blt_colorfill(
@@ -1317,7 +1317,6 @@ HRESULT dds_SetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC2 lpDDSD
             break;
         case 24:
             This->bpp = 24;
-            TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
             break;
         case 32:
             This->bpp = 32;
@@ -1432,7 +1431,6 @@ HRESULT dd_CreateSurface(
             break;
         case 24:
             dst_surface->bpp = 24;
-            TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount);
             break;
         case 32:
             dst_surface->bpp = 32;
