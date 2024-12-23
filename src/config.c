@@ -1619,7 +1619,6 @@ static void cfg_create_ini()
             "resizable=false\n"
             "maintas=false\n"
             "boxing=false\n"
-            "hook=2\n"
             "\n"
             "; Star Wars: Galactic Battlegrounds\n"
             "[battlegrounds]\n"
