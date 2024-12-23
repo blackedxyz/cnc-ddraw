@@ -195,7 +195,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Full Throttle
 - Future Cop L.A.P.D
 - G-Police
-- Gangsters - Organized Crime
 - Geneforge
 - Gorasul: The Legacy of the Dragon
 - Grand Theft Auto
