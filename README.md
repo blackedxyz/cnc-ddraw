@@ -284,6 +284,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Need For Speed: High Stakes
 - New Robinson
 - NexusTk
+- Neo Sonic Universe
 - Nightmare Creatures
 - Nox (Westwood - 2000)
 - Oddworld: Abe's Exoddus
