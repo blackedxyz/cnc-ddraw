@@ -361,7 +361,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Shadow Flare
 - Shadow Watch
 - Shogo - Mobile Armor Division
-- Sid Meier's Simgolf
 - Sim City 3000
 - Sim Copter
 - Sim Theme Park (aka Theme Park World)
