@@ -559,7 +559,7 @@ HRESULT dd_GetDisplayMode(LPDDSURFACEDESC lpDDSurfaceDesc)
         lpDDSurfaceDesc->dwWidth = width;
         lpDDSurfaceDesc->dwHeight = height;
 
-        if (bpp == 32)
+        if (bpp == 32 || bpp == 24)
         {
             lpDDSurfaceDesc->ddpfPixelFormat.dwFlags = DDPF_RGB;
             lpDDSurfaceDesc->ddpfPixelFormat.dwRBitMask = 0xFF0000;

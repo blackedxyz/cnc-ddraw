@@ -227,6 +227,11 @@ HRESULT dds_Blt(
 
     if (dst_buf && (dwFlags & DDBLT_COLORFILL) && lpDDBltFx && dst_w > 0 && dst_h > 0)
     {
+        if (This->bpp == 24)
+        {
+            TRACE_EXT("     NOT_IMPLEMENTED This->bpp=%u, dwFillColor=%u\n", This->bpp, lpDDBltFx->dwFillColor);
+        }
+
         blt_colorfill(
             dst_buf,
             dst_x,
@@ -250,7 +255,10 @@ HRESULT dds_Blt(
         BOOL mirror_left_right = got_fx && (lpDDBltFx->dwDDFX & DDBLTFX_MIRRORLEFTRIGHT);
         BOOL mirror_up_down = got_fx && (lpDDBltFx->dwDDFX & DDBLTFX_MIRRORUPDOWN);
 
-        if (This->bpp != src_surface->bpp || (is_stretch_blt && This == src_surface))
+        if (This->bpp != src_surface->bpp || 
+            This->bpp == 24 ||
+            src_surface->bpp == 24 ||
+            (is_stretch_blt && This == src_surface))
         {
             TRACE_EXT("     NOT_IMPLEMENTED This->bpp=%u, src_surface->bpp=%u\n", This->bpp, src_surface->bpp);
 
@@ -266,7 +274,7 @@ HRESULT dds_Blt(
                     (dwFlags & DDBLT_KEYSRCOVERRIDE) ?
                     lpDDBltFx->ddckSrcColorkey.dwColorSpaceLowValue : src_surface->color_key.dwColorSpaceLowValue;
 
-                if (src_surface->bpp == 32)
+                if (src_surface->bpp == 32 || src_surface->bpp == 24)
                 {
                     color = color & 0xFFFFFF;
                 }
@@ -552,7 +560,9 @@ HRESULT dds_BltFast(
 
     if (src_surface && dst_w > 0 && dst_h > 0)
     {
-        if (This->bpp != src_surface->bpp)
+        if (This->bpp != src_surface->bpp ||
+            This->bpp == 24 ||
+            src_surface->bpp == 24)
         {
             TRACE_EXT("     NOT_IMPLEMENTED This->bpp=%u, src_surface->bpp=%u\n", This->bpp, src_surface->bpp);
 
@@ -566,7 +576,7 @@ HRESULT dds_BltFast(
             {
                 UINT color = src_surface->color_key.dwColorSpaceLowValue;
 
-                if (src_surface->bpp == 32)
+                if (src_surface->bpp == 32 || src_surface->bpp == 24)
                 {
                     color = color & 0xFFFFFF;
                 }
@@ -749,7 +759,7 @@ HRESULT dds_GetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC lpDDSur
             lpDDSurfaceDesc->ddpfPixelFormat.dwGBitMask = 0x07E0;
             lpDDSurfaceDesc->ddpfPixelFormat.dwBBitMask = 0x001F;
         }
-        else if (This->bpp == 32)
+        else if (This->bpp == 32 || This->bpp == 24)
         {
             lpDDSurfaceDesc->ddpfPixelFormat.dwRBitMask = 0xFF0000;
             lpDDSurfaceDesc->ddpfPixelFormat.dwGBitMask = 0x00FF00;
@@ -975,7 +985,7 @@ HRESULT dds_GetPixelFormat(IDirectDrawSurfaceImpl* This, LPDDPIXELFORMAT ddpfPix
             ddpfPixelFormat->dwGBitMask = 0x07E0;
             ddpfPixelFormat->dwBBitMask = 0x001F;
         }
-        else if (This->bpp == 32)
+        else if (This->bpp == 32 || This->bpp == 24)
         {
             ddpfPixelFormat->dwRBitMask = 0xFF0000;
             ddpfPixelFormat->dwGBitMask = 0x00FF00;
@@ -1306,7 +1316,9 @@ HRESULT dds_SetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC2 lpDDSD
             This->bpp = 16;
             break;
         case 24:
+            This->bpp = 24;
             TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSD->ddpfPixelFormat.dwRGBBitCount);
+            break;
         case 32:
             This->bpp = 32;
             break;
@@ -1419,7 +1431,9 @@ HRESULT dd_CreateSurface(
             dst_surface->bpp = 16;
             break;
         case 24:
+            dst_surface->bpp = 24;
             TRACE("     NOT_IMPLEMENTED bpp=%u\n", lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount);
+            break;
         case 32:
             dst_surface->bpp = 32;
             break;
@@ -1481,12 +1495,16 @@ HRESULT dd_CreateSurface(
         dst_surface->bmi->bmiHeader.biHeight = -((int)dst_surface->height + g_config.guard_lines);
         dst_surface->bmi->bmiHeader.biPlanes = 1;
         dst_surface->bmi->bmiHeader.biBitCount = dst_surface->bpp;
-        dst_surface->bmi->bmiHeader.biCompression = dst_surface->bpp == 8 ? BI_RGB : BI_BITFIELDS;
+        dst_surface->bmi->bmiHeader.biCompression = dst_surface->bpp == 16 ? BI_BITFIELDS : BI_RGB;
 
         WORD clr_bits = (WORD)(dst_surface->bmi->bmiHeader.biPlanes * dst_surface->bmi->bmiHeader.biBitCount);
 
-        dst_surface->bmi->bmiHeader.biClrUsed = 
-            dst_surface->bmi->bmiHeader.biCompression == BI_BITFIELDS ? 3 : (1 << clr_bits);
+        dst_surface->bmi->bmiHeader.biClrUsed =
+            dst_surface->bpp == 8 ? 256 :
+            dst_surface->bpp == 16 ? 3 :
+            dst_surface->bpp == 24 ? 0 :
+            dst_surface->bpp == 32 ? 0 : 
+            0;
 
         dst_surface->bmi->bmiHeader.biSizeImage =
             ((aligned_width * clr_bits + 63) & ~63) / 8 * dst_surface->height;
@@ -1512,12 +1530,6 @@ HRESULT dd_CreateSurface(
             ((DWORD*)dst_surface->bmi->bmiColors)[0] = 0xF800;
             ((DWORD*)dst_surface->bmi->bmiColors)[1] = 0x07E0;
             ((DWORD*)dst_surface->bmi->bmiColors)[2] = 0x001F;
-        }
-        else if (dst_surface->bpp == 32)
-        {
-            ((DWORD*)dst_surface->bmi->bmiColors)[0] = 0xFF0000;
-            ((DWORD*)dst_surface->bmi->bmiColors)[1] = 0x00FF00;
-            ((DWORD*)dst_surface->bmi->bmiColors)[2] = 0x0000FF;
         }
 
         /* Claw hack: 128x128 surfaces need a DC for custom levels to work properly */
