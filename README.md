@@ -91,6 +91,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Barbie(tm) Beach Vacation(tm)
 - Batman: Justice Unbalanced
 - Batman: Toxic Chill
+- Bejeweled 2 Deluxe
 - Birthright: The Gorgons Alliance
 - Blade & Sword
 - Blood II - The Chosen
@@ -254,6 +255,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Lode Runner 2
 - Lost Vikings 2
 - Links Extreme
+- Mario Sorb 3
 - M.A.X. 2 Mechanized Assault & Exploration
 - Madeline 1st Grade Math
 - Madeline 2nd Grade Math
@@ -286,6 +288,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - NexusTk
 - Neo Sonic Universe
 - Nightmare Creatures
+- Ninja Jonder Deluxe
 - Nox (Westwood - 2000)
 - Oddworld: Abe's Exoddus
 - Oddworld: Abe's Oddysee
@@ -317,6 +320,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Putt-Putt's One-Stop Fun Shop
 - Putt-Putt: Pep's Birthday Surprise
 - Putt-Putt: Travels Through Time
+- Platypus
 - Quest for Glory 5
 - Rage of Mages
 - Rage of Mages 2
