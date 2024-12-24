@@ -886,6 +886,35 @@ LRESULT WINAPI fake_DefWindowProcA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
     return real_DefWindowProcA(hWnd, Msg, wParam, lParam);
 }
 
+HWND WINAPI fake_SetParent(HWND hWndChild, HWND hWndNewParent)
+{
+    if (g_ddraw.ref && g_ddraw.hwnd && g_ddraw.hwnd == hWndNewParent)
+    {
+        char class_name[MAX_PATH] = { 0 };
+        GetClassNameA(hWndChild, class_name, sizeof(class_name) - 1);
+
+        if (strcmp(class_name, "VideoRenderer") == 0)
+        {
+            RECT rc_org;
+            fake_GetWindowRect(hWndChild, &rc_org);
+ 
+            HWND result = real_SetParent(hWndChild, hWndNewParent);
+
+            real_MoveWindow(
+                hWndChild,
+                rc_org.left,
+                rc_org.top,
+                (rc_org.right - rc_org.left),
+                (rc_org.bottom - rc_org.top),
+                FALSE);
+
+            return result;
+        }
+    }
+
+    return real_SetParent(hWndChild, hWndNewParent);
+}
+
 SHORT WINAPI fake_GetKeyState(int nVirtKey)
 {
     if (g_config.windowed && g_ddraw.ref && g_ddraw.hwnd && !util_in_foreground())
