@@ -909,17 +909,21 @@ SHORT WINAPI fake_GetAsyncKeyState(int vKey)
 int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
 {
     DWORD bpp = 0;
+    DWORD width = 0;
+    DWORD height = 0;
 
     if (g_ddraw.ref && g_ddraw.bpp)
     {
         bpp = g_ddraw.bpp;
+        width = g_ddraw.width;
+        height = g_ddraw.height;
     }
     else if (g_config.fake_mode[0])
     {
         char* e = &g_config.fake_mode[0];
 
-        strtoul(e, &e, 0);
-        strtoul(e + 1, &e, 0);
+        width = strtoul(e, &e, 0);
+        height = strtoul(e + 1, &e, 0);
         bpp = strtoul(e + 1, &e, 0);
     }
 
@@ -950,6 +954,19 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
             {
                 return 256;
             }
+        }
+    }
+
+    if (width && WindowFromDC(hdc) == GetDesktopWindow())
+    {
+        if (index == HORZRES)
+        {
+            return width;
+        }
+
+        if (index == VERTRES)
+        {
+            return height;
         }
     }
 
