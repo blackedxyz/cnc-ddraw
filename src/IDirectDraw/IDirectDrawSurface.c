@@ -340,7 +340,7 @@ HRESULT __stdcall IDirectDrawSurface__GetDC(IDirectDrawSurfaceImpl* This, HDC FA
 
 HRESULT __stdcall IDirectDrawSurface__GetFlipStatus(IDirectDrawSurfaceImpl* This, DWORD dwFlags)
 {
-    TRACE_EXT("-> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
+    TRACE_EXT("-> %s(This=%p, dwFlags=%08X) [%p]\n", __FUNCTION__, This, dwFlags, _ReturnAddress());
     HRESULT ret = DD_OK;
     TRACE_EXT("<- %s\n", __FUNCTION__);
     return ret;
