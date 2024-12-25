@@ -167,6 +167,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Dune 2000
 - Dungeon Keeper
 - Dungeon Keeper 2
+- Dominion - Storm Over Gift 3
 - Economic War
 - Eggsucker
 - Emperor: Rise of the Middle Kingdom
