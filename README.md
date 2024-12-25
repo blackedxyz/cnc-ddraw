@@ -384,7 +384,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - SPY Fox: Operation Ozone
 - Star Trek Away Team
 - Star Trek Generations
-- Star Wars - Pit Droids
+- Star Wars: Pit Droids
 - Star Wars Anakin's Speedway
 - Star Wars Early Learning Activity Center
 - Star Wars Episode I: The Gungan Frontier
@@ -393,6 +393,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Star Wars Yoda's Challenge
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
+- Star Wars: Droid Works
 - StarCraft
 - StarCraft: Broodwars
 - StarFlyers Alien Space Chase
