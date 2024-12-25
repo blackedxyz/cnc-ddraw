@@ -72,7 +72,6 @@ typedef struct CNCDDRAWCONFIG
     BOOL flipclear;
     BOOL rgb555;
     BOOL no_dinput_hook;
-    BOOL direct3d_passthrough;
     BOOL center_cursor_fix;
     char fake_mode[128];
     BOOL lock_mouse_top_left;

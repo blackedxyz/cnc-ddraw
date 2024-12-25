@@ -59,7 +59,7 @@ HRESULT __stdcall IDirect3D2__EnumDevices(
     if (lpEnumDevicesCallback)
     {
         D3DDEVICEDESC desc = { 0 };
-        //lpEnumDevicesCallback((GUID FAR*)&IID_IDirect3DNullDevice, "NULL", "NULL", &desc, &desc, lpUserArg);
+        //lpEnumDevicesCallback((GUID FAR*)&GUID_NULL, "NULL", "NULL", &desc, &desc, lpUserArg);
     }
 
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);

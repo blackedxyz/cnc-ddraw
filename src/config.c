@@ -85,7 +85,6 @@ void cfg_load()
     GET_BOOL(g_config.flipclear, "flipclear", FALSE);
     GET_BOOL(g_config.rgb555, "rgb555", FALSE);
     GET_BOOL(g_config.no_dinput_hook, "no_dinput_hook", FALSE);
-    GET_BOOL(g_config.direct3d_passthrough, "direct3d_passthrough", FALSE);
     GET_BOOL(g_config.center_cursor_fix, "center_cursor_fix", FALSE);
     GET_STRING("fake_mode", "", g_config.fake_mode, sizeof(g_config.fake_mode));
     GET_BOOL(g_config.lock_mouse_top_left, "lock_mouse_top_left", FALSE);
@@ -329,7 +328,6 @@ static void cfg_create_ini()
             "flipclear=false\n"
             "rgb555=false\n"
             "no_dinput_hook=false\n"
-            "direct3d_passthrough=false\n"
             "center_cursor_fix=false\n"
             ";fake_mode=640x480x32\n"
             "lock_mouse_top_left=false\n"
@@ -1191,10 +1189,6 @@ static void cfg_create_ini()
             "singlecpu=false\n"
             "sirtech_hack=true\n"
             "fix_alt_key_stuck=true\n"
-            "\n"
-            "; Jedi Knight Dark Forces 2\n"
-            "[JK]\n"
-            "direct3d_passthrough=true\n"
             "\n"
             "; Jeopardy! - NOT WORKING YET\n"
             "[jeoppc]\n"
