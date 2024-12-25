@@ -1557,6 +1557,7 @@ static void cfg_create_ini()
             "singlecpu=false\n"
             "limiter_type=2\n"
             "game_handles_close=true\n"
+            "maxgameticks=30\n"
             "\n"
             "; Rent-A-Hero\n"
             "[Rent-A-Hero]\n"
