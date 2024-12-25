@@ -48,10 +48,20 @@ ULONG __stdcall IDirect3D2__Release(IDirect3D2Impl* This)
     return ret;
 }
 
-HRESULT __stdcall IDirect3D2__EnumDevices(IDirect3D2Impl* This, int a, int b)
+HRESULT __stdcall IDirect3D2__EnumDevices(
+    IDirect3D2Impl* This,
+    LPD3DENUMDEVICESCALLBACK lpEnumDevicesCallback,
+    LPVOID lpUserArg)
 {
     TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     HRESULT ret = S_OK;
+
+    if (lpEnumDevicesCallback)
+    {
+        D3DDEVICEDESC desc = { 0 };
+        //lpEnumDevicesCallback((GUID FAR*)&IID_IDirect3DNullDevice, "NULL", "NULL", &desc, &desc, lpUserArg);
+    }
+
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }

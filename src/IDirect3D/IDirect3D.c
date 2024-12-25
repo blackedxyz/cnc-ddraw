@@ -56,10 +56,20 @@ HRESULT __stdcall IDirect3D__Initialize(IDirect3DImpl* This, int a)
     return ret;
 }
 
-HRESULT __stdcall IDirect3D__EnumDevices(IDirect3DImpl* This, int a, int b)
+HRESULT __stdcall IDirect3D__EnumDevices(
+    IDirect3DImpl* This, 
+    LPD3DENUMDEVICESCALLBACK lpEnumDevicesCallback, 
+    LPVOID lpUserArg)
 {
     TRACE("NOT_IMPLEMENTED -> %s(This=%p) [%p]\n", __FUNCTION__, This, _ReturnAddress());
     HRESULT ret = S_OK;
+
+    if (lpEnumDevicesCallback)
+    {
+        D3DDEVICEDESC desc = { 0 };
+        //lpEnumDevicesCallback((GUID FAR*)&IID_IDirect3DNullDevice, "NULL", "NULL", &desc, &desc, lpUserArg);
+    }
+
     TRACE("NOT_IMPLEMENTED <- %s\n", __FUNCTION__);
     return ret;
 }
