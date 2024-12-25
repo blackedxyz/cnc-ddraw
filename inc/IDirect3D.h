@@ -13,9 +13,6 @@ DEFINE_GUID(IID_IDirect3D7, 0xf5049e77, 0x4861, 0x11d2, 0xa4, 0x7, 0x0, 0xa0, 0x
 
 DEFINE_GUID(IID_IDirect3DNullDevice, 0x8767df22, 0xbacc, 0x11d1, 0x89, 0x69, 0x0, 0xa0, 0xc9, 0x6, 0x29, 0xa8);
 
-typedef HRESULT(CALLBACK* LPD3DENUMDEVICESCALLBACK)(GUID FAR* lpGuid, LPSTR lpDeviceDescription, LPSTR lpDeviceName, LPD3DDEVICEDESC, LPD3DDEVICEDESC, LPVOID);
-typedef HRESULT(CALLBACK* LPD3DENUMDEVICESCALLBACK7)(LPSTR lpDeviceDescription, LPSTR lpDeviceName, LPD3DDEVICEDESC7, LPVOID);
-
 
 #define DECLARE_D3D_INTERFACE(iface)    typedef struct iface { \
                                         struct iface##Vtbl FAR* lpVtbl; \
@@ -23,7 +20,6 @@ typedef HRESULT(CALLBACK* LPD3DENUMDEVICESCALLBACK7)(LPSTR lpDeviceDescription, 
                                     } iface; \
                                     typedef struct iface##Vtbl iface##Vtbl; \
                                     struct iface##Vtbl
-
 
 /* IID_IDirect3D */
 
