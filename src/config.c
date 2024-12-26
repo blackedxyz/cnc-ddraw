@@ -1726,7 +1726,7 @@ static void cfg_create_ini()
             "\n"
             "; Soldiers At War\n"
             "[SAW_Game]\n"
-            "maxgameticks=30\n"
+            "maxgameticks=20\n"
             "limiter_type=4\n"
             "\n"
             "; The Curse Of Monkey Island\n"
