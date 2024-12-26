@@ -428,7 +428,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Thunder Brigade
 - TianLong BaBu
 - Tone Rebellion
-- Tone Rebellion
 - Total Annihilation
 - Total Annihilation (Unofficial Beta Patch v3.9.02)
 - Total Annihilation: Kingdoms
