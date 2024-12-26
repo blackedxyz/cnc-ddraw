@@ -1032,6 +1032,11 @@ BOOL WINAPI fake_StretchBlt(
 {
     HWND hwnd = WindowFromDC(hdcDest);
 
+    if (g_ddraw.ref && g_ddraw.hwnd && hwnd == g_ddraw.hwnd && !g_ddraw.primary)
+    {
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
+    }
+
     char class_name[MAX_PATH] = { 0 };
 
     if (g_ddraw.ref && g_ddraw.hwnd && hwnd && hwnd != g_ddraw.hwnd)
@@ -1140,6 +1145,11 @@ BOOL WINAPI fake_BitBlt(
 {
     HWND hwnd = WindowFromDC(hdc);
 
+    if (g_ddraw.ref && g_ddraw.hwnd && hwnd == g_ddraw.hwnd && !g_ddraw.primary)
+    {
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
+    }
+
     char class_name[MAX_PATH] = { 0 };
 
     if (g_ddraw.ref && g_ddraw.hwnd && hwnd && hwnd != g_ddraw.hwnd)
@@ -1236,6 +1246,11 @@ int WINAPI fake_SetDIBitsToDevice(
 {
     HWND hwnd = WindowFromDC(hdc);
 
+    if (g_ddraw.ref && g_ddraw.hwnd && hwnd == g_ddraw.hwnd && !g_ddraw.primary)
+    {
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
+    }
+
     char class_name[MAX_PATH] = { 0 };
 
     if (g_ddraw.ref && g_ddraw.hwnd && hwnd && hwnd != g_ddraw.hwnd)
@@ -1325,6 +1340,11 @@ int WINAPI fake_StretchDIBits(
     DWORD rop)
 {
     HWND hwnd = WindowFromDC(hdc);
+
+    if (g_ddraw.ref && g_ddraw.hwnd && hwnd == g_ddraw.hwnd && !g_ddraw.primary)
+    {
+        InterlockedExchange(&g_ddraw.render.screen_updated, TRUE);
+    }
 
     char class_name[MAX_PATH] = { 0 };
 
