@@ -1889,6 +1889,7 @@ static void cfg_create_ini()
             "\n"
             "; Zork Nemesis\n"
             "[znemesis]\n"
+            "fix_not_responding=true\n"
             "singlecpu=false\n"
             "maxgameticks=60\n"
             "limiter_type=4\n"
