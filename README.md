@@ -58,6 +58,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Age of Wonders 2
 - Age of Wonders: Shadow Magic
 - Agharta the Hollow Earth
+- Airline 69: Return to Casablanca 
 - Airline Tycoon Deluxe
 - Alien Nations
 - American Conquest (Steam+GOG)
@@ -69,20 +70,19 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Another War
 - Anstoss 3
 - Arcanum: Of Steamworks and Magick Obscura
+- Army Men 2
 - Army Men Air Tactics
+- Army Men: Air Tactics
+- Army Men: Toys in Space
+- Army Men: World War / Army Men: Operation Meltdown
 - Arthur's Pet Chase
 - Arthur's Sand Castle Contest
 - Arthur's Wilderness Rescue
-- Army Men: World War / Army Men: Operation Meltdown
-- Army Men: Air Tactics
-- Army Men: Toys in Space
-- Army Men 2
 - Atlantis 2: Beyond Atlantis
 - Atlantis 3: The New World
 - Atlantis: The Lost Tales
 - Atomic Bomberman
 - Atrox
-- Airline 69: Return to Casablanca 
 - Baldr Force EXE
 - Baldur's Gate
 - Baldur's Gate 2
@@ -137,9 +137,9 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Cossacks (Steam+GOG)
 - Cultures - The Discovery of Vinland
 - Cultures 2
+- Cyber Gladiators (needs CyberGladiators_Patch_Win_EN_WinXP.zip)
 - Cyberchase Carnival Chaos
 - Cyberchase Castleblanca Quest
-- Cyber Gladiators (needs CyberGladiators_Patch_Win_EN_WinXP.zip)
 - Cydonia Mars - The First Manned Mission
 - Dark Earth
 - Dark Reign: The Future of War
@@ -150,24 +150,24 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Deadly Tide
 - Delta Force
 - Desperados: Wanted Dead or Alive
-- Dreams to Realty
-- Die by the Sword
 - Diablo
 - Diablo 2
 - Diablo 2: Lord of Destruction
 - Diablo: Hellfire
+- Die by the Sword
 - Disciples
 - Disciples 2 - Rise of the Elves
 - Discoworld Noir
 - Divine Divinity
+- Dominion - Storm Over Gift 3
 - Doom 95
 - Dragon Throne: Battle of Red Cliffs
+- Dreams to Realty
 - DuelSavior
 - DuelSavior: Justice
 - Dune 2000
 - Dungeon Keeper
 - Dungeon Keeper 2
-- Dominion - Storm Over Gift 3
 - Economic War
 - Eggsucker
 - Emperor: Rise of the Middle Kingdom
@@ -198,14 +198,15 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Future Cop L.A.P.D
 - G-Police
 - Geneforge
+- Gilbert Goodmate And The Mushroom Of Phungoria
 - Gorasul: The Legacy of the Dragon
 - Grand Theft Auto
 - Grand Theft Auto: London 1961
 - Grand Theft Auto: London 1969
+- Gromada Revenge
 - Gruntz
-- Gilbert Goodmate And The Mushroom Of Phungoria
-- Handkerchief
 - Hamtaro: Wake Up Snoozer!
+- Handkerchief
 - Hard Truck: Road to Victory
 - Heart of Darkness
 - Hearts of Iron 2
@@ -224,9 +225,9 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Icewind Dale
 - Icewind Dale 2
 - Ignition
+- Imperialism 2: The Age of Exploration
 - Indiana Jones and the Fate of Atlantis
 - Indiana Jones and the Last Crusade
-- Imperialism 2: The Age of Exploration
 - Infantry Online
 - Interstate 76
 - Invictus: In the Shadow of Olympus
@@ -244,9 +245,10 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Kohan: Immortal Sovereigns
 - Konung
 - Konung 2
-- Last Bronx
 - Lands of Lore 2 Guardian of Destiny (Software mode only)
 - Lapis (lapis.mgame.com)
+- Last Bronx
+- Links Extreme
 - Lionheart - Legacy of the Crusader
 - Little Bear Kindergarten Thinking Adventures
 - Little Bear Preschool Thinking Adventures
@@ -255,17 +257,17 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Locomotion
 - Lode Runner 2
 - Lost Vikings 2
-- Links Extreme
-- Mario Sorb 3
 - M.A.X. 2 Mechanized Assault & Exploration
 - Madeline 1st Grade Math
 - Madeline 2nd Grade Math
 - Mageslayer
 - Majesty Gold
 - Majesty Gold HD
+- Mario Sorb 3
 - Mech Warrior 3
 - Megaman X4
 - Metal Gear Solid
+- Metal Knight
 - Mob Rule (AKA Constructor: Street Wars / Street Wars: Constructor Underworld)
 - Moorhuhn
 - Moorhuhn 2
@@ -285,14 +287,15 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - NBA Full Court Press
 - Need For Speed III: Hot Pursuit
 - Need For Speed: High Stakes
+- Neo Sonic Universe
 - New Robinson
 - NexusTk
-- Neo Sonic Universe
 - Nightmare Creatures
 - Ninja Jonder Deluxe
 - Nox (Westwood - 2000)
 - Oddworld: Abe's Exoddus
 - Oddworld: Abe's Oddysee
+- Original War
 - Outlaws
 - Outlive
 - Outwars (software mode)
@@ -310,6 +313,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Pax Imperia
 - Pharaoh (Sierra - 1999)
 - Pizza Syndicate (AKA Fast Food Tycoon)
+- Platypus
 - Populous: The Beginning
 - Poseidon: Master of Atlantis
 - Pro Pinball - Big Race USA
@@ -321,7 +325,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Putt-Putt's One-Stop Fun Shop
 - Putt-Putt: Pep's Birthday Surprise
 - Putt-Putt: Travels Through Time
-- Platypus
 - Quest for Glory 5
 - Rage of Mages
 - Rage of Mages 2
@@ -341,15 +344,15 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Reader Rabbit's(R) Math Ages 6 - 9 (2002)
 - Real War
 - Red Baron 3D
-- Rent-A-Hero
-- Return to Krondor
 - Reksio and Captain Nemo (Reksio i Kapitan Nemo)
 - Reksio and Kretes in Action (Reksio i Kretes w Akcji!)
 - Reksio and the Pirate Treasure (Reksio i Skarb Piratów)
 - Reksio and the Time Machine (Reksio i Wehikuł Czasu)
 - Reksio and the UFO (Reksio i Ufo)
 - Reksio and the Wizards (Reksio i Czarodzieje)
+- Rent-A-Hero
 - Resurrection - The Return of the Black Dragon (software mode)
+- Return to Krondor
 - Rising Lands (patched)
 - Road Rash
 - Robin Hood - The Legend of Sherwood
@@ -367,33 +370,33 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Shadow Flare
 - Shadow Watch
 - Shogo - Mobile Armor Division
+- Silver (needs "SilverUK GeForce2 And Radeon Patch")
 - Sim City 3000
 - Sim Copter
 - Sim Theme Park (aka Theme Park World)
 - SimCoaster / Theme Park Inc
 - Simon the Sorcerer 1/2 (windows 95 version)
-- Silver (needs "SilverUK GeForce2 And Radeon Patch")
 - Sonic 3D Blast
 - Space Rangers
 - Spec Ops - Ranger Assault (software mode)
 - SpongeBob SquarePants: Typing
-- Squad Leader
 - SPY Fox : Some Assembly Required
 - SPY Fox in Dry Cereal
 - SPY Fox: Hold the Mustard
 - SPY Fox: Operation Ozone
+- Squad Leader
 - Star Trek Away Team
 - Star Trek Generations
-- Star Wars: Pit Droids
 - Star Wars Anakin's Speedway
 - Star Wars Early Learning Activity Center
 - Star Wars Episode I: The Gungan Frontier
 - Star Wars Jedi Knight: Dark Forces II
 - Star Wars Rebellion
 - Star Wars Yoda's Challenge
+- Star Wars: Droid Works
 - Star Wars: Galactic Battlegrounds
 - Star Wars: Galactic Battlegrounds: Clone Campaigns
-- Star Wars: Droid Works
+- Star Wars: Pit Droids
 - StarCraft
 - StarCraft: Broodwars
 - StarFlyers Alien Space Chase
@@ -410,35 +413,37 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Swarog
 - The Curse Of Monkey Island
 - The Dig
+- The Last Express
 - The Missing on Lost Island
+- The Neverhood
+- The Next Worlds 
 - The Powerpuff Girls - Princess Snorebucks
 - The Powerpuff Girls(TM) Mojo Jojo's Clone Zone
-- The X-Files DVD
-- The Last Express
-- The Neverhood
 - The Rocky Interactive Horror Show
-- The Next Worlds 
 - The Sex Files
+- The X-Files DVD
 - Theme Hospital
 - Three Kingdoms: Fate of the Dragon
 - Throne of Darkness
+- Thunder Brigade
 - TianLong BaBu
+- Tone Rebellion
 - Tone Rebellion
 - Total Annihilation
 - Total Annihilation (Unofficial Beta Patch v3.9.02)
 - Total Annihilation: Kingdoms
 - Toy Story
-- Tone Rebellion
+- Tridonis
 - Twisted Metal
 - Twisted Metal 2
 - Tzar: The Burden of the Crown
 - Uprising 2: Lead and Destroy
 - Uprising: Join or Die
 - Vermeer
-- Virtua Fighter PC
 - Virtua Cop
 - Virtua Cop 2
 - Virtua Fighter 2
+- Virtua Fighter PC
 - Virtual Springfield
 - War Wind
 - War Wind II - Human Onslaught
@@ -449,19 +454,19 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Warlords Battlecry 2
 - Warlords Battlecry 3
 - Weird War
+- Wheel Of Fortune
 - Wing Commander - The Kilrathi Saga
 - Wizardry 8
 - Wizards and Warriors
 - Worms 2
 - Worms Armageddon
-- Wheel Of Fortune
+- Z & Z Expansion Kit
 - Zeus: Master of Olympus
 - Zoombinis Island Odyssey
 - Zoombinis Logical Journey
 - Zoombinis Mountain Rescue
-- Zuma Deluxe
 - Zork Nemesis
-- Z & Z Expansion Kit
+- Zuma Deluxe
 - ...
 
 There are a lot more games supported but I don't usually update the list, just give it a try and if it doesn't work then check the [wiki](https://github.com/FunkyFr3sh/cnc-ddraw/wiki) and the instructions above.
