@@ -86,13 +86,13 @@ HRESULT dds_Blt(
 
     if (lpSrcRect && src_surface)
     {
-        dbg_print_rect("lpSrcRect", lpSrcRect);
+        //dbg_print_rect("lpSrcRect", lpSrcRect);
         src_rect = *lpSrcRect;
     }
 
     if (lpDestRect)
     {
-        dbg_print_rect("lpDestRect", lpDestRect);
+        //dbg_print_rect("lpDestRect", lpDestRect);
         dst_rect = *lpDestRect;
     }
 
