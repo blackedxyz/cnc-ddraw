@@ -77,13 +77,13 @@ HRESULT dds_Blt(
 
     if (lpSrcRect && src_surface)
     {
-        //dbg_print_rect("lpSrcRect", lpSrcRect);
+        dbg_print_rect("lpSrcRect", lpSrcRect);
         src_rect = *lpSrcRect;
     }
 
     if (lpDestRect)
     {
-        //dbg_print_rect("lpDestRect", lpDestRect);
+        dbg_print_rect("lpDestRect", lpDestRect);
         dst_rect = *lpDestRect;
     }
 
@@ -268,7 +268,7 @@ HRESULT dds_Blt(
             HDC src_dc;
             dds_GetDC(src_surface, &src_dc);
 
-            if ((dwFlags & DDBLT_KEYSRC) || (dwFlags & DDBLT_KEYSRCOVERRIDE))
+            if (((dwFlags & DDBLT_KEYSRC) && (src_surface->flags & DDSD_CKSRCBLT)) || (dwFlags & DDBLT_KEYSRCOVERRIDE))
             {
                 UINT color = 
                     (dwFlags & DDBLT_KEYSRCOVERRIDE) ?
@@ -326,7 +326,7 @@ HRESULT dds_Blt(
                 */
         }
         else if (
-            (dwFlags & DDBLT_KEYSRC) ||
+            ((dwFlags & DDBLT_KEYSRC) && (src_surface->flags & DDSD_CKSRCBLT)) ||
             (dwFlags & DDBLT_KEYSRCOVERRIDE) ||
             mirror_left_right ||
             mirror_up_down)
@@ -572,7 +572,7 @@ HRESULT dds_BltFast(
             HDC src_dc;
             dds_GetDC(src_surface, &src_dc);
 
-            if (dwFlags & DDBLTFAST_SRCCOLORKEY)
+            if ((dwFlags & DDBLTFAST_SRCCOLORKEY) && (src_surface->flags & DDSD_CKSRCBLT))
             {
                 UINT color = src_surface->color_key.dwColorSpaceLowValue;
 
@@ -625,7 +625,7 @@ HRESULT dds_BltFast(
                 SRCCOPY);
                 */
         }
-        else if (dwFlags & DDBLTFAST_SRCCOLORKEY)
+        else if ((dwFlags & DDBLTFAST_SRCCOLORKEY) && (src_surface->flags & DDSD_CKSRCBLT))
         {
             blt_colorkey(
                 dst_buf,
