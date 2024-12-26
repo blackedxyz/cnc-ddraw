@@ -50,6 +50,15 @@ HRESULT dds_Blt(
     DWORD dwFlags,
     LPDDBLTFX lpDDBltFx)
 {
+    if (lpDDSrcSurface &&
+        lpDDSrcSurface->bpp != 8 &&
+        lpDDSrcSurface->bpp != 16 &&
+        lpDDSrcSurface->bpp != 24 &&
+        lpDDSrcSurface->bpp != 32)
+    {
+        return DDERR_INVALIDPARAMS;
+    }
+
     dbg_dump_dds_blt_flags(dwFlags);
     dbg_dump_dds_blt_fx_flags((dwFlags & DDBLT_DDFX) && lpDDBltFx ? lpDDBltFx->dwDDFX : 0);
 
@@ -77,13 +86,13 @@ HRESULT dds_Blt(
 
     if (lpSrcRect && src_surface)
     {
-        //dbg_print_rect("lpSrcRect", lpSrcRect);
+        dbg_print_rect("lpSrcRect", lpSrcRect);
         src_rect = *lpSrcRect;
     }
 
     if (lpDestRect)
     {
-        //dbg_print_rect("lpDestRect", lpDestRect);
+        dbg_print_rect("lpDestRect", lpDestRect);
         dst_rect = *lpDestRect;
     }
 

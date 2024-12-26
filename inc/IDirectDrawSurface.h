@@ -23,9 +23,9 @@ typedef struct IDirectDrawSurfaceImpl
 
     ULONG ref;
 
+    DWORD bpp;
     DWORD width;
     DWORD height;
-    DWORD bpp;
     DWORD size;
     DWORD flags;
     DWORD caps;
