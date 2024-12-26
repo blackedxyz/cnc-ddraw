@@ -377,6 +377,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - SimCoaster / Theme Park Inc
 - Simon the Sorcerer 1/2 (windows 95 version)
 - Sonic 3D Blast
+- Soldiers At War
 - Space Rangers
 - Spec Ops - Ranger Assault (software mode)
 - SpongeBob SquarePants: Typing

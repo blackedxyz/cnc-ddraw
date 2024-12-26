@@ -986,7 +986,7 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
         }
     }
 
-    if (width && WindowFromDC(hdc) == GetDesktopWindow())
+    if (width && ((g_ddraw.hwnd && WindowFromDC(hdc) == g_ddraw.hwnd) || WindowFromDC(hdc) == GetDesktopWindow()))
     {
         if (index == HORZRES)
         {
