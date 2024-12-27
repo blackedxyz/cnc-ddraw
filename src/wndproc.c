@@ -90,6 +90,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
         return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
     }
+    case WM_KILLFOCUS:
     case WM_NCACTIVATE:
     {
         if (g_config.noactivateapp)
