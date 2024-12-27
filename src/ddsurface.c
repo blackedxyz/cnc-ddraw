@@ -733,8 +733,7 @@ HRESULT dds_GetSurfaceDesc(IDirectDrawSurfaceImpl* This, LPDDSURFACEDESC lpDDSur
             DDSD_WIDTH | 
             DDSD_HEIGHT | 
             DDSD_PITCH | 
-            DDSD_PIXELFORMAT | 
-            DDSD_LPSURFACE;
+            DDSD_PIXELFORMAT;
 
         lpDDSurfaceDesc->dwWidth = This->width;
         lpDDSurfaceDesc->dwHeight = This->height;
