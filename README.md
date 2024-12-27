@@ -71,7 +71,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Anstoss 3
 - Arcanum: Of Steamworks and Magick Obscura
 - Army Men 2
-- Army Men Air Tactics
 - Army Men: Air Tactics
 - Army Men: Toys in Space
 - Army Men: World War / Army Men: Operation Meltdown
@@ -274,6 +273,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Moorhuhn Adventure: Fluch des Goldes
 - Moorhuhn Adventure: Schatz des Pharao and Fluch des Goldes)
 - Moorhuhn Winter Editon
+- MiG-29 Fulcrum
 - Moto Racer
 - Moto Racer 2
 - Nancy Drew: Danger on Deception Island
@@ -437,6 +437,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Twisted Metal
 - Twisted Metal 2
 - Tzar: The Burden of the Crown
+- Unreal
 - Uprising 2: Lead and Destroy
 - Uprising: Join or Die
 - Vermeer
@@ -445,6 +446,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Virtua Fighter 2
 - Virtua Fighter PC
 - Virtual Springfield
+- WarGames
 - War Wind
 - War Wind II - Human Onslaught
 - Warcraft 2
