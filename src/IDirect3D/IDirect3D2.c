@@ -58,7 +58,7 @@ HRESULT __stdcall IDirect3D2__EnumDevices(
 
     if (lpEnumDevicesCallback)
     {
-        D3DDEVICEDESC desc = { 0 };
+        //D3DDEVICEDESC desc = { 0 };
         //lpEnumDevicesCallback((GUID FAR*)&GUID_NULL, "NULL", "NULL", &desc, &desc, lpUserArg);
     }
 
