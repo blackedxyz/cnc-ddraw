@@ -234,6 +234,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Jagged Alliance 2: Unfinished Business
 - Jagged Alliance 2: Wildfire
 - Jazz Jackrabbit 2
+- Jeff Wayne's The War of the Worlds
 - Karma Immortal Wrath
 - Killing Time
 - Kings Quest 8: Mask of Eternity
