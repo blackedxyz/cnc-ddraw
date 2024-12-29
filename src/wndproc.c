@@ -851,6 +851,11 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     case WM_SYSKEYDOWN:
     {
+        if (wParam == VK_F4)
+        {
+            return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
+        }
+
         break;
     }
     case WM_SYSKEYUP:
