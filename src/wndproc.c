@@ -49,6 +49,7 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     case WM_NCPAINT:
     case WM_CANCELMODE:
     case WM_DISPLAYCHANGE:
+    case WM_NCCALCSIZE:
     {
         return real_DefWindowProcA(hWnd, uMsg, wParam, lParam);
     }
