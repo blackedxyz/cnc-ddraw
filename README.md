@@ -275,6 +275,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Moorhuhn Adventure: Schatz des Pharao and Fluch des Goldes)
 - Moorhuhn Winter Editon
 - MiG-29 Fulcrum
+- Mission Deliver Kindness
 - Moto Racer
 - Moto Racer 2
 - Nancy Drew: Danger on Deception Island
