@@ -180,6 +180,13 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
 
         break;
     }
+    case DLL_THREAD_ATTACH:
+    {
+        if (g_config.singlecpu && !IsWine() && IsWindows11OrGreater())
+        {
+            util_set_thread_affinity(GetCurrentThreadId());
+        }
+    }
     }
 
     return TRUE;

@@ -2,6 +2,7 @@
 #include <intrin.h>
 #include <stdio.h>
 #include <math.h>
+#include <tlhelp32.h>
 #include "ddraw.h"
 #include "debug.h"
 #include "dd.h"
@@ -69,6 +70,42 @@ HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast)
         }
     }
     return NULL;
+}
+
+void util_set_process_affinity()
+{ 
+    HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+    if (snap == INVALID_HANDLE_VALUE)
+        return;
+
+    THREADENTRY32 entry = { 0 };
+    entry.dwSize = sizeof(THREADENTRY32);
+
+    if (!Thread32First(snap, &entry))
+    {
+        CloseHandle(snap);
+        return;
+    }
+
+    do
+    {
+        if (entry.th32OwnerProcessID == GetCurrentProcessId())
+        {
+            util_set_thread_affinity(entry.th32ThreadID);
+        }
+    } while (Thread32Next(snap, &entry));
+
+    CloseHandle(snap);
+}
+
+void util_set_thread_affinity(DWORD tid)
+{
+    HANDLE thread = OpenThread(THREAD_QUERY_INFORMATION | THREAD_SET_INFORMATION, FALSE, tid);
+    if (thread)
+    {
+        SetThreadAffinityMask(thread, 1);
+        CloseHandle(thread);
+    }
 }
 
 void util_pull_messages()
