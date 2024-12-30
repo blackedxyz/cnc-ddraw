@@ -131,6 +131,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Commandos
 - Commandos - Beyond The Call Of Duty
 - Commandos 2
+- Commando 2004 (only with /ddraw command line parameter)
 - Constructor
 - Corsairs Gold
 - Cossacks (Steam+GOG)
@@ -140,6 +141,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Cyberchase Carnival Chaos
 - Cyberchase Castleblanca Quest
 - Cydonia Mars - The First Manned Mission
+- Cloud Kingdom 3 (only with /ddraw command line parameter)
 - Dark Earth
 - Dark Reign: The Future of War
 - Day Of The Tentacle
