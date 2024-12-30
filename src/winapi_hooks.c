@@ -921,7 +921,10 @@ HDC WINAPI fake_BeginPaint(HWND hWnd, LPPAINTSTRUCT lpPaint)
     {
         HDC result = real_BeginPaint(hWnd, lpPaint);
 
-        if (result)
+        RECT size = { 0, 0, g_ddraw.width, g_ddraw.height };
+        real_GetClientRect(hWnd, &size);
+
+        if (result && (g_ddraw.width != size.right || g_ddraw.height != size.bottom))
         {
             lpPaint->rcPaint.left = 0;
             lpPaint->rcPaint.top = 0;
