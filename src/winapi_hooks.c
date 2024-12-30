@@ -915,6 +915,26 @@ HWND WINAPI fake_SetParent(HWND hWndChild, HWND hWndNewParent)
     return real_SetParent(hWndChild, hWndNewParent);
 }
 
+HDC WINAPI fake_BeginPaint(HWND hWnd, LPPAINTSTRUCT lpPaint)
+{
+    if (g_ddraw.ref && g_ddraw.width && g_ddraw.hwnd && g_ddraw.hwnd == hWnd && lpPaint)
+    {
+        HDC result = real_BeginPaint(hWnd, lpPaint);
+
+        if (result)
+        {
+            lpPaint->rcPaint.left = 0;
+            lpPaint->rcPaint.top = 0;
+            lpPaint->rcPaint.right = g_ddraw.width;
+            lpPaint->rcPaint.bottom = g_ddraw.height;
+        }
+
+        return result;
+    }
+
+    return real_BeginPaint(hWnd, lpPaint);
+}
+
 SHORT WINAPI fake_GetKeyState(int nVirtKey)
 {
     if (g_config.windowed && g_ddraw.ref && g_ddraw.hwnd && !util_in_foreground())

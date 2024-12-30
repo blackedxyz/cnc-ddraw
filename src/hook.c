@@ -55,6 +55,7 @@ SETWINDOWPLACEMENTPROC real_SetWindowPlacement = SetWindowPlacement;
 ENUMDISPLAYSETTINGSAPROC real_EnumDisplaySettingsA = EnumDisplaySettingsA;
 DEFWINDOWPROCAPROC real_DefWindowProcA = DefWindowProcA;
 SETPARENTPROC real_SetParent = SetParent;
+BEGINPAINTPROC real_BeginPaint = BeginPaint;
 GETKEYSTATEPROC real_GetKeyState = GetKeyState;
 GETASYNCKEYSTATEPROC real_GetAsyncKeyState = GetAsyncKeyState;
 GETDEVICECAPSPROC real_GetDeviceCaps = GetDeviceCaps;
@@ -119,6 +120,7 @@ HOOKLIST g_hook_hooklist[] =
             { "EnumDisplaySettingsA", (PROC)fake_EnumDisplaySettingsA, (PROC*)&real_EnumDisplaySettingsA, 0 },
             { "DefWindowProcA", (PROC)fake_DefWindowProcA, (PROC*)&real_DefWindowProcA, 0 },
             { "SetParent", (PROC)fake_SetParent, (PROC*)&real_SetParent, 0 },
+            { "BeginPaint", (PROC)fake_BeginPaint, (PROC*)&real_BeginPaint, 0 },
             { "GetKeyState", (PROC)fake_GetKeyState, (PROC*)&real_GetKeyState, 0 },
             { "GetAsyncKeyState", (PROC)fake_GetAsyncKeyState, (PROC*)&real_GetAsyncKeyState, 0 },
             { "SetForegroundWindow", (PROC)fake_SetForegroundWindow, (PROC*)&real_SetForegroundWindow, 0 },
