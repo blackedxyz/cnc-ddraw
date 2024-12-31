@@ -264,10 +264,7 @@ FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name)
 
 BOOL util_caller_is_ddraw_wrapper(void* return_address)
 {
-    BOOL (WINAPI *getModuleHandleExA)(DWORD, LPCSTR, HMODULE*) = 
-        (void*)real_GetProcAddress(real_LoadLibraryA("Kernel32.dll"), "GetModuleHandleExA");
-
-    if (!getModuleHandleExA)
+    if (!delay_GetModuleHandleExA)
         return FALSE;
 
     void* directDrawCreate = (void*)util_get_iat_proc(GetModuleHandleA(NULL), "ddraw.dll", "DirectDrawCreate");
@@ -281,9 +278,9 @@ BOOL util_caller_is_ddraw_wrapper(void* return_address)
     HMODULE D3dHook_dll = GetModuleHandleA("D3dHook.dll");
     if (D3dHook_dll)
     {
-        if ((getModuleHandleExA(flags, return_address, &mod) && mod == D3dHook_dll) ||
-            (getModuleHandleExA(flags, directDrawCreate, &mod) && mod == D3dHook_dll) ||
-            (getModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == D3dHook_dll))
+        if ((delay_GetModuleHandleExA(flags, return_address, &mod) && mod == D3dHook_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == D3dHook_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == D3dHook_dll))
         {
             MessageBoxA(
                 NULL,
@@ -299,9 +296,9 @@ BOOL util_caller_is_ddraw_wrapper(void* return_address)
     HMODULE wndmode_dll = GetModuleHandleA("wndmode.dll");
     if (wndmode_dll)
     {
-        if ((getModuleHandleExA(flags, return_address, &mod) && mod == wndmode_dll) ||
-            (getModuleHandleExA(flags, directDrawCreate, &mod) && mod == wndmode_dll) ||
-            (getModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == wndmode_dll))
+        if ((delay_GetModuleHandleExA(flags, return_address, &mod) && mod == wndmode_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == wndmode_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == wndmode_dll))
         {
             MessageBoxA(
                 NULL,
@@ -317,9 +314,9 @@ BOOL util_caller_is_ddraw_wrapper(void* return_address)
     HMODULE windmode_dll = GetModuleHandleA("windmode.dll");
     if (windmode_dll)
     {
-        if ((getModuleHandleExA(flags, return_address, &mod) && mod == windmode_dll) ||
-            (getModuleHandleExA(flags, directDrawCreate, &mod) && mod == windmode_dll) ||
-            (getModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == windmode_dll))
+        if ((delay_GetModuleHandleExA(flags, return_address, &mod) && mod == windmode_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == windmode_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == windmode_dll))
         {
             MessageBoxA(
                 NULL,
@@ -335,9 +332,9 @@ BOOL util_caller_is_ddraw_wrapper(void* return_address)
     HMODULE dxwnd_dll = GetModuleHandleA("dxwnd.dll");
     if (dxwnd_dll)
     {
-        if ((getModuleHandleExA(flags, return_address, &mod) && mod == dxwnd_dll) ||
-            (getModuleHandleExA(flags, directDrawCreate, &mod) && mod == dxwnd_dll) ||
-            (getModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == dxwnd_dll))
+        if ((delay_GetModuleHandleExA(flags, return_address, &mod) && mod == dxwnd_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == dxwnd_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == dxwnd_dll))
         {
             MessageBoxA(
                 NULL,
@@ -353,9 +350,9 @@ BOOL util_caller_is_ddraw_wrapper(void* return_address)
     HMODULE age_dll = GetModuleHandleA("age.dll");
     if (age_dll)
     {
-        if ((getModuleHandleExA(flags, return_address, &mod) && mod == age_dll) ||
-            (getModuleHandleExA(flags, directDrawCreate, &mod) && mod == age_dll) ||
-            (getModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == age_dll))
+        if ((delay_GetModuleHandleExA(flags, return_address, &mod) && mod == age_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreate, &mod) && mod == age_dll) ||
+            (delay_GetModuleHandleExA(flags, directDrawCreateEx, &mod) && mod == age_dll))
         {
             HKEY hkey;
             LONG status =

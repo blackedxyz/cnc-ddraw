@@ -17,6 +17,7 @@
 #include "crc32.h"
 #include "dllmain.h"
 #include "config.h"
+#include "delay_imports.h"
 
 
 double g_dbg_frame_time = 0;
@@ -89,10 +90,7 @@ LONG WINAPI dbg_exception_handler(EXCEPTION_POINTERS* exception)
         HMODULE mod = NULL;
         char filename[MAX_PATH] = { 0 };
 
-        BOOL(WINAPI * getModuleHandleExA)(DWORD, LPCSTR, HMODULE*) =
-            (void*)real_GetProcAddress(real_LoadLibraryA("Kernel32.dll"), "GetModuleHandleExA");
-
-        if (getModuleHandleExA && getModuleHandleExA(
+        if (delay_GetModuleHandleExA && delay_GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
             exception->ExceptionRecord->ExceptionAddress,
             &mod))
