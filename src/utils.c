@@ -13,6 +13,7 @@
 #include "utils.h"
 #include "config.h"
 #include "versionhelpers.h"
+#include "delay_imports.h"
 
 
 /*
@@ -103,7 +104,49 @@ void util_set_thread_affinity(DWORD tid)
     HANDLE thread = OpenThread(THREAD_QUERY_INFORMATION | THREAD_SET_INFORMATION, FALSE, tid);
     if (thread)
     {
-        SetThreadAffinityMask(thread, 1);
+        void* start = NULL;
+        NTSTATUS status = STATUS_PENDING;
+            
+        if (NtQueryInformationThread)
+        {
+            status = NtQueryInformationThread(thread, ThreadQuerySetWin32StartAddress, &start, sizeof(start), NULL);
+        }
+
+        if (status == STATUS_SUCCESS && start && GetModuleHandleExAProc)
+        {
+            char game_exe_path[MAX_PATH] = { 0 };
+            char game_dir[MAX_PATH] = { 0 };
+
+            if (GetModuleFileNameA(NULL, game_exe_path, sizeof(game_exe_path)))
+            {
+                _splitpath(game_exe_path, NULL, game_dir, NULL, NULL);
+
+                char mod_path[MAX_PATH] = { 0 };
+                char mod_dir[MAX_PATH] = { 0 };
+                char mod_filename[MAX_PATH] = { 0 };
+                HMODULE mod = NULL;
+
+                if (GetModuleHandleExAProc(
+                    GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, start, &mod))
+                {
+                    if (GetModuleFileNameA(mod, mod_path, sizeof(mod_path)))
+                    {
+                        _splitpath(mod_path, NULL, mod_dir, mod_filename, NULL);
+
+                        if (_strnicmp(game_dir, mod_dir, strlen(game_dir)) == 0 ||
+                            _strcmpi(mod_filename, "WINMM") == 0)
+                        {
+                            SetThreadAffinityMask(thread, 1);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            SetThreadAffinityMask(thread, 1);
+        }
+
         CloseHandle(thread);
     }
 }

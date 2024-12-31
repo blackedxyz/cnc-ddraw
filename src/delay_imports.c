@@ -8,6 +8,7 @@ WINE_GET_VERSIONPROC wine_get_version;
 WINE_GET_HOST_VERSIONPROC wine_get_host_version;
 
 VERSETCONDITIONMASKPROC VerSetConditionMaskProc;
+GETMODULEHANDLEEXAPROC GetModuleHandleExAProc;
 
 void imports_init()
 {
@@ -24,5 +25,6 @@ void imports_init()
     if (mod)
     {
         VerSetConditionMaskProc = (VERSETCONDITIONMASKPROC)GetProcAddress(mod, "VerSetConditionMask");
+        GetModuleHandleExAProc = (GETMODULEHANDLEEXAPROC)GetProcAddress(mod, "GetModuleHandleExA");
     }
 }
