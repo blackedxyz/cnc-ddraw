@@ -33,7 +33,6 @@
 #define VerSetConditionMask verhelp_set_mask
 #endif
 
-void verhelp_init();
 BOOL verhelp_verify_version(PRTL_OSVERSIONINFOEXW versionInfo, ULONG typeMask, ULONGLONG conditionMask);
 ULONGLONG verhelp_set_mask(ULONGLONG ConditionMask, DWORD TypeMask, BYTE Condition);
 const char* verhelp_wine_get_version();

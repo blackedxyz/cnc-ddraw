@@ -12,6 +12,7 @@
 #include "indeo.h"
 #include "utils.h"
 #include "versionhelpers.h"
+#include "delay_imports.h"
 #include "keyboard.h"
 
 
@@ -33,7 +34,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
     {
         g_ddraw_module = hDll;
 
-        verhelp_init();
+        imports_init();
 
         if (GetEnvironmentVariable("cnc_ddraw_config_init", NULL, 0))
         {

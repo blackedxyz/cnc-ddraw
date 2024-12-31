@@ -27,6 +27,7 @@
     <ClCompile Include="src\crc32.c" />
     <ClCompile Include="src\ddclipper.c" />
     <ClCompile Include="src\debug.c" />
+    <ClCompile Include="src\delay_imports.c" />
     <ClCompile Include="src\detours\creatwth.cpp" />
     <ClCompile Include="src\detours\detours.cpp" />
     <ClCompile Include="src\detours\disasm.cpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="inc\d3dcaps.h" />
     <ClInclude Include="inc\ddclipper.h" />
     <ClInclude Include="inc\ddraw.h" />
+    <ClInclude Include="inc\delay_imports.h" />
     <ClInclude Include="inc\directinput.h" />
     <ClInclude Include="inc\dllmain.h" />
     <ClInclude Include="inc\fps_limiter.h" />

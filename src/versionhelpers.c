@@ -1,33 +1,7 @@
 #include <windows.h>
 #include "versionhelpers.h"
+#include "delay_imports.h"
 
-typedef NTSTATUS(WINAPI* RTLVERIFYVERSIONINFOPROC)(PRTL_OSVERSIONINFOEXW, ULONG, ULONGLONG);
-typedef ULONGLONG(WINAPI* VERSETCONDITIONMASKPROC)(ULONGLONG, DWORD, BYTE);
-typedef const char* (CDECL* WINE_GET_VERSIONPROC)();
-typedef void (CDECL* WINE_GET_HOST_VERSIONPROC)(const char** sysname, const char** release);
-
-static RTLVERIFYVERSIONINFOPROC RtlVerifyVersionInfo;
-static VERSETCONDITIONMASKPROC VerSetConditionMaskProc;
-static WINE_GET_VERSIONPROC wine_get_version;
-static WINE_GET_HOST_VERSIONPROC wine_get_host_version;
-
-/* GetProcAddress is rather slow so we use a function to initialize it once on startup */
-void verhelp_init()
-{
-    HMODULE mod = GetModuleHandleA("ntdll.dll");
-    if (mod)
-    {
-        RtlVerifyVersionInfo = (RTLVERIFYVERSIONINFOPROC)GetProcAddress(mod, "RtlVerifyVersionInfo");
-        wine_get_version = (WINE_GET_VERSIONPROC)GetProcAddress(mod, "wine_get_version");
-        wine_get_host_version = (WINE_GET_HOST_VERSIONPROC)GetProcAddress(mod, "wine_get_host_version");
-    }
-
-    mod = GetModuleHandleA("Kernel32.dll");
-    if (mod)
-    {
-        VerSetConditionMaskProc = (VERSETCONDITIONMASKPROC)GetProcAddress(mod, "VerSetConditionMask");
-    }
-}
 
 BOOL verhelp_verify_version(PRTL_OSVERSIONINFOEXW versionInfo, ULONG typeMask, ULONGLONG conditionMask)
 {
