@@ -107,12 +107,13 @@ void util_set_thread_affinity(DWORD tid)
         void* start = NULL;
         NTSTATUS status = STATUS_PENDING;
             
-        if (NtQueryInformationThread)
+        if (delay_NtQueryInformationThread)
         {
-            status = NtQueryInformationThread(thread, ThreadQuerySetWin32StartAddress, &start, sizeof(start), NULL);
+            status = 
+                delay_NtQueryInformationThread(thread, ThreadQuerySetWin32StartAddress, &start, sizeof(start), NULL);
         }
 
-        if (status == STATUS_SUCCESS && start && GetModuleHandleExAProc)
+        if (status == STATUS_SUCCESS && start && delay_GetModuleHandleExA)
         {
             char game_exe_path[MAX_PATH] = { 0 };
             char game_dir[MAX_PATH] = { 0 };
@@ -126,7 +127,7 @@ void util_set_thread_affinity(DWORD tid)
                 char mod_filename[MAX_PATH] = { 0 };
                 HMODULE mod = NULL;
 
-                if (GetModuleHandleExAProc(
+                if (delay_GetModuleHandleExA(
                     GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, start, &mod))
                 {
                     if (GetModuleFileNameA(mod, mod_path, sizeof(mod_path)))

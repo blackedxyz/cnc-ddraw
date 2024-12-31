@@ -2,29 +2,29 @@
 #include "versionhelpers.h"
 #include "delay_imports.h"
 
-NTQUERYINFORMATIONTHREADPROC NtQueryInformationThread;
-RTLVERIFYVERSIONINFOPROC RtlVerifyVersionInfo;
-WINE_GET_VERSIONPROC wine_get_version;
-WINE_GET_HOST_VERSIONPROC wine_get_host_version;
+NTQUERYINFORMATIONTHREADPROC delay_NtQueryInformationThread;
+RTLVERIFYVERSIONINFOPROC delay_RtlVerifyVersionInfo;
+WINE_GET_VERSIONPROC delay_wine_get_version;
+WINE_GET_HOST_VERSIONPROC delay_wine_get_host_version;
 
-VERSETCONDITIONMASKPROC VerSetConditionMaskProc;
-GETMODULEHANDLEEXAPROC GetModuleHandleExAProc;
+VERSETCONDITIONMASKPROC delay_VerSetConditionMask;
+GETMODULEHANDLEEXAPROC delay_GetModuleHandleExA;
 
-void imports_init()
+void delay_imports_init()
 {
     HMODULE mod = GetModuleHandleA("ntdll.dll");
     if (mod)
     {
-        NtQueryInformationThread = (NTQUERYINFORMATIONTHREADPROC)GetProcAddress(mod, "NtQueryInformationThread");
-        RtlVerifyVersionInfo = (RTLVERIFYVERSIONINFOPROC)GetProcAddress(mod, "RtlVerifyVersionInfo");
-        wine_get_version = (WINE_GET_VERSIONPROC)GetProcAddress(mod, "wine_get_version");
-        wine_get_host_version = (WINE_GET_HOST_VERSIONPROC)GetProcAddress(mod, "wine_get_host_version");
+        delay_NtQueryInformationThread = (NTQUERYINFORMATIONTHREADPROC)GetProcAddress(mod, "NtQueryInformationThread");
+        delay_RtlVerifyVersionInfo = (RTLVERIFYVERSIONINFOPROC)GetProcAddress(mod, "RtlVerifyVersionInfo");
+        delay_wine_get_version = (WINE_GET_VERSIONPROC)GetProcAddress(mod, "wine_get_version");
+        delay_wine_get_host_version = (WINE_GET_HOST_VERSIONPROC)GetProcAddress(mod, "wine_get_host_version");
     }
 
     mod = GetModuleHandleA("Kernel32.dll");
     if (mod)
     {
-        VerSetConditionMaskProc = (VERSETCONDITIONMASKPROC)GetProcAddress(mod, "VerSetConditionMask");
-        GetModuleHandleExAProc = (GETMODULEHANDLEEXAPROC)GetProcAddress(mod, "GetModuleHandleExA");
+        delay_VerSetConditionMask = (VERSETCONDITIONMASKPROC)GetProcAddress(mod, "VerSetConditionMask");
+        delay_GetModuleHandleExA = (GETMODULEHANDLEEXAPROC)GetProcAddress(mod, "GetModuleHandleExA");
     }
 }

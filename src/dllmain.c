@@ -34,7 +34,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
     {
         g_ddraw_module = hDll;
 
-        imports_init();
+        delay_imports_init();
 
         if (GetEnvironmentVariable("cnc_ddraw_config_init", NULL, 0))
         {

@@ -12,14 +12,14 @@ typedef NTSTATUS(WINAPI* NTQUERYINFORMATIONTHREADPROC)(HANDLE, LONG, PVOID, ULON
 typedef ULONGLONG(WINAPI* VERSETCONDITIONMASKPROC)(ULONGLONG, DWORD, BYTE);
 typedef BOOL(WINAPI* GETMODULEHANDLEEXAPROC)(DWORD, LPCSTR, HMODULE*);
 
-extern NTQUERYINFORMATIONTHREADPROC NtQueryInformationThread;
-extern RTLVERIFYVERSIONINFOPROC RtlVerifyVersionInfo;
-extern WINE_GET_VERSIONPROC wine_get_version;
-extern WINE_GET_HOST_VERSIONPROC wine_get_host_version;
+extern NTQUERYINFORMATIONTHREADPROC delay_NtQueryInformationThread;
+extern RTLVERIFYVERSIONINFOPROC delay_RtlVerifyVersionInfo;
+extern WINE_GET_VERSIONPROC delay_wine_get_version;
+extern WINE_GET_HOST_VERSIONPROC delay_wine_get_host_version;
 
-extern VERSETCONDITIONMASKPROC VerSetConditionMaskProc;
-extern GETMODULEHANDLEEXAPROC GetModuleHandleExAProc;
+extern VERSETCONDITIONMASKPROC delay_VerSetConditionMask;
+extern GETMODULEHANDLEEXAPROC delay_GetModuleHandleExA;
 
-void imports_init();
+void delay_imports_init();
 
 #endif
