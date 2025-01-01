@@ -134,8 +134,7 @@ void util_set_thread_affinity(DWORD tid)
                     {
                         _splitpath(mod_path, NULL, mod_dir, mod_filename, NULL);
 
-                        if (_strnicmp(game_dir, mod_dir, strlen(game_dir)) == 0 ||
-                            _strcmpi(mod_filename, "WINMM") == 0)
+                        if (_strnicmp(game_dir, mod_dir, strlen(game_dir)) == 0) // _strcmpi(mod_filename, "WINMM") == 0
                         {
                             SetThreadAffinityMask(thread, 1);
                         }
