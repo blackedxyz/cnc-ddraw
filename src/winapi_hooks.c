@@ -2058,6 +2058,28 @@ HWND WINAPI fake_CreateWindowExA(
         Y = pt.y + align_y;
     }
 
+    /* Metal Knight Movies */
+    if (HIWORD(lpClassName) && _strcmpi(lpClassName, "Afx:400000:3:0:1900011:0") == 0 &&
+        lpWindowName && _strcmpi(lpWindowName, "AVI player") == 0 &&
+        dwStyle == WS_POPUP &&
+        dwExStyle == WS_EX_TOPMOST &&
+        g_ddraw.ref && g_ddraw.hwnd &&
+        g_ddraw.width)
+    {
+        dwExStyle = 0;
+
+        POINT pt = { 0, 0 };
+        real_ClientToScreen(g_ddraw.hwnd, &pt);
+
+        int added_height = g_ddraw.render.height - g_ddraw.height;
+        int added_width = g_ddraw.render.width - g_ddraw.width;
+        int align_y = added_height > 0 ? added_height / 2 : 0;
+        int align_x = added_width > 0 ? added_width / 2 : 0;
+
+        X += pt.x + align_x;
+        Y += pt.y + align_y;
+    }
+
     /* Disney Trivia Challenge */
     if (HIWORD(lpClassName) && _strcmpi(lpClassName, "Disney Trivia Challenge") == 0 &&
         hWndParent && (dwStyle & WS_CHILD))
