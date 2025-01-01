@@ -183,7 +183,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
     }
     case DLL_THREAD_ATTACH:
     {
-        if (g_config.singlecpu && !IsWine() && IsWindows11OrGreater())
+        if (g_config.singlecpu && !IsWine() && IsWindows11Version24H2())
         {
             util_set_thread_affinity(GetCurrentThreadId());
         }
