@@ -86,9 +86,22 @@ LRESULT CALLBACK keyboard_hook_proc(int code, WPARAM wParam, LPARAM lParam)
         return 1;
     }
 
-    if (wParam == g_config.hotkeys.screenshot && key_released)
+    if (wParam == g_config.hotkeys.screenshot)
     {
-        ss_take_screenshot(g_ddraw.primary);
+        // VK_SNAPSHOT does not have a KEYDOWN event...
+        if (g_config.hotkeys.screenshot == VK_SNAPSHOT)
+        {
+            if (key_released)
+            {
+                ss_take_screenshot(g_ddraw.primary);
+                return 1;
+            }
+        }
+        else if (key_triggered)
+        {
+            ss_take_screenshot(g_ddraw.primary);
+            return 1;
+        }
     }
 
     if (wParam == g_config.hotkeys.unlock_cursor1 || wParam == VK_CONTROL)
