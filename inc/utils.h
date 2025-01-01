@@ -6,8 +6,9 @@
 
 
 HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast);
+void util_set_process_affinity();
+void util_set_thread_affinity(DWORD tid);
 void util_pull_messages();
-unsigned long util_get_crc32(char* filename);
 DWORD util_get_timestamp(HMODULE mod);
 FARPROC util_get_iat_proc(HMODULE mod, char* module_name, char* function_name);
 BOOL util_caller_is_ddraw_wrapper(void* return_address);

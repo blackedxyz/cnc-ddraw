@@ -168,6 +168,9 @@
     <ClCompile Include="src\keyboard.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\delay_imports.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\debug.h">
@@ -297,6 +300,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\d3dcaps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\delay_imports.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

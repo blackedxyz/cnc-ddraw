@@ -12,6 +12,7 @@
 #include "indeo.h"
 #include "utils.h"
 #include "versionhelpers.h"
+#include "delay_imports.h"
 #include "keyboard.h"
 
 
@@ -33,7 +34,7 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
     {
         g_ddraw_module = hDll;
 
-        verhelp_init();
+        delay_imports_init();
 
         if (GetEnvironmentVariable("cnc_ddraw_config_init", NULL, 0))
         {
@@ -179,6 +180,13 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
             remove_handler(g_dbg_exception_handle);
 
         break;
+    }
+    case DLL_THREAD_ATTACH:
+    {
+        if (g_config.singlecpu && !IsWine() && IsWindows11OrGreater())
+        {
+            util_set_thread_affinity(GetCurrentThreadId());
+        }
     }
     }
 
