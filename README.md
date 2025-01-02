@@ -377,6 +377,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Silver (needs "SilverUK GeForce2 And Radeon Patch")
 - Sim City 3000
 - Sim Copter
+- SimTunes
 - Sim Theme Park (aka Theme Park World)
 - SimCoaster / Theme Park Inc
 - Simon the Sorcerer 1/2 (windows 95 version)
