@@ -140,7 +140,6 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Cyber Gladiators (needs CyberGladiators_Patch_Win_EN_WinXP.zip)
 - Cyberchase Carnival Chaos
 - Cyberchase Castleblanca Quest
-- Virtual On: Cyber Troopers
 - Cydonia Mars - The First Manned Mission
 - Cloud Kingdom 3 (only with /ddraw command line parameter)
 - Dark Earth
@@ -452,6 +451,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Virtua Fighter 2
 - Virtua Fighter PC
 - Virtual Springfield
+- Virtual On: Cyber Troopers
 - WarGames
 - War Wind
 - War Wind II - Human Onslaught
