@@ -1703,6 +1703,7 @@ static void cfg_create_ini()
             "checkfile=.\\Dx.dll\n"
             "adjmouse=true\n"
             "maxgameticks=30\n"
+            "hook_peekmessage=true\n"
             "\n"
             "; Shadow Flare\n"
             "[ShadowFlare]\n"
