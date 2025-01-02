@@ -1690,6 +1690,7 @@ static void cfg_create_ini()
             "; SimTunes\n"
             "[SIMTUNES]\n"
             "terminate_process=true"
+            "hook=3"
             "\n"
             "; Shadow Watch\n"
             "[sw]\n"
