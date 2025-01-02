@@ -80,6 +80,7 @@ typedef struct CNCDDRAWCONFIG
     BOOL limit_gdi_handles;
     BOOL remove_menu;
     int refresh_rate;
+    int terminate_process;
 
     /* Hotkeys */
 

@@ -620,6 +620,9 @@ LRESULT CALLBACK fake_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
         if (wParam == SC_CLOSE && !GameHandlesClose)
         {
+            if (g_config.terminate_process)
+                g_config.terminate_process = 2;
+
             ExitProcess(0);
             //_exit(0);
         }

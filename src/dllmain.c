@@ -179,6 +179,9 @@ BOOL WINAPI DllMain(HANDLE hDll, DWORD dwReason, LPVOID lpReserved)
         if (g_dbg_exception_handle && remove_handler)
             remove_handler(g_dbg_exception_handle);
 
+        if (g_config.terminate_process == 2)
+            TerminateProcess(GetCurrentProcess(), 0);
+
         break;
     }
     case DLL_THREAD_ATTACH:

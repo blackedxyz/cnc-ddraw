@@ -93,6 +93,7 @@ void cfg_load()
     GET_BOOL(g_config.limit_gdi_handles, "limit_gdi_handles", FALSE);
     GET_BOOL(g_config.remove_menu, "remove_menu", FALSE);
     GET_INT(g_config.refresh_rate, "refresh_rate", 0);
+    GET_BOOL(g_config.terminate_process, "terminate_process", FALSE);
 
     /* Hotkeys */
 
@@ -336,6 +337,7 @@ static void cfg_create_ini()
             "limit_gdi_handles=false\n"
             "remove_menu=false\n"
             "refresh_rate=0\n"
+            "terminate_process=false\n"
             "\n"
             "\n"
             "\n"
