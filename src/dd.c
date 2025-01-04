@@ -518,6 +518,7 @@ HRESULT dd_GetCaps(LPDDCAPS_DX1 lpDDDriverCaps, LPDDCAPS_DX1 lpDDEmulCaps)
         memset(lpDDEmulCaps, 0, size);
 
         lpDDEmulCaps->dwSize = size;
+        lpDDEmulCaps->dwCaps = DDCAPS_BLTSTRETCH;
     }
 
     return DD_OK;
