@@ -96,6 +96,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Blood II - The Chosen
 - Blue's 123 Time Activities
 - Blue's Treasure Hunt
+- Broken Sword 2: The Smoking Mirror
 - Caesar III (Sierra - 1998)
 - Call To Power 2
 - Callus 95 - CPS-1 (Capcom Play System 1) emulator
@@ -162,6 +163,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Divine Divinity
 - Dominion - Storm Over Gift 3
 - Doom 95
+- Dracula
 - Dragon Throne: Battle of Red Cliffs
 - Dreams to Realty
 - DuelSavior
