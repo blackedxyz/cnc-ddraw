@@ -1113,12 +1113,36 @@ BOOL WINAPI fake_StretchBlt(
         else if (
             g_ddraw.width > 0 && 
             g_ddraw.render.hdc && 
-            (hwnd == g_ddraw.hwnd || (real_GetWindowLongA(hwnd, GWL_EXSTYLE) & WS_EX_TRANSPARENT)))
+            (hwnd == g_ddraw.hwnd || 
+                (real_GetWindowLongA(hwnd, GWL_EXSTYLE) & WS_EX_TRANSPARENT) || 
+                strcmp(class_name, "AVIWnd32") == 0))
         {
+            POINT pt = { 0 };
+            real_MapWindowPoints(hwnd, g_ddraw.hwnd, &pt, 1);
+
+            if (hwnd != g_ddraw.hwnd && strcmp(class_name, "AVIWnd32") == 0)
+            {
+                LONG exstyle = real_GetWindowLongA(hwnd, GWL_EXSTYLE);
+                if (!(exstyle & WS_EX_TRANSPARENT))
+                {
+                    real_SetWindowLongA(hwnd, GWL_EXSTYLE, exstyle | WS_EX_TRANSPARENT);
+
+                    real_SetWindowPos(
+                        hwnd,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        SWP_ASYNCWINDOWPOS | SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER
+                    );
+                }
+            }
+
             return real_StretchBlt(
                 hwnd == g_ddraw.hwnd ? hdcDest : g_ddraw.render.hdc,
-                (int)(roundf(xDest * g_ddraw.render.scale_w)) + g_ddraw.render.viewport.x,
-                (int)(roundf(yDest * g_ddraw.render.scale_h)) + g_ddraw.render.viewport.y,
+                (int)(roundf((xDest + pt.x) * g_ddraw.render.scale_w)) + g_ddraw.render.viewport.x,
+                (int)(roundf((yDest + pt.y) * g_ddraw.render.scale_h)) + g_ddraw.render.viewport.y,
                 (int)(roundf(wDest * g_ddraw.render.scale_w)),
                 (int)(roundf(hDest * g_ddraw.render.scale_h)),
                 hdcSrc,
