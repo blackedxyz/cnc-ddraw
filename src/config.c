@@ -1358,7 +1358,6 @@ static void cfg_create_ini()
             "\n"
             "; Men In Black - NOT WORKING YET\n"
             "[MIB]\n"
-            "renderer=gdi\n"
             "hook=2\n"
             "\n"
             "; Moorhuhn 2\n"
