@@ -96,6 +96,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Blood II - The Chosen
 - Blue's 123 Time Activities
 - Blue's Treasure Hunt
+- Broken Sword
 - Broken Sword 2: The Smoking Mirror
 - Caesar III (Sierra - 1998)
 - Call To Power 2
@@ -268,6 +269,7 @@ Wine (Linux/macOS/Android) only: override `ddraw` in [winecfg](https://wiki.wine
 - Majesty Gold
 - Majesty Gold HD
 - Mario Sorb 3
+- Meat Puppet
 - Mech Warrior 3
 - Megaman X4
 - Metal Gear Solid
