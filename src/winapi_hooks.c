@@ -976,12 +976,12 @@ int WINAPI fake_GetDeviceCaps(HDC hdc, int index)
         bpp = strtoul(e + 1, &e, 0);
     }
 
-    if (bpp && index == BITSPIXEL && (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
+    if (bpp && index == BITSPIXEL)
     {
         return bpp;
     }
 
-    if (bpp == 8 && (g_config.hook != 2 || g_ddraw.renderer == gdi_render_main))
+    if (bpp == 8)
     {
         if (index == RASTERCAPS)
         {
