@@ -1092,6 +1092,7 @@ static void cfg_create_ini()
             "; Heroes of Might and Magic II:  The Succession Wars\n"
             "[HEROES2W]\n"
             "adjmouse=true\n"
+            "keytogglefullscreen2=0x73\n"
             "\n"
             "; Heroes of Might and Magic III\n"
             "[Heroes3]\n"
