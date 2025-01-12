@@ -75,6 +75,7 @@ HMODULE WINAPI util_enumerate_modules(_In_opt_ HMODULE hModuleLast)
 
 void util_set_process_affinity()
 { 
+#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
     HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
     if (snap == INVALID_HANDLE_VALUE)
         return;
@@ -97,10 +98,12 @@ void util_set_process_affinity()
     } while (Thread32Next(snap, &entry));
 
     CloseHandle(snap);
+#endif
 }
 
 void util_set_thread_affinity(DWORD tid)
 {
+#if (_WIN32_WINNT >= _WIN32_WINNT_WINXP)
     HANDLE thread = OpenThread(THREAD_QUERY_INFORMATION | THREAD_SET_INFORMATION, FALSE, tid);
     if (thread)
     {
@@ -149,6 +152,7 @@ void util_set_thread_affinity(DWORD tid)
 
         CloseHandle(thread);
     }
+#endif
 }
 
 void util_pull_messages()
