@@ -132,31 +132,31 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		ConfigForm->Caption = L"cnc-ddraw 配置";
 		DisplayBtn->Caption = L"显示设置";
 		AdvancedBtn->Caption = L"高级设置";
-		HotkeyBtn->Caption = L"热键设置";
+		HotkeyBtn->Caption = L"快捷键设置";
 		CompatibilityBtn->Caption = L"兼容性设置";
 		RestoreDefaultsBtn->Caption = L"恢复默认设置";
-		PresentationLbl->Caption = L"显示方式";
-		MaintasLbl->Caption = L"保持纵横比";
-		VsyncLbl->Caption = L"打开垂直同步";
+		PresentationLbl->Caption = L"演示";
+		MaintasLbl->Caption = L"保持宽高比";
+		VsyncLbl->Caption = L"启用垂直同步";
 		AdjmouseLbl->Caption = L"调整鼠标灵敏度";
-		DevmodeLbl->Caption = L"锁定光标到窗口/屏幕";
+		DevmodeLbl->Caption = L"将光标锁定到窗口/屏幕";
 		RendererLbl->Caption = L"渲染器";
 		BorderLbl->Caption = L"在窗口模式下显示窗口边框";
 		SavesettingsLbl->Caption = L"记住窗口位置和大小";
-		ShaderLbl->Caption = L"OpenGL着色器";
-		MaxfpsLbl->Caption = L"限制帧率";
-		BoxingLbl->Caption = L"打开窗盒显示/整数缩放";
+		ShaderLbl->Caption = L"OpenGL 着色器";
+		MaxfpsLbl->Caption = L"限制帧速率";
+		BoxingLbl->Caption = L"启用窗口框/整数缩放";
 		ToggleWindowedLbl->Caption = L"切换窗口模式";
 		MaximizeWindowLbl->Caption = L"最大化窗口";
 		UnlockCursor1Lbl->Caption = L"解锁光标 1";
 		UnlockCursor2Lbl->Caption = L"解锁光标 2";
-		ScreenshotLbl->Caption = L"截屏";
-		MaxgameticksLbl->Caption = L"限制游戏速率";
-		NoactivateappLbl->Caption = L"修复损坏的Alt+Tab功能";
-		ResolutionsLbl->Caption = L"解锁其他屏幕分辨率";
-		MinfpsLbl->Caption = L"强制高FPS / 修复使用Freesync/G-Sync的卡顿问题";
-		SinglecpuLbl->Caption = L"修复性能不佳和声音问题";
-		NonexclusiveLbl->Caption = L"修复不显示的视频/UI元素";
+		ScreenshotLbl->Caption = L"截图";
+		MaxgameticksLbl->Caption = L"限制游戏速度";
+		NoactivateappLbl->Caption = L"修复 Alt+Tab 错误";
+		ResolutionsLbl->Caption = L"解锁额外的屏幕分辨率";
+		MinfpsLbl->Caption = L"强制高 FPS / 修复 Freesync/G-Sync 卡顿";
+		SinglecpuLbl->Caption = L"修复性能和声音问题";
+		NonexclusiveLbl->Caption = L"修复不可见的视频/UI 元素";
 
 		RendererCbx->Items->Clear();
 		RendererCbx->AddItem(L"自动", NULL);
@@ -166,32 +166,33 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 
 		PresentationCbx->Items->Clear();
 		PresentationCbx->AddItem(L"全屏", NULL);
-		PresentationCbx->AddItem(L"拉伸至全屏", NULL);
+		PresentationCbx->AddItem(L"全屏放大", NULL);
 		PresentationCbx->AddItem(L"无边框", NULL);
-		PresentationCbx->AddItem(L"窗口化", NULL);
+		PresentationCbx->AddItem(L"窗口", NULL);
 
 		MaxgameticksCbx->Items->Clear();
 		MaxgameticksCbx->AddItem(L"无限制", NULL);
 		MaxgameticksCbx->AddItem(L"与显示器刷新率同步", NULL);
-		MaxgameticksCbx->AddItem(L"模拟60hz刷新率显示器", NULL);
-		MaxgameticksCbx->AddItem(L"1000tick每秒", NULL);
-		MaxgameticksCbx->AddItem(L"500tick每秒", NULL);
-		MaxgameticksCbx->AddItem(L"250tick每秒", NULL);
-		MaxgameticksCbx->AddItem(L"125tick每秒", NULL);
-		MaxgameticksCbx->AddItem(L"60tick每秒", NULL);
-		MaxgameticksCbx->AddItem(L"30tick每秒", NULL);
-		MaxgameticksCbx->AddItem(L"25tick每秒", NULL);
-		MaxgameticksCbx->AddItem(L"15tick每秒", NULL);
+		MaxgameticksCbx->AddItem(L"模拟 60hz 刷新率显示器", NULL);
+		MaxgameticksCbx->AddItem(L"1000 次每秒", NULL);
+		MaxgameticksCbx->AddItem(L"500 次每秒", NULL);
+		MaxgameticksCbx->AddItem(L"250 次每秒", NULL);
+		MaxgameticksCbx->AddItem(L"125 次每秒", NULL);
+		MaxgameticksCbx->AddItem(L"60 次每秒", NULL);
+		MaxgameticksCbx->AddItem(L"30 次每秒", NULL);
+		MaxgameticksCbx->AddItem(L"25 次每秒", NULL);
+		MaxgameticksCbx->AddItem(L"15 次每秒", NULL);
 
 		System::UnicodeString shaderHint =
-			L"某些着色器仅在打开放大功能时生效。\n\n";
+			L"一些着色器只有在启用放大时才有效。\n\n";
 
 		System::UnicodeString upscaleHint =
-			L"必须打开放大功能才能使此设置生效。\n\n";
+			L"必须启用放大才能使此设置生效。\n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"要打开放大功能，请将显示方式设置为‘无边框’或‘拉伸至全屏’。\n"
-			"对于‘窗口化’显示方式，您必须调整窗口大小或最大化窗口。";
+			L"要启用放大，请将演示设置为“无边框” \n"
+			"或“全屏放大”。对于“窗口”演示， \n"
+			"你必须调整或最大化窗口。";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
 		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
