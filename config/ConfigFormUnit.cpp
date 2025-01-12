@@ -135,7 +135,7 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		HotkeyBtn->Caption = L"快捷键设置";
 		CompatibilityBtn->Caption = L"兼容性设置";
 		RestoreDefaultsBtn->Caption = L"恢复默认设置";
-		PresentationLbl->Caption = L"演示";
+		PresentationLbl->Caption = L"显示方式";
 		MaintasLbl->Caption = L"保持宽高比";
 		VsyncLbl->Caption = L"启用垂直同步";
 		AdjmouseLbl->Caption = L"调整鼠标灵敏度";
@@ -145,18 +145,18 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		SavesettingsLbl->Caption = L"记住窗口位置和大小";
 		ShaderLbl->Caption = L"OpenGL 着色器";
 		MaxfpsLbl->Caption = L"限制帧速率";
-		BoxingLbl->Caption = L"启用窗口框/整数缩放";
+		BoxingLbl->Caption = L"启用窗框显示/整数缩放";
 		ToggleWindowedLbl->Caption = L"切换窗口模式";
 		MaximizeWindowLbl->Caption = L"最大化窗口";
 		UnlockCursor1Lbl->Caption = L"解锁光标 1";
 		UnlockCursor2Lbl->Caption = L"解锁光标 2";
 		ScreenshotLbl->Caption = L"截图";
 		MaxgameticksLbl->Caption = L"限制游戏速度";
-		NoactivateappLbl->Caption = L"修复 Alt+Tab 错误";
+		NoactivateappLbl->Caption = L"修复损坏的Alt+Tab功能";
 		ResolutionsLbl->Caption = L"解锁额外的屏幕分辨率";
 		MinfpsLbl->Caption = L"强制高 FPS / 修复 Freesync/G-Sync 卡顿";
-		SinglecpuLbl->Caption = L"修复性能和声音问题";
-		NonexclusiveLbl->Caption = L"修复不可见的视频/UI 元素";
+		SinglecpuLbl->Caption = L"修复低性能和声音问题";
+		NonexclusiveLbl->Caption = L"修复不显示的视频/UI 元素";
 
 		RendererCbx->Items->Clear();
 		RendererCbx->AddItem(L"自动", NULL);
@@ -166,9 +166,9 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 
 		PresentationCbx->Items->Clear();
 		PresentationCbx->AddItem(L"全屏", NULL);
-		PresentationCbx->AddItem(L"全屏放大", NULL);
+		PresentationCbx->AddItem(L"拉伸至全屏", NULL);
 		PresentationCbx->AddItem(L"无边框", NULL);
-		PresentationCbx->AddItem(L"窗口", NULL);
+		PresentationCbx->AddItem(L"窗口化", NULL);
 
 		MaxgameticksCbx->Items->Clear();
 		MaxgameticksCbx->AddItem(L"无限制", NULL);
