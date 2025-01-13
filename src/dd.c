@@ -890,6 +890,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
 
                             g_config.windowed = TRUE;
                             g_config.fullscreen = TRUE;
+                            g_config.toggle_borderless = TRUE;
                             border = FALSE;
 
                             /* prevent OpenGL from going automatically into fullscreen exclusive mode */
@@ -1253,6 +1254,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 g_ddraw.render.run = FALSE;
                 g_config.windowed = TRUE;
                 g_config.fullscreen = TRUE;
+                g_config.toggle_borderless = TRUE;
                 return dd_SetDisplayMode(dwWidth, dwHeight, dwBPP, dwFlags);
             }
 
@@ -1269,6 +1271,7 @@ HRESULT dd_SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, DWORD dwFl
                 g_ddraw.render.run = FALSE;
                 g_config.windowed = TRUE;
                 g_config.fullscreen = TRUE;
+                g_config.toggle_borderless = TRUE;
                 return dd_SetDisplayMode(dwWidth, dwHeight, dwBPP, dwFlags);
             }
         }
