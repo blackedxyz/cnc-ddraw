@@ -1828,7 +1828,7 @@ HRESULT dd_CreateEx(GUID* lpGuid, LPVOID* lplpDD, REFIID iid, IUnknown* pUnkOute
 
         if (g_config.singlecpu)
         {
-            if (!IsWine() && IsWindows11Version24H2())
+            if (!IsWine() && IsWindows11Version24H2OrGreater())
             {
                 if (GetProcessAffinityMask(proc, &proc_affinity, &system_affinity))
                     SetProcessAffinityMask(proc, system_affinity);
