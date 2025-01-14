@@ -253,8 +253,8 @@ static void ogl_build_programs()
             if (_stricmp(g_oglu_version_long, "4.0.0 - Build 10.18.10.4252") == 0 ||
                 _stricmp(g_oglu_version_long, "4.0.0 - Build 10.18.10.5161") == 0)
             {
-                shader_path[0] = 0;
-                g_config.shader[0] = 0;
+                //shader_path[0] = 0;
+                //g_config.shader[0] = 0;
             }
 
             /* detect common upscaling shaders and disable them if no upscaling is required */
