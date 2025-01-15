@@ -785,7 +785,7 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		HotkeyBtn->Caption = L"Skróty klawiaturowe";
 		CompatibilityBtn->Caption = L"Ustawienia kompatybilności";
 		RestoreDefaultsBtn->Caption = L"Przywróć ustawienia domyślne";
-		PresentationLbl->Caption = L"Prezentacja";
+		PresentationLbl->Caption = L"Tryb wyświetlania";
 		MaintasLbl->Caption = L"Zachowaj proporcje obrazu";
 		VsyncLbl->Caption = L"Włącz VSync";
 		AdjmouseLbl->Caption = L"Dostosuj czułość myszy";
@@ -804,7 +804,7 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		MaxgameticksLbl->Caption = L"Ogranicz prędkość gry";
 		NoactivateappLbl->Caption = L"Napraw nieprawidłowe działanie Alt+Tab";
 		ResolutionsLbl->Caption = L"Odblokuj dodatkowe rozdzielczości ekranu";
-		MinfpsLbl->Caption = L"Wymuś wysokie FPS / Napraw zacinanie na Freesync/G-Sync";
+		MinfpsLbl->Caption = L"Wymuś wysokie FPS / Napraw zacinanie Freesync/G-Sync";
 		SinglecpuLbl->Caption = L"Napraw problemy z wydajnością i dźwiękiem";
 		NonexclusiveLbl->Caption = L"Napraw niewidoczne filmy / elementy interfejsu";
 
@@ -817,8 +817,8 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		PresentationCbx->Items->Clear();
 		PresentationCbx->AddItem(L"Pełny ekran", NULL);
 		PresentationCbx->AddItem(L"Pełny ekran z upscalingiem", NULL);
-		PresentationCbx->AddItem(L"Bezramkowy", NULL);
-		PresentationCbx->AddItem(L"Okienkowy", NULL);
+		PresentationCbx->AddItem(L"Tryb bezramkowy", NULL);
+		PresentationCbx->AddItem(L"Tryb okienkowy", NULL);
 
 		MaxgameticksCbx->Items->Clear();
 		MaxgameticksCbx->AddItem(L"Bez limitu", NULL);
@@ -840,8 +840,8 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			L"Skalowanie musi być włączone, aby ta opcja działała. \n\n";
 
 		System::UnicodeString enableUpscaleHint =
-			L"Aby włączyć skalowanie, ustaw prezentację na tryb 'Bezramkowy' \n"
-			"lub 'Pełny ekran z upscalingiem'. Dla prezentacji 'Okienkowy' \n"
+			L"Aby włączyć skalowanie, ustaw tryb wyświetlania na 'Tryb bezramkowy' \n"
+			"lub 'Pełny ekran z upscalingiem'. Dla 'Tryb okienkowy' \n"
 			"musisz zmienić rozmiar lub zmaksymalizować okno.";
 
 		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
