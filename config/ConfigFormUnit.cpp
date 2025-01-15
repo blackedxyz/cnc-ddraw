@@ -781,8 +781,8 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 
 		ConfigForm->Caption = L"Konfiguracja cnc-ddraw";
 		DisplayBtn->Caption = L"Ustawienia wyświetlania";
-		AdvancedBtn->Caption = L"Zaawansowane ustawienia";
-		HotkeyBtn->Caption = L"Ustawienia skrótów klawiszowych";
+		AdvancedBtn->Caption = L"Ustawienia zaawansowane";
+		HotkeyBtn->Caption = L"Skróty klawiaturowe";
 		CompatibilityBtn->Caption = L"Ustawienia kompatybilności";
 		RestoreDefaultsBtn->Caption = L"Przywróć ustawienia domyślne";
 		PresentationLbl->Caption = L"Prezentacja";
