@@ -774,6 +774,87 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 		BoxingLbl->Hint = upscaleHint + enableUpscaleHint;
 		BoxingChk->Hint = upscaleHint + enableUpscaleHint;
 	}
+	else if (lang == "polish" || (lang == "auto" && priID == LANG_POLISH)) {
+		LanguageImg->Visible = true;
+
+		/* -polish - made by WaRzillA @ github */
+
+		ConfigForm->Caption = L"Konfiguracja cnc-ddraw";
+		DisplayBtn->Caption = L"Ustawienia wyświetlania";
+		AdvancedBtn->Caption = L"Zaawansowane ustawienia";
+		HotkeyBtn->Caption = L"Ustawienia skrótów klawiszowych";
+		CompatibilityBtn->Caption = L"Ustawienia kompatybilności";
+		RestoreDefaultsBtn->Caption = L"Przywróć ustawienia domyślne";
+		PresentationLbl->Caption = L"Prezentacja";
+		MaintasLbl->Caption = L"Zachowaj proporcje obrazu";
+		VsyncLbl->Caption = L"Włącz VSync";
+		AdjmouseLbl->Caption = L"Dostosuj czułość myszy";
+		DevmodeLbl->Caption = L"Zablokuj kursor w oknie/na ekranie";
+		RendererLbl->Caption = L"Silnik renderowania";
+		BorderLbl->Caption = L"Pokaż ramki okna w trybie okienkowym";
+		SavesettingsLbl->Caption = L"Zapamiętaj pozycję i rozmiar okna";
+		ShaderLbl->Caption = L"Shader OpenGL";
+		MaxfpsLbl->Caption = L"Ogranicz liczbę klatek na sekundę";
+		BoxingLbl->Caption = L"Włącz windowboxing / integer scaling ";
+		ToggleWindowedLbl->Caption = L"Przełącz na tryb okienkowy";
+		MaximizeWindowLbl->Caption = L"Maksymalizuj okno";
+		UnlockCursor1Lbl->Caption = L"Odblokuj kursor 1";
+		UnlockCursor2Lbl->Caption = L"Odblokuj kursor 2";
+		ScreenshotLbl->Caption = L"Zrzut ekranu";
+		MaxgameticksLbl->Caption = L"Ogranicz prędkość gry";
+		NoactivateappLbl->Caption = L"Napraw nieprawidłowe działanie Alt+Tab";
+		ResolutionsLbl->Caption = L"Odblokuj dodatkowe rozdzielczości ekranu";
+		MinfpsLbl->Caption = L"Wymuś wysokie FPS / Napraw zacinanie na Freesync/G-Sync";
+		SinglecpuLbl->Caption = L"Napraw problemy z wydajnością i dźwiękiem";
+		NonexclusiveLbl->Caption = L"Napraw niewidoczne filmy / elementy interfejsu";
+
+		RendererCbx->Items->Clear();
+		RendererCbx->AddItem(L"Automatyczny", NULL);
+		RendererCbx->AddItem(L"Direct3D 9", NULL);
+		RendererCbx->AddItem(L"OpenGL", NULL);
+		RendererCbx->AddItem(L"GDI", NULL);
+
+		PresentationCbx->Items->Clear();
+		PresentationCbx->AddItem(L"Pełny ekran", NULL);
+		PresentationCbx->AddItem(L"Pełny ekran z upscalingiem", NULL);
+		PresentationCbx->AddItem(L"Bezramkowy", NULL);
+		PresentationCbx->AddItem(L"Okienkowy", NULL);
+
+		MaxgameticksCbx->Items->Clear();
+		MaxgameticksCbx->AddItem(L"Bez limitu", NULL);
+		MaxgameticksCbx->AddItem(L"Synchronizacja z odświeżaniem monitora", NULL);
+		MaxgameticksCbx->AddItem(L"Symulacja monitora 60 Hz", NULL);
+		MaxgameticksCbx->AddItem(L"1000 tików na sekundę", NULL);
+		MaxgameticksCbx->AddItem(L"500 tików na sekundę", NULL);
+		MaxgameticksCbx->AddItem(L"250 tików na sekundę", NULL);
+		MaxgameticksCbx->AddItem(L"125 tików na sekundę", NULL);
+		MaxgameticksCbx->AddItem(L"60 tików na sekundę", NULL);
+		MaxgameticksCbx->AddItem(L"30 tików na sekundę", NULL);
+		MaxgameticksCbx->AddItem(L"25 tików na sekundę", NULL);
+		MaxgameticksCbx->AddItem(L"15 tików na sekundę", NULL);
+
+		System::UnicodeString shaderHint =
+			L"Niektóre shadery działają tylko wtedy, gdy włączone jest skalowanie. \n\n";
+
+		System::UnicodeString upscaleHint =
+			L"Skalowanie musi być włączone, aby ta opcja działała. \n\n";
+
+		System::UnicodeString enableUpscaleHint =
+			L"Aby włączyć skalowanie, ustaw prezentację na tryb 'Bezramkowy' \n"
+			"lub 'Pełny ekran z upscalingiem'. Dla prezentacji 'Okienkowy' \n"
+			"musisz zmienić rozmiar lub zmaksymalizować okno.";
+
+		ShaderLbl->Hint = shaderHint + enableUpscaleHint;
+		ShaderD3DCbx->Hint = shaderHint + enableUpscaleHint;
+		ShaderCbx->Hint = shaderHint + enableUpscaleHint;
+
+		MaintasLbl->Hint = upscaleHint + enableUpscaleHint;
+		MaintasChk->Hint = upscaleHint + enableUpscaleHint;
+		AdjmouseLbl->Hint = upscaleHint + enableUpscaleHint;
+		AdjmouseChk->Hint = upscaleHint + enableUpscaleHint;
+		BoxingLbl->Hint = upscaleHint + enableUpscaleHint;
+		BoxingChk->Hint = upscaleHint + enableUpscaleHint;
+	}
 	else {
 		IsEnglish = true;
 
@@ -823,6 +904,12 @@ void TConfigForm::ApplyTranslation(TIniFile *ini)
 			else if (priID == LANG_VIETNAMESE) {
 				TPngImage *png = new TPngImage();
 				png->LoadFromResourceName((int)HInstance, "PngImage_VN");
+				LanguageImg->Picture->Graphic = png;
+				LanguageImg->Visible = true;
+			}
+			else if (priID == LANG_POLISH) {
+				TPngImage *png = new TPngImage();
+				png->LoadFromResourceName((int)HInstance, "PngImage_PL");
 				LanguageImg->Picture->Graphic = png;
 				LanguageImg->Visible = true;
 			}

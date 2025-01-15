@@ -227,6 +227,10 @@
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>PngImage_IT</ResourceId>
         </RcItem>
+        <RcItem Include="Resources\pl.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>PngImage_PL</ResourceId>
+        </RcItem>
         <RcItem Include="Resources\RU.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>PngImage_RU</ResourceId>
@@ -364,7 +368,7 @@
                 <DeployFile LocalName=".\Win32\Release\cnc-ddraw config.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName=".\Win32\Release\cnc-ddraw config.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>cnc-ddraw_config.exe</RemoteName>
+                        <RemoteName>cnc-ddraw config.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -425,6 +429,12 @@
                 </DeployFile>
                 <DeployFile LocalName="Resources\hu.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Resources\hu.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Resources\pl.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
